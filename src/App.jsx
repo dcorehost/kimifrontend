@@ -13,8 +13,8 @@ const App = () => {
   return (
     <Router>
       <Navbar />
-      <Specialize />
-      <Footer />
+      {/* <Specialize /> */}
+      {/* <Footer /> */}
       
       <Routes>
          {/* <Route path='/performance-management'  element={<PerformanceManagement />}></Route> */}

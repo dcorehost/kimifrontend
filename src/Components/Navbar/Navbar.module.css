@@ -1,15 +1,32 @@
+/* General styles for the Navbar */
 .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
-  background-color: #fff;
+  background-color: #FEF9F8;
+  flex-wrap: wrap;
+  font-family: sans-serif, 'Inter';
 }
 
 .logo {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #00a652;
+  color: #EF9273;
+  text-decoration: none;
+}
+
+.menuToggle {
+  display: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.navLinksContainer {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .navLinks {
@@ -20,14 +37,232 @@
 
 .navLinks li {
   cursor: pointer;
+  text-decoration: none;
+  color: #0D0D0D;
 }
 
-.actions .loginBtn, .actions .registerBtn {
+.navLinks li:hover {
+  color: #EF9273;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.actions .loginBtn,
+.actions .registerBtn {
   padding: 0.5rem 1rem;
   border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .registerBtn {
-  background-color: #00a652;
-  color: white;
+  background-color: #EF9273;
+  color: #0D0D0D;
+  border: none;
+}
+
+.loginBtn {
+  background-color: #EF9273;
+  color: #0D0D0D;
+  border: 1px solid #ccc;
+}
+.registerBtn:hover{
+  color: #fff;
+}
+.loginBtn:hover{
+  color: #fff;
+}
+
+/* Dropdown styles */
+.dropdown {
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.dropdownMenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #fff; /* White background for dropdown */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+  list-style: none;
+  padding: 0.5rem 0;
+  width: 150px;
+  color: #333; /* Black text for dropdown items */
+}
+
+.dropdownMenu li {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  text-align: left;
+  white-space: nowrap;
+  text-decoration: none;
+  color: #333; /* Black text for dropdown items */
+}
+
+.dropdownMenu li:hover {
+  background-color: #f5f5f5;
+
+}
+
+.dropdown:hover .dropdownMenu {
+  display: block;
+}
+
+.arrow {
+  margin-left: 5px;
+  font-size: 0.8rem;
+  vertical-align: middle;
+}
+
+/* Horizontal line between items */
+.hrLine {
+  border: 0;
+  border-top: 1px solid #ddd;  /* Light gray color for the line */
+  margin: 0.5rem 0;  /* Space above and below the line */
+  width: 90%;  /* Full width for the line */
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .menuToggle {
+    display: none; /* Hide the hamburger icon on tablet and larger devices */
+  }
+
+  .navLinksContainer {
+    display: flex;
+    gap: 1rem;
+    flex-direction: row;
+  }
+
+  .navLinks ul {
+    flex-direction: row;
+    padding-left: 0;
+    text-align: center;
+  }
+
+  .actions {
+    display: flex;
+  }
+
+  .navLinks li {
+    padding: 0.5rem;
+  }
+
+  .dropdownMenu {
+    position: absolute;
+    width: 180px;
+  }
+}
+
+@media (max-width: 768px) {
+  .menuToggle {
+    display: block; /* Show hamburger icon on mobile */
+  }
+
+  .navLinksContainer {
+    display: none; /* Hide nav links initially */
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    background-color: white; /* Set the background color to black */
+    width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    padding-top: 10px;
+    color: black; /* Set text color to white */
+  }
+
+  .navOpen {
+    display: block; /* Show menu when it's open */
+  }
+
+  .navLinks {
+    flex-direction: column; /* Set flex direction to column for mobile */
+  }
+
+  .navLinks li {
+    padding: 1rem;
+    color: black; /* Ensure list items are white */
+    background-color: transparent; /* Set default background to transparent */
+  }
+
+  .navLinks li:hover {
+    /* background-color: #333; Dark background on hover */
+    color: #EF9273; /* Green color on hover */
+  }
+
+  .actions {
+    display: none; /* Hide actions on mobile for now */
+  }
+
+  .navLinks ul {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .dropdownMenu {
+    position: static;
+    box-shadow: none;
+    width: 100%;
+    padding: 0;
+    background-color: white; /* Set dropdown background to white */
+    color: black; /* Set text color to black */
+  }
+
+  .dropdownMenu li {
+    padding: 0.8rem 1rem;
+    color: black; /* Ensure dropdown items are black */
+    background-color: transparent; /* Set default background to transparent */
+  }
+
+  .dropdownMenu li:hover {
+     background-color:none;
+  }
+
+  /* Show dropdown on click for mobile */
+  .dropdown.open .dropdownMenu {
+    display: block;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.2rem;
+  }
+
+  .actions .loginBtn,
+  .actions .registerBtn {
+    padding: 0.4rem 0.8rem;
+  }
+
+  .navLinks ul {
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .navLinks li {
+    padding: 1rem 0;
+  }
+
+  .dropdownMenu {
+    position: static;
+    width: 100%;
+  }
+
+  .dropdownMenu li {
+    padding: 1rem 1.5rem;
+  }
+
+  .menuToggle {
+    font-size: 1.8rem;
+  }
 }
