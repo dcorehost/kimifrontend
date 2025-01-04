@@ -1,29 +1,19 @@
+
+
+import React from 'react';
 import styles from '../Specialize/Specialize.module.css';
+import { specializeData } from '../../assets/assets.jsx';
 
 const Specialize = () => {
-  const Specialize = [
-    {
-      title: "Reliable agency advertising accounts",
-      description: "As an official partner of Meta, Google, Bing, TikTok, etc., we provide cost-effective accounts."
-    },
-    {
-      title: "Self-Manage Panel",
-      description: "Manage all accounts efficiently with real-time feedback."
-    },
-    {
-      title: "Professional team service",
-      description: "Get professional guidance and quick responses from our support team."
-    },
-  ];
-
   return (
     <section className={styles.services}>
       <h2>We specialize in the following services</h2>
       <div className={styles.cards}>
-        {Specialize.map((Specialize, index) => (
+        {specializeData.map((item, index) => (
           <div className={styles.card} key={index}>
-            <h3>{Specialize.title}</h3>
-            <p>{Specialize.description}</p>
+            <div className={styles.icon}>{item.icon}</div> {/* Render the icon */}
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
           </div>
         ))}
       </div>
@@ -32,3 +22,37 @@ const Specialize = () => {
 };
 
 export default Specialize;
+
+
+
+
+
+
+
+
+
+// import React from 'react';
+// import styles from '../Specialize/Specialize.module.css';
+// import { specializeData } from '../../assets/assets.jsx';
+
+// const Specialize = () => {
+//   return (
+//     <section className={styles.services}>
+//       <h2>We specialize in the following services</h2>
+//       <div className={styles.cards}>
+//         {specializeData.map((item, index) => (
+//           <div className={styles.card} key={index}>
+//             <img src={item.image} alt={item.title} className={styles.cardImage} />
+//             <h3>{item.title}</h3>
+//             <p>{item.description}</p>
+//           </div>
+//         ))}
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Specialize;
+
+
+
