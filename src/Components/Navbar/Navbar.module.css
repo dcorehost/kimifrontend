@@ -1,0 +1,33 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #fff;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00a652;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+}
+
+.navLinks li {
+  cursor: pointer;
+}
+
+.actions .loginBtn, .actions .registerBtn {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+}
+
+.registerBtn {
+  background-color: #00a652;
+  color: white;
+}

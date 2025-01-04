@@ -1,0 +1,30 @@
+.services {
+    background-color: #111;
+    color: #fff;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .card {
+    background-color: #222;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 300px;
+  }
+  
+  .card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .card p {
+    font-size: 0.9rem;
+    color: #ccc;
+  }
+  
