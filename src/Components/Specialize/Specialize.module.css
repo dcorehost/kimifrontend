@@ -1,4 +1,4 @@
-.services {
+/* .services {
     background-color: #111;
     color: #fff;
     padding: 2rem;
@@ -26,5 +26,225 @@
   .card p {
     font-size: 0.9rem;
     color: #ccc;
+  }
+   */
+
+
+
+/* 
+   .services {
+    background-color: #ef9273;
+    color: #0d0d0d;
+    padding: 2rem;
+    text-align: center;
+    font-family: sans-serif,"Inter";
+
+  }
+  .services h2{
+    font-size: 35px;
+    color: #0d0d0d;
+
+  }
+  
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+  }
+  
+  .card {
+    background-color: #fef9f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 450px;
+    text-align: center;
+  }
+  
+  .cardImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+  }
+  
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 18px;
+    color: #0d0d0d;
+  }
+  .icon {
+    font-size: 2.5rem; 
+    color: #ef9273;    
+    margin-bottom: 1rem;
+  } */
+
+
+
+
+  /* Services Section */
+.services {
+    background-color: #ef9273;
+    color: #0d0d0d;
+    padding: 2rem;
+    text-align: center;
+    font-family: sans-serif, "Inter";
+  }
+  
+  .services h2 {
+    font-size: 35px;
+    color: #0d0d0d;
+    margin-bottom: 2rem;
+  }
+  
+  /* Cards Container */
+  .cards {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap; /* Allows wrapping of cards on smaller screens */
+  }
+  
+  /* Card Styling */
+  .card {
+    background-color: #fef9f8;
+    padding: 1.5rem;
+    border-radius: 8px;
+    width: 450px;
+    text-align: center;
+    transition: transform 0.3s ease; /* For smooth hover effect */
+  }
+  
+  .card:hover {
+    transform: translateY(-10px); /* Slightly lift card on hover */
+  }
+  
+  /* Card Image */
+  .cardImage {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border-radius: 50%;
+  }
+  
+  /* Card Heading */
+  .card h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  /* Card Description */
+  .card p {
+    font-size: 18px;
+    color: #0d0d0d;
+  }
+  
+  /* Icon */
+  .icon {
+    font-size: 2.5rem; /* Adjust size of the icon */
+    color: #ef9273;    /* Adjust color of the icon */
+    margin-bottom: 1rem;
+  }
+  
+  /* Media Queries for Responsive Design */
+  
+  /* For tablets and smaller devices (<= 1024px) */
+  @media (max-width: 1024px) {
+    .services h2 {
+      font-size: 30px; /* Slightly smaller title on tablets */
+    }
+  
+    .cards {
+      gap: 1rem; /* Smaller gap between cards */
+    }
+  
+    .card {
+      width: 350px; /* Slightly smaller cards on tablets */
+      margin-bottom: 2rem; /* Add spacing between cards */
+    }
+  
+    .card h3 {
+      font-size: 18px; /* Smaller title on tablets */
+    }
+  
+    .card p {
+      font-size: 16px; /* Smaller text for description */
+    }
+  
+    .icon {
+      font-size: 2rem; /* Slightly smaller icons */
+    }
+  }
+  
+  /* For mobile devices (<= 768px) */
+  @media (max-width: 768px) {
+    .services {
+      padding: 1.5rem; /* Less padding on mobile */
+    }
+  
+    .services h2 {
+      font-size: 26px; /* Smaller title on mobile */
+    }
+  
+    .cards {
+      flex-direction: column; /* Stack cards vertically */
+      align-items: center; /* Center the cards */
+    }
+  
+    .card {
+      width: 100%; /* Full width for cards on mobile */
+      max-width: 350px; /* Limit the max width */
+      margin-bottom: 1.5rem; /* Add spacing between cards */
+    }
+  
+    .card h3 {
+      font-size: 16px; /* Smaller title on mobile */
+    }
+  
+    .card p {
+      font-size: 14px; /* Smaller text for description */
+    }
+  
+    .icon {
+      font-size: 1.8rem; /* Smaller icons on mobile */
+    }
+  }
+  
+  /* For extra small devices (<= 480px) */
+  @media (max-width: 480px) {
+    .services {
+      padding: 1rem; /* Less padding on extra small screens */
+    }
+  
+    .services h2 {
+      font-size: 22px; /* Smaller title on extra small devices */
+    }
+  
+    .cards {
+      gap: 0.5rem; /* Even smaller gap between cards */
+    }
+  
+    .card {
+      width: 100%; /* Full width for cards */
+      max-width: 300px; /* Limit the max width further */
+      margin-bottom: 1rem; /* Less margin between cards */
+    }
+  
+    .card h3 {
+      font-size: 14px; /* Smaller title */
+    }
+  
+    .card p {
+      font-size: 12px; /* Smaller text for description */
+    }
+  
+    .icon {
+      font-size: 1.6rem; /* Even smaller icons */
+    }
   }
   
