@@ -2,8 +2,8 @@ import logo from './logo.png';
 import bing from './bing.png';
 import facebook from './facebook.png';
 import google from './google.png';
-import firstimg from './firstimg.jpg';
-import secondimg from './secondimg.jpg';
+import firstimg from './firstimg2.jpg';
+import secondimg from './secondimg2.jpg';
 export const assets={
   logo,
   bing,

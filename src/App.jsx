@@ -22,8 +22,9 @@ const App = () => {
       <LogoCarousel />
       <Specialize />
       <StatsAndFAQ />
+      <WhatIsKimi />
       <ReadyToStart />
-      {/* <WhatIsKimi /> */}
+
       <Footer />
       
       <Routes>
