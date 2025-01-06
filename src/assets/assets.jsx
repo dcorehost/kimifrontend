@@ -1,3 +1,17 @@
+import logo from './logo.png';
+import bing from './bing.png';
+import facebook from './facebook.png';
+import google from './google.png';
+import firstimg from './firstimg.jpg';
+import secondimg from './secondimg.jpg';
+export const assets={
+  logo,
+  bing,
+  facebook,
+  google,
+  firstimg,
+  secondimg,
+}
 // import adAccountsImage from './assets/ad-accounts.png';
 // import managePanelImage from './assets/manage-panel.png';
 // import teamServiceImage from './assets/team-service.png';
@@ -19,7 +33,6 @@
 //     image: teamServiceImage,
 //   },
 // ];
-
 
 
 import { FaAd, FaTools, FaUsers } from 'react-icons/fa'; // Import specific icons from react-icons

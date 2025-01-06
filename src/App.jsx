@@ -9,18 +9,21 @@ import Navbar from './Components/Navbar/Navbar';
 import Specialize from './Components/Specialize/Specialize';
 import Footer from './Components/Footer/Footer';
 import StatsAndFAQ from './Components/StatsAndFAQ/StatsAndFAQ';
+import ReadyToStart from './Components/ReadyToStart/ReadyToStart';
+import LogoCarousel from './Components/LogoCarousel/LogoCarousel';
+import WhatIsKimi from './Components/WhatIsKimi/WhatIsKimi';
 import WelcomePage from './Components/WelcomePage/WelcomePage';
-
-
-
 
 const App = () => {
   return (
     <Router>
       <Navbar />
       <WelcomePage></WelcomePage>
+      <LogoCarousel />
       <Specialize />
       <StatsAndFAQ />
+      <ReadyToStart />
+      {/* <WhatIsKimi /> */}
       <Footer />
       
       <Routes>

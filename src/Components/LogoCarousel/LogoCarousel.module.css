@@ -1,0 +1,44 @@
+.carouselContainer {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    background-color: #f9f9f9; 
+    padding: 20px 0;
+  }
+  
+  .carousel {
+    display: flex;
+    align-items: center;
+    gap: 300px; /* Adjust spacing between logos */
+    animation: scroll 5s linear infinite; /* Infinite and seamless scroll */
+    width: max-content; /* Ensures the carousel fits its content */
+  }
+  
+  .logo {
+    width: 100px; 
+    object-fit: contain;
+  }
+  
+  /* Keyframe for seamless scrolling */
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 768px) {
+    .logo {
+      width: 70px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo {
+      width: 50px;
+    }
+  }
+  
