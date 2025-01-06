@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "./WelcomePage.module.css";
-import myImage from "../../assets/firstImage.jpg";
+import myImage from "../../assets/img.jpg";
 import { FaTrophy } from 'react-icons/fa';
 import { FaClock } from 'react-icons/fa';
 
