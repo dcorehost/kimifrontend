@@ -9,6 +9,7 @@ import Navbar from './Components/Navbar/Navbar';
 import Specialize from './Components/Specialize/Specialize';
 import Footer from './Components/Footer/Footer';
 import StatsAndFAQ from './Components/StatsAndFAQ/StatsAndFAQ';
+import WelcomePage from './Components/WelcomePage/WelcomePage';
 
 
 
@@ -17,6 +18,7 @@ const App = () => {
   return (
     <Router>
       <Navbar />
+      <WelcomePage></WelcomePage>
       <Specialize />
       <StatsAndFAQ />
       <Footer />
