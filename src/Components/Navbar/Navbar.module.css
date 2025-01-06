@@ -40,14 +40,14 @@
   list-style: none;
 }
 
-.navLinks li {
-  cursor: pointer;
-  text-decoration: none;
-  color: #0D0D0D;
+.navLinks li a {
+  color: #0D0D0D; /* Default font color for links */
+  text-decoration: none; /* Removes underline */
+  transition: color 0.3s ease; /* Smooth transition for hover effect */
 }
 
-.navLinks li:hover {
-  color: #EF9273;
+.navLinks li a:hover {
+  color: #EF9273; /* Hover color */
 }
 
 .actions {
