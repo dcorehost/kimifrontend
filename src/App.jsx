@@ -9,6 +9,9 @@ import Navbar from './Components/Navbar/Navbar';
 import Specialize from './Components/Specialize/Specialize';
 import Footer from './Components/Footer/Footer';
 import StatsAndFAQ from './Components/StatsAndFAQ/StatsAndFAQ';
+import ReadyToStart from './Components/ReadyToStart/ReadyToStart';
+import LogoCarousel from './Components/LogoCarousel/LogoCarousel';
+import WhatIsKimi from './Components/WhatIsKimi/WhatIsKimi';
 
 
 
@@ -17,8 +20,11 @@ const App = () => {
   return (
     <Router>
       <Navbar />
+      <LogoCarousel />
       <Specialize />
       <StatsAndFAQ />
+      <ReadyToStart />
+      {/* <WhatIsKimi /> */}
       <Footer />
       
       <Routes>

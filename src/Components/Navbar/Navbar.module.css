@@ -15,6 +15,11 @@
   color: #EF9273;
   text-decoration: none;
 }
+.kimilogo {
+  width: 100px;
+  height: auto;
+  margin-bottom: 1rem;
+}
 
 .menuToggle {
   display: none;

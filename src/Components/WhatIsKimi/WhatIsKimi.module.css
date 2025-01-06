@@ -1,0 +1,129 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    padding: 0 20px;
+    font-family: "Inter", sans-serif;
+
+  }
+  
+  .main {
+    width: 100%;
+    max-width: 1500px; 
+  }
+  
+  .flexdiv {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-between;
+    gap: 20px; 
+  }
+  
+  .flexfirst,
+  .flexsecond,
+  .flexthird {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 400px;
+  }
+  
+  .flexfirst {
+    flex: 1; 
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    width: 400px;
+    height: 600px;
+  }
+  
+  .firstimg {
+    max-width: 350px; 
+    height: 600px;
+  }
+  
+  .flexsecond {
+    flex: 2; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 400px;
+    height: 700px;
+  }
+  
+  .secondimg {
+    width: 100%;
+    height: 500px;
+    margin-bottom: 20px; 
+  }
+
+  .insideflex{
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    text-align: center;
+  }
+  .insideflexone{
+    width: 120px;
+    height: 100px;
+    background-color: #ef9273;
+    margin-bottom: 5px;
+    padding: 15px 20px;
+    border-radius: 8px;
+
+
+  }
+  .firstheading{
+    margin-bottom: 0px;
+  }
+  .firstpara{
+    margin-top: 5px;
+  }
+  .insideflextwo{
+    background-color: #0d0d0d;
+    margin-bottom: 5px;
+    padding: 10px 20px ;
+    color: #fef9f8 ;
+    border-radius: 8px;
+  }
+  .secheading{
+    margin-bottom: 0px;
+  }
+  .secpara{
+    margin-top: 5px;
+  }
+  .flexthird {
+    flex: 3; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .flexthird h1,
+  .flexthird h3 {
+    margin: 10px 0; 
+  }
+  
+  .flexthird p {
+    margin: 10px 0;
+    line-height: 1.6; 
+  }
+  
+
+  @media (max-width: 768px) {
+    .flexdiv {
+      flex-direction: column; /* Stacks items vertically on smaller screens */
+    }
+  
+    .flexfirst,
+    .flexsecond,
+    .flexthird {
+      flex: 1 1 100%; /* Ensures each section takes full width */
+      margin-bottom: 20px;
+    }
+  }

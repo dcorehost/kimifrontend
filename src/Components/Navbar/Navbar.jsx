@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
+import { assets } from "../../assets/assets.jsx"; 
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -21,7 +23,9 @@ const Navbar = () => {
 
   return (
     <header className={styles.header}>
-      <div className={styles.logo}>Kimi Agency</div>
+      <div className={styles.logo}>
+          <img src={assets.logo} alt="Kimi Agency Logo" className={styles.kimilogo} />
+        </div>
       <div className={styles.menuToggle} onClick={toggleMenu}>
         {menuOpen ? '✖' : '☰'}
       </div>
