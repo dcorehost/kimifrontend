@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Navbar.module.css';
 import { assets } from "../../assets/assets.jsx"; 
+import { Link } from "react-router-dom"; // Importing Link from react-router-dom
+
 
 
 const Navbar = () => {
@@ -31,7 +33,11 @@ const Navbar = () => {
       </div>
       <nav className={`${styles.navLinksContainer} ${menuOpen ? styles.navOpen : ''}`}>
         <ul className={styles.navLinks}>
-          <li>Home</li>
+          <li>
+          <Link to="/">Home</Link>
+
+            
+            </li>
           <hr className={styles.hrLine} />
           <li
             className={styles.dropdown}
@@ -41,14 +47,23 @@ const Navbar = () => {
             <span className={styles.arrow}>▼</span>
             {dropdownOpen.business && (
               <ul className={styles.dropdownMenu}>
-                <li>Meta</li>
-                <li>Bing</li>
-                <li>Google</li>
+                <li>
+                  <Link to="/meta-ads">Meta</Link>
+                </li>
+                <li>
+                  <Link to="/bing-ads">Bing</Link>                  
+                  </li>
+
+                <li>
+                   <Link to="/google-ads">Google</Link>                     
+                 </li>
               </ul>
             )}
           </li>
           <hr className={styles.hrLine} />
-          <li>Contact </li>
+          <li>
+            <Link to="/contact-us">Contact </Link>                    
+          </li>
           <hr className={styles.hrLine} />
           <li
             className={styles.dropdown}
@@ -58,9 +73,15 @@ const Navbar = () => {
             <span className={styles.arrow}>▼</span>
             {dropdownOpen.policy && (
               <ul className={styles.dropdownMenu}>
-                <li>Privacy Policy</li>
-                <li>Terms of service</li>
-                <li>Refund Policy</li>
+                <li>
+                   <Link to="/#"> Privacy Policy </Link>                            
+                  </li>
+                <li>
+                    <Link to="/#">Terms of service</Link>                                
+                  </li>
+                <li>
+                  <Link to="/#">Refund Policy</Link>                   
+                 </li>
               </ul>
             )}
           </li>
@@ -68,8 +89,11 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className={styles.actions}>
-        <button className={styles.loginBtn}>Login</button>
-        <button className={styles.registerBtn}>Register</button>
+        <Link to="/login" className={styles.loginBtn}> Login  </Link>
+        {/* <button className={styles.loginBtn}>Login</button> */}
+        <Link to="/register" className={styles.registerBtn}> Register  </Link>
+
+        {/* <button className={styles.registerBtn}>Register</button> */}
       </div>
     </header>
   );

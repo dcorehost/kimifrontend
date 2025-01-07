@@ -81,6 +81,7 @@
     margin-bottom: 2rem;
     transition: all 0.3s ease;
     border-radius: 8px;
+    text-decoration: none;
   }
   
   .button:hover {
@@ -94,6 +95,7 @@
     align-items: center;
     flex-wrap: wrap; /* Ensures elements wrap on smaller screens */
     gap: 1rem; /* Adds space between items */
+    margin-top: 15px;
   }
   
   .call,

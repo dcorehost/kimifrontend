@@ -5,15 +5,23 @@
     flex-wrap: wrap; /* Allow wrapping for smaller screens */
     margin: 0px 20px;
     font-family: sans-serif, 'Inter';
+    padding-left: 150px;
+    padding-right: 150px;
+    /* border: 1px solid black; */
 }
 
 .MainContainer1 {
     /* border: 1px solid black; */
-    height: 500px;
+    height: auto;
     width: 60%;
     box-sizing: border-box; /* Ensure padding/border does not affect width */
 }
-
+.award{
+    font-size: 20px;
+}
+.welcome{
+    font-size: 55px;
+}
 .MainContainer2 {
     /* border: 1px solid black; */
     height: 500px;
@@ -38,6 +46,7 @@
     animation-iteration-count: infinite;
     animation-delay: calc(var(--index) * 0.1s);
     color:#EF9273;
+    font-size: 55px;
 }
 
 /* Keyframes for the individual letter animation */
@@ -68,7 +77,9 @@
         opacity: 1;
     }
 }
-
+.digitalpara{
+    font-size: 22px;
+}
 .MainContainer1 .WorkWinning {
     /* border: 1px solid black; */
     height: 100px;
@@ -104,6 +115,12 @@
     max-width: 100%; 
     max-height: 100%; 
     border-radius: 5px;
+}
+.system{
+    font-size: 25px;
+}
+.help{
+    font-size: 20px;
 }
 
 /* Media Queries for Mobile Phones */
@@ -160,3 +177,6 @@
         width: 100%; /* Full width */
     }
 }
+/* .icon{
+    font-size: 30px;
+} */

@@ -1,5 +1,7 @@
 
+
 import React from "react";
+import { Link } from "react-router-dom";
 import { FaClock, FaEnvelope } from "react-icons/fa"; 
 import { FaHeadset } from "react-icons/fa6";
 
@@ -9,9 +11,13 @@ const ReadyToStart = () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Ready to start</h1>
-      <button className={styles.button}>Contact Us</button>
-      <div className={styles.info}>
+      
+      {/* Use Link for navigation */}
+      <Link to="/contact-us" className={styles.button}>
+        Contact Us
+      </Link>
 
+      <div className={styles.info}>
         <p className={styles.call}>
           <FaHeadset className={styles.icon} /> <strong>Call on:</strong> +852 9527 5084
         </p>
@@ -29,4 +35,3 @@ const ReadyToStart = () => {
 };
 
 export default ReadyToStart;
-
