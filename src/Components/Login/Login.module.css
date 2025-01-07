@@ -1,0 +1,192 @@
+.MainContainer{
+    /* border: 1px solid black; */
+    display: flex;
+    /* margin: 0px 30px; */
+    font-family: sans-serif, 'Inter';
+}
+.Content{
+    /* border: 1px solid black; */
+    width: 50%;
+}
+.backImg {
+    background-image: url("../../assets/kimiBanner.png");
+    height: 667px; 
+    width: 100%; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+  }
+  
+.LoginForm{
+    /* border: 1px solid rgb(180, 59, 59); */
+    width: 50%;
+     
+}
+.container {
+    max-width:400px;
+    margin: 50px auto;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    /* border: 1px solid black; */
+  }
+  .logo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+  }
+  .kimilogo {
+    width: 200px;
+    height: auto;
+   
+    /* margin-bottom: 1rem; */
+  }
+  
+  .title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    text-align: center  ;
+    color: #333;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .inputGroup {
+    margin-top: 40px;
+   
+  }
+  
+  .input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 40px;
+    font-size: 16px;
+    box-sizing: border-box; 
+  }
+  
+  
+  .button {
+    padding: 12px;
+    width: 100%;
+    background-color: #EF9273;
+    color: #fff;
+    border: none;
+    border-radius: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    box-sizing: border-box; 
+    margin-top: 40px;
+  }
+  
+  .button:hover {
+    background-color: #EF9273;
+  }
+ 
+  .checkbox {
+    margin-right: 10px;
+    transform: scale(1.2);
+  }
+  
+  .issue {
+    margin-top: 15px;
+    font-size: 14px;
+    text-align: center;
+    color: #ff4d4f; 
+  }
+  
+  .link {
+    color: #EF9273;
+    text-decoration: none;
+  }
+  
+  .link:hover {
+    text-decoration: underline;
+  }
+  .eyeIcon {
+    font-size: 16px;
+    color: #888;
+  }
+  
+  .eyeIcon:hover {
+    color: #000;
+  }
+  
+  
+  
+  /* Responsive styles for smaller screens */
+  @media (max-width: 768px) {
+    .MainContainer{
+        /* border: 1px solid black; */
+        flex-direction: column;
+    
+    }
+    .container {
+      max-width: 90%;
+      margin: 20px auto;
+      padding: 15px;
+    }
+    .Content{
+        /* border: 1px solid black; */
+        width: 100%;
+    }
+    .LoginForm{
+        /* border: 1px solid rgb(180, 59, 59); */
+        width: 100%;
+         
+    }
+    .backImg {
+        height: 50vh;
+        background-size: cover;
+      }
+  
+    .title {
+      font-size: 20px;
+    }
+  
+    .input {
+      padding: 8px;
+      font-size: 14px;
+    }
+  
+    .button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 18px;
+    }
+  
+    .input {
+      padding: 6px;
+      font-size: 12px;
+    }
+  
+    .button {
+      padding: 8px;
+      font-size: 12px;
+    }
+    .LoginForm{
+        /* border: 1px solid rgb(180, 59, 59); */
+        width: 100%;
+    }  
+    .Content{
+        /* border: 1px solid black; */
+        width: 100%;
+    }
+    .backImg {
+        height: 40vh;
+        background-size: cover;
+      }
+  }
+  
