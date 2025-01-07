@@ -22,7 +22,7 @@ const Footer = () => {
         <h3>Quick Links</h3>
         <ul>
           <li>
-            <Link to="/#">Contact Us</Link>
+            <Link to="/contact-us">Contact Us</Link>
           </li>
           <li>
             <Link to="/#">Terms of Service</Link>
@@ -39,13 +39,13 @@ const Footer = () => {
         <h3>Business</h3>
         <ul>
           <li>
-            <Link to="/#">Meta</Link>
+            <Link to="/meta-ads">Meta</Link>
           </li>
           <li>
-            <Link to="/#">Google</Link>
+            <Link to="/bing-ads">Google</Link>
           </li>
           <li>
-            <Link to="/#">Bing</Link>
+            <Link to="/google-ads">Bing</Link>
           </li>
         </ul>
       </div>

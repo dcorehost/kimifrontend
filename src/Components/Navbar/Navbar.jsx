@@ -51,18 +51,18 @@ const Navbar = () => {
                   <Link to="/meta-ads">Meta</Link>
                 </li>
                 <li>
-                  <Link to="/#">Bing</Link>                  
+                  <Link to="/bing-ads">Bing</Link>                  
                   </li>
 
                 <li>
-                   <Link to="/#">Google</Link>                     
+                   <Link to="/google-ads">Google</Link>                     
                  </li>
               </ul>
             )}
           </li>
           <hr className={styles.hrLine} />
           <li>
-            <Link to="/#">Contact </Link>                    
+            <Link to="/contact-us">Contact </Link>                    
           </li>
           <hr className={styles.hrLine} />
           <li

@@ -47,6 +47,9 @@ import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./Pages/Homepage/Homepage";
 import MetaAds from "./Pages/MetaAds/MetaAds";
+import BingAds from "./Pages/BingAds/BingAds";
+import GoogleAds from "./Pages/GoogleAds/GoogleAds";
+import ContactUs from "./Pages/ContactUs/ContactUs";
 
 
 const App = () => {
@@ -55,7 +58,10 @@ const App = () => {
       <Routes>
         {/* Define routes for your pages */}
         <Route path="/" element={<Homepage />} />
+        <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/meta-ads" element={<MetaAds />} />
+        <Route path="/bing-ads" element={<BingAds />} />
+        <Route path="/google-ads" element={<GoogleAds />} />
        
       </Routes>
     </Router>

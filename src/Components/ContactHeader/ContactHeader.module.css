@@ -1,0 +1,121 @@
+/* General Styling */
+.mainContainer {
+    font-family: sans-serif, 'Inter';
+    padding: 20px;
+    /* text-align: center; */
+  }
+  
+  .header {
+    margin-bottom: 60px;
+  }
+  
+  .headerText {
+    font-size: 55px;
+    font-weight: bold;
+    color: #0d0d0d;
+  }
+  
+  .headerPara {
+    margin-top: 0px;
+    font-size: 20px;
+    color: #0d0d0d;
+  }
+  
+  .emailLink {
+    color: #ef9273;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  .emailLink:hover {
+    text-decoration: underline;
+  }
+  
+  /* Social Media Icons */
+  .socialIcons {
+    margin: 20px 0;
+    display: flex;
+    justify-content: start;
+    /* align-items: center; */
+    gap: 15px;
+    font-size: 20px;
+    font-weight: bolder;
+  }
+  
+  .icon {
+    font-size: 25px;
+    color: #0d0d0d;
+    cursor: pointer;
+  }
+  
+  .icon:hover {
+    color: #ef9273;
+  }
+  
+  /* Contact Cards */
+  .contactCards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background-color: #ef9273;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    width: 500px;
+    text-align: center;
+    margin-top: 100px;
+  }
+  
+  .cardIcon {
+    font-size: 40px;
+    color: #fef9f8;
+    margin-bottom: 10px;
+  }
+  
+  .card h3 {
+    font-size: 30px;
+    margin-bottom: 10px;
+  }
+  
+  .card p {
+    font-size: 20px;
+    color: #0d0d0d;
+  }
+  
+  .cardLink {
+    color: #0d0d0d;
+    text-decoration: none;
+    font-weight: normal;
+  }
+  
+  .cardLink:hover {
+    text-decoration: underline;
+    color: #fef9f8;
+
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .headerText {
+      font-size: 1.5rem;
+    }
+  
+    .headerPara {
+      font-size: 1rem;
+    }
+  
+    .socialIcons {
+      font-size: 1rem;
+      gap: 10px;
+    }
+  
+    .card {
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
+  
