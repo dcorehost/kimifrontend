@@ -13,19 +13,22 @@ import ReadyToStart from './Components/ReadyToStart/ReadyToStart';
 import LogoCarousel from './Components/LogoCarousel/LogoCarousel';
 import WhatIsKimi from './Components/WhatIsKimi/WhatIsKimi';
 import WelcomePage from './Components/WelcomePage/WelcomePage';
+import Login from './Components/Login/Login';
+import RegisterPage from './Components/RegisterPage/RegisterPage';
 
 const App = () => {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar />
       <WelcomePage></WelcomePage>
       <LogoCarousel />
       <Specialize />
       <StatsAndFAQ />
       <WhatIsKimi />
-      <ReadyToStart />
-
-      <Footer />
+      <ReadyToStart /> */}
+      {/* <Login/> */}
+   <RegisterPage></RegisterPage>
+      {/* <Footer /> */}
       
       <Routes>
          {/* <Route path='/performance-management'  element={<PerformanceManagement />}></Route> */}
