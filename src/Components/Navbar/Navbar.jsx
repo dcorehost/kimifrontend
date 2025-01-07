@@ -89,8 +89,11 @@ const Navbar = () => {
         </ul>
       </nav>
       <div className={styles.actions}>
-        <button className={styles.loginBtn}>Login</button>
-        <button className={styles.registerBtn}>Register</button>
+        <Link to="/login" className={styles.loginBtn}> Login  </Link>
+        {/* <button className={styles.loginBtn}>Login</button> */}
+        <Link to="/register" className={styles.registerBtn}> Register  </Link>
+
+        {/* <button className={styles.registerBtn}>Register</button> */}
       </div>
     </header>
   );

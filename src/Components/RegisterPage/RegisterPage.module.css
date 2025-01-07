@@ -1,0 +1,156 @@
+.MainContainer {
+    height: 100vh;
+    font-family: sans-serif, 'Inter';
+    background-color: #f4f4f4;
+    width: 100%;
+  }
+  
+  .RegisterForm {
+    max-width: 800px;
+    width: 100%;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #EF9273;
+    margin: 0px auto;
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+    width: 100%;
+  }
+  
+  .form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .disInput {
+    display: flex;
+    width: 100%;
+  }
+  
+  .inputGroup {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 48%;
+    margin-bottom: 20px;
+    padding: 0 10px;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  .button {
+    padding: 12px;
+    width: 100%;
+    background-color: #EF9273;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .button:hover {
+    background-color: #EF9273;
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #EF9273;
+    text-decoration: none;
+    text-align: center;
+    padding-top: 100px;
+  }
+  
+  .kimilogo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .inputGroup label {
+    font-size: 16px;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  
+  .inputGroup input,
+  .inputGroup select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    box-sizing: border-box;
+  }
+  
+  /* New checkbox group styles */
+  .checkboxGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .checkboxGroup label {
+    font-size: 16px;
+    color: #333;
+  }
+  
+  .checkboxGroup input {
+    margin-right: 8px;
+    /* transform: scale(1.1); */
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .RegisterForm {
+      max-width: 90%;
+    }
+  
+    .inputGroup {
+      width: 100%;
+    }
+  
+    .input {
+      padding: 10px;
+      font-size: 14px;
+    }
+  
+    .button {
+      padding: 10px;
+      font-size: 14px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 20px;
+    }
+  
+    .input {
+      padding: 8px;
+      font-size: 12px;
+    }
+  
+    .button {
+      padding: 8px;
+      font-size: 12px;
+    }
+  }

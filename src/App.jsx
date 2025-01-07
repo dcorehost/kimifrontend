@@ -50,6 +50,8 @@ import MetaAds from "./Pages/MetaAds/MetaAds";
 import BingAds from "./Pages/BingAds/BingAds";
 import GoogleAds from "./Pages/GoogleAds/GoogleAds";
 import ContactUs from "./Pages/ContactUs/ContactUs";
+import LoginPage from "./Pages/LoginPage/LoginPage";
+import Register from "./Pages/Register/Register";
 
 
 const App = () => {
@@ -62,6 +64,8 @@ const App = () => {
         <Route path="/meta-ads" element={<MetaAds />} />
         <Route path="/bing-ads" element={<BingAds />} />
         <Route path="/google-ads" element={<GoogleAds />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/register" element={<Register />} />
        
       </Routes>
     </Router>

@@ -68,12 +68,14 @@
   background-color: #EF9273;
   color: #0D0D0D;
   border: none;
+  text-decoration: none;
 }
 
 .loginBtn {
   background-color: #EF9273;
   color: #0D0D0D;
   border: 1px solid #ccc;
+  text-decoration: none;
 }
 .registerBtn:hover{
   color: #fff;
