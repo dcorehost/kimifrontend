@@ -1,5 +1,4 @@
-/* General styles for the Navbar */
-.header {
+ /* .header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,13 +40,13 @@
 }
 
 .navLinks li a {
-  color: #0D0D0D; /* Default font color for links */
-  text-decoration: none; /* Removes underline */
-  transition: color 0.3s ease; /* Smooth transition for hover effect */
+  color: #0D0D0D; 
+  text-decoration: none; 
+  transition: color 0.3s ease; 
 }
 
 .navLinks li a:hover {
-  color: #EF9273; /* Hover color */
+  color: #EF9273; 
 }
 
 .actions {
@@ -84,7 +83,6 @@
   color: #fff;
 }
 
-/* Dropdown styles */
 .dropdown {
   position: relative;
   cursor: pointer;
@@ -96,13 +94,13 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background-color: #fff; /* White background for dropdown */
+  background-color: #fff; 
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   z-index: 100;
   list-style: none;
   padding: 0.5rem 0;
   width: 150px;
-  color: #333; /* Black text for dropdown items */
+  color: #333; 
 }
 
 .dropdownMenu li {
@@ -111,7 +109,7 @@
   text-align: left;
   white-space: nowrap;
   text-decoration: none;
-  color: #333; /* Black text for dropdown items */
+  color: #333; 
 }
 
 .dropdownMenu li:hover {
@@ -129,18 +127,16 @@
   vertical-align: middle;
 }
 
-/* Horizontal line between items */
 .hrLine {
   border: 0;
-  border-top: 1px solid #ddd;  /* Light gray color for the line */
-  margin: 0.5rem 0;  /* Space above and below the line */
-  width: 90%;  /* Full width for the line */
+  border-top: 1px solid #ddd; 
+  margin: 0.5rem 0;  
+  width: 90%;  
 }
 
-/* Responsive styles */
 @media (max-width: 1024px) {
   .menuToggle {
-    display: none; /* Hide the hamburger icon on tablet and larger devices */
+    display: none; 
   }
 
   .navLinksContainer {
@@ -171,44 +167,43 @@
 
 @media (max-width: 768px) {
   .menuToggle {
-    display: block; /* Show hamburger icon on mobile */
+    display: block; 
   }
 
   .navLinksContainer {
-    display: none; /* Hide nav links initially */
+    display: none; 
     flex-direction: column;
     position: absolute;
     top: 60px;
     right: 0;
-    background-color: white; /* Set the background color to black */
+    background-color: white; 
     width: 100%;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     z-index: 100;
     padding-top: 10px;
-    color: black; /* Set text color to white */
+    color: black; 
   }
 
   .navOpen {
-    display: block; /* Show menu when it's open */
+    display: block; 
   }
 
   .navLinks {
-    flex-direction: column; /* Set flex direction to column for mobile */
+    flex-direction: column; 
   }
 
   .navLinks li {
     padding: 1rem;
-    color: black; /* Ensure list items are white */
-    background-color: transparent; /* Set default background to transparent */
+    color: black;
+    background-color: transparent; 
   }
 
   .navLinks li:hover {
-    /* background-color: #333; Dark background on hover */
-    color: #EF9273; /* Green color on hover */
+    color: #EF9273; 
   }
 
   .actions {
-    display: none; /* Hide actions on mobile for now */
+    display: none; 
   }
 
   .navLinks ul {
@@ -221,21 +216,20 @@
     box-shadow: none;
     width: 100%;
     padding: 0;
-    background-color: white; /* Set dropdown background to white */
-    color: black; /* Set text color to black */
+    background-color: white; 
+    color: black; 
   }
 
   .dropdownMenu li {
     padding: 0.8rem 1rem;
-    color: black; /* Ensure dropdown items are black */
-    background-color: transparent; /* Set default background to transparent */
+    color: black; 
+    background-color: transparent; 
   }
 
   .dropdownMenu li:hover {
      background-color:none;
   }
 
-  /* Show dropdown on click for mobile */
   .dropdown.open .dropdownMenu {
     display: block;
   }
@@ -273,3 +267,284 @@
     font-size: 1.8rem;
   }
 }
+
+ 
+
+  */
+
+
+
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #FEF9F8;
+    flex-wrap: wrap;
+    font-family: sans-serif, 'Inter';
+  }
+  
+  .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #EF9273;
+    text-decoration: none;
+  }
+  .kimilogo {
+    width: 100px;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .menuToggle {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+  
+  .navLinksContainer {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .navLinks {
+    display: flex;
+    gap: 1rem;
+    list-style: none;
+  }
+  
+  .navLinks li a {
+    color: #0D0D0D; 
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+  }
+  
+  .navLinks li a:hover {
+    color: #EF9273; 
+  }
+  
+  .actions {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .actions .loginBtn,
+  .actions .registerBtn {
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .registerBtn {
+    background-color: #EF9273;
+    color: #0D0D0D;
+    border: none;
+    text-decoration: none;
+  }
+  
+  .loginBtn {
+    background-color: #EF9273;
+    color: #0D0D0D;
+    border: 1px solid #ccc;
+    text-decoration: none;
+  }
+  
+  .registerBtn:hover {
+    color: #fff;
+  }
+  .loginBtn:hover {
+    color: #fff;
+  }
+  
+  .dropdown {
+    position: relative;
+    cursor: pointer;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+  }
+  
+  .arrow {
+    margin-left: 5px;
+    font-size: 1rem; /* Slightly larger for better visibility */
+  }
+  
+  .dropdownMenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    list-style: none;
+    padding: 0.5rem 0;
+    width: 150px;
+    color: #333;
+  }
+  
+  .dropdownMenu li {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    text-align: left;
+    white-space: nowrap;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  .dropdownMenu li:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .dropdown:hover .dropdownMenu {
+    display: block;
+  }
+  
+  .hrLine {
+    border: 0;
+    border-top: 1px solid #ddd;
+    margin: 0.5rem 0;
+    width: 90%;
+  }
+  
+  @media (max-width: 1024px) {
+    .menuToggle {
+      display: none;
+    }
+  
+    .navLinksContainer {
+      display: flex;
+      gap: 1rem;
+      flex-direction: row;
+    }
+  
+    .navLinks ul {
+      flex-direction: row;
+      padding-left: 0;
+      text-align: center;
+    }
+  
+    .actions {
+      display: flex;
+    }
+  
+    .navLinks li {
+      padding: 0.5rem;
+    }
+  
+    .dropdownMenu {
+      position: absolute;
+      width: 180px;
+    }
+  }
+  @media (max-width: 768px) {
+    .menuToggle {
+      display: block; 
+    }
+  
+    .navLinksContainer {
+      display: none; 
+      flex-direction: column;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      background-color: white; 
+      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      padding-top: 10px;
+      color: black; 
+    }
+  
+    .navOpen {
+      display: block; 
+    }
+  
+    .navLinks {
+      flex-direction: column; 
+    }
+  
+    .navLinks li {
+      padding: 1rem;
+      color: black;
+      background-color: transparent; 
+    }
+  
+    .navLinks li:hover {
+      color: #EF9273; 
+    }
+  
+    .actions {
+      display: flex; /* Ensure actions are displayed */
+      gap: 0.5rem;
+      padding: 1rem; /* Optional: Add padding around action buttons */
+      justify-content: center; /* Optional: Center align the buttons */
+    }
+  
+    .navLinks ul {
+      flex-direction: column;
+      text-align: left;
+    }
+  
+    .dropdownMenu {
+      position: static;
+      box-shadow: none;
+      width: 100%;
+      padding: 0;
+      background-color: white; 
+      color: black; 
+    }
+  
+    .dropdownMenu li {
+      padding: 0.8rem 1rem;
+      color: black; 
+      background-color: transparent; 
+    }
+  
+    .dropdownMenu li:hover {
+       background-color:none;
+    }
+  
+    .dropdown.open .dropdownMenu {
+      display: block;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .logo {
+      font-size: 1.2rem;
+    }
+  
+    .actions .loginBtn,
+    .actions .registerBtn {
+      padding: 0.4rem 0.8rem;
+    }
+  
+    .navLinks ul {
+      flex-direction: column;
+      text-align: left;
+    }
+  
+    .navLinks li {
+      padding: 1rem 0;
+    }
+  
+    .dropdownMenu {
+      position: static;
+      width: 100%;
+    }
+  
+    .dropdownMenu li {
+      padding: 1rem 1.5rem;
+    }
+  
+    .menuToggle {
+      font-size: 1.8rem;
+    }
+  }
+  

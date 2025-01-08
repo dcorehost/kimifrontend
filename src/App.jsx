@@ -53,6 +53,9 @@ import ContactUs from "./Pages/ContactUs/ContactUs";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Register from "./Pages/Register/Register";
 import Dashboard from "./Pages/Dashboard/Dashboard";
+import TermOfServicesPage from "./Pages/TermOfServicesPage/TermOfServicesPage";
+import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy";
+import RefundPolicyPage from "./Pages/RefundPolicyPage/RefundPolicyPage";
 
 
 const App = () => {
@@ -67,7 +70,11 @@ const App = () => {
         <Route path="/google-ads" element={<GoogleAds />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/termof-services" element={<TermOfServicesPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/refund-policy" element={<RefundPolicyPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+
        
       </Routes>
     </Router>
