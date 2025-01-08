@@ -10,7 +10,7 @@ const StatsAndFAQ = () => {
     { title: "Number of Users", value: 0, max: 8000, increment: 1000 },
     { title: "Accounts Opened", value: 0, max: 10000, increment: 1000 },
     { title: "Total Ad Spend", value: 0, max: 200000000, increment: 10000000 },
-    { title: "Typical Partners", value: 0, max: 40, increment: 10 },
+    { title: "Typical Partners", value: 0, max: 40, increment: 2 },
   ];
 
   const [counters, setCounters] = useState(initialCounters);
