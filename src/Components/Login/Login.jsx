@@ -130,7 +130,7 @@ const Login = () => {
       {/* Popup component */}
       {showPopup && (
         <div className={styles.popup}>
-          <p>Login Successful! Redirecting to the dashboard...</p>
+          <p>Login Successful! Redirecting to the dashboard....</p>
         </div>
       )}
     </div>
