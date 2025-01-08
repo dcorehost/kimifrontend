@@ -52,6 +52,7 @@ import GoogleAds from "./Pages/GoogleAds/GoogleAds";
 import ContactUs from "./Pages/ContactUs/ContactUs";
 import LoginPage from "./Pages/LoginPage/LoginPage";
 import Register from "./Pages/Register/Register";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 
 const App = () => {
@@ -66,6 +67,7 @@ const App = () => {
         <Route path="/google-ads" element={<GoogleAds />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/dashboard" element={<Dashboard />} />
        
       </Routes>
     </Router>

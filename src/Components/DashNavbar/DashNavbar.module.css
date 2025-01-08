@@ -1,0 +1,235 @@
+/* General Navbar Styles */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FEF9F8;
+    padding: 1rem 2rem;
+    color: #0D0D0D;
+    font-family: sans-serif, 'Inter';
+    position: relative;
+}
+
+/* Navigation Links */
+.navLinks {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.link {
+    text-decoration: none;
+    color: #0D0D0D;
+    font-size: 1rem;
+    transition: color 0.3s ease;
+}
+
+.link:hover {
+    color: #EF9273;
+}
+
+/* Money Option Specific Style */
+.money {
+    font-weight: bold;
+    color: #00ff00; /* Bright green for emphasis */
+}
+
+.money:hover {
+    color: #32cd32; /* Slightly darker green on hover */
+}
+
+/* Dropdown Arrows */
+.arrow {
+    margin-left: 0.5rem;
+    display: inline-block;
+    transition: transform 0.3s ease; /* Smooth rotation */
+}
+
+/* Dropdown Container */
+.dropdown {
+    position: relative;
+}
+
+/* Submenu Styles */
+.submenu {
+    list-style: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: #fff;
+    display: none;
+    padding: 0.5rem 1rem;
+    min-width: 150px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Add shadow */
+}
+
+.submenu li {
+    margin: 0;
+}
+
+.submenu .link {
+    font-size: 0.9rem;
+    color: white;
+    display: block;
+    padding: 0.5rem 0;
+    color: #0D0D0D;
+}
+
+.submenu .link:hover {
+    color: #EF9273;
+}
+
+/* Hover to Show Submenus */
+.dropdown:hover .submenu {
+    display: block;
+}
+
+/* Rotate Arrow on Hover */
+.dropdown:hover .arrow {
+    transform: rotate(-180deg); /* Rotate arrow upwards */
+}
+
+/* Icon Color and Spacing */
+.navLinks .link i {
+    margin-right: 0.5rem;
+    font-size: 1.2rem; /* Optional: Adjust the size of the icon */
+}
+
+/* Platform-specific icon colors */
+#home {
+    color: #EF9273;
+}
+
+.money i {
+    color: #333; /* Adjust the color of the dollar icon */
+}
+
+.money:hover i {
+    color: #333; /* Change the color of the dollar icon on hover */
+}
+
+#face {
+    color: #316FF6;
+}
+
+#google {
+    color: #34A853;
+}
+
+/* Specific icon colors for submenus */
+.submenu i {
+    margin-right: 0.5rem;
+}
+
+.submenu li a i {
+    font-size: 1.1rem;
+}
+
+.submenu li a i.fab.fa-facebook {
+    color: #316FF6;
+}
+
+.submenu li a i.fab.fa-tiktok {
+    color: #69C9D0;
+}
+
+.submenu li a i.fab.fa-microsoft {
+    color: #00A4EF;
+}
+
+.submenu li a i.fab.fa-snapchat {
+    color: #FFFC00;
+}
+
+.submenu li a i.fab.fa-taboola {
+    color: #3798D2;
+}
+
+.submenu li a i.fab.fa-facebook {
+    color: #316FF6;
+}
+
+.submenu li a i.fab.fa-kawaii {
+    color: #FF6B91;
+}
+
+.submenu li a i.fas.fa-building {
+    color: #000;
+}
+
+.submenu li a i.fas.fa-phone {
+    color: #FF6F61;
+}
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    /* Styles for laptop and smaller tablets */
+    .navbar {
+        padding: 1rem 1.5rem;
+    }
+
+    .navLinks {
+        gap: 1rem; /* Reduced gap on smaller devices */
+    }
+
+    .link {
+        font-size: 0.9rem;
+    }
+
+    .money {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        padding: 1rem;
+        flex-direction: column; /* Stack navbar items vertically */
+        align-items: flex-start;
+    }
+
+    .navLinks {
+        display: none; /* Hide links on mobile */
+        flex-direction: column;
+        gap: 1rem;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #333;
+        padding: 1rem;
+    }
+
+    .hamburger {
+        display: flex; /* Show hamburger menu */
+        cursor: pointer;
+    }
+
+    .hamburger span {
+        width: 25px;
+        height: 3px;
+        background-color: white;
+    }
+
+    .navbar.active .navLinks {
+        display: flex; /* Show menu when hamburger is clicked */
+    }
+
+    .link {
+        font-size: 1.1rem;
+    }
+
+    .money {
+        font-size: 1.1rem;
+    }
+}
+
+/* For Google logo gradient */
+#google {
+    background-image: linear-gradient(to right, #4285F4, #EA4335, #FBBC05, #34A853); /* Google brand colors */
+    -webkit-background-clip: text;
+    color: transparent; /* Makes the text color transparent so the gradient shows */
+    font-weight: bold;
+    font-size: 1.2rem;
+}
