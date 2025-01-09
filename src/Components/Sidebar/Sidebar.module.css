@@ -2,12 +2,12 @@
 .sidebar {
     position: fixed;
     top: 0;
-    left: 0px; /* Initially hidden off-screen */
+    left: -60px; /* Initially hidden off-screen */
     width: 70px; /* Sidebar width */
     height: 100%;
     background-color: #FEF9F8;
     color: black;
-    transition: left 0.3s ease;
+    transition: left 0.3s ease, width 0.3s ease;
     padding: 1rem;
     display: flex;
     flex-direction: column;
@@ -16,7 +16,7 @@
 
 .sidebar.open {
     left: 0; /* Slide in */
-    width: 200px;
+    width: 180px; /* Expanded width */
 }
 
 .sidebarLinks {
@@ -34,6 +34,7 @@
     padding: 1rem;
     font-size: 1.2rem;
     transition: background-color 0.3s ease;
+    border: none; /* Remove border from links */
 }
 
 .link:hover {
@@ -43,35 +44,45 @@
 .sidebar i {
     margin-right: 1rem;
     color: black;
+    padding-left: 30px;
 }
 
-/* Toggle Button Styles (Inside Sidebar) */
-.toggleButton {
-    position: absolute;
-    top: 1rem;
-    right: 1rem; /* Position the button at the top-right of the sidebar */
-    background-color:#FEF9F8;
-    color: black;
-    border: none;
+/* Wallet Toggle Styles */
+.walletToggle {
+    background: none;
+    border: none; /* Remove border around wallet button */
+    text-align: left;
+    width: 100%;
     padding: 10px;
-    font-size: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     cursor: pointer;
-    z-index: 1000;
-    transition: transform 0.3s ease;
 }
 
-.toggleButton:focus {
-    outline: none;
+.walletToggle:focus {
+    outline: none; /* Remove focus outline */
 }
 
-/* Rotate Hamburger Icon when Sidebar is Open */
-.rotate {
-    transform: rotate(90deg); /* Rotate the icon 90 degrees */
+.walletToggle i {
+    color: black;
+    margin-left: 5px;
 }
+
+.walletToggle i:last-child {
+    display: none; /* Hide arrow in collapsed state */
+}
+
+.sidebar.open .walletToggle i:last-child {
+    display: inline; /* Show arrow in expanded state */
+}
+
+/* Submenu Styles */
 .subMenu {
     list-style: none;
     padding: 0.5rem 0;
     margin-left: 1.5rem; /* Indent submenu */
+    
 }
 
 .subLink {
@@ -81,6 +92,7 @@
     padding: 0.5rem 1rem;
     font-size: 1rem;
     transition: background-color 0.3s ease;
+    border: none; /* Remove border from submenu links */
 }
 
 .subLink:hover {
@@ -90,11 +102,11 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
     .sidebar {
-        width: 200px; /* Adjust width for smaller screens */
+        width: 70px; /* Keep sidebar narrow for smaller screens */
     }
 
     .sidebar.open {
-        left: 0;
+        width: 180px; /* Expand sidebar */
     }
 
     /* Adjust the position of the toggle button for smaller screens */
@@ -102,51 +114,3 @@
         right: 10px; /* Keep the toggle button on the right */
     }
 }
-
-
-
-
-
-.sidebar {
-    position: fixed;
-    top: 0;
-    left: -200px; /* Initially hidden */
-    width: 200px;
-    height: 100%;
-    background-color: #FEF9F8;
-    transition: left 0.3s ease;
-  }
-  
-  .sidebar.open {
-    left: 0; /* Slide in when open */
-  }
-  
-  .toggleButton {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
-    background-color: #FEF9F8;
-    border: none;
-    font-size: 1.5rem;
-    cursor: pointer;
-  }
-  
-  .rotate {
-    transform: rotate(90deg);
-  }
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
