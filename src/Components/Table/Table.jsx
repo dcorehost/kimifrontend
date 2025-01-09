@@ -6,7 +6,7 @@ const Table = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/next-page");
+    navigate("/create-googleads");
   };
 
   const data = [
