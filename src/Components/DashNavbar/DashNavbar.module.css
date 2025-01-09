@@ -233,3 +233,35 @@
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+
+
+
+
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FEF9F8;
+    padding: 1rem 2rem;
+    color: #0D0D0D;
+    transition: left 0.3s ease;
+  }
+  
+  .navbar.open {
+    margin-left: 200px; /* Adjust for the open sidebar */
+  }
+  
+  .toggleButton {
+    background-color: #FEF9F8;
+    color: black;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .rotate {
+    transform: rotate(90deg); /* Rotate the icon */
+  }
+  

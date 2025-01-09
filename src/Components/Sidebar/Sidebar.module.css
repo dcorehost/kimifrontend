@@ -102,3 +102,51 @@
         right: 10px; /* Keep the toggle button on the right */
     }
 }
+
+
+
+
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -200px; /* Initially hidden */
+    width: 200px;
+    height: 100%;
+    background-color: #FEF9F8;
+    transition: left 0.3s ease;
+  }
+  
+  .sidebar.open {
+    left: 0; /* Slide in when open */
+  }
+  
+  .toggleButton {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: #FEF9F8;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+  }
+  
+  .rotate {
+    transform: rotate(90deg);
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
