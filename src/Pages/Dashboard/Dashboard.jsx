@@ -35,6 +35,10 @@ import React, { useState } from "react";
 import DashNavbar from "../../Components/DashNavbar/DashNavbar";
 import Sidebar from "../../Components/Sidebar/Sidebar";
 import Table from "../../Components/Table/Table";
+import ApplyGoogleAdsTable from "../../Components/ApplyGoogleAdsTable/ApplyGoogleAdsTable";
+import GmailShareLogTable from "../../Components/GmailShareLogTable/GmailShareLogTable";
+import AdsDepositeRecordTable from "../../Components/AdsDepositeRecordTable/AdsDepositerecordTable";
+import RefundTable from "../../Components/RefundTable/RefundTable";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -49,7 +53,11 @@ const Dashboard = () => {
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div style={{ marginLeft: isSidebarOpen ? "300px" : "60px", transition: "margin-left 0.3s ease" }}>
         <h1>Welcome to the Dashboard</h1>
-        <Table />
+        {/* <Table /> */}
+        {/* <ApplyGoogleAdsTable /> */}
+        {/* <GmailShareLogTable /> */}
+        {/* <AdsDepositeRecordTable /> */}
+        <RefundTable />
       </div>
     </>
   );
