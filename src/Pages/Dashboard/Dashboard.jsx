@@ -34,6 +34,7 @@
 import React, { useState } from "react";
 import DashNavbar from "../../Components/DashNavbar/DashNavbar";
 import Sidebar from "../../Components/Sidebar/Sidebar";
+import Table from "../../Components/Table/Table";
 
 const Dashboard = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -48,6 +49,7 @@ const Dashboard = () => {
       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
       <div style={{ marginLeft: isSidebarOpen ? "300px" : "60px", transition: "margin-left 0.3s ease" }}>
         <h1>Welcome to the Dashboard</h1>
+        <Table />
       </div>
     </>
   );
