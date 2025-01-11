@@ -1,0 +1,69 @@
+.container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: sans-serif, 'Inter';
+}
+
+.profileInfo, .passwordUpdate {
+  margin-top: 30px;
+}
+
+.profileInfo h2, .passwordUpdate h2 {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.infoItem {
+  margin-bottom: 15px;
+}
+
+.infoItem label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.infoItem input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.infoItem input::placeholder {
+  color: #888;
+}
+
+.saveButton {
+  background-color: #28a745;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+.passwordUpdate {
+  margin-top: 40px;
+}
+
+.error {
+  color: red;
+  font-size: 14px;
+}
+
+.emailInfo {
+  margin-top: 10px;
+}
+
+.settingsLink {
+  color: #007bff;
+  text-decoration: underline;
+  cursor: pointer;
+  padding-left: 10px;
+}
+
+.settingsLink:hover {
+  text-decoration: none;
+}

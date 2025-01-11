@@ -396,6 +396,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
 
   return (
     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
+            
       {/* Toggle Button */}
       <button
         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
@@ -403,7 +404,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
       >
         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
       </button>
-
+         
       <div className={styles.leftNav}>
         <ul className={styles.navLinks}>
           <li>
