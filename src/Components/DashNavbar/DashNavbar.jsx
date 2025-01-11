@@ -1,10 +1,42 @@
-// import React from "react";
+
+
+
+
+// //last working code 
+// import React, { useEffect, useState } from "react";
 // import styles from "./DashNavbar.module.css";
 // import '@fortawesome/fontawesome-free/css/all.min.css';
+// import Auth from "../Services/Auth"; // Import Auth to retrieve user data
+// import { AiTwotoneDollar } from "react-icons/ai";
 
-// const DashNavbar = ({ userName = "Guest" }) => {
+
+// const DashNavbar = ({ isSidebarOpen, toggleSidebar }) => {
+//   const [userName, setUserName] = useState("Guest");
+//   const [walletAmount, setWalletAmount] = useState(0);
+
+//   // Fetch user data from Auth and set userName and walletAmount
+//   useEffect(() => {
+//     const authData = Auth.getAuthData();
+//     console.log("Auth Data Retrieved: ", authData); // Debug log to verify if data is fetched
+
+//     if (authData && authData.username && authData.wallet) {
+//       setUserName(authData.username);    // Set username from the saved Auth data
+//       setWalletAmount(authData.wallet);  // Set wallet amount from the saved Auth data
+//     } else {
+//       console.error("No auth data found.");
+//     }
+//   }, []); // Empty dependency array to run only once after component mounts
+
 //   return (
-//     <nav className={styles.navbar}>
+//     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
+//       {/* Toggle Button */}
+//       <button
+//         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
+//         onClick={toggleSidebar}
+//       >
+//         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
+//       </button>
+
 //       <div className={styles.leftNav}>
 //         <ul className={styles.navLinks}>
 //           <li>
@@ -12,6 +44,7 @@
 //               <i className="fas fa-home"></i> Home
 //             </a>
 //           </li>
+//           {/* Additional navbar items */}
 //           <li className={styles.dropdown}>
 //             <a href="#facebook" className={styles.link}>
 //               <i className="fab fa-facebook" id={styles.face}></i> Facebook <span className={styles.arrow}>&#9660;</span>
@@ -81,7 +114,233 @@
 //         <ul className={styles.navLinks}>
 //           <li>
 //             <a href="#money" className={`${styles.link} ${styles.money}`} id={styles.home}>
-//               <i className="fas fa-dollar-sign"></i> Money
+//             <AiTwotoneDollar className={styles.dollaricon} />  ${walletAmount.toFixed(2)} {/* Display wallet amount */}
+//             </a>
+//           </li>
+//           <li className={styles.dropdown}>
+//             <span className={styles.link}>
+//               {userName} <span className={styles.arrow}>&#9660;</span> {/* Display username */}
+//             </span>
+//             <ul className={styles.submenu}>
+//               <li>
+//                 <a href="#profile" className={styles.link}>Profile</a>
+//               </li>
+//               <li>
+//                 <a href="#settings" className={styles.link}>Settings</a>
+//               </li>
+//               <li>
+//                 <a href="#logout" className={styles.link}>Logout</a>
+//               </li>
+//             </ul>
+//           </li>
+//         </ul>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default DashNavbar;
+
+
+
+
+// import React, { useEffect, useState } from "react";
+// import styles from "./DashNavbar.module.css";
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import Auth from "../Services/Auth"; // Import Auth to retrieve user data
+// import { assets } from "../../assets/assets.jsx";
+
+// import { AiTwotoneDollar } from "react-icons/ai";
+
+// const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
+//   const [userName, setUserName] = useState("Guest");
+//   const [walletAmount, setWalletAmount] = useState(0);
+
+//   // Fetch user data from Auth and set userName and walletAmount
+//   useEffect(() => {
+//     const authData = Auth.getAuthData();
+//     console.log("Auth Data Retrieved: ", authData); // Debug log to verify if data is fetched
+
+//     if (authData && authData.username && authData.wallet) {
+//       setUserName(authData.username);    // Set username from the saved Auth data
+//       setWalletAmount(authData.wallet);  // Set wallet amount from the saved Auth data
+//     } else {
+//       console.error("No auth data found.");
+//     }
+//   }, []); // Empty dependency array to run only once after component mounts
+
+//   return (
+//     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
+//       {/* Toggle Button */}
+//       <button
+//         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
+//         onClick={toggleSidebar}
+//       >
+//         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
+//       </button>
+
+//       <div className={styles.leftNav}>
+//         <ul className={styles.navLinks}>
+//           <li>
+//             <a href="#home" className={styles.link} id={styles.home}>
+//               <i className="fas fa-home"></i> Home
+//             </a>
+//           </li>
+//           {/* Google Sidebar Link */}
+//           <li>
+//             <a
+//               href="#google"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("google"); // Switch to Google Sidebar
+//               }}
+//             >
+//               <i className="fab fa-google" id={styles.google}></i> Google
+//             </a>
+//           </li>
+//           {/* Bing Sidebar Link */}
+//           <li>
+//             <a
+//               href="#bing"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("bing"); // Switch to Bing Sidebar
+//               }}>
+//               <i className="fab fa-microsoft" id={styles.bing}></i> Bing
+//             </a>
+//           </li>
+//         </ul>
+//       </div>
+
+//       <div className={styles.rightNav}>
+//         <ul className={styles.navLinks}>
+//           <li>
+//             <a href="#money" className={`${styles.link} ${styles.money}`} id={styles.home}>
+//               <AiTwotoneDollar className={styles.dollaricon} /> ${walletAmount.toFixed(2)} {/* Display wallet amount */}
+//             </a>
+//           </li>
+//           <li className={styles.dropdown}>
+//             <span className={styles.link}>
+//               {userName} <span className={styles.arrow}>&#9660;</span> {/* Display username */}
+//             </span>
+//             <ul className={styles.submenu}>
+//               <li>
+//                 <a href="#profile" className={styles.link}>Profile</a>
+//               </li>
+//               <li>
+//                 <a href="#settings" className={styles.link}>Settings</a>
+//               </li>
+//               <li>
+//                 <a href="#logout" className={styles.link}>Logout</a>
+//               </li>
+//             </ul>
+//           </li>
+//         </ul>
+//       </div>
+//     </nav>
+//   );
+// };
+
+// export default DashNavbar;
+
+
+
+// import React, { useEffect, useState } from "react";
+// import styles from "./DashNavbar.module.css";
+// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import Auth from "../Services/Auth"; // Import Auth to retrieve user data
+// import { AiTwotoneDollar } from "react-icons/ai";
+
+// const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
+//   const [userName, setUserName] = useState("Guest");
+//   const [walletAmount, setWalletAmount] = useState(0);
+
+//   // Fetch user data from Auth and set userName and walletAmount
+//   useEffect(() => {
+//     const authData = Auth.getAuthData();
+//     console.log("Auth Data Retrieved: ", authData); // Debug log to verify if data is fetched
+
+//     if (authData && authData.username && authData.wallet) {
+//       setUserName(authData.username);    // Set username from the saved Auth data
+//       setWalletAmount(authData.wallet);  // Set wallet amount from the saved Auth data
+//     } else {
+//       console.error("No auth data found.");
+//     }
+//   }, []); // Empty dependency array to run only once after component mounts
+
+//   return (
+//     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
+//       {/* Toggle Button */}
+//       <button
+//         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
+//         onClick={toggleSidebar}
+//       >
+//         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
+//       </button>
+
+//       <div className={styles.leftNav}>
+//         <ul className={styles.navLinks}>
+//           <li>
+//             <a
+//               href="#home"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("default"); // Switch to default Sidebar
+//               }}
+//             >
+//               <i className="fas fa-home"></i> Home
+//             </a>
+//           </li>
+//           {/* Google Sidebar Link */}
+//           <li>
+//             <a
+//               href="#google"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("google"); // Switch to Google Sidebar
+//               }}
+//             >
+//               <i className="fab fa-google"></i> Google
+//             </a>
+//           </li>
+//           {/* Bing Sidebar Link */}
+//           <li>
+//             <a
+//               href="#bing"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("bing"); // Switch to Bing Sidebar
+//               }}
+//             >
+//               <i className="fab fa-microsoft"></i> Bing
+//             </a>
+//           </li>
+//           {/* Facebook/Meta Sidebar Link */}
+//           <li>
+//             <a
+//               href="#facebook"
+//               className={styles.link}
+//               onClick={(e) => {
+//                 e.preventDefault(); // Prevent default navigation
+//                 handleSidebarChange("facebook"); // Switch to Meta Sidebar
+//               }}
+//             >
+//               <i className="fab fa-facebook"></i> Facebook
+//             </a>
+//           </li>
+//         </ul>
+//       </div>
+
+//       <div className={styles.rightNav}>
+//         <ul className={styles.navLinks}>
+//           <li>
+//             <a href="#money" className={`${styles.link} ${styles.money}`}>
+//               <AiTwotoneDollar className={styles.dollaricon} /> ${walletAmount.toFixed(2)}
 //             </a>
 //           </li>
 //           <li className={styles.dropdown}>
@@ -110,12 +369,31 @@
 
 
 
-//working code 
-import React from "react";
+
+
+import React, { useEffect, useState } from "react";
 import styles from "./DashNavbar.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import Auth from "../Services/Auth"; // Import Auth to retrieve user data
+import { AiTwotoneDollar } from "react-icons/ai";
 
-const DashNavbar = ({ isSidebarOpen, toggleSidebar, userName = "Guest" }) => {
+const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
+  const [userName, setUserName] = useState("Guest");
+  const [walletAmount, setWalletAmount] = useState(0);
+
+  // Fetch user data from Auth and set userName and walletAmount
+  useEffect(() => {
+    const authData = Auth.getAuthData();
+    console.log("Auth Data Retrieved: ", authData); // Debug log to verify if data is fetched
+
+    if (authData && authData.username && authData.wallet) {
+      setUserName(authData.username);    // Set username from the saved Auth data
+      setWalletAmount(authData.wallet);  // Set wallet amount from the saved Auth data
+    } else {
+      console.error("No auth data found.");
+    }
+  }, []); // Empty dependency array to run only once after component mounts
+
   return (
     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
       {/* Toggle Button */}
@@ -129,16 +407,66 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, userName = "Guest" }) => {
       <div className={styles.leftNav}>
         <ul className={styles.navLinks}>
           <li>
-            <a href="#home" className={styles.link} id={styles.home}>
+            <a
+              href="#home"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default navigation
+                handleSidebarChange("default"); // Switch to default Sidebar
+              }}
+            >
               <i className="fas fa-home"></i> Home
             </a>
           </li>
-          {/* Additional navbar items */}
+          {/* Google Sidebar Link */}
+          <li>
+            <a
+              href="#google"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default navigation
+                handleSidebarChange("google"); // Switch to Google Sidebar
+              }}
+            >
+              <i className="fab fa-google"></i> Google
+            </a>
+          </li>
+          {/* Bing Sidebar Link */}
+          <li>
+            <a
+              href="#bing"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default navigation
+                handleSidebarChange("bing"); // Switch to Bing Sidebar
+              }}
+            >
+              <i className="fab fa-microsoft"></i> Bing
+            </a>
+          </li>
+          {/* Facebook/Meta Sidebar Link */}
+          <li>
+            <a
+              href="#facebook"
+              className={styles.link}
+              onClick={(e) => {
+                e.preventDefault(); // Prevent default navigation
+                handleSidebarChange("facebook"); // Switch to Meta Sidebar
+              }}
+            >
+              <i className="fab fa-facebook"></i> Facebook
+            </a>
+          </li>
         </ul>
       </div>
 
       <div className={styles.rightNav}>
         <ul className={styles.navLinks}>
+          <li>
+            <a href="#money" className={`${styles.link} ${styles.money}`}>
+              <AiTwotoneDollar className={styles.dollaricon} /> ${walletAmount.toFixed(2)}
+            </a>
+          </li>
           <li className={styles.dropdown}>
             <span className={styles.link}>
               {userName} <span className={styles.arrow}>&#9660;</span>
@@ -162,5 +490,15 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, userName = "Guest" }) => {
 };
 
 export default DashNavbar;
+
+
+
+
+
+
+
+
+
+
 
 
