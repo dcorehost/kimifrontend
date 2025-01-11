@@ -13,18 +13,6 @@
     flex-direction: column;
     align-items: flex-start;
 }
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #EF9273;
-    text-decoration: none;
-    margin: 10px auto;
-  }
-  .kimilogo {
-    width: 100px;
-    height: auto;
-    /* margin-bottom: 1rem; */
-  }
 
 .sidebar.open {
     left: 0; /* Slide in */
@@ -133,7 +121,7 @@
     text-decoration: none;
     margin: 10px auto;
   }
-  .kimilogo {
+  .facebooklogo {
     width: 100px;
     height: auto;
     /* margin-bottom: 1rem; */
