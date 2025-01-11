@@ -86,9 +86,13 @@
 
 
 
+
+
 //working code 
 import React, { useState } from "react";
 import styles from "./Sidebar.module.css";
+import { assets } from "../../assets/assets.jsx";
+
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
@@ -101,6 +105,9 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
   return (
     <div>
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
+        <div className={styles.logo}>
+                <img src={assets.logo} alt="Kimi Agency Logo" className={styles.kimilogo} />
+              </div>
         {/* Sidebar Menu */}
         <ul className={`${styles.sidebarLinks} ${isSidebarOpen ? styles.showText : ""}`}>
           <li>
@@ -150,3 +157,4 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 };
 
 export default Sidebar;
+

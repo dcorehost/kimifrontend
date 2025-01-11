@@ -114,10 +114,12 @@
 import React from "react";
 import styles from "./DashNavbar.module.css";
 import '@fortawesome/fontawesome-free/css/all.min.css';
+import { assets } from "../../assets/assets.jsx";
 
 const DashNavbar = ({ isSidebarOpen, toggleSidebar, userName = "Guest" }) => {
   return (
     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
+            
       {/* Toggle Button */}
       <button
         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
@@ -125,7 +127,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, userName = "Guest" }) => {
       >
         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
       </button>
-
+         
       <div className={styles.leftNav}>
         <ul className={styles.navLinks}>
           <li>
