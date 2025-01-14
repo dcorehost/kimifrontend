@@ -270,3 +270,18 @@
     transform: rotate(90deg); /* Rotate the icon */
   }
   
+
+  .dollaricon{
+    font-size: 1.2rem; /* Adjust the size as needed */
+  }
+
+
+
+
+
+  .sidebarIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+  }
+  

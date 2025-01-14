@@ -56,6 +56,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import TermOfServicesPage from "./Pages/TermOfServicesPage/TermOfServicesPage";
 import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy";
 import RefundPolicyPage from "./Pages/RefundPolicyPage/RefundPolicyPage";
+import CreateGoogleAds from "./Components/CreateGoogleAds/CreateGoogleAds";
 
 
 const App = () => {
@@ -74,6 +75,8 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicyPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/create-googleads" element={<CreateGoogleAds />} />
+
 
        
       </Routes>
