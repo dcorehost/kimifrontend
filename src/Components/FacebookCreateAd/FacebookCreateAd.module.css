@@ -1,0 +1,144 @@
+/* FacebookCreateAd.module.css */
+
+.container {
+    width: 100%;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: #f0f9f5;
+    border: 1px dashed #99d3b8;
+    border-radius: 8px;
+    max-width: 1000px;
+    margin: 100px auto;
+    
+}
+/* Apply border-bottom to License Name label specifically */
+.labelWithBorder {
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px dashed green; 
+    padding-bottom: 20px; 
+    margin-top: 10px;
+  }
+  .labelWithBorder1{
+    display: flex;
+    gap: 50px;
+    width: 100%;
+    font-size: 14px;
+    font-weight: bold;
+    border-bottom: 2px dashed green; 
+    padding-bottom: 10px; 
+  }
+  .input2,.select2{
+    width: 200px;
+    padding: 5px;
+    border-radius: 4px;
+  }
+.field {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    /* border-bottom: 1px dashed green; */
+}
+
+.label {
+    width: 200px;
+    font-weight: bold;
+    color: #333;
+}
+
+.label span {
+    color: red;
+}
+
+.input,
+.select {
+    width: 30%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer; /* Added pointer cursor */
+}
+
+.note {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #333;
+}
+
+.linkContainer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.link {
+    color: #008cba;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.copyButton {
+    background-color: #008cba;
+    color: white;
+    border: none;
+    padding: 6px 10px;
+    border-radius: 4px;
+    cursor: pointer; /* Added pointer cursor */
+    font-size: 14px;
+}
+
+.copyButton:hover {
+    background-color: #005f87;
+}
+
+.note input {
+    margin-right: 10px;
+}
+
+.radioGroup {
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.radioLabel {
+    margin-right: 15px;
+    font-size: 14px;
+    cursor: pointer;
+}
+/* Add custom style for text area */
+/* .textArea {
+    padding: 8px;
+    font-size: 14px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    height: 200px; /* Adjust the height as needed 
+  } */
+
+  #label{
+     color: black;
+     
+    margin-top: 20px;
+    width: auto;
+ 
+  }
+  .textarea{
+    width: 100%;
+    height: 50px;
+  }
+
+ 
+
+
+
+  
+  
