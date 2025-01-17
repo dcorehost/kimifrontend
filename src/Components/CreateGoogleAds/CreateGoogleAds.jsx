@@ -66,6 +66,8 @@ const CreateGoogleAds = () => {
       const response = await axios.post("http://13.127.161.242:8001/kimi/create-google-ads", requestData, {
         headers: {Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NzdlM2Q2OWU2ZGFkZDYwNjRkM2IzN2IiLCJwaG9uZSI6NDMyODcsImVtYWlsIjoiZGVlcGlrYWF3d3ExQGdtYWlsLmNvbSIsInR5cGVPZlVzZXIiOiJVc2VyIiwiaWF0IjoxNzM2OTMxNDAzLCJleHAiOjE3Mzk1MjM0MDN9.l_12LV-sM8BUuSFaVUp3uDnvuMviKQUnDthYywbFwAc`}
       });
+
+      
       console.log("Request data", response);
       if (response?.data) {
         setResponseMessage(response.data.message);
