@@ -127,7 +127,7 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {isWalletOpen && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#add-money" className={styles.link}>
+                  <a href="/addmoney-table" className={styles.link}>
                     <i className="fas fa-plus-circle"></i> Add Money
                   </a>
                 </li>
