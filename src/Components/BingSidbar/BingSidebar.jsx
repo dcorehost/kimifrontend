@@ -37,7 +37,7 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#account-list" className={styles.link}>
+                  <a href="/bing-accountlist" className={styles.link}>
                     Account List
                   </a>
                 </li>

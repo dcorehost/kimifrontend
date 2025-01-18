@@ -58,6 +58,11 @@ import PrivacyPolicy from "./Pages/PrivacyPolicy/PrivacyPolicy";
 import RefundPolicyPage from "./Pages/RefundPolicyPage/RefundPolicyPage";
 import CreateGoogleAds from "./Components/CreateGoogleAds/CreateGoogleAds";
 import CreateBingAds from "./Components/CreateBingAds/CreateBingAds";
+import AddMoneyTable from "./Components/AddMoneyTable/AddMoneyTable";
+import UserProfile from "./Components/UserFile/UserProfile";
+import BingAccountList from "./Components/BingAccountList/BingAccountList";
+import Table from "./Components/Table/Table";
+import MetaAccountList from "./Components/MetaAccountList/MetaAccountList";
 import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
 
 
@@ -66,7 +71,7 @@ const App = () => {
     <Router>
       <Routes>
         {/* Define routes for your pages */}
-        <Route path="/" element={<Homepage />} />
+         <Route path="/" element={<Homepage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/meta-ads" element={<MetaAds />} />
         <Route path="/bing-ads" element={<BingAds />} />
@@ -77,12 +82,14 @@ const App = () => {
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicyPage />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/create-googleads" element={<CreateGoogleAds />} />
-       
-       <Route path="/createbingads" element={<CreateBingAds/>}></Route>
-       <Route path="/facebookCreatead"  element={<FacebookCreateAd />}></Route>
-
-       
+        <Route path="/create-googleads" element={<CreateGoogleAds />} />        
+       <Route path="/create-bingads" element={<CreateBingAds/>}></Route>
+       <Route path="/bing-accountlist" element={<BingAccountList />}></Route>
+       <Route path="/addmoney-table" element={<AddMoneyTable/ >}></Route>
+       <Route path="/user-profile" element={<UserProfile />}></Route>  
+       <Route path="/google-table" element={<Table />} />     
+       <Route path="/meta-accountlist" element={<MetaAccountList />} />     
+       <Route path="/facebook-createads" element={<FacebookCreateAd />} />     
       </Routes>
     </Router>
   );

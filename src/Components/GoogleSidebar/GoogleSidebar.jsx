@@ -37,7 +37,7 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#account-list" className={styles.link}>
+                  <a href="/google-table" className={styles.link}>
                     Account List
                   </a>
                 </li>
