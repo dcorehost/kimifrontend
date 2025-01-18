@@ -1,7 +1,21 @@
 import React from "react";
 import styles from "./MetaAccountList.module.css";
+import { useNavigate } from 'react-router-dom';
+
+
+
 
 const MetaAccountList = () => {
+    const navigate = useNavigate();
+  
+    const handleDirectCreateAd = () => {
+      navigate('/facebook-createads'); // Replace with your route
+    };
+  
+    const handleVipPackage = () => {
+      navigate('/#'); // Replace with your route
+    };
+
   return (
     <div className={styles.container}>
       {/* Notification Section */}
@@ -23,12 +37,25 @@ const MetaAccountList = () => {
       <div className={styles.adAccountSection}>
         <h3 className={styles.sectionTitle}>Ad Account List</h3>
         <div className={styles.actionButtons}>
-          <button className={`${styles.button} ${styles.createAdButton}`}>
+          {/* <button className={`${styles.button} ${styles.createAdButton}`}>
             direct create ad
           </button>
           <button className={`${styles.button} ${styles.vipButton}`}>
             vip package
-          </button>
+          </button> */}
+                <button
+                    className={`${styles.button} ${styles.createAdButton}`}
+                     onClick={handleDirectCreateAd}
+                      >
+                     direct create ad
+                    </button>
+               <button
+                   className={`${styles.button} ${styles.vipButton}`}
+                   onClick={handleVipPackage}
+                    >
+                vip package
+                </button>
+
         </div>
         <div className={styles.tableContainer}>
           <table className={styles.table}>

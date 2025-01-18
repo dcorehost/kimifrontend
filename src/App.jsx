@@ -63,6 +63,7 @@ import UserProfile from "./Components/UserFile/UserProfile";
 import BingAccountList from "./Components/BingAccountList/BingAccountList";
 import Table from "./Components/Table/Table";
 import MetaAccountList from "./Components/MetaAccountList/MetaAccountList";
+import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
 
 
 const App = () => {
@@ -88,6 +89,7 @@ const App = () => {
        <Route path="/user-profile" element={<UserProfile />}></Route>  
        <Route path="/google-table" element={<Table />} />     
        <Route path="/meta-accountlist" element={<MetaAccountList />} />     
+       <Route path="/facebook-createads" element={<FacebookCreateAd />} />     
       </Routes>
     </Router>
   );
