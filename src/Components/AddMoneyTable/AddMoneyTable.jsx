@@ -5,6 +5,7 @@ import httpServices from "../Services/Httpservices.jsx";
 import Auth from "../Services/Auth.js";
 import styles from "./AddMoneyTable.module.css";
 
+
 const AddMoneyTable = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
