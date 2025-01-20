@@ -1,11 +1,9 @@
 
-
-
+ //image  uploading error 
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import httpServices from "../Services/Httpservices.jsx";
 import Auth from "../Services/Auth.js";
-import styles from "./AddMoneyTable.module.css";
 
 const AddMoneyTable = () => {
   const navigate = useNavigate();
@@ -52,18 +50,8 @@ const AddMoneyTable = () => {
       formData.append("transactionId", modalData.transactionId);
       formData.append("state", "Pending"); // Static state, could be dynamic
       formData.append("payway", modalData.payway);
-      
       if (modalData.image) {
         formData.append("image", modalData.image); // Append the image file here
-      } else {
-        alert("Please upload an image.");
-        return;
-      }
-
-      // Log FormData contents for debugging
-      console.log("FormData contents:");
-      for (let pair of formData.entries()) {
-        console.log(pair[0] + ": " + pair[1]);
       }
 
       // Make the API POST request
@@ -115,12 +103,6 @@ const AddMoneyTable = () => {
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // Validate file type if necessary (for example, only images)
-      if (!file.type.startsWith("image/")) {
-        alert("Please upload a valid image file.");
-        return;
-      }
-
       setModalData((prevData) => ({
         ...prevData,
         image: file, // Save the file object instead of the file name
@@ -273,8 +255,4 @@ const AddMoneyTable = () => {
 };
 
 export default AddMoneyTable;
-
-
-
-
 
