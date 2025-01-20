@@ -59,6 +59,7 @@ import RefundPolicyPage from "./Pages/RefundPolicyPage/RefundPolicyPage";
 import CreateGoogleAds from "./Components/CreateGoogleAds/CreateGoogleAds";
 import CreateBingAds from "./Components/CreateBingAds/CreateBingAds";
 import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
+import UserProfile from "./Components/UserFile/UserProfile";
 
 
 const App = () => {
@@ -81,6 +82,8 @@ const App = () => {
        
        <Route path="/createbingads" element={<CreateBingAds/>}></Route>
        <Route path="/facebookCreatead"  element={<FacebookCreateAd />}></Route>
+
+       {/* <Route path="/usrprofile" element={<UserProfile></UserProfile>}></Route> */}
 
        
       </Routes>
