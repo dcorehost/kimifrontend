@@ -335,34 +335,33 @@ const FacebookCreateAd = () => {
       </div>
 
       {urls.map((url, index) => (
-        <div key={index} className={styles.field}>
-          <label className={styles.label}>
-            <span>*</span> {index + 1}.ads account name
-          </label>
-          <input
-            type="text"
-            placeholder="Please enter ads account name"
-            className={styles.input}
-            value={url}
-            onChange={(e) =>
-              setUrls(urls.map((u, i) => (i === index ? e.target.value : u)))
-            }
-          />
+  <div key={index} className={styles.field}>
+    <label className={styles.label}>
+      <span>*</span> {index + 1}. ads account name
+    </label>
+    <input
+      type="text"
+      placeholder="Please enter ads account name"
+      className={styles.input}
+      value={url.accountName}
+      onChange={(e) =>
+        setUrls(urls.map((u, i) => (i === index ? { ...u, accountName: e.target.value } : u)))
+      }
+    />
 
 <label className={styles.label}>
-            <span>*</span> {index + 1} .deposit
-          </label>
-          <input
-            type="text"
-            placeholder="Deposit"
-            className={styles.input}
-            value={url}
-            onChange={(e) =>
-              setUrls(urls.map((u, i) => (i === index ? e.target.value : u)))
-            }
-          />
-
-        </div>
+      <span>*</span> {index + 1}. deposit
+    </label>
+    <input
+      type="text"
+      placeholder="Deposit"
+      className={styles.input}
+      value={url.deposit}
+      onChange={(e) =>
+        setUrls(urls.map((u, i) => (i === index ? { ...u, deposit: e.target.value } : u)))
+      }
+    />
+  </div>
       ))}
  </div>
               {/* New Text Area Section */}
