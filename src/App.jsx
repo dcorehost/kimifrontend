@@ -59,11 +59,11 @@ import RefundPolicyPage from "./Pages/RefundPolicyPage/RefundPolicyPage";
 import CreateGoogleAds from "./Components/CreateGoogleAds/CreateGoogleAds";
 import CreateBingAds from "./Components/CreateBingAds/CreateBingAds";
 import AddMoneyTable from "./Components/AddMoneyTable/AddMoneyTable";
-import UserProfile from "./Components/UserFile/UserProfile";
 import BingAccountList from "./Components/BingAccountList/BingAccountList";
 import Table from "./Components/Table/Table";
 import MetaAccountList from "./Components/MetaAccountList/MetaAccountList";
 import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
+import UserProfile from "./Components/UserFile/UserProfile";
 
 
 const App = () => {

@@ -269,6 +269,20 @@ const CreateGoogleAds = () => {
   };
 
   // Handle deposit change (dropdown)
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
   const handleDepositChange = (index, value) => {
     const numericValue = value ? parseFloat(value) : 0; // Convert value to number
     const updatedAdsData = [...adsData];
