@@ -8,6 +8,8 @@
     color: #0D0D0D;
     font-family: sans-serif, 'Inter';
     position: relative;
+    margin-top: 0px;
+    padding-top: 0px;
    
 }
 
@@ -73,20 +75,21 @@
     margin: 0;
 }
 
-.submenu .link {
+.dropdown .link {
     font-size: 0.9rem;
     color: white;
     display: block;
     padding: 0.5rem 0;
     color: #0D0D0D;
+    text-decoration: none;
 }
 
-.submenu .link:hover {
+.dropdown .link:hover {
     color: #EF9273;
 }
 
 /* Hover to Show Submenus */
-.dropdown:hover .submenu {
+.dropdown:hover .dropdown {
     display: block;
 }
 
@@ -252,6 +255,8 @@
     padding: 1rem 2rem;
     color: #0D0D0D;
     transition: left 0.3s ease;
+    margin-top: 0px;
+    padding-top: 0px;
   }
   
   .navbar.open {
@@ -274,9 +279,6 @@
   .dollaricon{
     font-size: 1.2rem; /* Adjust the size as needed */
   }
-
-
-
 
 
   .sidebarIcon {

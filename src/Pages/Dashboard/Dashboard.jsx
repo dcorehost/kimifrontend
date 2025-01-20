@@ -261,10 +261,10 @@ const Dashboard = () => {
           padding: "20px",
         }}
       >
-        <Routes>
+        {/* <Routes>
           <Route path="/" element={<Table />} />
           <Route path="/create-googleads" element={<CreateGoogleAds />} />
-        </Routes>
+        </Routes> */}
 
         <Outlet />
       </div>
