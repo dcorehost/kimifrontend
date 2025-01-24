@@ -1,6 +1,6 @@
 
  //image  uploading error 
- import styles from "./AddMoneyTable.module.css";
+ import styles from "./AddmoneyTable.module.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import httpServices from "../Services/Httpservices.jsx";
