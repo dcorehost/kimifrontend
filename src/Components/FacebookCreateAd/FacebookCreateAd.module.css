@@ -94,6 +94,7 @@
     border-radius: 4px;
     cursor: pointer; /* Added pointer cursor */
     font-size: 14px;
+    margin-top: 20px;
 }
 
 .copyButton:hover {
