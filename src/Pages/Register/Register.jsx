@@ -9,7 +9,7 @@ const Register = () => {
     <>
     <Navbar />
     <RegisterPage />
-    {/* <Footer /> */}
+    <Footer />
    
      
     </>

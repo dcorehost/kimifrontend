@@ -24,6 +24,13 @@ import Table from "./Components/Table/Table";
 import MetaAccountList from "./Components/MetaAccountList/MetaAccountList";
 import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
 import UserProfile from "./Components/UserFile/UserProfile";
+import GoogleAdsDeposite from "./Components/GoogleAdsDeposite/GoogleAdsDeposite";
+import ApplyGoogleAdsTable from "./Components/ApplyGoogleAdsTable/ApplyGoogleAdsTable";
+import GmailShareLogTable from "./Components/GmailShareLogTable/GmailShareLogTable";
+import AdsDepositeRecordTable from "./Components/AdsDepositeRecordTable/AdsDepositerecordTable";
+import RefundTable from "./Components/RefundTable/RefundTable";
+
+
 
 
 const App = () => {
@@ -31,7 +38,7 @@ const App = () => {
     <Router>
       <Routes>
         {/* Define routes for your pages */}
-         <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Homepage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/meta-ads" element={<MetaAds />} />
         <Route path="/bing-ads" element={<BingAds />} />
@@ -50,6 +57,14 @@ const App = () => {
        <Route path="/google-table" element={<Table />} />     
        <Route path="/meta-accountlist" element={<MetaAccountList />} />     
        <Route path="/facebook-createads" element={<FacebookCreateAd />} />     
+       <Route path="/applygoogle-ads" element={<ApplyGoogleAdsTable />} />     
+       <Route path="/gmailshare-log" element={<GmailShareLogTable />} />     
+       <Route path="/googleads-deposite" element={<GoogleAdsDeposite />} />     
+       <Route path="/googleads-depositerecord" element={<AdsDepositeRecordTable />} />     
+       <Route path="/refund-table" element={<RefundTable />} />     
+
+       {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
+       
       </Routes>
     </Router>
   );

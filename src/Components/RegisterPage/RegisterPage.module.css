@@ -27,11 +27,9 @@ label {
   margin-bottom: 5px;
   font-size: 14px;
   padding: 15px;
-  /* border: 1px solid black; */
-  width: 350px; /* Set the desired width */
-  display: inline-block; /* Ensure the width is respected */
+  width: 350px;
+  display: inline-block;
 }
-
 
 .input {
   padding: 15px;
@@ -40,6 +38,7 @@ label {
   border-radius: 4px;
   width: 50%;
 }
+
 select.input {
   padding: 15px;
   font-size: 14px;
@@ -63,14 +62,130 @@ select.input {
 .submitButton:hover {
   background-color: #45a049;
 }
+
+/* Platform checkboxes under Agency Ads */
+.platformsGroup {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px; 
+}
+
+.platformsGroup label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 15px; 
+  width: 200px; 
+}
+
+/* Services checkboxes */
 .checkboxGroupColumn {
   display: flex;
-  flex-direction: column;
-  gap: 8px; /* Add some spacing between checkboxes */
+  flex-direction: column; 
+  gap: 8px; 
 }
 
 .checkboxGroupColumn label {
   display: flex;
   align-items: center;
   font-size: 14px;
+}
+
+/* Business checkboxes under "What is your business?" */
+.businessGroup {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px;
+}
+
+.businessGroup label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 15px; 
+  width: 200px; 
+}
+
+/* Monthly Spend (USD) radio buttons */
+.radioGroup {
+  display: flex;
+  flex-wrap: wrap; 
+  gap: 16px; 
+}
+
+.radioGroup label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  margin-right: 15px; 
+  width: 200px; 
+}
+
+/* Drop Shipping Service checkboxes */
+.dropServiceGroup {
+  display: flex;
+  flex-direction: column; 
+  gap: 8px; 
+}
+
+.dropServiceGroup label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+}
+
+/* Media Queries for Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .input,
+  select.input {
+    width: 95%;
+  }
+
+  label {
+    width: 100%; 
+    padding: 10px 0;
+  }
+
+  .submitButton {
+    width: 100%;
+    max-width: 200px; /* Limit the button width */
+  }
+
+  .platformsGroup label,
+  .businessGroup label,
+  .radioGroup label {
+    width: 100%; /* Adjust labels to full width */
+  }
+}
+
+@media (max-width: 480px) { /* For mobile phones */
+  .title {
+    font-size: 20px;
+  }
+
+  .input,
+  select.input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .submitButton {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  .platformsGroup label,
+  .businessGroup label,
+  .radioGroup label {
+    width: 100%; /* Full width on mobile */
+  }
 }

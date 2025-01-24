@@ -42,12 +42,12 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   </a>
                 </li>
                 <li>
-                  <a href="#apply-gg-ad" className={styles.link}>
+                  <a href="/applygoogle-ads" className={styles.link}>
                     Apply GG Ad
                   </a>
                 </li>
                 <li>
-                  <a href="#gmail-share-log" className={styles.link}>
+                  <a href="/gmailshare-log" className={styles.link}>
                     Gmail Share Log
                   </a>
                 </li>
@@ -69,12 +69,12 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#ads-deposit" className={styles.link}>
+                  <a href="/googleads-deposite" className={styles.link}>
                     Ads Deposit
                   </a>
                 </li>
                 <li>
-                  <a href="#ad-deposit-record" className={styles.link}>
+                  <a href="/googleads-depositerecord" className={styles.link}>
                     Ad Deposit Record
                   </a>
                 </li>
@@ -96,7 +96,7 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#refund" className={styles.link}>
+                  <a href="/refund-table" className={styles.link}>
                     Refund
                   </a>
                 </li>
