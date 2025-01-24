@@ -26,54 +26,51 @@ const RegisterPage = () => {
   });
 
   const platforms = [
-    'Google Ads',
-    'Facebook Ads',
-    'Instagram Ads',
-    'LinkedIn Ads',
-    'Twitter Ads',
-    'Snapchat Ads',
-    'Pinterest Ads',
-    'TikTok Ads',
-    'YouTube Ads',
-    'Reddit Ads',
-    'Bing Ads',
-    'Amazon Ads',
-    'Spotify Ads',
+    'Facebook',
+    'Google',
+    'Tiktok',
+    'Tiktok Shop ',
+    'Bing',
+    'Snapchat',
+    'Taboola',
+    'Mediago',
+    'Outbrain',
+    'Kwai',
     'Others',
   ];
 
   const dropServices = [
-    'Order Fulfillment',
-    'Warehouse Management',
-    'Inventory Tracking',
-    'Shipping Logistics',
-    'Return Management',
+    'Purchase products from China mainland',
+    'Free warehouse',
+    'Shipping goods to global',
+    'Drop-shipping package one by one',
+    'others',
   ];
 
   const businesses = [
-    'E-commerce',
-    'Retail',
-    'Real Estate',
-    'Healthcare',
-    'Education',
-    'Hospitality',
-    'Finance',
+    'Affiliate',
+    'E-Com(Clean)',
+    'E-Com(BH)',
+    'APP',
+    'Work At Home',
+    'Gambling/Casico/Gaming/Betting',
+    'Whatsapp/Telegram Channel',
     'Others',
   ];
 
   const globalOptions = [
-    'Company Formation',
-    'Tax Registration',
-    'Bank Account Setup',
-    'Compliance Services',
+    'HK Company',
+    'UK Company',
+    'USA Company',
+    'Singapore Company',
     'others',
   ];
 
   const monthlySpendOptions = [
-    '< $1000',
-    '$1000 - $5000',
-    '$5000 - $10,000',
-    '> $10,000',
+    '0-2k',
+    '2k-20k',
+    '20k-200k',
+    '200k+',
   ];
 
 
@@ -364,7 +361,7 @@ const RegisterPage = () => {
         )}
         {/* Services Checkboxes */}
         <div className={styles.formGroup}>
-          <label>Services:</label>
+          <label>interested(Multiple Choice)</label>
           <div className={styles.checkboxGroupColumn}>
             {/* Agency Ads */}
             <label>
@@ -475,7 +472,7 @@ const RegisterPage = () => {
             </label>
 
             {formData.dropShippingService && (
-              <div className={styles.platformsGroup}>
+              <div className={styles.platformsGroup2}>
                 {dropServices.map((service, index) => (
                   <label key={index}>
                     <input

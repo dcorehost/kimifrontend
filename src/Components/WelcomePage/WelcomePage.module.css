@@ -2,7 +2,7 @@
     /* border: 1px solid black; */
     height: auto;
     display: flex;
-    flex-wrap: wrap; /* Allow wrapping for smaller screens */
+    flex-wrap: wrap; 
     margin: 0px 20px;
     font-family: sans-serif, 'Inter';
     padding-left: 150px;
@@ -14,13 +14,15 @@
     /* border: 1px solid black; */
     height: auto;
     width: 60%;
-    box-sizing: border-box; /* Ensure padding/border does not affect width */
+    box-sizing: border-box;
 }
 .award{
     font-size: 20px;
 }
 .welcome{
     font-size: 55px;
+    /* border: 1px solid black; */
+    text-align: left;
 }
 .MainContainer2 {
     /* border: 1px solid black; */
@@ -33,8 +35,8 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    animation: loopAnimation 10s ease-in-out infinite; /* Infinite loop for continuous animation */
-    word-spacing: 5px; /* Adjusted space */
+    animation: loopAnimation 10s ease-in-out infinite; 
+    word-spacing: 5px; 
    
 }
 
@@ -87,16 +89,16 @@
     margin: 100px auto;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Ensures content is spaced between */
+    justify-content: space-between; 
 }
 
 .work, .winning { 
     /* border: 1px solid black; */
     height: 100px;
-    width: 50%; /* Adjusted to fit 2 items in the container */
+    width: 50%; 
     display: flex;
     align-items: center;
-    justify-content: center; /* Align items in the center */
+    justify-content: center; 
     gap: 20px;
 }
 .awardes{
@@ -126,7 +128,7 @@
 /* Media Queries for Mobile Phones */
 @media (max-width: 768px) {
     .MainContainer {
-        flex-direction: column; /* Stack children vertically */
+        flex-direction: column; 
     }
 
     .MainContainer1,
@@ -140,21 +142,21 @@
         height: auto;
         width: 90%;
         margin: 0px auto;
-        flex-direction: column; /* Stack work and winning vertically */
+        flex-direction: column; 
     }
 
     .work, .winning { 
         /* border: 1px solid black; */
-        height: auto; /* Allow dynamic height */
-        width: 100%; /* Full width for smaller screens */
+        height: auto; 
+        width: 100%;
     }
 }
 
 /* Further adjustments for smaller devices */
 @media (max-width: 480px) {
     .MainContainer {
-        flex-direction: column; /* Stack children vertically */
-        margin: 0px 10px; /* Reduce margin */
+        flex-direction: column; 
+        margin: 0px 10px; 
     }
 
     .MainContainer1,
@@ -168,13 +170,13 @@
         height: auto;
         width: 90%;
         margin: 0px auto;
-        flex-direction: column; /* Stack work and winning vertically */
+        flex-direction: column; 
     }
 
     .work, .winning { 
         /* border: 1px solid black; */
-        height: auto; /* Allow dynamic height */
-        width: 100%; /* Full width */
+        height: auto; 
+        width: 100%; 
     }
 }
 /* .icon{
