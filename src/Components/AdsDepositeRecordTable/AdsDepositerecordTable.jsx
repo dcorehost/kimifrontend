@@ -31,7 +31,7 @@ const AdsDepositeRecordTable = () => {
   return (
     <div className={styles.container}>
       <button className={styles.button} onClick={handleNextPage}>
-        Create record here
+        export Excel
       </button>
       <div className={styles.tableContainer}>
         <table className={styles.table}>

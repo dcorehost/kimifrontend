@@ -1,5 +1,6 @@
+
 import React, { useState } from 'react';
-import styles from './RegisterPage.module.css'; // Import the CSS Module
+import styles from './RegisterPage.module.css'; 
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -502,7 +503,7 @@ const RegisterPage = () => {
             value={formData.password}
             onChange={handleChange}
             required
-            className={styles.input}
+            className={styles.input}t
           />
         </div>
         <div className={styles.formGroup}>
@@ -528,3 +529,4 @@ const RegisterPage = () => {
 };
 
 export default RegisterPage;
+

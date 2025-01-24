@@ -33,7 +33,7 @@ const RefundTable = () => {
   return (
     <div className={styles.container}>
       <button className={styles.button} onClick={handleNextPage}>
-        Create refund here
+        Apply refund 
       </button>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
