@@ -1,8 +1,4 @@
 
-
-
-
-
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Homepage from "./Pages/Homepage/Homepage";
@@ -29,6 +25,7 @@ import ApplyGoogleAdsTable from "./Components/ApplyGoogleAdsTable/ApplyGoogleAds
 import GmailShareLogTable from "./Components/GmailShareLogTable/GmailShareLogTable";
 import AdsDepositeRecordTable from "./Components/AdsDepositeRecordTable/AdsDepositerecordTable";
 import RefundTable from "./Components/RefundTable/RefundTable";
+import Layout from "./Layout";
 
 
 
@@ -38,7 +35,8 @@ const App = () => {
     <Router>
       <Routes>
         {/* Define routes for your pages */}
-        <Route path="/" element={<Homepage />} />
+        <Route path="/" element={<Layout />}>
+        <Route index element={<Homepage />} />
         <Route path="/contact-us" element={<ContactUs />} />
         <Route path="/meta-ads" element={<MetaAds />} />
         <Route path="/bing-ads" element={<BingAds />} />
@@ -48,23 +46,24 @@ const App = () => {
         <Route path="/termof-services" element={<TermOfServicesPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicyPage />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/create-googleads" element={<CreateGoogleAds />} />        
-       <Route path="/create-bingads" element={<CreateBingAds/>}></Route>
-       <Route path="/bing-accountlist" element={<BingAccountList />}></Route>
-       <Route path="/addmoney-table" element={<AddMoneyTable/ >}></Route>
-       <Route path="/user-profile" element={<UserProfile />}></Route>  
-       <Route path="/google-table" element={<Table />} />     
-       <Route path="/meta-accountlist" element={<MetaAccountList />} />     
-       <Route path="/facebook-createads" element={<FacebookCreateAd />} />     
-       <Route path="/applygoogle-ads" element={<ApplyGoogleAdsTable />} />     
-       <Route path="/gmailshare-log" element={<GmailShareLogTable />} />     
-       <Route path="/googleads-deposite" element={<GoogleAdsDeposite />} />     
-       <Route path="/googleads-depositerecord" element={<AdsDepositeRecordTable />} />     
-       <Route path="/refund-table" element={<RefundTable />} />     
+        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
+        <Route path="/google/accountManage/accountList" element={<CreateGoogleAds />} />
+        <Route path="/bing/accountManage/accountList" element={<CreateBingAds />} />
+        <Route path="/facebook/accountManage/accountList" element={<FacebookCreateAd />} />
+        <Route path="/bing-accountlist" element={<BingAccountList />}></Route>
+        <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
+        <Route path="/user-profile" element={<UserProfile />}></Route>
+        <Route path="/google-table" element={<Table />} />
+        <Route path="/meta-accountlist" element={<MetaAccountList />} />
+        <Route path="/facebook-createads" element={<FacebookCreateAd />} />
+        <Route path="/applygoogle-ads" element={<ApplyGoogleAdsTable />} />
+        <Route path="/gmailshare-log" element={<GmailShareLogTable />} />
+        <Route path="/googleads-deposite" element={<GoogleAdsDeposite />} />
+        <Route path="/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
+        <Route path="/refund-table" element={<RefundTable />} />
 
-       {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
-       
+        {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
+      </Route>
       </Routes>
     </Router>
   );
