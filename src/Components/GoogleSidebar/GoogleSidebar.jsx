@@ -25,14 +25,10 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
         <ul className={`${styles.sidebarLinks} ${isSidebarOpen ? styles.showText : ""}`}>
           {/* Account Manage */}
           <li>
-            <button
-              onClick={() => toggleMenu("accountManage")}
-              className={`${styles.link} ${styles.walletToggle}`}
-            >
+            <button onClick={() => toggleMenu("accountManage")} 
+                    className={`${styles.link} ${styles.walletToggle}`}  >
               <i className="fas fa-user-circle"></i> {isSidebarOpen && "Account Manage"}
-              <i
-                className={`fas ${openMenus.accountManage ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
+              <i className={`fas ${openMenus.accountManage ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`} ></i>
             </button>
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
@@ -57,8 +53,7 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
           {/* Finance */}
           <li>
-            <button
-              onClick={() => toggleMenu("finance")}
+            <button  onClick={() => toggleMenu("finance")} 
               className={`${styles.link} ${styles.walletToggle}`}
             >
               <i className="fas fa-dollar-sign"></i> {isSidebarOpen && "Finance"}
@@ -89,9 +84,7 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
               className={`${styles.link} ${styles.walletToggle}`}
             >
               <i className="fas fa-undo"></i> {isSidebarOpen && "AfterSale"}
-              <i
-                className={`fas ${openMenus.afterSale ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
+              <i className={`fas ${openMenus.afterSale ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`} ></i>
             </button>
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
