@@ -1,6 +1,5 @@
-
-
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./GoogleSidebar.module.css";
 import { assets } from "../../assets/assets.jsx";
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -33,19 +32,19 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/google-table" className={styles.link}>
+                  <Link to="/google/accountManage/accountList" className={styles.link}>
                     Account List
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/applygoogle-ads" className={styles.link}>
+                  <Link to="/google/accountManage/applyAd" className={styles.link}>
                     Apply GG Ad
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/gmailshare-log" className={styles.link}>
+                  <Link to="/google/accountManage/bmShareLog" className={styles.link}>
                     Gmail Share Log
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -64,14 +63,14 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/googleads-deposite" className={styles.link}>
+                  <Link to="/google/financing/adDeposit" className={styles.link}>
                     Ads Deposit
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/googleads-depositerecord" className={styles.link}>
+                  <Link to="/google/financing/adDepositRecord" className={styles.link}>
                     Ad Deposit Record
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -89,9 +88,9 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/refund-table" className={styles.link}>
+                  <Link to="/google/afterSale/refund" className={styles.link}>
                     Refund
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}

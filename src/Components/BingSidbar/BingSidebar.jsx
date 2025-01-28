@@ -1,6 +1,5 @@
-
-
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./BingSidebar.module.css";
 import { assets } from "../../assets/assets.jsx";
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -37,16 +36,15 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/bing-accountlist" className={styles.link}>
+                  <Link to="/bing/accountManage/accountList" className={styles.link}>
                     Account List
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#apply-gg-ad" className={styles.link}>
+                  <Link to="/bing/accountManage/applyAd" className={styles.link}>
                     Apply Bing Ad
-                  </a>
+                  </Link>
                 </li>
-                
               </ul>
             )}
           </li>
@@ -65,14 +63,14 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#ads-deposit" className={styles.link}>
+                  <Link to="/bing/financing/adDeposit" className={styles.link}>
                     Ads Deposit
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#ad-deposit-record" className={styles.link}>
+                  <Link to="/bing/financing/adDepositRecord" className={styles.link}>
                     Ad Deposit Record
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -92,9 +90,9 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#refund" className={styles.link}>
+                  <Link to="/bing/afterSale/refund" className={styles.link}>
                     Refund
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
