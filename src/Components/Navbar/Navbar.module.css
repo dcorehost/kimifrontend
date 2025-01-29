@@ -1,23 +1,20 @@
-html, body {
-  margin: 0; 
-  padding: 0; 
-  width: 100%;
-}
 
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem ;
-  background-color: #FEF9F8;
-  flex-wrap: wrap;
-  font-family: sans-serif, 'Inter';
-  width: 100%; /* Ensure full width */
-  margin: 0; /* Remove any margin */
   
-}
+
+
+
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #FEF9F8;
+    flex-wrap: wrap;
+    font-family: sans-serif, 'Inter';
+  }
   
-  .logo {   
+  .logo {
     font-size: 1.5rem;
     font-weight: bold;
     color: #EF9273;
@@ -27,7 +24,6 @@ html, body {
     width: 100px;
     height: auto;
     margin-bottom: 1rem;
-    padding-left: 1rem;
   }
   
   .menuToggle {
@@ -62,7 +58,6 @@ html, body {
   .actions {
     display: flex;
     gap: 0.5rem;
-    padding-right: 1rem;
   }
   
   .actions .loginBtn,
