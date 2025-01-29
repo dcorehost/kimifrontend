@@ -516,7 +516,8 @@ const CreateGoogleAds = () => {
 
     try {
       const response = await axios.post(
-        "http://13.127.161.242:8001/kimi/create-google-ads",
+        // "http://13.127.161.242:8001/kimi/create-google-ads",
+        "http://admediaagency.online/kimi/create-google-ads",
         requestData,
         {
           headers: {

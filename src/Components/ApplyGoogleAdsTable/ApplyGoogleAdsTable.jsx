@@ -6,7 +6,7 @@ const ApplyGoogleAdsTable = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/create-googleads");
+    navigate("/google/accountManage/accountList");
   };
 
   const data = [

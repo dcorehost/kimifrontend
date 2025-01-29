@@ -46,18 +46,23 @@ const App = () => {
         <Route path="/termof-services" element={<TermOfServicesPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
         <Route path="/refund-policy" element={<RefundPolicyPage />} />
-        {/* <Route path="/dashboard" element={<Dashboard />} /> */}
-        <Route path="/google/accountManage/accountList" element={<CreateGoogleAds />} />
+
+
+
+                     {/* //route path for dashboard */}
+
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/google/accountManage/accountList/creategoogleads" element={<CreateGoogleAds />} />
         <Route path="/bing/accountManage/accountList" element={<CreateBingAds />} />
         <Route path="/facebook/accountManage/accountList" element={<FacebookCreateAd />} />
         <Route path="/bing-accountlist" element={<BingAccountList />}></Route>
         <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
         <Route path="/user-profile" element={<UserProfile />}></Route>
-        <Route path="/google-table" element={<Table />} />
+        <Route path="/google/accountManage/accountList" element={<Table />} />
         <Route path="/meta-accountlist" element={<MetaAccountList />} />
         <Route path="/facebook-createads" element={<FacebookCreateAd />} />
-        <Route path="/applygoogle-ads" element={<ApplyGoogleAdsTable />} />
-        <Route path="/gmailshare-log" element={<GmailShareLogTable />} />
+        <Route path="/google/accountManage/applyAd" element={<ApplyGoogleAdsTable />} />
+        <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
         <Route path="/googleads-deposite" element={<GoogleAdsDeposite />} />
         <Route path="/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
         <Route path="/refund-table" element={<RefundTable />} />
