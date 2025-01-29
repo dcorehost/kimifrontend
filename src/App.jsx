@@ -26,6 +26,7 @@ import GmailShareLogTable from "./Components/GmailShareLogTable/GmailShareLogTab
 import AdsDepositeRecordTable from "./Components/AdsDepositeRecordTable/AdsDepositerecordTable";
 import RefundTable from "./Components/RefundTable/RefundTable";
 import Layout from "./Layout";
+import GoogleRefund from "./Components/GoogleRefund/GoogleRefund";
 
 
 
@@ -63,9 +64,10 @@ const App = () => {
         <Route path="/facebook-createads" element={<FacebookCreateAd />} />
         <Route path="/google/accountManage/applyAd" element={<ApplyGoogleAdsTable />} />
         <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
-        <Route path="/googleads-deposite" element={<GoogleAdsDeposite />} />
-        <Route path="/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
+        <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
+        <Route path="/google/finance/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
         <Route path="/refund-table" element={<RefundTable />} />
+        <Route path="/google/aftersale/refund" element={<GoogleRefund />} />
 
         {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
       </Route>

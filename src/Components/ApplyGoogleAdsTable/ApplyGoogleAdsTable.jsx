@@ -6,7 +6,7 @@ const ApplyGoogleAdsTable = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/google/accountManage/accountList");
+    navigate("/google/accountManage/accountList/creategoogleads");
   };
 
   const data = [
@@ -14,7 +14,7 @@ const ApplyGoogleAdsTable = () => {
       applyId: "APP001",
       adsNumber: "AD001",
       state: "Active",
-      totalCost: "$500",
+      totalCost: "$5000",
       applyTime: "2025-01-09",
     },
     {
