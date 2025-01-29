@@ -1,5 +1,9 @@
 
+
+
+
 import React, { useEffect, useState, useRef } from "react";
+import { Link } from "react-router-dom";
 import styles from "./DashNavbar.module.css";
 import { AiTwotoneDollar } from "react-icons/ai";
 import Auth from "../Services/Auth";
@@ -11,12 +15,14 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
+  // Retrieve user data from Auth on component mount
   useEffect(() => {
-    const authData = Auth.getAuthData();
-
+    const authData = Auth.getAuthData(); // Fetch data from localStorage using Auth module
     if (authData) {
       setUserName(authData.username || "Guest");
       setWalletAmount(authData.wallet || 0);
+    } else {
+      console.error("Auth data not found or incomplete.");
     }
   }, []);
 
@@ -46,59 +52,47 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
       <div className={styles.leftNav}>
         <ul className={styles.navLinks}>
           <li>
-            <a
-              href="#home"
+            <Link
+              to="/"
               className={styles.link}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSidebarChange("default");
-              }}
+              onClick={() => handleSidebarChange("default")}
             >
               <i className="fas fa-home"></i> Home
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#google"
+            <Link
+              to="/google/accountManage/accountList"
               className={styles.link}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSidebarChange("google");
-              }}
+              onClick={() => handleSidebarChange("/google")}
             >
               <i className="fab fa-google"></i> Google
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#bing"
+            <Link
+              to="/bing/accountManage/accountList"
               className={styles.link}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSidebarChange("bing");
-              }}
+              onClick={() => handleSidebarChange("/bing")}
             >
               <i className="fab fa-microsoft"></i> Bing
-            </a>
+            </Link>
           </li>
           <li>
-            <a
-              href="#facebook"
+            <Link
+              to="/facebook/accountManage/accountList"
               className={styles.link}
-              onClick={(e) => {
-                e.preventDefault();
-                handleSidebarChange("facebook");
-              }}
+              onClick={() => handleSidebarChange("/facebook")}
             >
               <i className="fab fa-facebook"></i> Facebook
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
 
       <div className={styles.rightNav}>
-        <span>
-          <AiTwotoneDollar /> ${walletAmount.toFixed(2)}
+        <span className={styles.wallet}>
+          <AiTwotoneDollar className={styles.walletIcon} /> ${walletAmount.toFixed(2)}
         </span>
         <div className={styles.userDropdown} ref={dropdownRef}>
           <span
@@ -110,13 +104,19 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
           {dropdownOpen && (
             <ul className={styles.dropdown}>
               <li>
-                <a href="/user-profile" className={styles.link}>Profile</a>
+                <Link to="/user-profile" className={styles.link}>
+                  Profile
+                </Link>
               </li>
               <li>
-                <a href="#setting" className={styles.link}>Settings</a>
+                <Link to="/settings" className={styles.link}>
+                  Settings
+                </Link>
               </li>
               <li>
-                <a href="#logout" className={styles.link}>Logout</a>
+                <Link to="/logout" className={styles.link}>
+                  Logout
+                </Link>
               </li>
             </ul>
           )}
@@ -132,16 +132,18 @@ export default DashNavbar;
 
 
 
-
-// import React, { useEffect, useState } from "react";
+// import React, { useEffect, useState, useRef } from "react";
+// import { Link } from "react-router-dom";
 // import styles from "./DashNavbar.module.css";
 // import { AiTwotoneDollar } from "react-icons/ai";
 // import Auth from "../Services/Auth";
-// import '@fortawesome/fontawesome-free/css/all.min.css';
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
 //   const [userName, setUserName] = useState("Guest");
 //   const [walletAmount, setWalletAmount] = useState(0);
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const dropdownRef = useRef(null);
 
 //   useEffect(() => {
 //     const authData = Auth.getAuthData();
@@ -150,6 +152,20 @@ export default DashNavbar;
 //       setUserName(authData.username || "Guest");
 //       setWalletAmount(authData.wallet || 0);
 //     }
+//   }, []);
+
+//   // Close dropdown when clicking outside
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setDropdownOpen(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
 //   }, []);
 
 //   return (
@@ -164,55 +180,40 @@ export default DashNavbar;
 //       <div className={styles.leftNav}>
 //         <ul className={styles.navLinks}>
 //           <li>
-//             <a
-//               href="#home"
+//             <Link
+//               to="/"
 //               className={styles.link}
-//               onClick={(e) => {
-//                 e.preventDefault(); // Prevent default navigation
-//                 handleSidebarChange("default"); // Switch to default Sidebar
-//               }}
+//               onClick={() => handleSidebarChange("default")}
 //             >
 //               <i className="fas fa-home"></i> Home
-//             </a>
+//             </Link>
 //           </li>
-//           {/* Google Sidebar Link */}
 //           <li>
-//             <a
-//               href="#google"
+//             <Link
+//               to="/google/accountManage/accountList"
 //               className={styles.link}
-//               onClick={(e) => {
-//                 e.preventDefault(); // Prevent default navigation
-//                 handleSidebarChange("google"); // Switch to Google Sidebar
-//               }}
+//               onClick={() => handleSidebarChange("/google")}
 //             >
 //               <i className="fab fa-google"></i> Google
-//             </a>
+//             </Link>
 //           </li>
-//           {/* Bing Sidebar Link */}
 //           <li>
-//             <a
-//               href="#bing"
+//             <Link
+//               to="/bing/accountManage/accountList"
 //               className={styles.link}
-//               onClick={(e) => {
-//                 e.preventDefault(); // Prevent default navigation
-//                 handleSidebarChange("bing"); // Switch to Bing Sidebar
-//               }}
+//               onClick={() => handleSidebarChange("/bing")}
 //             >
 //               <i className="fab fa-microsoft"></i> Bing
-//             </a>
+//             </Link>
 //           </li>
-//           {/* Facebook/Meta Sidebar Link */}
 //           <li>
-//             <a
-//               href="#facebook"
+//             <Link
+//               to="/facebook/accountManage/accountList"
 //               className={styles.link}
-//               onClick={(e) => {
-//                 e.preventDefault(); // Prevent default navigation
-//                 handleSidebarChange("facebook"); // Switch to Meta Sidebar
-//               }}
+//               onClick={() => handleSidebarChange("/facebook")}
 //             >
 //               <i className="fab fa-facebook"></i> Facebook
-//             </a>
+//             </Link>
 //           </li>
 //         </ul>
 //       </div>
@@ -221,7 +222,27 @@ export default DashNavbar;
 //         <span>
 //           <AiTwotoneDollar /> ${walletAmount.toFixed(2)}
 //         </span>
-//         <span>{userName}</span>
+//         <div className={styles.userDropdown} ref={dropdownRef}>
+//           <span
+//             className={styles.userName}
+//             onClick={() => setDropdownOpen(!dropdownOpen)}
+//           >
+//             {userName} <i className="fas fa-caret-down"></i>
+//           </span>
+//           {dropdownOpen && (
+//             <ul className={styles.dropdown}>
+//               <li>
+//                 <Link to="/user-profile" className={styles.link}>Profile</Link>
+//               </li>
+//               <li>
+//                 <Link to="/settings" className={styles.link}>Settings</Link>
+//               </li>
+//               <li>
+//                 <Link to="/logout" className={styles.link}>Logout</Link>
+//               </li>
+//             </ul>
+//           )}
+//         </div>
 //       </div>
 //     </nav>
 //   );
@@ -230,136 +251,126 @@ export default DashNavbar;
 // export default DashNavbar;
 
 
-// //lastworking code 
-// import React, { useEffect, useState } from "react";
+
+// // Updated DashNavbar Component
+// import React, { useEffect, useState, useRef } from "react";
+// import { Link } from "react-router-dom";
 // import styles from "./DashNavbar.module.css";
-// import '@fortawesome/fontawesome-free/css/all.min.css';
-// import Auth from "../Services/Auth"; // Import Auth to retrieve user data
 // import { AiTwotoneDollar } from "react-icons/ai";
+// import Auth from "../Services/Auth";
+// import "@fortawesome/fontawesome-free/css/all.min.css";
 
 // const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
 //   const [userName, setUserName] = useState("Guest");
 //   const [walletAmount, setWalletAmount] = useState(0);
+//   const [dropdownOpen, setDropdownOpen] = useState(false);
+//   const dropdownRef = useRef(null);
 
-//   // Fetch user data from Auth and set userName and walletAmount
 //   useEffect(() => {
+//     // Retrieve user data from Auth
 //     const authData = Auth.getAuthData();
-//     console.log("Auth Data Retrieved: ", authData); // Debug log to verify if data is fetched
 
-//     if (authData && authData.username && authData.wallet) {
-//       setUserName(authData.username);    // Set username from the saved Auth data
-//       setWalletAmount(authData.wallet);  // Set wallet amount from the saved Auth data
-//     } else {
-//       console.error("No auth data found.");
+//     if (authData) {
+//       setUserName(authData.username || "Guest");
+//       setWalletAmount(authData.wallet || 0);
 //     }
-//   }, []); // Empty dependency array to run only once after component mounts
+//   }, []);
+
+//   // Close dropdown when clicking outside
+//   useEffect(() => {
+//     const handleClickOutside = (event) => {
+//       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+//         setDropdownOpen(false);
+//       }
+//     };
+
+//     document.addEventListener("mousedown", handleClickOutside);
+//     return () => {
+//       document.removeEventListener("mousedown", handleClickOutside);
+//     };
+//   }, []);
 
 //   return (
 //     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
-            
-//       {/* Toggle Button */}
 //       <button
 //         className={`${styles.toggleButton} ${isSidebarOpen ? styles.rotate : ""}`}
 //         onClick={toggleSidebar}
 //       >
-//         <i className={`fas ${isSidebarOpen ? 'fa-times' : 'fa-bars'}`}></i>
+//         <i className={`fas ${isSidebarOpen ? "fa-times" : "fa-bars"}`}></i>
 //       </button>
-         
-      // <div className={styles.leftNav}>
-      //   <ul className={styles.navLinks}>
-      //     <li>
-      //       <a
-      //         href="#home"
-      //         className={styles.link}
-      //         onClick={(e) => {
-      //           e.preventDefault(); // Prevent default navigation
-      //           handleSidebarChange("default"); // Switch to default Sidebar
-      //         }}
-      //       >
-      //         <i className="fas fa-home"></i> Home
-      //       </a>
-      //     </li>
-      //     {/* Google Sidebar Link */}
-      //     <li>
-      //       <a
-      //         href="#google"
-      //         className={styles.link}
-      //         onClick={(e) => {
-      //           e.preventDefault(); // Prevent default navigation
-      //           handleSidebarChange("google"); // Switch to Google Sidebar
-      //         }}
-      //       >
-      //         <i className="fab fa-google"></i> Google
-      //       </a>
-      //     </li>
-      //     {/* Bing Sidebar Link */}
-      //     <li>
-      //       <a
-      //         href="#bing"
-      //         className={styles.link}
-      //         onClick={(e) => {
-      //           e.preventDefault(); // Prevent default navigation
-      //           handleSidebarChange("bing"); // Switch to Bing Sidebar
-      //         }}
-      //       >
-      //         <i className="fab fa-microsoft"></i> Bing
-      //       </a>
-      //     </li>
-      //     {/* Facebook/Meta Sidebar Link */}
-      //     <li>
-      //       <a
-      //         href="#facebook"
-      //         className={styles.link}
-      //         onClick={(e) => {
-      //           e.preventDefault(); // Prevent default navigation
-      //           handleSidebarChange("facebook"); // Switch to Meta Sidebar
-      //         }}
-      //       >
-      //         <i className="fab fa-facebook"></i> Facebook
-      //       </a>
-      //     </li>
-      //   </ul>
-      // </div>
 
-//       <div className={styles.rightNav}>
+//       <div className={styles.leftNav}>
 //         <ul className={styles.navLinks}>
 //           <li>
-//             <a href="#money" className={`${styles.link} ${styles.money}`}>
-//               <AiTwotoneDollar className={styles.dollaricon} /> ${walletAmount.toFixed(2)}
-//             </a>
+//             <Link
+//               to="/"
+//               className={styles.link}
+//               onClick={() => handleSidebarChange("default")}
+//             >
+//               <i className="fas fa-home"></i> Home
+//             </Link>
 //           </li>
-//           <li className={styles.dropdown}>
-//             <span className={styles.link}>
-//               {userName} <span className={styles.arrow}>&#9660;</span>
-//             </span>
-//             <ul className={styles.submenu}>
-//               <li>
-//                 <a href="#profile" className={styles.link}>Profile</a>
-//               </li>
-//               <li>
-//                 <a href="#settings" className={styles.link}>Settings</a>
-//               </li>
-//               <li>
-//                 <a href="#logout" className={styles.link}>Logout</a>
-//               </li>
-//             </ul>
+//           <li>
+//             <Link
+//               to="/google/accountManage/accountList"
+//               className={styles.link}
+//               onClick={() => handleSidebarChange("/google")}
+//             >
+//               <i className="fab fa-google"></i> Google
+//             </Link>
+//           </li>
+//           <li>
+//             <Link
+//               to="/bing/accountManage/accountList"
+//               className={styles.link}
+//               onClick={() => handleSidebarChange("/bing")}
+//             >
+//               <i className="fab fa-microsoft"></i> Bing
+//             </Link>
+//           </li>
+//           <li>
+//             <Link
+//               to="/facebook/accountManage/accountList"
+//               className={styles.link}
+//               onClick={() => handleSidebarChange("/facebook")}
+//             >
+//               <i className="fab fa-facebook"></i> Facebook
+//             </Link>
 //           </li>
 //         </ul>
+//       </div>
+
+//       <div className={styles.rightNav}>
+//         <span>
+//           <AiTwotoneDollar /> ${walletAmount.toFixed(2)}
+//         </span>
+//         <div className={styles.userDropdown} ref={dropdownRef}>
+//           <span
+//             className={styles.userName}
+//             onClick={() => setDropdownOpen(!dropdownOpen)}
+//           >
+//             {userName} <i className="fas fa-caret-down"></i>
+//           </span>
+//           {dropdownOpen && (
+//             <ul className={styles.dropdown}>
+//               <li>
+//                 <Link to="/user-profile" className={styles.link}>Profile</Link>
+//               </li>
+//               <li>
+//                 <Link to="/settings" className={styles.link}>Settings</Link>
+//               </li>
+//               <li>
+//                 <Link to="/logout" className={styles.link}>Logout</Link>
+//               </li>
+//             </ul>
+//           )}
+//         </div>
 //       </div>
 //     </nav>
 //   );
 // };
 
 // export default DashNavbar;
-
-
-
-
-
-
-
-
-
 
 
 

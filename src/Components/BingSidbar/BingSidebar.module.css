@@ -2,8 +2,8 @@
 .sidebar {
     position: fixed;
     top: 0;
-    left: -70px; /* Initially hidden off-screen */
-    width: 70px; /* Sidebar width */
+    left: 0px; /* Initially hidden off-screen */
+    width: 0px; /* Sidebar width */
     height: 100%;
     background-color: #FEF9F8;
     color: black;
@@ -12,11 +12,12 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    overflow: hidden;
 }
 
 .sidebar.open {
     left: 0; /* Slide in */
-    width: 180px; /* Expanded width */
+    width: 210px; /* Expanded width */
 }
 
 .sidebarLinks {

@@ -51,7 +51,8 @@ const UserProfile = () => {
 
   const handleSave = async () => {
     try {
-      const response = await fetch("http://13.127.161.242:8001/kimi/update-profile", {
+      // const response = await fetch("http://13.127.161.242:8001/kimi/update-profile", {
+      const response = await fetch("http://admediaagency.online/kimi/update-profile", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -91,7 +92,8 @@ const UserProfile = () => {
     }
 
     try {
-      const response = await fetch("http://13.127.161.242:8001/kimi/update-password", {
+      // const response = await fetch("http://13.127.161.242:8001/kimi/update-password", {
+      const response = await fetch("http://admediaagency.online/kimi/update-password", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

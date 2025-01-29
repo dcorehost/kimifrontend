@@ -18,6 +18,8 @@
     list-style: none;
     display: flex;
     gap: 1.5rem;
+    margin-top: 0px;
+    padding-top: 0px;
 }
 .kimilogo {
     width: 100px;
