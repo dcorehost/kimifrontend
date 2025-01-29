@@ -1,6 +1,5 @@
-
-
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./GoogleSidebar.module.css";
 import { assets } from "../../assets/assets.jsx";
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -25,31 +24,27 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
         <ul className={`${styles.sidebarLinks} ${isSidebarOpen ? styles.showText : ""}`}>
           {/* Account Manage */}
           <li>
-            <button
-              onClick={() => toggleMenu("accountManage")}
-              className={`${styles.link} ${styles.walletToggle}`}
-            >
+            <button onClick={() => toggleMenu("accountManage")} 
+                    className={`${styles.link} ${styles.walletToggle}`}  >
               <i className="fas fa-user-circle"></i> {isSidebarOpen && "Account Manage"}
-              <i
-                className={`fas ${openMenus.accountManage ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
+              <i className={`fas ${openMenus.accountManage ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`} ></i>
             </button>
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/google-table" className={styles.link}>
+                  <Link to="/google/accountManage/accountList" className={styles.link}>
                     Account List
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/applygoogle-ads" className={styles.link}>
+                  <Link to="/google/accountManage/applyAd" className={styles.link}>
                     Apply GG Ad
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/gmailshare-log" className={styles.link}>
+                  <Link to="/google/accountManage/bmShareLog" className={styles.link}>
                     Gmail Share Log
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -57,8 +52,7 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
           {/* Finance */}
           <li>
-            <button
-              onClick={() => toggleMenu("finance")}
+            <button  onClick={() => toggleMenu("finance")} 
               className={`${styles.link} ${styles.walletToggle}`}
             >
               <i className="fas fa-dollar-sign"></i> {isSidebarOpen && "Finance"}
@@ -69,14 +63,14 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/googleads-deposite" className={styles.link}>
+                  <Link to="/google/financing/adDeposit" className={styles.link}>
                     Ads Deposit
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/googleads-depositerecord" className={styles.link}>
+                  <Link to="/google/financing/adDepositRecord" className={styles.link}>
                     Ad Deposit Record
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -89,16 +83,14 @@ const GoogleSidebar = ({ isSidebarOpen, toggleSidebar }) => {
               className={`${styles.link} ${styles.walletToggle}`}
             >
               <i className="fas fa-undo"></i> {isSidebarOpen && "AfterSale"}
-              <i
-                className={`fas ${openMenus.afterSale ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
+              <i className={`fas ${openMenus.afterSale ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`} ></i>
             </button>
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/refund-table" className={styles.link}>
+                  <Link to="/google/afterSale/refund" className={styles.link}>
                     Refund
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
