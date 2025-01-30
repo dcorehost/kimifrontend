@@ -41,7 +41,7 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/accountManage/applyAd" className={styles.link}>
+                  <Link to="/bing/accountManage/applybingad" className={styles.link}>
                     Apply Bing Ad
                   </Link>
                 </li>
@@ -63,12 +63,12 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/financing/adDeposit" className={styles.link}>
+                  <Link to="/bing/finance/bingadsdeposite" className={styles.link}>
                     Ads Deposit
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/financing/adDepositRecord" className={styles.link}>
+                  <Link to="/bing/finance/bingadsdepositrecode" className={styles.link}>
                     Ad Deposit Record
                   </Link>
                 </li>
@@ -90,7 +90,7 @@ const BingSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/afterSale/refund" className={styles.link}>
+                  <Link to="/bing/aftersale/bingrefund" className={styles.link}>
                     Refund
                   </Link>
                 </li>

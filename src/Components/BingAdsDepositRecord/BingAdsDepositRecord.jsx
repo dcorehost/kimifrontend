@@ -1,11 +1,10 @@
 
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./AdsDpositeRecordTable.module.css";
+import styles from "./BingAdsDepositRecord.module.css";
 
-const AdsDepositeRecordTable = () => {
+const BingAdsDepositRecord = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -22,31 +21,32 @@ const AdsDepositeRecordTable = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-Google-adDeposit?adType=Google", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "http://admediaagency.online/kimi/get-Bing-adDeposit?adType=Bing",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
-        console.log("API Response:", response.data);
+        console.log("🔹 API Response:", response.data);
 
-        if (response.data.message === "Deposits details fetched successfully" && Array.isArray(response.data.deposits)) {
-          const deposits = response.data.deposits.map((deposit) => {
-            const adGoogleAccount = deposit.adGoogleAccount;
+        if (
+          response.data.message === "Deposits details fetched successfully" &&
+          Array.isArray(response.data.deposits)
+        ) {
+          const deposits = response.data.deposits.map((deposit) => ({
+            applyId: deposit.applyId,
+            adsId: deposit.adBingAccount ? deposit.adBingAccount._id : "N/A",
+            chargeMoney: `$${deposit.money}`,
+            totalCost: `$${deposit.totalCost}`,
+            state: deposit.state,
+            createTime: new Date(deposit.createdAt).toLocaleString(),
+          }));
 
-            return {
-              applyId: deposit.applyId,
-              adsId: adGoogleAccount ? adGoogleAccount._id : "N/A",
-              chargeMoney: `$${deposit.money}`,
-              totalCost: `$${deposit.totalCost}`,
-              state: deposit.state,
-              createTime: new Date(deposit.createdAt).toLocaleString(),
-            };
-          });
           setDepositsData(deposits);
         } else {
           setError("Failed to fetch deposit data.");
         }
       } catch (err) {
-        console.error("Error fetching deposit data:", err.message);
+        console.error("❌ Error fetching deposit data:", err.message);
         setError("An error occurred while fetching deposit data.");
       }
     };
@@ -64,29 +64,30 @@ const AdsDepositeRecordTable = () => {
     }
 
     try {
-      console.log("Fetching export file...");
+      console.log("🔹 Requesting export...");
 
-      const response = await axios.get("http://admediaagency.online/kimi/export-googlead-deposit", {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: "blob", // ✅ This is CRUCIAL for downloading files
-      });
+      const response = await axios.get(
+        "http://admediaagency.online/kimi/export-bingad-deposit", // ✅ Updated API URL
+        { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" } // Important for file download
+      );
 
-      // Create a downloadable URL from the response
+      console.log("🔹 Export API Response:", response.data);
+
+      // Create a URL for the file blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
 
-      // Create a link element and trigger download
+      // Create a link element to trigger the download
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "googleDepositList.xlsx"); // ✅ Ensures the file downloads properly
+      link.setAttribute("download", "bingDepositList.xlsx"); // Set the desired file name
       document.body.appendChild(link);
       link.click();
       link.remove();
 
-      // ✅ Show success message
-      setSuccessMessage("Excel file has been downloaded.");
+      setSuccessMessage("✅ Excel file has been downloaded.");
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
-      console.error("Export API failed:", err.response ? err.response.data : err.message);
+      console.error("❌ Export API failed:", err.response ? err.response.data : err.message);
       setError("An error occurred while exporting data.");
     }
   };
@@ -140,6 +141,7 @@ const AdsDepositeRecordTable = () => {
   );
 };
 
-export default AdsDepositeRecordTable;
+export default BingAdsDepositRecord;
+
 
 
