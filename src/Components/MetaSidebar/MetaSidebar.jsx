@@ -41,7 +41,7 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/facebook/accountManage/applyLicense" className={styles.link}>
+                  <Link to="/facebook/accountManage/applynewad" className={styles.link}>
                     Apply New Ad Account
                   </Link>
                 </li>

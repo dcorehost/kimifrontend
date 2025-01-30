@@ -1,19 +1,26 @@
 .container {
     padding: 20px;
     width: 96%;
-   
+    /* text-align: center; */
+    /* border: 1px solid black; */
+    /* margin: 150px auto; */
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-right: 200px;
   }
   
   .button {
     
     padding: 10px 20px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     background-color: #EF9273;
     color: black;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
+    margin-top: 0px;
+    /* padding-top: 0px; */
     
   }
   
