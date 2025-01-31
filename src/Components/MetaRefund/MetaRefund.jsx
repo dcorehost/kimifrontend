@@ -2,15 +2,16 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./GoogleRefund.module.css";
+import styles from "./MetaRefund.module.css";
 
-const GoogleRefund = () => {
+const MetaRefund = () => {
   const [refundData, setRefundData] = useState([]);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [adAccount, setAdAccount] = useState("");
   const [amount, setAmount] = useState("");
+  const [refundReason, setRefundReason] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,12 +24,24 @@ const GoogleRefund = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/refund-Details?adType=Google", {
+        const response = await axios.get("http://admediaagency.online/kimi/refund-Details?adType=Facebook", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
-          setRefundData(response.data.refundsDetails);
+          const formattedData = response.data.refundsDetails.map((refund) => ({
+            applyId: refund.applyId,
+            adsId: refund.adFacebookAccount?._id || "N/A", 
+            adsName: refund.adFacebookAccount?.ads.map(ad => ad.accountName).join(", ") || "N/A",
+            refundReason: refund.refundReason,
+            amount: refund.amount,
+            remainMoney: refund.remainMoney,
+            refundWithFee: refund.refundWithFee || "N/A",
+            remarks: refund.adFacebookAccount?.remarks || "N/A",
+            applyState: refund.applyState,
+            createdTime: new Date(refund.createdAt).toLocaleString(),
+          }));
+          setRefundData(formattedData);
         } else {
           setError("Failed to fetch refund details.");
         }
@@ -44,6 +57,7 @@ const GoogleRefund = () => {
     setShowModal(false);
     setAdAccount("");
     setAmount("");
+    setRefundReason("");
   };
 
   const handleModalOpen = () => {
@@ -55,8 +69,8 @@ const GoogleRefund = () => {
     setError(null);
     setSuccessMessage(null);
 
-    if (!adAccount || !amount) {
-      setError("Please fill in both fields.");
+    if (!adAccount || !amount || !refundReason) {
+      setError("Please fill in all fields.");
       return;
     }
 
@@ -68,9 +82,10 @@ const GoogleRefund = () => {
     }
 
     const requestData = {
-      adGoogleAccount: adAccount.trim(),  
+      adFacebookAccount: adAccount.trim(),
       amount: parseFloat(amount),
-      adType: "Google",
+      adType: "Facebook",
+      refundReason: refundReason.trim(),
     };
 
     try {
@@ -90,7 +105,8 @@ const GoogleRefund = () => {
         setSuccessMessage("Refund applied successfully!");
         setAdAccount("");
         setAmount("");
-        setRefundData([...refundData, response.data.refund]);
+        setRefundReason("");
+        setRefundData((prevData) => [...prevData, response.data.refund]);
 
         setTimeout(() => setSuccessMessage(null), 3000);
       } else {
@@ -110,16 +126,49 @@ const GoogleRefund = () => {
         Apply Refund
       </button>
 
+      {showModal && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <h2>Apply for Refund</h2>
+            <form onSubmit={handleRefundSubmit}>
+              <div className={styles.inputContainer}>
+                <label>Ad Account ID:</label>
+                <input type="text" value={adAccount} onChange={(e) => setAdAccount(e.target.value)} required />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <label>Amount:</label>
+                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
+              </div>
+
+              <div className={styles.inputContainer}>
+                <label>Refund Reason:</label>
+                <textarea value={refundReason} onChange={(e) => setRefundReason(e.target.value)} required />
+              </div>
+
+              <div className={styles.buttonContainer}>
+                <button type="submit" className={styles.submitButton}>Submit</button>
+                <button type="button" onClick={handleModalClose} className={styles.closeButton}>Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>
             <tr>
               <th>Apply ID</th>
-              <th>Ad Google Account</th> 
-              <th>Amount Applied</th>
+              <th>Ads ID</th>
+              <th>Ads Name</th>
+              <th>Refund Reason</th>
+              <th>Apply Money</th>
               <th>Remaining Money</th>
+              <th>Refund With Fee</th>
+              <th>Remarks</th>
               <th>Apply State</th>
-              <th>Created At</th>
+              <th>Created Time</th>
             </tr>
           </thead>
           <tbody>
@@ -127,57 +176,27 @@ const GoogleRefund = () => {
               refundData.map((refund, index) => (
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
-                  <td>{refund.adGoogleAccount?._id || "N/A"}</td> 
+                  <td>{refund.adsId || "N/A"}</td>
+                  <td>{refund.adsName || "N/A"}</td>
+                  <td>{refund.refundReason || "N/A"}</td>
                   <td>{refund.amount || "N/A"}</td>
                   <td>{refund.remainMoney || "N/A"}</td>
+                  <td>{refund.refundWithFee || "N/A"}</td>
+                  <td>{refund.remarks || "N/A"}</td>
                   <td>{refund.applyState || "N/A"}</td>
-                  <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
+                  <td>{refund.createdTime || "N/A"}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6">No refund details available</td>
+                <td colSpan="10">No refund details available</td>
               </tr>
             )}
           </tbody>
         </table>
       </div>
-
-      {showModal && (
-        <div className={styles.modal}>
-          <div className={styles.modalContent}>
-            <h2>Apply Refund</h2>
-            <form onSubmit={handleRefundSubmit}>
-              <div className={styles.inputContainer}>
-                <label>Ad Google Account</label> 
-                <input
-                  type="text"
-                  value={adAccount}
-                  onChange={(e) => setAdAccount(e.target.value)}
-                  placeholder="Enter Ad Google Account ID"
-                  required
-                />
-              </div>
-              <div className={styles.inputContainer}>
-                <label>Amount</label>
-                <input
-                  type="number"
-                  value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
-                  placeholder="Enter Amount"
-                  required
-                />
-              </div>
-              <div className={styles.buttonContainer}>
-                <button type="submit" className={styles.button}>Submit</button>
-                <button type="button" onClick={handleModalClose} className={styles.closeButton}>Close</button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
 
-export default GoogleRefund;
+export default MetaRefund;

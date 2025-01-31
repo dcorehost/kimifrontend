@@ -10,7 +10,6 @@ const BingAdsDepositRecord = () => {
   const [successMessage, setSuccessMessage] = useState(null);
   const navigate = useNavigate();
 
-  // Fetch deposit records from the API
   useEffect(() => {
     const fetchDepositsData = async () => {
       const token = localStorage.getItem("userToken");
@@ -54,7 +53,6 @@ const BingAdsDepositRecord = () => {
     fetchDepositsData();
   }, []);
 
-  // Function to handle the export of data to Excel
   const handleExport = async () => {
     const token = localStorage.getItem("userToken");
 
@@ -67,19 +65,17 @@ const BingAdsDepositRecord = () => {
       console.log("🔹 Requesting export...");
 
       const response = await axios.get(
-        "http://admediaagency.online/kimi/export-bingad-deposit", // ✅ Updated API URL
-        { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" } // Important for file download
+        "http://admediaagency.online/kimi/export-bingad-deposit", 
+        { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" } 
       );
 
       console.log("🔹 Export API Response:", response.data);
 
-      // Create a URL for the file blob
       const url = window.URL.createObjectURL(new Blob([response.data]));
 
-      // Create a link element to trigger the download
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "bingDepositList.xlsx"); // Set the desired file name
+      link.setAttribute("download", "bingDepositList.xlsx"); 
       document.body.appendChild(link);
       link.click();
       link.remove();

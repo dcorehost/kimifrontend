@@ -9,12 +9,12 @@ const ApplyBingAd = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/bing/accountManage/accountList/createbingads"); // Adjust the route as needed
+    navigate("/bing/accountManage/accountList/createbingads"); 
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); // Retrieve token from localStorage
+      const token = localStorage.getItem("userToken"); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -23,18 +23,18 @@ const ApplyBingAd = () => {
 
       try {
         const response = await axios.get("http://admediaagency.online/kimi/get-bing-ads", {
-          headers: { Authorization: `Bearer ${token}` }, // Pass token in Authorization header
+          headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        console.log("API Response:", response.data); // Log the full API response
+        console.log("API Response:", response.data); 
 
         if (response.data.message === "bing ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            applyId: ad.applyId, // Apply ID
-            adNumber: ad.adNum, // Ad Number
-            state: ad.state, // State
-            totalCost: ad.totalCost, // Total Cost
-            createTime: ad.createdAt, // Create Time
+            applyId: ad.applyId, 
+            adNumber: ad.adNum, 
+            state: ad.state, 
+            totalCost: ad.totalCost, 
+            createTime: ad.createdAt, 
           }));
           setAdsData(ads);
         } else {
@@ -73,12 +73,12 @@ const ApplyBingAd = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.applyId || "N/A"}</td> {/* Apply ID */}
-                    <td>{ad.adNumber || "N/A"}</td> {/* Ad Number */}
-                    <td>{ad.state || "N/A"}</td> {/* State */}
-                    <td>{ad.totalCost || "N/A"}</td> {/* Total Cost */}
-                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> {/* Create Time */}
-                    <td></td> {/* Empty "Operate" column */}
+                    <td>{ad.applyId || "N/A"}</td> 
+                    <td>{ad.adNumber || "N/A"}</td> 
+                    <td>{ad.state || "N/A"}</td> 
+                    <td>{ad.totalCost || "N/A"}</td> 
+                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
+                    <td></td> 
                   </tr>
                 ))
               ) : (

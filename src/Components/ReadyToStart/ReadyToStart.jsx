@@ -12,7 +12,6 @@ const ReadyToStart = () => {
     <div className={styles.container}>
       <h1 className={styles.title}>Ready to start</h1>
       
-      {/* Use Link for navigation */}
       <Link to="/contact-us" className={styles.button}>
         Contact Us
       </Link>

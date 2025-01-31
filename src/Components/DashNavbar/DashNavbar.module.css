@@ -9,6 +9,7 @@
     font-family: sans-serif, 'Inter';
     position: relative;
     transition: left 0.3s ease;
+
 }
 
 .navbar.open {
