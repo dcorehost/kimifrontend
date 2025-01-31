@@ -1013,7 +1013,7 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './RegisterPage.module.css'; 
+import styles from './RegisterPage.module.css';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -1037,6 +1037,8 @@ const RegisterPage = () => {
     monthlySpend: '',
     country: '',
   });
+
+  const token = localStorage.getItem("userToken");
 
   const platforms = [
     'Facebook',
@@ -1121,30 +1123,49 @@ const RegisterPage = () => {
       return;
     }
 
+    // console.log("formData", formData);
     // Prepare the data based on the formData
+
+    const interestedIn = [];
+
+    // Check if each field exists in formData and is selected (true)
+    if (formData?.selectedPlatforms.length > 0 || formData?.selectedBusinesses.length > 0 || formData?.monthlySpend) {
+      interestedIn.push("Agency Ads");
+    }
+
+    if (formData?.selectedGlobalOptions?.length>0) {
+      interestedIn.push("Global Company Registration");
+    }
+
+    if (formData?.selectedDropOptions?.length>0) {
+      interestedIn.push("Drop Shipping Service");
+    }
+
+
     const requestData = {
       username: formData.username,
       emailId: formData.email,
       country: formData.country,
       contact1: formData.phoneNumber1,
       contact2: formData.phoneNumber2,
-      interestedIn: [...formData.selectedPlatforms, ...formData.selectedBusinesses], // Combination of selected values
+      interestedIn, // Combination of selected values
       password: formData.password,
       confirmPassword: formData.confirmPassword,
       pincode: formData.areaCode1, // This can be adjusted according to requirements
       agencyAds: {
-        platform: formData.selectedPlatforms,
-        business: formData.selectedBusinesses,
-        monthlySpend: formData.monthlySpend,
+        platform: formData?.selectedPlatforms || [],
+        business: formData?.selectedBusinesses || [],
+        monthlySpend: formData?.monthlySpend || "",
       },
-      globalCompanyRegistration: formData.selectedGlobalOptions,
-      dropShippingServices: formData.selectedDropOptions,
+      globalCompanyRegistration: formData?.selectedGlobalOptions || [],
+      dropShippingServices: formData?.selectedDropOptions || [],
     };
 
     try {
       const response = await axios.post('http://admediaagency.online/kimi/create-account', requestData, {
         headers: {
           'Content-Type': 'application/json', // Ensure the request is sent with the correct header
+          Authorization: `Bearer ${token}`,
         },
       });
 
@@ -1154,7 +1175,7 @@ const RegisterPage = () => {
       }
     } catch (error) {
       alert('There was an error creating the account.');
-      
+
       // Log more detailed error information for debugging
       if (error.response) {
         console.error('Server responded with an error:', error.response.data);
