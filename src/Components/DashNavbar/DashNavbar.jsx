@@ -53,7 +53,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
         <ul className={styles.navLinks}>
           <li>
             <Link
-              to="/"
+              to="/dashboard"
               className={styles.link}
               onClick={() => handleSidebarChange("default")}
             >

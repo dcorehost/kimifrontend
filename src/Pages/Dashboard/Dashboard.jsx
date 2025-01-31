@@ -212,7 +212,7 @@ import BingSidebar from "../../Components/BingSidbar/BingSidebar";
 import MetaSidebar from "../../Components/MetaSidebar/MetaSidebar";
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
   const navigate = useNavigate(); // For navigation
 
