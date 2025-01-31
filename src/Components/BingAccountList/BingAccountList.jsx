@@ -13,12 +13,12 @@ const BingAccountList = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/bing/accountManage/accountList/createbingads"); // Adjust the route as needed
+    navigate("/bing/accountManage/accountList/createbingads"); 
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); // Retrieve token from localStorage
+      const token = localStorage.getItem("userToken"); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -27,16 +27,16 @@ const BingAccountList = () => {
 
       try {
         const response = await axios.get("http://admediaagency.online/kimi/get-bing-ads", {
-          headers: { Authorization: `Bearer ${token}` }, // Pass token in Authorization header
+          headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        console.log("API Response:", response.data); // Log the full API response
+        console.log("API Response:", response.data); 
 
         if (response.data.message === "bing ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            adsId: ad._id, // Ads ID (_id)
-            adNumber: ad.adNum, // Ad Number (adNum)
-            createTime: ad.createdAt, // Create Time (createdAt)
+            adsId: ad._id, 
+            adNumber: ad.adNum, 
+            createTime: ad.createdAt, 
           }));
           setAdsData(ads);
         } else {
@@ -64,7 +64,7 @@ const BingAccountList = () => {
             <thead>
               <tr>
                 <th>Ads ID</th>
-                <th>Ad Number</th> {/* Changed Ads Name to Ad Number */}
+                <th>Ad Number</th> 
                 <th>Create Time</th>
                 <th>Operate</th>
               </tr>
@@ -73,10 +73,10 @@ const BingAccountList = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.adsId || "N/A"}</td> {/* Ads ID */}
-                    <td>{ad.adNumber || "N/A"}</td> {/* Ad Number */}
-                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> {/* Create Time */}
-                    <td></td> {/* Empty "Operate" column */}
+                    <td>{ad.adsId || "N/A"}</td> 
+                    <td>{ad.adNumber || "N/A"}</td> 
+                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
+                    <td></td> 
                   </tr>
                 ))
               ) : (

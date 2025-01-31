@@ -13,12 +13,12 @@ const GmailShareLogTable = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/next-page"); // Navigate to the next page, adjust the route as needed
+    navigate("/next-page"); 
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); // Retrieve token from localStorage
+      const token = localStorage.getItem("userToken"); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -27,18 +27,18 @@ const GmailShareLogTable = () => {
 
       try {
         const response = await axios.get("http://admediaagency.online/kimi/get-google-ads", {
-          headers: { Authorization: `Bearer ${token}` }, // Pass token in Authorization header
+          headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        console.log("API Response:", response.data); // Log the full API response
+        console.log("API Response:", response.data); 
 
         if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            applyId: ad._id, // Apply ID (_id)
-            adsId: ad.adNum, // Ads ID (adNum)
-            gmail: ad.adsDetails.map(detail => detail.gmail).join(", "), // Gmail from the adsDetails array
-            state: ad.state, // State (e.g., "Shared", "Pending")
-            createTime: ad.createdAt, // Create Time (createdAt)
+            applyId: ad._id, 
+            adsId: ad.adNum, 
+            gmail: ad.adsDetails.map(detail => detail.gmail).join(", "), 
+            state: ad.state, 
+            createTime: ad.createdAt, 
           }));
           setAdsData(ads);
         } else {
@@ -76,11 +76,11 @@ const GmailShareLogTable = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.applyId || "N/A"}</td> {/* Apply ID */}
-                    <td>{ad.adsId || "N/A"}</td> {/* Ads ID */}
-                    <td>{ad.gmail || "N/A"}</td> {/* Gmail */}
-                    <td>{ad.state || "N/A"}</td> {/* State */}
-                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> {/* Create Time */}
+                    <td>{ad.applyId || "N/A"}</td> 
+                    <td>{ad.adsId || "N/A"}</td> 
+                    <td>{ad.gmail || "N/A"}</td> 
+                    <td>{ad.state || "N/A"}</td> 
+                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
                   </tr>
                 ))
               ) : (

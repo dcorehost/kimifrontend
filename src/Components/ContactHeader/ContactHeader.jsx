@@ -11,7 +11,6 @@ import { FaSkype, FaTelegram, FaWhatsapp, FaFacebook } from "react-icons/fa";
 const ContactHeader = () => {
   return (
     <div className={styles.mainContainer}>
-      {/* Header Section */}
       <div className={styles.header}>
         <h1 className={styles.headerText}>Get in touch for more information</h1>
         <p className={styles.headerPara}>
@@ -19,7 +18,6 @@ const ContactHeader = () => {
         </p>
       </div>
 
-      {/* Social Media Icons */}
       <div className={styles.socialIcons}>
         <span>Communicate us on:</span>
         <FaSkype className={styles.icon} />
@@ -28,7 +26,6 @@ const ContactHeader = () => {
         <FaFacebook className={styles.icon} />
       </div>
 
-      {/* Contact Cards */}
       <div className={styles.contactCards}>
         <div className={styles.card}>
           <FaEnvelope className={styles.cardIcon} />

@@ -18,7 +18,7 @@ const WelcomePage = () => {
                     {text1.split("").map((char, index) => (
                         <span
                           key={`Kimi-${index}`}
-                          style={{ "--index": index }} // Dynamic index for animation timing
+                          style={{ "--index": index }} 
                         >
                           {char}
                         </span>

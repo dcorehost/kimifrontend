@@ -82,9 +82,9 @@ const Layout = () => {
             {/* Main Content */}
             <div
                 style={{
-                    marginLeft: shouldRenderNavbar && isSidebarOpen ? "300px" : "10px",
+                    marginLeft: shouldRenderNavbar && isSidebarOpen ? "300px" : "0px",
                     transition: "margin-left 0.3s ease",
-                    padding: "20px",
+                    // padding: "20px",
                 }}
             >
                 <Outlet />

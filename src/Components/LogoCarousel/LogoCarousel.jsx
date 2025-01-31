@@ -1,26 +1,4 @@
 
-
-// import React from "react";
-// import styles from "./LogoCarousel.module.css";
-// import { assets } from "../../assets/assets.jsx"; 
-
-// const LogoCarousel = () => {
-//   return (
-//     <div className={styles.carouselsec}>
-//        <img src={assets.facebook} alt=" Logo" className={styles.logo} />
-//        <img src={assets.bing} alt=" Logo" className={styles.logo} />
-//        <img src={assets.google} alt=" Logo" className={styles.logo} />      
-
-
-//     </div>
-    
-//   );
-// };
-
-// export default LogoCarousel;
-
-
-
 import React from "react";
 import styles from "./LogoCarousel.module.css";
 import { assets } from "../../assets/assets.jsx";

@@ -23,7 +23,6 @@ const BingRefund = () => {
       }
 
       try {
-        // Updated URL to fetch refund details for Bing ads
         const response = await axios.get("http://admediaagency.online/kimi/refund-Details?adType=Bing", {
           headers: { Authorization: `Bearer ${token}` },
         });
@@ -69,13 +68,12 @@ const BingRefund = () => {
     }
 
     const requestData = {
-      adsId: adAccount.trim(),
+      adBingAccount: adAccount.trim(),  
       amount: parseFloat(amount),
-      adType: "Bing", // Added adType field for Bing
+      adType: "Bing",
     };
 
     try {
-      // Updated URL for applying the refund for Bing ads
       const response = await axios.post(
         "http://admediaagency.online/kimi/apply-refund",
         requestData,
@@ -94,7 +92,6 @@ const BingRefund = () => {
         setAmount("");
         setRefundData([...refundData, response.data.refund]);
 
-        // Hide success message after 3 seconds
         setTimeout(() => setSuccessMessage(null), 3000);
       } else {
         setError(response.data.message || "Failed to apply refund.");
@@ -106,9 +103,7 @@ const BingRefund = () => {
 
   return (
     <div className={styles.container}>
-      {/* Success Notification */}
       {successMessage && <p className={styles.success}>{successMessage}</p>}
-      {/* Error Notification */}
       {error && <p className={styles.error}>{error}</p>}
 
       <button className={styles.button} onClick={handleModalOpen}>
@@ -132,7 +127,7 @@ const BingRefund = () => {
               refundData.map((refund, index) => (
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
-                  <td>{refund.adsId || "N/A"}</td>
+                  <td>{refund.adBingAccount?._id || "N/A"}</td>
                   <td>{refund.amount || "N/A"}</td>
                   <td>{refund.remainMoney || "N/A"}</td>
                   <td>{refund.applyState || "N/A"}</td>
@@ -148,19 +143,18 @@ const BingRefund = () => {
         </table>
       </div>
 
-      {/* Modal for Refund Application */}
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <h2>Apply Refund</h2>
             <form onSubmit={handleRefundSubmit}>
               <div className={styles.inputContainer}>
-                <label>Ad Account</label>
+                <label>Ad Bing Account</label>
                 <input
                   type="text"
                   value={adAccount}
                   onChange={(e) => setAdAccount(e.target.value)}
-                  placeholder="Enter Ad Account ID"
+                  placeholder="Enter Ad Bing Account ID"
                   required
                 />
               </div>

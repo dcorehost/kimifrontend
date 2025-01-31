@@ -1,12 +1,13 @@
 
 
 
+
 import React, { useState } from 'react';
 import axios from 'axios';
-import styles from './BingAdsDeposit.module.css';
+import styles from './MetaAdsDeposit.module.css';
 import Auth from '../Services/Auth';
 
-const BingAdsDeposit = () => {
+const MetaAdsDeposit = () => {
   const [rows, setRows] = useState([{ id: '', money: '' }]);
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
@@ -46,7 +47,7 @@ const BingAdsDeposit = () => {
 
     const isValid = rows.every(row => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0);
     if (!isValid) {
-      setResponseMessage('Please enter a valid Bing Ad Account and deposit amount.');
+      setResponseMessage('Please enter a valid Facebook Ad Account and deposit amount.');
       setLoading(false);
       return;
     }
@@ -60,9 +61,9 @@ const BingAdsDeposit = () => {
 
     try {
       const requests = rows.map(row => ({
-        adBingAccount: row.id.trim(), 
+        adFacebookAccount: row.id.trim(),
         money: parseFloat(row.money.trim()),
-        adType: 'Bing', 
+        adType: 'Facebook',
       }));
 
       console.log('Sending request data:', JSON.stringify(requests, null, 2));
@@ -70,7 +71,7 @@ const BingAdsDeposit = () => {
       const responses = await Promise.all(
         requests.map((requestData) =>
           axios.post(
-            'http://admediaagency.online/kimi/create-bing-adDeposit', 
+            'http://admediaagency.online/kimi/create-facebook-adDeposit',
             requestData,
             {
               headers: {
@@ -90,7 +91,7 @@ const BingAdsDeposit = () => {
         if (response.data) {
           totalDeposit += parseFloat(response.data.totalDeposit) || 0;
           totalCost += parseFloat(response.data.totalCost) || 0;
-          walletAmount += parseFloat(response.data.wallet) || 0;
+          walletAmount = parseFloat(response.data.wallet) || 0; 
         }
       });
 
@@ -114,7 +115,7 @@ const BingAdsDeposit = () => {
             <label>Ad Account</label>
             <input
               type="text"
-              placeholder="Enter Bing Ads ID"
+              placeholder="Enter Facebook Ads ID"
               value={row.id}
               onChange={(e) => handleInputChange(index, 'id', e.target.value)}
               className={styles.input}
@@ -153,9 +154,4 @@ const BingAdsDeposit = () => {
   );
 };
 
-export default BingAdsDeposit;
-
-
-
-
-
+export default MetaAdsDeposit;

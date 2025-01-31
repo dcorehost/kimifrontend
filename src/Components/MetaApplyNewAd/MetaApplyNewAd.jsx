@@ -11,12 +11,12 @@ const MetaApplyNewAd = () => {
   const navigate = useNavigate();
 
   const handleNextPage = () => {
-    navigate("/facebook/accountManage/accountList"); // Adjust the route as needed
+    navigate("/facebook/accountManage/accountList"); 
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); // Retrieve token from localStorage
+      const token = localStorage.getItem("userToken"); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -25,19 +25,19 @@ const MetaApplyNewAd = () => {
 
       try {
         const response = await axios.get("http://admediaagency.online/kimi/get-facebook-ads", {
-          headers: { Authorization: `Bearer ${token}` }, // Pass token in Authorization header
+          headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        console.log("API Response:", response.data); // Log the full API response
+        console.log("API Response:", response.data); 
 
         if (response.data.message === "facebook ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            applyId: ad.applyId, // Apply ID
-            licenseName: ad.licenseMode, // License Mode (as License Name)
-            adNumber: ad.pageNum, // Ads Number (pageNum)
-            state: ad.state, // State
-            totalCost: ad.totalCost, // Total Cost
-            createTime: ad.createdAt, // Create Time
+            applyId: ad.applyId, 
+            licenseName: ad.licenseMode, 
+            adNumber: ad.pageNum, 
+            state: ad.state, 
+            totalCost: ad.totalCost, 
+            createTime: ad.createdAt, 
           }));
           setAdsData(ads);
         } else {
@@ -77,13 +77,13 @@ const MetaApplyNewAd = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.applyId || "N/A"}</td> {/* Apply ID */}
-                    <td>{ad.licenseName || "N/A"}</td> {/* License Name */}
-                    <td>{ad.adNumber || "N/A"}</td> {/* Ad Number */}
-                    <td>{ad.state || "N/A"}</td> {/* State */}
-                    <td>{ad.totalCost || "N/A"}</td> {/* Total Cost */}
-                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> {/* Create Time */}
-                    <td></td> {/* Empty "Operate" column */}
+                    <td>{ad.applyId || "N/A"}</td> 
+                    <td>{ad.licenseName || "N/A"}</td> 
+                    <td>{ad.adNumber || "N/A"}</td> 
+                    <td>{ad.state || "N/A"}</td> 
+                    <td>{ad.totalCost || "N/A"}</td> 
+                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
+                    <td></td>
                   </tr>
                 ))
               ) : (

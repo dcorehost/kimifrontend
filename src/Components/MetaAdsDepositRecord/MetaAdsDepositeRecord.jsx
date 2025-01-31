@@ -1,11 +1,9 @@
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import styles from "./AdsDpositeRecordTable.module.css";
+import styles from "./MetaAdsDepositRecord.module.css";
 
-const AdsDepositeRecordTable = () => {
+const MetaAdsDepositRecord = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
@@ -21,25 +19,22 @@ const AdsDepositeRecordTable = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-Google-adDeposit?adType=Google", {
+        const response = await axios.get("http://admediaagency.online/kimi/get-facebook-ads", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
         console.log("API Response:", response.data);
 
-        if (response.data.message === "Deposits details fetched successfully" && Array.isArray(response.data.deposits)) {
-          const deposits = response.data.deposits.map((deposit) => {
-            const adGoogleAccount = deposit.adGoogleAccount;
-
-            return {
-              applyId: deposit.applyId,
-              adsId: adGoogleAccount ? adGoogleAccount._id : "N/A",
-              chargeMoney: `$${deposit.money}`,
-              totalCost: `$${deposit.totalCost}`,
-              state: deposit.state,
-              createTime: new Date(deposit.createdAt).toLocaleString(),
-            };
-          });
+        if (response.data.message === "facebook ads fetched successfully" && Array.isArray(response.data.ads)) {
+          const deposits = response.data.ads.map((ad) => ({
+            applyId: ad.applyId,
+            adsId: ad._id,
+            adsName: ad.ads.map((a) => a.accountName).join(", "),
+            chargeMoney: `$${ad.ads.reduce((sum, a) => sum + a.deposit, 0)}`,
+            totalCost: `$${ad.totalCost}`,
+            state: ad.state,
+            createTime: new Date(ad.createdAt).toLocaleString(),
+          }));
           setDepositsData(deposits);
         } else {
           setError("Failed to fetch deposit data.");
@@ -64,16 +59,18 @@ const AdsDepositeRecordTable = () => {
     try {
       console.log("Fetching export file...");
 
-      const response = await axios.get("http://admediaagency.online/kimi/export-googlead-deposit", {
+      const response = await axios.get("http://admediaagency.online/kimi/export-facebookad-deposit", {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob", 
       });
 
+     
       const url = window.URL.createObjectURL(new Blob([response.data]));
 
+    
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "googleDepositList.xlsx"); 
+      link.setAttribute("download", "facebookDepositList.xlsx"); 
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -104,6 +101,7 @@ const AdsDepositeRecordTable = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>Ads Name</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
@@ -116,6 +114,7 @@ const AdsDepositeRecordTable = () => {
                   <tr key={index}>
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
+                    <td>{row.adsName}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
                     <td>{row.state}</td>
@@ -124,7 +123,7 @@ const AdsDepositeRecordTable = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No deposit data available</td>
+                  <td colSpan="7">No deposit data available</td>
                 </tr>
               )}
             </tbody>
@@ -135,6 +134,4 @@ const AdsDepositeRecordTable = () => {
   );
 };
 
-export default AdsDepositeRecordTable;
-
-
+export default MetaAdsDepositRecord;

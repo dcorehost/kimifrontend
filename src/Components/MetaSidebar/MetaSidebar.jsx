@@ -36,7 +36,7 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/facebook/accountManage/accountList" className={styles.link}>
+                  <Link to="/facebook/accountManage/accountlist" className={styles.link}>
                     Account List
                   </Link>
                 </li>
@@ -68,12 +68,12 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/facebook/financing/adDeposit" className={styles.link}>
+                  <Link to="/facebook/finance/metaadsdeposit" className={styles.link}>
                     Ads Deposit
                   </Link>
                 </li>
                 <li>
-                  <Link to="/facebook/financing/adDepositRecord" className={styles.link}>
+                  <Link to="/facebook/finance/metaadsdepositrecord" className={styles.link}>
                     Ad Deposit Record
                   </Link>
                 </li>
@@ -95,7 +95,7 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/facebook/afterSale/refund" className={styles.link}>
+                  <Link to="/facebook/aftersale/refund" className={styles.link}>
                     Refund
                   </Link>
                 </li>

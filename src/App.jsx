@@ -24,7 +24,6 @@ import GoogleAdsDeposite from "./Components/GoogleAdsDeposite/GoogleAdsDeposite"
 import ApplyGoogleAdsTable from "./Components/ApplyGoogleAdsTable/ApplyGoogleAdsTable";
 import GmailShareLogTable from "./Components/GmailShareLogTable/GmailShareLogTable";
 import AdsDepositeRecordTable from "./Components/AdsDepositeRecordTable/AdsDepositerecordTable";
-import RefundTable from "./Components/RefundTable/RefundTable";
 import Layout from "./Layout";
 import GoogleRefund from "./Components/GoogleRefund/GoogleRefund";
 import BingAdsDeposit from "./Components/BingAdsDeposit/BingAdsDeposit";
@@ -32,6 +31,9 @@ import BingAdsDepositRecord from "./Components/BingAdsDepositRecord/BingAdsDepos
 import BingRefund from "./Components/BingRefund/BingRefund";
 import ApplyBingAd from "./Components/ApplyBingAd/ApplyBingAd";
 import MetaApplyNewAd from "./Components/MetaApplyNewAd/MetaApplyNewAd";
+import MetaAdsDeposit from "./Components/MetaAdsDeposit/MetaAdsDeposit";
+import MetaAdsDepositRecord from "./Components/MetaAdsDepositRecord/MetaAdsDepositeRecord";
+import MetaRefund from "./Components/MetaRefund/MetaRefund";
 
 
 
@@ -78,13 +80,19 @@ const App = () => {
 
 
                   {/* //facebook items  */}
-        <Route path="/facebook/accountManage/accountList" element={<FacebookCreateAd />} />
+        <Route path="/facebook/accountManage/createaccount" element={<FacebookCreateAd />} />
         <Route path="/facebook/accountManage/applynewad" element={<MetaApplyNewAd />} />
+        <Route path="/facebook/finance/metaadsdeposit" element={<MetaAdsDeposit />} />
+        <Route path="/facebook/finance/metaadsdepositrecord" element={<MetaAdsDepositRecord />} />
+        <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
+        <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
+
+
+           {/* //kimi sidebar */}
         <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
+
+               {/* //user profile */}
         <Route path="/user-profile" element={<UserProfile />}></Route>
-        <Route path="/meta-accountlist" element={<MetaAccountList />} />
-        <Route path="/facebook-createads" element={<FacebookCreateAd />} />
-        <Route path="/refund-table" element={<RefundTable />} />
 
         {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
       </Route>
