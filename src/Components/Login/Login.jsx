@@ -29,8 +29,8 @@ const Login = () => {
         const { token, username, wallet } = response.data;
 
         // Store user data in localStorage
-        localStorage.setItem("userToken", token);
-        localStorage.setItem("username", username);
+        // localStorage.setItem("userToken", token);
+        // localStorage.setItem("username", username);
 
         // Store user data in Auth (optional, depending on your setup)
         Auth.login({ token, username, wallet });

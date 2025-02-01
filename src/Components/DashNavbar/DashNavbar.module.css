@@ -13,7 +13,8 @@
 }
 
 .navbar.open {
-    margin-left: 200px; /* Adjust for the open sidebar */
+    margin-left: 200px;
+    /* Adjust for the open sidebar */
 }
 
 /* Navigation Links */
@@ -44,7 +45,8 @@
 /* Money Option Specific Style */
 .money {
     font-weight: bold;
-    color: #00ff00; /* Bright green for emphasis */
+    color: #00ff00;
+    /* Bright green for emphasis */
     font-size: 1rem;
 }
 
@@ -133,6 +135,50 @@
     height: 24px;
     margin-right: 8px;
 }
+
+.userDropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.wallet {
+    margin-right: 10px;
+}
+
+.userName{
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: #fff;
+    padding: 0.5rem 1rem;
+    min-width: 120px;
+    z-index: 100;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align: center;
+}
+
+.dropdown li {
+    list-style: none;
+    padding: 0.5rem 0;
+}
+
+.dropdown li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+    padding: 0.5rem;
+}
+
+.dropdown li a:hover {
+    color: #EF9273;
+    background-color: #f3f3f3;
+}
+
 
 /* Responsive Styles */
 @media (max-width: 1024px) {

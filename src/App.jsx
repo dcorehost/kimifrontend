@@ -1,6 +1,5 @@
-
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Homepage from "./Pages/Homepage/Homepage";
 import MetaAds from "./Pages/MetaAds/MetaAds";
 import BingAds from "./Pages/BingAds/BingAds";
@@ -34,68 +33,80 @@ import MetaApplyNewAd from "./Components/MetaApplyNewAd/MetaApplyNewAd";
 import MetaAdsDeposit from "./Components/MetaAdsDeposit/MetaAdsDeposit";
 import MetaAdsDepositRecord from "./Components/MetaAdsDepositRecord/MetaAdsDepositeRecord";
 import MetaRefund from "./Components/MetaRefund/MetaRefund";
+import UserSettings from "./Components/UserFile/settings/UserSettings";
+import Auth from "./Components/Services/Auth";
+import ProtectedRoute from "./ProtectedRoute";
 
 
 
 
 const App = () => {
+
+
   return (
     <Router>
       <Routes>
         {/* Define routes for your pages */}
         <Route path="/" element={<Layout />}>
-        <Route index element={<Homepage />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/meta-ads" element={<MetaAds />} />
-        <Route path="/bing-ads" element={<BingAds />} />
-        <Route path="/google-ads" element={<GoogleAds />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/termof-services" element={<TermOfServicesPage />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/refund-policy" element={<RefundPolicyPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<Register />} />
+          <Route index element={<Homepage />} />
+          <Route path="/contact-us" element={<ContactUs />} />
+          <Route path="/meta-ads" element={<MetaAds />} />
+          <Route path="/bing-ads" element={<BingAds />} />
+          <Route path="/google-ads" element={<GoogleAds />} />
+          <Route path="/termof-services" element={<TermOfServicesPage />} />
+          <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/refund-policy" element={<RefundPolicyPage />} />
 
 
 
-                     {/* //route path for dashboard */}
+          {/* Protected Routes for Authenticated Users */}
+          <Route element={<ProtectedRoute />}>
+            {/* //route path for dashboard */}
 
-        <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
-                  {/* //google items  */}
-        <Route path="/google/accountManage/accountList/creategoogleads" element={<CreateGoogleAds />} />
-        <Route path="/google/accountManage/applyAd" element={<ApplyGoogleAdsTable />} />
-        <Route path="/google/aftersale/refund" element={<GoogleRefund />} />
-        <Route path="/google/finance/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
-        <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
-        <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
-        <Route path="/google/accountManage/accountList" element={<Table />} />
+            {/* //google items  */}
+            <Route path="/google/accountManage/accountList/creategoogleads" element={<CreateGoogleAds />} />
+            <Route path="/google/accountManage/applyAd" element={<ApplyGoogleAdsTable />} />
+            <Route path="/google/aftersale/refund" element={<GoogleRefund />} />
+            <Route path="/google/finance/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
+            <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
+            <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
+            <Route path="/google/accountManage/accountList" element={<Table />} />
 
-               {/* //bing items  */}
-       <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
-       <Route path="/bing/accountManage/accountList/createbingads" element={<CreateBingAds />} />
-       <Route path="/bing/finance/bingadsdeposite" element={<BingAdsDeposit />} />
-       <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
-       <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
-       <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
-
-
-                  {/* //facebook items  */}
-        <Route path="/facebook/accountManage/createaccount" element={<FacebookCreateAd />} />
-        <Route path="/facebook/accountManage/applynewad" element={<MetaApplyNewAd />} />
-        <Route path="/facebook/finance/metaadsdeposit" element={<MetaAdsDeposit />} />
-        <Route path="/facebook/finance/metaadsdepositrecord" element={<MetaAdsDepositRecord />} />
-        <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
-        <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
+            {/* //bing items  */}
+            <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
+            <Route path="/bing/accountManage/accountList/createbingads" element={<CreateBingAds />} />
+            <Route path="/bing/finance/bingadsdeposite" element={<BingAdsDeposit />} />
+            <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
+            <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
+            <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
 
 
-           {/* //kimi sidebar */}
-        <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
+            {/* //facebook items  */}
+            <Route path="/facebook/accountManage/createaccount" element={<FacebookCreateAd />} />
+            <Route path="/facebook/accountManage/applynewad" element={<MetaApplyNewAd />} />
+            <Route path="/facebook/finance/metaadsdeposit" element={<MetaAdsDeposit />} />
+            <Route path="/facebook/finance/metaadsdepositrecord" element={<MetaAdsDepositRecord />} />
+            <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
+            <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
 
-               {/* //user profile */}
-        <Route path="/user-profile" element={<UserProfile />}></Route>
 
-        {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
-      </Route>
+            {/* //kimi sidebar */}
+            <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
+
+            {/* //user profile */}
+            <Route path="/dashboard/user-profile" element={<UserProfile />}></Route>
+            <Route path="/dashboard/settings" element={<UserSettings />} />
+
+            {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
+          </Route>
+
+
+
+        </Route>
       </Routes>
     </Router>
   );

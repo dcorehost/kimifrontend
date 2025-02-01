@@ -3,6 +3,7 @@
 
 
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styles from "./DashNavbar.module.css";
 import { AiTwotoneDollar } from "react-icons/ai";
@@ -14,9 +15,10 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
   const [walletAmount, setWalletAmount] = useState(0);
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    const authData = Auth.getAuthData(); 
+    const authData = Auth.getAuthData();
     if (authData) {
       setUserName(authData.username || "Guest");
       setWalletAmount(authData.wallet || 0);
@@ -37,6 +39,12 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const logOut = () => {
+    setDropdownOpen(false);
+    Auth.logout();
+    navigate("/login")
+  }
 
   return (
     <nav className={`${styles.navbar} ${isSidebarOpen ? styles.open : ""}`}>
@@ -88,38 +96,34 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
         </ul>
       </div>
 
-      <div className={styles.rightNav}>
+      <div className={styles.userDropdown} ref={dropdownRef}>
         <span className={styles.wallet}>
           <AiTwotoneDollar className={styles.walletIcon} /> ${walletAmount.toFixed(2)}
         </span>
-        <div className={styles.userDropdown} ref={dropdownRef}>
-          <span
-            className={styles.userName}
-            onClick={() => setDropdownOpen(!dropdownOpen)}
-          >
-            {userName} <i className="fas fa-caret-down"></i>
-          </span>
-          {dropdownOpen && (
-            <ul className={styles.dropdown}>
-              <li>
-                <Link to="/user-profile" className={styles.link}>
-                  Profile
-                </Link>
-              </li>
-              <li>
-                <Link to="/settings" className={styles.link}>
-                  Settings
-                </Link>
-              </li>
-              <li>
-                <Link to="/logout" className={styles.link}>
-                  Logout
-                </Link>
-              </li>
-            </ul>
-          )}
-        </div>
+        <span className={styles.userName} onClick={() => setDropdownOpen(!dropdownOpen)}>
+          {userName} <i className="fas fa-caret-down"></i>
+        </span>
+        {dropdownOpen && (
+          <ul className={styles.dropdown}>
+            <li>
+              <Link to="/dashboard/user-profile" className={styles.link} onClick={() => setDropdownOpen(false)}>
+                Profile
+              </Link>
+            </li>
+            <li>
+              <Link to="/dashboard/settings" className={styles.link} onClick={() => setDropdownOpen(false)}>
+                Settings
+              </Link>
+            </li>
+            <li>
+              <Link to="/login" className={styles.link} onClick={() => logOut()}>
+                Logout
+              </Link>
+            </li>
+          </ul>
+        )}
       </div>
+
     </nav>
   );
 };
