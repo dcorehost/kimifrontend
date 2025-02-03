@@ -107,7 +107,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
                 </Link>
               </li>
               <li>
-                <Link to="/settings" className={styles.link}>
+                <Link to="/Setting" className={styles.link}>
                   Settings
                 </Link>
               </li>
@@ -125,5 +125,10 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
 };
 
 export default DashNavbar;
+
+
+
+
+
 
 

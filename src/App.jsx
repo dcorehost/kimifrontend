@@ -34,6 +34,9 @@ import MetaApplyNewAd from "./Components/MetaApplyNewAd/MetaApplyNewAd";
 import MetaAdsDeposit from "./Components/MetaAdsDeposit/MetaAdsDeposit";
 import MetaAdsDepositRecord from "./Components/MetaAdsDepositRecord/MetaAdsDepositeRecord";
 import MetaRefund from "./Components/MetaRefund/MetaRefund";
+import Setting from "./Components/Setting/Setting";
+
+
 
 
 
@@ -93,7 +96,9 @@ const App = () => {
 
                {/* //user profile */}
         <Route path="/user-profile" element={<UserProfile />}></Route>
-
+            {/* //setting */}
+          <Route path="/setting"  element={<Setting></Setting>}></Route>
+       
         {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
       </Route>
       </Routes>
