@@ -26,7 +26,9 @@ import Table from "./Components/Table/Table";
 import MetaAccountList from "./Components/MetaAccountList/MetaAccountList";
 import FacebookCreateAd from "./Components/FacebookCreateAd/FacebookCreateAd";
 import UserProfile from "./Components/UserFile/UserProfile";
-import GoogleAdsDeposite from "./Components/GoogleAdsDeposite/GoogleAdsDeposite";
+import MetaApplyNewadAccount from "./Components/MetaApplyNewAdAccount/MetaApplyNewadAccount";
+import BmShareLog from "./Components/BmShareLog/BmShareLog";
+
 
 
 
@@ -56,7 +58,8 @@ const App = () => {
        <Route path="/meta-accountlist" element={<MetaAccountList />} />     
        <Route path="/facebook-createads" element={<FacebookCreateAd />} />     
 
-       {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
+      {/* <Route path="/ApplyAdAccount" element={<MetaApplyNewadAccount></MetaApplyNewadAccount>}></Route> */}
+      {/* <Route path="/BmShareLog" element={<BmShareLog></BmShareLog>}></Route> */}
        
       </Routes>
     </Router>
