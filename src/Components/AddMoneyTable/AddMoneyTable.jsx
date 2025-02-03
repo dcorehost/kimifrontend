@@ -1,5 +1,6 @@
 
  //image  uploading error 
+ import styles from "./AddmoneyTable.module.css";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import httpServices from "../Services/Httpservices.jsx";
@@ -15,9 +16,9 @@ const AddMoneyTable = () => {
     image: null, // image will hold the actual file
   });
 
-  const handleNextPage = () => {
-    navigate("/next-page");
-  };
+  // const handleNextPage = () => {
+  //   navigate("/next-page");
+  // };
 
   const handleAddMoney = () => {
     setIsModalOpen(true); // Open the modal when the Add Money Here button is clicked

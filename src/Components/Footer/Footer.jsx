@@ -2,9 +2,9 @@
 
 import React from "react";
 import styles from "./Footer.module.css";
-import { Link } from "react-router-dom"; // Importing Link from react-router-dom
+import { Link } from "react-router-dom"; 
 import { FaSkype, FaTelegram, FaWhatsapp, FaFacebook } from "react-icons/fa";
-import { assets } from "../../assets/assets.jsx"; // Ensure the path is correct
+import { assets } from "../../assets/assets.jsx"; 
 
 const Footer = () => {
   return (

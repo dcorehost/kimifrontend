@@ -1,5 +1,8 @@
+
+
 import React, { useState } from 'react';
-import styles from './RegisterPage.module.css'; // Import the CSS Module
+import axios from 'axios';
+import styles from './RegisterPage.module.css';
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -9,10 +12,8 @@ const RegisterPage = () => {
     contactMethod2: '',
     areaCode1: '',
     phoneNumber1: '',
-    cid1: '',
     areaCode2: '',
     phoneNumber2: '',
-    cid2: '',
     password: '',
     confirmPassword: '',
     agencyAds: false,
@@ -23,13 +24,16 @@ const RegisterPage = () => {
     selectedGlobalOptions: [],
     selectedDropOptions: [],
     monthlySpend: '',
+    country: '',
   });
+
+  const token = localStorage.getItem("userToken");
 
   const platforms = [
     'Facebook',
     'Google',
     'Tiktok',
-    'Tiktok Shop ',
+    'Tiktok Shop',
     'Bing',
     'Snapchat',
     'Taboola',
@@ -73,7 +77,6 @@ const RegisterPage = () => {
     '200k+',
   ];
 
-
   const handleAreaCodeChange = (e, contactMethod) => {
     const { value } = e.target;
     setFormData((prevState) => ({
@@ -101,13 +104,77 @@ const RegisterPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.password !== formData.confirmPassword) {
       alert('Passwords do not match!');
-    } else {
-      // Handle registration logic here
-      alert('Registration Successful');
+      return;
+    }
+
+    // console.log("formData", formData);
+    // Prepare the data based on the formData
+
+    const interestedIn = [];
+
+    // Check if each field exists in formData and is selected (true)
+    if (formData?.selectedPlatforms.length > 0 || formData?.selectedBusinesses.length > 0 || formData?.monthlySpend) {
+      interestedIn.push("Agency Ads");
+    }
+
+    if (formData?.selectedGlobalOptions?.length>0) {
+      interestedIn.push("Global Company Registration");
+    }
+
+    if (formData?.selectedDropOptions?.length>0) {
+      interestedIn.push("Drop Shipping Service");
+    }
+
+
+    const requestData = {
+      username: formData.username,
+      emailId: formData.email,
+      country: formData.country,
+      contact1: formData.phoneNumber1,
+      contact2: formData.phoneNumber2,
+      interestedIn, // Combination of selected values
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      pincode: formData.areaCode1, // This can be adjusted according to requirements
+      agencyAds: {
+        platform: formData?.selectedPlatforms || [],
+        business: formData?.selectedBusinesses || [],
+        monthlySpend: formData?.monthlySpend || "",
+      },
+      globalCompanyRegistration: formData?.selectedGlobalOptions || [],
+      dropShippingServices: formData?.selectedDropOptions || [],
+    };
+
+    try {
+      const response = await axios.post('http://admediaagency.online/kimi/create-account', requestData, {
+        headers: {
+          'Content-Type': 'application/json', // Ensure the request is sent with the correct header
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (response.data.message) {
+        alert(response.data.message); // Success message from API
+        console.log(response.data.newUser); // Log or handle the response as needed
+      }
+    } catch (error) {
+      alert('There was an error creating the account.');
+
+      // Log more detailed error information for debugging
+      if (error.response) {
+        console.error('Server responded with an error:', error.response.data);
+        console.error('Status:', error.response.status);
+        console.error('Headers:', error.response.headers);
+      } else if (error.request) {
+        console.error('No response received:', error.request);
+      } else {
+        console.error('Error message:', error.message);
+      }
     }
   };
 
@@ -143,12 +210,12 @@ const RegisterPage = () => {
           />
         </div>
 
-          {/* Country Selection */}
-          <div className={styles.formGroup}>
+        {/* Country Selection */}
+        <div className={styles.formGroup}>
           <label htmlFor="country">Country</label>
           <select
             id="country"
-            name="country" // New field for country selection
+            name="country"
             value={formData.country}
             onChange={handleChange}
             required
@@ -161,7 +228,6 @@ const RegisterPage = () => {
             <option value="CA">Canada</option>
             <option value="AU">Australia</option>
             <option value="DE">Germany</option>
-            {/* Add more countries as needed */}
           </select>
         </div>
 
@@ -220,40 +286,6 @@ const RegisterPage = () => {
           </>
         )}
 
-        {/* Show CID input when Skype is selected for Contact1 */}
-        {formData.contactMethod1 === 'skype' && (
-          <div className={styles.formGroup}>
-            <label htmlFor="cid1">Enter CID (Customer ID)</label>
-            <input
-              type="text"
-              id="cid1"
-              name="cid1"
-              placeholder="for example: live:.cid.123456"
-              value={formData.cid1}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-        )}
-
-        {/* Show Placeholder for Telegram in Contact1 */}
-        {formData.contactMethod1 === 'telegram' && (
-          <div className={styles.formGroup}>
-            <label htmlFor="phoneNumber1">Telegram Username</label>
-            <input
-              type="text"
-              id="phoneNumber1"
-              name="phoneNumber1"
-              placeholder="For example: @kimiagencyofficial"
-              value={formData.phoneNumber1}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-        )}
-
         {/* Contact2 Method Dropdown */}
         <div className={styles.formGroup}>
           <label htmlFor="contactMethod2">Contact2</label>
@@ -266,26 +298,9 @@ const RegisterPage = () => {
             className={styles.input}
           >
             <option value="">Select Option</option>
-
-            {/* Conditionally render options for Contact2 based on Contact1 */}
-            {formData.contactMethod1 === 'whatsapp' && (
-              <>
-                <option value="skype">Skype</option>
-                <option value="telegram">Telegram</option>
-              </>
-            )}
-            {formData.contactMethod1 === 'skype' && (
-              <>
-                <option value="whatsapp">WhatsApp</option>
-                <option value="telegram">Telegram</option>
-              </>
-            )}
-            {formData.contactMethod1 === 'telegram' && (
-              <>
-                <option value="whatsapp">WhatsApp</option>
-                <option value="skype">Skype</option>
-              </>
-            )}
+            <option value="whatsapp">WhatsApp</option>
+            <option value="skype">Skype</option>
+            <option value="telegram">Telegram</option>
           </select>
         </div>
 
@@ -326,42 +341,9 @@ const RegisterPage = () => {
           </>
         )}
 
-        {/* Show CID input when Skype is selected for Contact2 */}
-        {formData.contactMethod2 === 'skype' && (
-          <div className={styles.formGroup}>
-            <label htmlFor="cid2">Enter CID (Customer ID)</label>
-            <input
-              type="text"
-              id="cid2"
-              name="cid2"
-              placeholder="for example: live:.cid.123456"
-              value={formData.cid2}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-        )}
-
-        {/* Show Placeholder for Telegram in Contact2 */}
-        {formData.contactMethod2 === 'telegram' && (
-          <div className={styles.formGroup}>
-            <label htmlFor="phoneNumber2">Telegram Username</label>
-            <input
-              type="text"
-              id="phoneNumber2"
-              name="phoneNumber2"
-              placeholder="For example: @kimiagencyofficial"
-              value={formData.phoneNumber2}
-              onChange={handleChange}
-              required
-              className={styles.input}
-            />
-          </div>
-        )}
         {/* Services Checkboxes */}
         <div className={styles.formGroup}>
-          <label>interested(Multiple Choice)</label>
+          <label>Interested (Multiple Choice)</label>
           <div className={styles.checkboxGroupColumn}>
             {/* Agency Ads */}
             <label>
@@ -468,11 +450,11 @@ const RegisterPage = () => {
                 checked={formData.dropShippingService}
                 onChange={handleChange}
               />
-              Drop-Shipping Service & COD fulfillment services
+              Drop Shipping Service
             </label>
 
             {formData.dropShippingService && (
-              <div className={styles.platformsGroup2}>
+              <div className={styles.platformsGroup}>
                 {dropServices.map((service, index) => (
                   <label key={index}>
                     <input
@@ -498,7 +480,7 @@ const RegisterPage = () => {
             type="password"
             id="password"
             name="password"
-            placeholder="Please enter password"
+            placeholder="Enter password"
             value={formData.password}
             onChange={handleChange}
             required
@@ -511,7 +493,7 @@ const RegisterPage = () => {
             type="password"
             id="confirmPassword"
             name="confirmPassword"
-            placeholder="Please enter confirm password"
+            placeholder="Confirm password"
             value={formData.confirmPassword}
             onChange={handleChange}
             required
@@ -519,12 +501,23 @@ const RegisterPage = () => {
           />
         </div>
 
-        <button type="submit" className={styles.submitButton}>
-          Register
-        </button>
+        {/* Submit Button */}
+        <div className={styles.formGroup}>
+          <button type="submit" className={styles.submitButton}>Register</button>
+        </div>
       </form>
     </div>
   );
 };
 
 export default RegisterPage;
+
+
+
+
+
+
+
+
+
+

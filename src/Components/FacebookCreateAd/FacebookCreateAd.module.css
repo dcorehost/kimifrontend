@@ -1,14 +1,14 @@
 /* FacebookCreateAd.module.css */
 
 .container {
-    width: 100%;
+    width: 96%;
     padding: 20px;
     font-family: Arial, sans-serif;
     background-color: #f0f9f5;
     border: 1px dashed #99d3b8;
     border-radius: 8px;
     max-width: 1000px;
-    margin: 100px auto;
+    /* margin: 100px auto; */
     
 }
 /* Apply border-bottom to License Name label specifically */
@@ -94,6 +94,7 @@
     border-radius: 4px;
     cursor: pointer; /* Added pointer cursor */
     font-size: 14px;
+    margin-top: 20px;
 }
 
 .copyButton:hover {

@@ -1,0 +1,61 @@
+.container {
+    width: 80%;
+    margin: auto;
+    padding: 20px;
+    /* border: 1px solid black; */
+  }
+ 
+  
+  .section {
+    margin-bottom: 30px;
+    padding: 20px;
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  .section2{
+    margin-bottom: 30px;
+    padding: 20px;
+    /* border: 1px solid #ddd; */
+    border-radius: 8px;
+   
+  }
+  
+  
+  .input {
+    width: 30%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button {
+    background-color: #EF9273;
+    color: #0D0D0D;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-top: 10px;
+    border-radius: 4px;
+  }
+  
+  .button:hover {
+    background-color: #EF9273;
+  }
+  
+  .lockIcon {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .status {
+    font-weight: bold;
+  }
+  
+  .description {
+    font-size: 14px;
+    color: #555;
+  }
+  

@@ -1,6 +1,5 @@
-
-
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styles from "./MetaSidebar.module.css";
 import { assets } from "../../assets/assets.jsx";
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -37,21 +36,20 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="/meta-accountlist" className={styles.link}>
+                  <Link to="/facebook/accountManage/accountlist" className={styles.link}>
                     Account List
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#apply-new-ad-account" className={styles.link}>
+                  <Link to="/facebook/accountManage/applynewad" className={styles.link}>
                     Apply New Ad Account
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#BM-share-log" className={styles.link}>
+                  <Link to="/facebook/accountManage/bmShareLog" className={styles.link}>
                     BM Share Log
-                  </a>
+                  </Link>
                 </li>
-                
               </ul>
             )}
           </li>
@@ -70,14 +68,14 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.finance && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#ads-deposit" className={styles.link}>
+                  <Link to="/facebook/finance/metaadsdeposit" className={styles.link}>
                     Ads Deposit
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#ad-deposit-record" className={styles.link}>
+                  <Link to="/facebook/finance/metaadsdepositrecord" className={styles.link}>
                     Ad Deposit Record
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}
@@ -97,9 +95,9 @@ const MetaSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.afterSale && (
               <ul className={styles.subMenu}>
                 <li>
-                  <a href="#refund" className={styles.link}>
+                  <Link to="/facebook/aftersale/refund" className={styles.link}>
                     Refund
-                  </a>
+                  </Link>
                 </li>
               </ul>
             )}

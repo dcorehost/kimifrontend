@@ -9,11 +9,11 @@ const MetaAccountList = () => {
     const navigate = useNavigate();
   
     const handleDirectCreateAd = () => {
-      navigate('/facebook-createads'); // Replace with your route
+      navigate('/facebook/accountManage/createaccount'); 
     };
   
     const handleVipPackage = () => {
-      navigate('/#'); // Replace with your route
+      navigate('/#'); 
     };
 
   return (
