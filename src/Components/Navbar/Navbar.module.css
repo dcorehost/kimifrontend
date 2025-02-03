@@ -1,7 +1,10 @@
 
   
 
-
+  body{
+    margin: 0;
+    padding: 0;
+  }
 
 
   .header {
@@ -12,6 +15,7 @@
     background-color: #FEF9F8;
     flex-wrap: wrap;
     font-family: sans-serif, 'Inter';
+    /* border: 1px solid black; */
   }
   
   .logo {

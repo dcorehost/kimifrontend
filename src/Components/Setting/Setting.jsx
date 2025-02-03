@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "./UserSetting.module.css";
+import styles from "./Setting.module.css";
 
-const UserSetting = () => {
+const Setting = () => {
   return (
     <div className={styles.container}>
       <div className={styles.section2}>
@@ -28,4 +28,4 @@ const UserSetting = () => {
   );
 };
 
-export default UserSetting;
+export default Setting;
