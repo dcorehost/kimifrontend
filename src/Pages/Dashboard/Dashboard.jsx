@@ -1,85 +1,8 @@
-// import DashNavbar from "../../Components/DashNavbar/DashNavbar";
-// import Sidebar from "../../Components/Sidebar/Sidebar";
 
 
-
-// const Dashboard = () => {
-//   return (
-//     <>
-//    <DashNavbar />
-//    <Sidebar />
-   
-     
-//     </>
-//   );
-// };
-
-// export default Dashboard;
-
-
-// import Sidebar from "../../Components/Sidebar/Sidebar";
-
-// const Dashboard = () => {
-//   return (
-//     <>
-//       <Sidebar />
-//     </>
-//   );
-// };
-
-// export default Dashboard;
-
-
-
+// //latest new last updated code 
 // import React, { useState } from "react";
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// import DashNavbar from "../../Components/DashNavbar/DashNavbar";
-// import Sidebar from "../../Components/Sidebar/Sidebar";
-// import Table from "../../Components/Table/Table";
-// import CreateGoogleAds from "../../Components/CreateGoogleAds/CreateGoogleAds";
-
-// const Dashboard = () => {
-//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-//   const toggleSidebar = () => {
-//     setIsSidebarOpen(!isSidebarOpen);
-//   };
-
-//   return (
-//     <>
-//       <DashNavbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <div style={{ marginLeft: isSidebarOpen ? "300px" : "60px", transition: "margin-left 0.3s ease" }}>
-//         <h1>Welcome to the Dashboard</h1>
-//         {/* <Table /> */}
-//         {/* <CreateGoogleAds /> */}
-      
-//       </div>
-//        {/* Dynamic Page Rendering */}
-
-
-
-//        <Routes>
-        
-//           <Route path="/" element={<Table />} />
-//           <Route path="/create-googleads" element={<CreateGoogleAds />} />
-//         </Routes>
-
-
-
-//     </>
-//   );
-// };
-
-// export default Dashboard;
-
-
-
-
-// //last working code 
-// import React, { useState } from "react";
-// import { Routes, Route, Outlet } from "react-router-dom";
+// import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
 
 // import DashNavbar from "../../Components/DashNavbar/DashNavbar";
 // import Sidebar from "../../Components/Sidebar/Sidebar";
@@ -87,245 +10,65 @@
 // import CreateGoogleAds from "../../Components/CreateGoogleAds/CreateGoogleAds";
 // import GoogleSidebar from "../../Components/GoogleSidebar/GoogleSidebar";
 // import BingSidebar from "../../Components/BingSidbar/BingSidebar";
+// import MetaSidebar from "../../Components/MetaSidebar/MetaSidebar";
 
 // const Dashboard = () => {
-//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-//   const toggleSidebar = () => {
-//     setIsSidebarOpen(!isSidebarOpen);
-//   };
+  
 
 //   return (
 //     <>
-//       {/* Navbar */}
-//       <DashNavbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-
-//       {/* Sidebar */}
-//       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <GoogleSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <BingSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-
-//       {/* Main Content */}
-//       <div
-//         style={{
-//           marginLeft: isSidebarOpen ? "300px" : "60px",
-//           transition: "margin-left 0.3s ease",
-//           padding: "20px",
-//         }}
-//       >
-//         {/* Nested Routes */}
-//         <Routes>
-//           <Route path="/" element={<Table />} />
-//           <Route path="/create-googleads" element={<CreateGoogleAds />} />
-//         </Routes>
-
-//         <Outlet />
-//       </div>
+//     Dashboard
 //     </>
 //   );
 // };
 
 // export default Dashboard;
 
-
-// // working code 
-// import React, { useState } from "react";
-// import { Routes, Route, Outlet } from "react-router-dom";
-
-// import DashNavbar from "../../Components/DashNavbar/DashNavbar";
-// import Sidebar from "../../Components/Sidebar/Sidebar";
-// import Table from "../../Components/Table/Table";
-// import CreateGoogleAds from "../../Components/CreateGoogleAds/CreateGoogleAds";
-// import GoogleSidebar from "../../Components/GoogleSidebar/GoogleSidebar";
-// import BingSidebar from "../../Components/BingSidbar/BingSidebar";
-
-// const Dashboard = () => {
-//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-//   const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
-
-//   const toggleSidebar = () => {
-//     setIsSidebarOpen(!isSidebarOpen);
-//   };
-
-//   const handleSidebarChange = (type) => {
-//     console.log("Sidebar Change Triggered: ", type); // Debug log
-//     setActiveSidebar(type); // Update sidebar type
-//   };
-
-//   const renderSidebar = () => {
-//     console.log("Rendering Sidebar: ", activeSidebar); // Debug log
-//     switch (activeSidebar) {
-//       case "google":
-//         return <GoogleSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//       case "bing":
-//         return <BingSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//       default:
-//         return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//     }
-//   };
-
-//   return (
-//     <>
-//       {/* Navbar */}
-//       <DashNavbar
-//         isSidebarOpen={isSidebarOpen}
-//         toggleSidebar={toggleSidebar}
-//         handleSidebarChange={handleSidebarChange}
-//       />
-
-//       {/* Render Sidebar */}
-//       {renderSidebar()}
-
-//       {/* Main Content */}
-//       <div
-//         style={{
-//           marginLeft: isSidebarOpen ? "300px" : "60px",
-//           transition: "margin-left 0.3s ease",
-//           padding: "20px",
-//         }}
-//       >
-//         {/* Nested Routes */}
-//         <Routes>
-//           <Route path="/" element={<Table />} />
-//           <Route path="/create-googleads" element={<CreateGoogleAds />} />
-//         </Routes>
-
-//         <Outlet />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Dashboard;
-
-
-
-import React, { useState } from "react";
-import { Routes, Route, useNavigate, Outlet } from "react-router-dom";
-
-import DashNavbar from "../../Components/DashNavbar/DashNavbar";
-import Sidebar from "../../Components/Sidebar/Sidebar";
-import Table from "../../Components/Table/Table";
-import CreateGoogleAds from "../../Components/CreateGoogleAds/CreateGoogleAds";
-import GoogleSidebar from "../../Components/GoogleSidebar/GoogleSidebar";
-import BingSidebar from "../../Components/BingSidbar/BingSidebar";
-import MetaSidebar from "../../Components/MetaSidebar/MetaSidebar";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import styles from "./Dashboard.module.css";
+import { AiTwotoneDollar } from "react-icons/ai";
+import Auth from "../../Components/Services/Auth";
 
 const Dashboard = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
-  const navigate = useNavigate(); // For navigation
+  const [userName, setUserName] = useState("Guest");
+  const [walletAmount, setWalletAmount] = useState(0);
 
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const handleSidebarChange = (type) => {
-    setActiveSidebar(type); // Update the active sidebar type
-    setIsSidebarOpen(true); // Ensure the sidebar opens when switching
-    if (type === "default") {
-      navigate("/"); // Navigate to the home route
+  useEffect(() => {
+    const authData = Auth.getAuthData();
+    if (authData) {
+      setUserName(authData.username || "Guest");
+      setWalletAmount(authData.wallet || 0);
+    } else {
+      console.error("Auth data not found or incomplete.");
     }
-  };
-
-  const renderSidebar = () => {
-    switch (activeSidebar) {
-      case "google":
-        return <GoogleSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-      case "bing":
-        return <BingSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-        case "facebook":
-        return <MetaSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-      default:
-        return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-    }
-  };
+  }, []);
 
   return (
     <>
-      {/* Navbar */}
-      <DashNavbar
-        isSidebarOpen={isSidebarOpen}
-        toggleSidebar={toggleSidebar}
-        handleSidebarChange={handleSidebarChange}
-      />
+      <div className={styles.dashboardContainer}>
+        <h1>Welcome, {userName}! Have a Nice Day</h1>
+        <p>Your dashboard gives you quick access to your account information.</p>
+        
+        <div className={styles.cardContainer}>
+          <div className={styles.card}>
+            <h2>Wallet Balance</h2>
+            <p> ${walletAmount.toFixed(2)}</p>
+          </div>
 
-      {/* Render Sidebar */}
-      {renderSidebar()}
+          <div className={styles.card}>
+            <h2>Add Money</h2>
+            <Link to="/kimi/wallet/addmoney-table" className={styles.link}>Add Funds</Link>
+          </div>
 
-      {/* Main Content */}
-      <div
-        style={{
-          marginLeft: isSidebarOpen ? "300px" : "60px",
-          transition: "margin-left 0.3s ease",
-          padding: "20px",
-        }}
-      >
-        {/* <Routes>
-          <Route path="/" element={<Table />} />
-          <Route path="/create-googleads" element={<CreateGoogleAds />} />
-        </Routes> */}
-
-        <Outlet />
+          <div className={styles.card}>
+            <h2>Update Ad Account</h2>
+            <Link to="/facebook/accountManage/accountlist" className={styles.link}>Manage Account</Link>
+          </div>
+        </div>
       </div>
     </>
   );
 };
 
 export default Dashboard;
-
-
-// import React, { useState } from "react";
-// import { Routes, Route, Outlet } from "react-router-dom";
-
-// import DashNavbar from "../../Components/DashNavbar/DashNavbar";
-// import Sidebar from "../../Components/Sidebar/Sidebar";
-// import Table from "../../Components/Table/Table";
-// import ApplyGoogleAdsTable from "../../Components/ApplyGoogleAdsTable/ApplyGoogleAdsTable";
-// import GmailShareLogTable from "../../Components/GmailShareLogTable/GmailShareLogTable";
-// import AdsDepositeRecordTable from "../../Components/AdsDepositeRecordTable/AdsDepositerecordTable";
-// import RefundTable from "../../Components/RefundTable/RefundTable";
-
-// const Dashboard = () => {
-//   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-//   const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
-
-//   const toggleSidebar = () => {
-//     setIsSidebarOpen(!isSidebarOpen);
-//   };
-
-//   const handleSidebarChange = (type) => {
-//     setActiveSidebar(type); // Update the active sidebar type
-//     setIsSidebarOpen(true); // Ensure the sidebar opens when switching
-//   };
-
-//   const renderSidebar = () => {
-//     switch (activeSidebar) {
-//       case "google":
-//         return <GoogleSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//       case "bing":
-//         return <BingSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//       case "facebook":
-//         return <MetaSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//       default:
-//         return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-//     }
-//   };
-
-//   return (
-//     <>
-//       <DashNavbar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
-//       <div style={{ marginLeft: isSidebarOpen ? "300px" : "60px", transition: "margin-left 0.3s ease" }}>
-//         <h1>Welcome to the Dashboard</h1>
-//         {/* <Table /> */}
-//         {/* <ApplyGoogleAdsTable /> */}
-//         {/* <GmailShareLogTable /> */}
-//         {/* <AdsDepositeRecordTable /> */}
-//         <RefundTable />
-//       </div>
-//     </>
-//   );
-// };
-
-// export default Dashboard;

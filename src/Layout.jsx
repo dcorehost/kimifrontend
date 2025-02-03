@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 
 import DashNavbar from "./Components/DashNavbar/DashNavbar";
@@ -8,12 +8,16 @@ import CreateGoogleAds from "./Components/CreateGoogleAds/CreateGoogleAds";
 import GoogleSidebar from "./Components/GoogleSidebar/GoogleSidebar";
 import BingSidebar from "./Components/BingSidbar/BingSidebar";
 import MetaSidebar from "./Components/MetaSidebar/MetaSidebar";
+import Auth from "./Components/Services/Auth";
 
 const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
     const navigate = useNavigate(); // For navigation
     const location = useLocation();
+
+    const user = Auth.getAuthData(); // Get authentication data
+    const isAuthenticated = !!user?.token; // Check if the user is logged in
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -27,6 +31,11 @@ const Layout = () => {
         }
     };
 
+    useEffect(() => {
+      if (Auth.isAuthenticated()) {
+        // navigate("/dashboard"); // Redirect to dashboard globally
+      }
+    }, []);
 
 
     // Function to render the correct sidebar based on the route
@@ -40,16 +49,23 @@ const Layout = () => {
         } else if (path.includes("/facebook")) {
             return <MetaSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
         }
+        //for kimi sidebar
+     else if (path.includes("/kimi")) {
+        return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
+    }
         // Default sidebar for unmatched paths
         return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
     };
 
 
     // Check if the current path requires the navbar
-    const shouldRenderNavbar =
+    const shouldRenderNavbar = isAuthenticated && (
         location.pathname.includes("/google") ||
         location.pathname.includes("/bing") ||
-        location.pathname.includes("/facebook");
+        location.pathname.includes("/facebook") ||
+        location.pathname.includes("/kimi") ||
+        location.pathname.includes("/dashboard")
+    )
 
     return (
         // <div style={{ display: "flex" }}>

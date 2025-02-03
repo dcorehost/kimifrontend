@@ -41,12 +41,12 @@ const Sidebar = ({ isSidebarOpen }) => {
             {isWalletOpen && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/addmoney-table" className={styles.link}>
+                  <Link to="/kimi/wallet/addmoney-table" className={styles.link}>
                     <i className="fas fa-plus-circle"></i> Add Money
                   </Link>
                 </li>
                 <li>
-                  <Link to="/pay" className={styles.link}>
+                  <Link to="/kimi/wallet/paylink" className={styles.link}>
                     <i className="fas fa-paper-plane"></i> Pay
                   </Link>
                 </li>

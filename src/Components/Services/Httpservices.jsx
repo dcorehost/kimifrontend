@@ -9,7 +9,7 @@ const baseApiUrl = "http://admediaagency.online/kimi/";
 // Create Axios instance
 const axiosInstance = axios.create({
   baseURL: baseApiUrl,
-  timeout: 10000, // Set a 10-second timeout
+ // timeout: 10000, // Set a 10-second timeout
 });
 
 // Add Authorization header using Axios interceptors
