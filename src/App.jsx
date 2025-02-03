@@ -36,6 +36,7 @@ import MetaRefund from "./Components/MetaRefund/MetaRefund";
 import UserSettings from "./Components/UserFile/settings/UserSettings";
 import Auth from "./Components/Services/Auth";
 import ProtectedRoute from "./ProtectedRoute";
+import PayLink from "./Components/PayLink/PayLink";
 
 
 
@@ -95,7 +96,8 @@ const App = () => {
 
 
             {/* //kimi sidebar */}
-            <Route path="/addmoney-table" element={<AddMoneyTable />}></Route>
+            <Route path="/kimi/wallet/addmoney-table" element={<AddMoneyTable />}></Route>
+            <Route path="/kimi/wallet/paylink" element={<PayLink />}></Route>
 
             {/* //user profile */}
             <Route path="/dashboard/user-profile" element={<UserProfile />}></Route>

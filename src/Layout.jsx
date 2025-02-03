@@ -33,7 +33,7 @@ const Layout = () => {
 
     useEffect(() => {
       if (Auth.isAuthenticated()) {
-        navigate("/dashboard"); // Redirect to dashboard globally
+        // navigate("/dashboard"); // Redirect to dashboard globally
       }
     }, []);
 
@@ -49,6 +49,10 @@ const Layout = () => {
         } else if (path.includes("/facebook")) {
             return <MetaSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
         }
+        //for kimi sidebar
+     else if (path.includes("/kimi")) {
+        return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
+    }
         // Default sidebar for unmatched paths
         return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
     };
@@ -59,6 +63,7 @@ const Layout = () => {
         location.pathname.includes("/google") ||
         location.pathname.includes("/bing") ||
         location.pathname.includes("/facebook") ||
+        location.pathname.includes("/kimi") ||
         location.pathname.includes("/dashboard")
     )
 

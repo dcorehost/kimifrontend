@@ -1,4 +1,4 @@
-.container {
+/* .container {
   max-width: 900px;
   margin: 50px auto;
   padding: 20px;
@@ -63,7 +63,6 @@ select.input {
   background-color: #45a049;
 }
 
-/* Platform checkboxes under Agency Ads */
 .platformsGroup {
   display: flex;
   flex-wrap: wrap; 
@@ -78,7 +77,6 @@ select.input {
   width: 200px; 
 }
 
-/* Services checkboxes */
 .checkboxGroupColumn {
   display: flex;
   flex-direction: column; 
@@ -91,7 +89,6 @@ select.input {
   font-size: 14px;
 }
 
-/* Business checkboxes under "What is your business?" */
 .businessGroup {
   display: flex;
   flex-wrap: wrap; 
@@ -106,7 +103,6 @@ select.input {
   width: 200px; 
 }
 
-/* Monthly Spend (USD) radio buttons */
 .radioGroup {
   display: flex;
   flex-wrap: wrap; 
@@ -121,7 +117,6 @@ select.input {
   width: 200px; 
 }
 
-/* Drop Shipping Service checkboxes */
 .dropServiceGroup {
   display: flex;
   flex-direction: column; 
@@ -134,7 +129,6 @@ select.input {
   font-size: 14px;
 }
 
-/* Media Queries for Responsive Design */
 @media (max-width: 768px) {
   .container {
     max-width: 90%;
@@ -153,17 +147,17 @@ select.input {
 
   .submitButton {
     width: 100%;
-    max-width: 200px; /* Limit the button width */
+    max-width: 200px; 
   }
 
   .platformsGroup label,
   .businessGroup label,
   .radioGroup label {
-    width: 100%; /* Adjust labels to full width */
+    width: 100%; 
   }
 }
 
-@media (max-width: 480px) { /* For mobile phones */
+@media (max-width: 480px) { 
   .title {
     font-size: 20px;
   }
@@ -186,6 +180,146 @@ select.input {
   .platformsGroup label,
   .businessGroup label,
   .radioGroup label {
-    width: 100%; /* Full width on mobile */
+    width: 100%; 
+  }
+} */
+.container {
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+label {
+  font-size: 14px;
+  padding: 10px 0;
+  display: inline-block;
+}
+
+.input,
+select.input {
+  padding: 12px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Submit Button */
+.submitButton {
+  margin: 20px auto 0;
+  width: 120px;
+  padding: 12px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  display: block;
+}
+
+.submitButton:hover {
+  background-color: #45a049;
+}
+
+/* Checkbox & Radio Button Styles */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: #4CAF50; /* Green color */
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+}
+
+/* Checkbox & Radio Groups */
+.checkboxGroupColumn,
+.dropServiceGroup,
+.businessGroup,
+.radioGroup,
+.platformsGroup {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.checkboxGroupColumn label,
+.dropServiceGroup label,
+.businessGroup label,
+.radioGroup label,
+.platformsGroup label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
+    padding: 15px;
+  }
+
+  .input,
+  select.input {
+    width: 100%;
+  }
+
+  .submitButton {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  label {
+    width: 100%;
+    padding: 10px 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 20px;
+  }
+
+  .input,
+  select.input {
+    font-size: 14px;
+    padding: 10px;
+  }
+
+  .submitButton {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 12px;
+  }
+
+  .platformsGroup label,
+  .businessGroup label,
+  .radioGroup label {
+    width: 100%;
   }
 }
