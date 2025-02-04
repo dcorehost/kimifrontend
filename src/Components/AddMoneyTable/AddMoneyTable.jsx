@@ -231,7 +231,7 @@ const AddMoneyTable = () => {
               <label htmlFor="image">Upload Image:</label>
               <input
                 type="file"
-                id="image"
+                id="photo"
                 name="image"
                 onChange={handleImageUpload}
                 className={styles.inputField}
