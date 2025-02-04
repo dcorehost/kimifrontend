@@ -57,7 +57,7 @@ const AddMoneyTable = () => {
 
       // Make the API POST request
       const response = await httpServices.post(
-        "http://13.127.161.242:8001/kimi/add-money",
+        "http://admediaagency.online/kimi/add-money",
         formData,
         {
           headers: {
@@ -256,4 +256,7 @@ const AddMoneyTable = () => {
 };
 
 export default AddMoneyTable;
+
+
+
 
