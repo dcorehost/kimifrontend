@@ -37,6 +37,7 @@ import UserSettings from "./Components/UserFile/settings/UserSettings";
 import Auth from "./Components/Services/Auth";
 import ProtectedRoute from "./ProtectedRoute";
 import PayLink from "./Components/PayLink/PayLink";
+import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
 
 
 
@@ -104,8 +105,11 @@ const App = () => {
             <Route path="/dashboard/settings" element={<UserSettings />} />
 
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
+
+            <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
           </Route>
 
+          
 
 
         </Route>
