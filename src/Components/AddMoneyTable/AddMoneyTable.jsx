@@ -52,7 +52,7 @@ const AddMoneyTable = () => {
       formData.append("state", "Pending"); // Static state, could be dynamic
       formData.append("payway", modalData.payway);
       if (modalData.image) {
-        formData.append("image", modalData.image); // Append the image file here
+        formData.append("photo", modalData.image); // Append the image file here
       }
 
       // Make the API POST request
