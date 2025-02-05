@@ -70,7 +70,7 @@ const BingAdsDeposit = () => {
       const responses = await Promise.all(
         requests.map((requestData) =>
           axios.post(
-            'http://admediaagency.online/kimi/create-bing-adDeposit', 
+            'https://admediaagency.online/kimi/create-bing-adDeposit', 
             requestData,
             {
               headers: {

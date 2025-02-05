@@ -38,6 +38,9 @@ import Auth from "./Components/Services/Auth";
 import ProtectedRoute from "./ProtectedRoute";
 import PayLink from "./Components/PayLink/PayLink";
 import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
+import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
+
+
 
 
 
@@ -107,6 +110,12 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
+            <Route path="/wallettable" element={<WalletFlowTable></WalletFlowTable>}></Route>
+
+          
+
+
+           
           </Route>
 
           

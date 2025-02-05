@@ -21,7 +21,7 @@
 
 //     try {
 //       const response = await httpServices.post(
-//         "http://admediaagency.online/kimi/login-account",
+//         "https://admediaagency.online/kimi/login-account",
 //         { username, password }
 //       );
 
@@ -128,7 +128,7 @@ const Login = () => {
 
     try {
       const response = await httpServices.post(
-        "http://admediaagency.online/kimi/login-account",
+        "https://admediaagency.online/kimi/login-account",
         { emailId, password }
       );
 

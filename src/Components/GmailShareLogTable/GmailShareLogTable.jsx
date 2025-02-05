@@ -26,7 +26,7 @@ const GmailShareLogTable = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-google-ads", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
           headers: { Authorization: `Bearer ${token}` }, 
         });
 

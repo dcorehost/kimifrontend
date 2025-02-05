@@ -24,7 +24,7 @@ const MetaRefund = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/refund-Details?adType=Facebook", {
+        const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Facebook", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -90,7 +90,7 @@ const MetaRefund = () => {
 
     try {
       const response = await axios.post(
-        "http://admediaagency.online/kimi/apply-refund",
+        "https://admediaagency.online/kimi/apply-refund",
         requestData,
         {
           headers: {

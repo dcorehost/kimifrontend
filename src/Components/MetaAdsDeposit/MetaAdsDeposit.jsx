@@ -71,7 +71,7 @@ const MetaAdsDeposit = () => {
       const responses = await Promise.all(
         requests.map((requestData) =>
           axios.post(
-            'http://admediaagency.online/kimi/create-facebook-adDeposit',
+            'https://admediaagency.online/kimi/create-facebook-adDeposit',
             requestData,
             {
               headers: {

@@ -22,7 +22,7 @@ const ApplyBingAd = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-bing-ads", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-bing-ads", {
           headers: { Authorization: `Bearer ${token}` }, 
         });
 
