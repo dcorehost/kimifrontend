@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./UserSetting.module.css";
+import styles from "./Usersetting.module.css";
 
 const UserSetting = () => {
   return (

@@ -52,12 +52,12 @@ const AddMoneyTable = () => {
       formData.append("state", "Pending"); // Static state, could be dynamic
       formData.append("payway", modalData.payway);
       if (modalData.image) {
-        formData.append("image", modalData.image); // Append the image file here
+        formData.append("photo", modalData.image); // Append the image file here
       }
 
       // Make the API POST request
       const response = await httpServices.post(
-        "http://13.127.161.242:8001/kimi/add-money",
+        "http://admediaagency.online/kimi/add-money",
         formData,
         {
           headers: {
@@ -231,7 +231,7 @@ const AddMoneyTable = () => {
               <label htmlFor="image">Upload Image:</label>
               <input
                 type="file"
-                id="image"
+                id="photo"
                 name="image"
                 onChange={handleImageUpload}
                 className={styles.inputField}
@@ -256,4 +256,7 @@ const AddMoneyTable = () => {
 };
 
 export default AddMoneyTable;
+
+
+
 

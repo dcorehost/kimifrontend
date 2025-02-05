@@ -110,12 +110,13 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
-            <Route path="/wallettable" element={<WalletFlowTable></WalletFlowTable>}></Route>
-
-          
 
 
-           
+
+
+
+
+            
           </Route>
 
           
