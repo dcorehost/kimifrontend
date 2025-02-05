@@ -59,7 +59,7 @@ const CreateBingAds = () => {
 
     try {
       const response = await axios.post(
-        "http://admediaagency.online/kimi/create-bing-ads",
+        "https://admediaagency.online/kimi/create-bing-ads",
         requestData,
         {
           headers: {

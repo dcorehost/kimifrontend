@@ -69,7 +69,7 @@ const GoogleAdsDeposite = () => {
 
     try {
       const response = await axios.post(
-        'http://admediaagency.online/kimi/create-google-adDeposit',
+        'https://admediaagency.online/kimi/create-google-adDeposit',
         requestData,
         {
           headers: {

@@ -21,7 +21,7 @@ const AdsDepositeRecordTable = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-Google-adDeposit?adType=Google", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-Google-adDeposit?adType=Google", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -64,7 +64,7 @@ const AdsDepositeRecordTable = () => {
     try {
       console.log("Fetching export file...");
 
-      const response = await axios.get("http://admediaagency.online/kimi/export-googlead-deposit", {
+      const response = await axios.get("https://admediaagency.online/kimi/export-googlead-deposit", {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob", 
       });

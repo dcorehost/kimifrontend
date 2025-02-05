@@ -84,7 +84,7 @@ const FacebookCreateAd = () => {
 
     try {
       const response = await axios.post(
-        "http://admediaagency.online/kimi/create-facebook-ads",
+        "https://admediaagency.online/kimi/create-facebook-ads",
         requestData,
         {
           headers: {
