@@ -231,14 +231,14 @@ const Login = () => {
       console.log("Login API Response:", response); // Debugging API response
 
       if (response.status === 200) {
-        const { token, username, wallet } = response.data || {}; // Ensure response.data exists
+        const { token, username, typeOfUser } = response.data || {}; // Ensure response.data exists
 
         if (!token || !username) {
           setError("Invalid response from server. Please try again.");
           return;
         }
 
-        Auth.login({ token, username, wallet: wallet || 0 }); // Fallback if wallet is missing
+        Auth.login({ token, username, typeOfUser }); // Fallback if wallet is missing
         setShowPopup(true);
 
         setTimeout(() => navigate("/dashboard"), 2000);

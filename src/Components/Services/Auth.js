@@ -4,7 +4,7 @@ const Auth = {
   // Store authentication data in localStorage
   login: (data) => {
     try {
-      if (data && data.token && data.username && data.wallet !== undefined) {
+      if (data && data.token && data.username && data.typeOfUser !== undefined) {
         localStorage.setItem("AuthData", JSON.stringify(data));
         console.log("Auth data saved:", data);
       } else {

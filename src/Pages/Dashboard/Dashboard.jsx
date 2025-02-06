@@ -29,20 +29,42 @@ import { Link } from "react-router-dom";
 import styles from "./Dashboard.module.css";
 import { AiTwotoneDollar } from "react-icons/ai";
 import Auth from "../../Components/Services/Auth";
+import axios from "axios";
 
 const Dashboard = () => {
   const [userName, setUserName] = useState("Guest");
   const [walletAmount, setWalletAmount] = useState(0);
+  const token = Auth.getToken();
 
   useEffect(() => {
     const authData = Auth.getAuthData();
     if (authData) {
       setUserName(authData.username || "Guest");
-      setWalletAmount(authData.wallet || 0);
+      // setWalletAmount(authData.wallet || 0);
     } else {
       console.error("Auth data not found or incomplete.");
     }
   }, []);
+
+  useEffect(() => {
+    async function fetchWalletAmount() {
+      try {
+        const walletRequest = await axios.get(
+          "https://admediaagency.online/kimi/get-wallet-of-user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = walletRequest;
+        setWalletAmount(data?.users?.wallet)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchWalletAmount()
+  }, [])
 
   return (
     <>
@@ -53,7 +75,7 @@ const Dashboard = () => {
         <div className={styles.cardContainer}>
           <div className={styles.card}>
             <h2>Wallet Balance</h2>
-            <p> ${walletAmount.toFixed(2)}</p>
+            <p> ${walletAmount?.toFixed(2) || 0}</p>
           </div>
 
           <div className={styles.card}>

@@ -9,6 +9,7 @@ import styles from "./DashNavbar.module.css";
 import { AiTwotoneDollar } from "react-icons/ai";
 import Auth from "../Services/Auth";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import axios from "axios";
 
 const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
   const [userName, setUserName] = useState("Guest");
@@ -23,7 +24,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
     const authData = Auth.getAuthData();
     if (authData) {
       setUserName(authData.username || "Guest");
-      setWalletAmount(authData.wallet || 0);
+      // setWalletAmount(authData.wallet || 0);
     } else {
       console.error("Auth data not found or incomplete.");
     }
@@ -53,7 +54,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
     async function fetchWalletAmount() {
       try {
         const walletRequest = await axios.get(
-          "http://admediaagency.online/kimi/get-wallet-of-user",
+          "https://admediaagency.online/kimi/get-wallet-of-user",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -61,7 +62,7 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
           }
         );
         const { data } = walletRequest;
-        setWalletAmount(data?.wallet)
+        setWalletAmount(data?.users?.wallet)
       } catch (error) {
         console.log(error)
       }

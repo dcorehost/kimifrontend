@@ -50,14 +50,6 @@ const CreateGoogleAds = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const token = localStorage.getItem("userToken");
-
-    if (!token) {
-      setResponseMessage("Authentication error: No token found. Please log in again.");
-      setLoading(false);
-      return;
-    }
-
     const requestData = {
       adNum,
       adsDetails: adsData,
@@ -105,7 +97,7 @@ const CreateGoogleAds = () => {
     async function fetchWalletAmount() {
       try {
         const walletRequest = await axios.get(
-          "http://admediaagency.online/kimi/get-wallet-of-user",
+          "https://admediaagency.online/kimi/get-wallet-of-user",
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -113,7 +105,7 @@ const CreateGoogleAds = () => {
           }
         );
         const { data } = walletRequest;
-        setWalletAmount(data?.wallet)
+        setWalletAmount(data?.users?.wallet)
       } catch (error) {
         console.log(error)
       }
