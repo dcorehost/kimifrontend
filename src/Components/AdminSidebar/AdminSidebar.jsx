@@ -69,17 +69,17 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.adApproval && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/adApproval/googleAds" className={styles.link}>
+                  <Link to="/admin/adapproval/googleapprove" className={styles.link}>
                     Google Ads Approval
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/adApproval/googleAds" className={styles.link}>
+                  <Link to="/admin/adapproval/bingapprove" className={styles.link}>
                     Bing Ads Approval
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/adApproval/facebookAds" className={styles.link}>
+                  <Link to="/admin/adapproval/facebookapprove" className={styles.link}>
                     Facebook Ads Approval
                   </Link>
                 </li>
@@ -101,12 +101,12 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.Refund && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/refundApproval/pendingRefunds" className={styles.link}>
+                  <Link to="/admin/refund/pendingrefund" className={styles.link}>
                     Pending Refunds
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/refundApproval/approvedRefunds" className={styles.link}>
+                  <Link to="/admin/refund/approverefund" className={styles.link}>
                     Approved Refunds
                   </Link>
                 </li>

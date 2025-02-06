@@ -41,6 +41,11 @@ import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCo
 import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
 import AdminProtectedRoute from "./AdminProtectedRoute";
 import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
+import ApprovGoogleAd from "./Components/ApprovGoogleAd/ApprovGoogleAd";
+import ApprovBingAd from "./Components/ApprovBingkAd/ApprovBingAd";
+import ApprovFacebookAd from "./Components/ApprovFacebookAd/ApprovFacebookAd";
+import PendingRefund from "./Components/PendingRefund/PendingRefund";
+import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
 
 
 
@@ -117,6 +122,9 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
+             {/*ApproveGoogleAd*/}
+            {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
+             {/*ApprovBingAd*/}
 
           </Route>
 
@@ -126,10 +134,21 @@ const App = () => {
             {/* Example: an admin panel or admin-specific route */}
             <Route path="/admin" element={<div>Admin Panel</div>} />
             {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+          
 
           </Route>
 
+
           <Route path="/admin-dashboard" element={<AdminDashboard />} />
+
+
+          <Route path="/admin/adapproval/googleapprove" element={<ApprovGoogleAd />} />
+           <Route path="/admin/adapproval/bingapprove" element={<ApprovBingAd />} />
+           <Route path="/admin/adapproval/facebookapprove" element={<ApprovFacebookAd />} />
+           <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
+           <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
+
+         
 
         </Route>
       </Routes>

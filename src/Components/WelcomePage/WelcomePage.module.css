@@ -1,21 +1,21 @@
-.MainContainer {
-    /* border: 1px solid black; */
+/* .MainContainer {
+    border: 1px solid black;
     height: auto;
     display: flex;
     flex-wrap: wrap; 
-    margin: 0px 20px;
+    margin: 0px 0px;
     font-family: sans-serif, 'Inter';
     padding-left: 150px;
     padding-right: 150px;
-    /* border: 1px solid black; */
-}
+    border: 1px solid black;
+} */
 
-.MainContainer1 {
-    /* border: 1px solid black; */
+/* .MainContainer1 {
+    border: 1px solid black;
     height: auto;
     width: 60%;
-    box-sizing: border-box;
-}
+    box-sizing: border-box; 
+} */
 .award{
     font-size: 20px;
 }
@@ -24,12 +24,12 @@
     /* border: 1px solid black; */
     text-align: left;
 }
-.MainContainer2 {
-    /* border: 1px solid black; */
-    height: 500px;
+/* .MainContainer2 {
+    border: 1px solid black;
+    height: auto;
     width: 40%;
     box-sizing: border-box;
-}
+} */
 
 .KimiAgencyText {
     display: inline-block;
@@ -110,7 +110,7 @@
     justify-content: center; 
     align-items: center; 
     width: 100%; 
-    height: 500px;
+    height: 900px;
 }
 
 .imageContainer img {
@@ -128,57 +128,133 @@
 /* Media Queries for Mobile Phones */
 @media (max-width: 768px) {
     .MainContainer {
-        flex-direction: column; 
+        flex-direction: column;
+        padding: 0 20px;
     }
 
-    .MainContainer1,
-    .MainContainer2 {
-        width: 100%;
+    
+
+    .welcome {
+        font-size: 40px;
+    }
+
+    .digitalpara {
+        font-size: 18px;
+    }
+
+    .imageContainer {
         height: auto;
     }
 
-    .WorkWinning {
-        /* border: 1px solid black; */
-        height: auto;
-        width: 90%;
-        margin: 0px auto;
-        flex-direction: column; 
-    }
-
-    .work, .winning { 
-        /* border: 1px solid black; */
-        height: auto; 
+    .imageContainer img {
         width: 100%;
+        object-fit: cover;
     }
 }
 
-/* Further adjustments for smaller devices */
 @media (max-width: 480px) {
     .MainContainer {
-        flex-direction: column; 
-        margin: 0px 10px; 
+        margin: 0 10px;
+        padding: 0 15px;
     }
 
-    .MainContainer1,
-    .MainContainer2 {
-        width: 100%;
-        height: auto;
+    .welcome {
+        font-size: 32px;
+    }
+
+    .system {
+        font-size: 20px;
+    }
+
+    .help {
+        font-size: 18px;
     }
 
     .WorkWinning {
-        /* border: 1px solid black; */
-        height: auto;
-        width: 90%;
-        margin: 0px auto;
-        flex-direction: column; 
+        width: 100%;
+    }
+ 
+}
+
+.MainContainer {
+    padding: 0px;
+    display:flex;
+    margin: 20px 20px;
+}
+
+.MainContainer1,
+.MainContainer2 {
+    width: 50%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+
+.WorkWinning {
+    margin: 0px auto;
+    padding: 0px;
+}
+
+.work, .winning { 
+    width: 100%;
+    height: auto;
+    padding: 0px;
+    margin: 0px;
+}
+
+/* Mobile Optimization */
+ @media (max-width: 768px) {
+    .MainContainer {
+        padding: 0px;
     }
 
-    .work, .winning { 
-        /* border: 1px solid black; */
-        height: auto; 
-        width: 100%; 
+    .welcome {
+        font-size: 40px;
+        margin: 0px;
     }
+
+    .WorkWinning {
+        margin: 0px auto;
+    }
+
+    .work, .winning {
+        padding: 0px;
+        margin: 0px;
+    }
+    .MainContainer1,
+.MainContainer2 {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
 }
-/* .icon{
-    font-size: 30px;
-} */
+}
+
+@media (max-width: 480px) {
+    .MainContainer {
+        padding: 0px;
+        margin: 0px;
+    }
+
+    .welcome {
+        font-size: 32px;
+        margin: 0px;
+    }
+
+    .system, .help {
+        font-size: 18px;
+        margin: 0px;
+    }
+
+    .imageContainer {
+        padding: 0px;
+        margin: 0px;
+    }
+    .MainContainer1,
+.MainContainer2 {
+    width: 100%;
+    height: auto;
+    margin: 0px;
+    padding: 0px;
+}
+} 

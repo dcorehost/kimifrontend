@@ -13,13 +13,13 @@ const Homepage = () => {
     <>
     <Navbar />
     <WelcomePage />
-    <LogoCarousel />
+     <LogoCarousel />
     <WhatIsKimi />
     <Specialize />
     <StatsAndFAQ />
     <ReadyToStart />
 
-    <Footer />
+    <Footer /> 
      
     </>
   );
