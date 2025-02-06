@@ -19,7 +19,7 @@ const MetaAdsDepositRecord = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-facebook-ads", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-facebook-ads", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -59,7 +59,7 @@ const MetaAdsDepositRecord = () => {
     try {
       console.log("Fetching export file...");
 
-      const response = await axios.get("http://admediaagency.online/kimi/export-facebookad-deposit", {
+      const response = await axios.get("https://admediaagency.online/kimi/export-facebookad-deposit", {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob", 
       });

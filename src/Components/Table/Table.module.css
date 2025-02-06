@@ -66,4 +66,59 @@
   .operateButton:hover {
     background-color: #218838;
   }
+
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modalContent {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    /* text-align: center; */
+    width: 600px;
+  }
+  
+  .closeButton, .confirmButton {
+    margin-top: 10px;
+    padding: 10px 15px;
+    cursor: pointer;
+  }
+  
+  .closeButton {
+    background-color: red;
+    color: white;
+  }
+  
+  .confirmButton {
+    background-color: green;
+    color: white;
+  }
+  .modalInput {
+    width: 100%;
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+  }
+  
+  .modalButtons {
+    display: flex;
+    justify-content: right;
+    margin-top: 10px;
+    gap: 20px;
+  }
+  .closeModal{
+    margin: 590px;
+  }
+  
+  
   

@@ -24,7 +24,7 @@ const MetaApplyNewAd = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-facebook-ads", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-facebook-ads", {
           headers: { Authorization: `Bearer ${token}` }, 
         });
 

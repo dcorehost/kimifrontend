@@ -4,8 +4,8 @@ import Auth from "../Services/Auth.js";
 
 // Base API URL
 // const baseApiUrl = "http://13.127.161.242:8001/kimi/";
-const baseApiUrl = "http://admediaagency.online/kimi/";
-// const baseApiUrl = "https://admediaagency.online/kimi/";
+// const baseApiUrl = "http://admediaagency.online/kimi/";
+const baseApiUrl = "https://admediaagency.online/kimi/";
 
 // Create Axios instance
 const axiosInstance = axios.create({

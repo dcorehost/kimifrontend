@@ -23,7 +23,7 @@ const BingRefund = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/refund-Details?adType=Bing", {
+        const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Bing", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -75,7 +75,7 @@ const BingRefund = () => {
 
     try {
       const response = await axios.post(
-        "http://admediaagency.online/kimi/apply-refund",
+        "https://admediaagency.online/kimi/apply-refund",
         requestData,
         {
           headers: {

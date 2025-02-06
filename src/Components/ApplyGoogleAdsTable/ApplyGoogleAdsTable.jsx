@@ -1,5 +1,3 @@
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -8,15 +6,29 @@ import styles from "./ApplyGoogleAdsTable.module.css";
 const ApplyGoogleAdsTable = () => {
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedAd, setSelectedAd] = useState(null); // State to store the selected ad's data
   const navigate = useNavigate();
 
   const handleNextPage = () => {
     navigate("/google/accountManage/accountList/creategoogleads");
   };
 
+  const handleOpenModal = (ad) => {
+    console.log("Opening modal for ad:", ad); // Debugging log
+    setSelectedAd(ad); // Set the selected ad data
+    setIsModalOpen(true); // Open the modal
+  };
+
+  const handleCloseModal = () => {
+    console.log("Closing modal"); // Debugging log
+    setIsModalOpen(false); // Close the modal
+    setSelectedAd(null); // Reset selected ad
+  };
+
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); 
+      const token = localStorage.getItem("userToken");
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -24,19 +36,20 @@ const ApplyGoogleAdsTable = () => {
       }
 
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-google-ads", {
-          headers: { Authorization: `Bearer ${token}` }, 
+        const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
+          headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("API Response:", response.data); 
+        console.log("API Response:", response.data); // Debugging log
 
         if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            applyId: ad._id, 
-            adsNumber: ad.adNum, 
-            state: ad.state, 
-            totalCost: ad.totalCost || "N/A", 
-            applyTime: ad.createdAt, 
+            applyId: ad.applyId,
+            adsNumber: ad.adNum,
+            state: ad.state,
+            totalCost: ad.adsDetails.reduce((acc, detail) => acc + detail.deposit, 0), // Calculate total deposit cost
+            gmailList: ad.adsDetails.map(detail => detail.gmail).join(", "), // Collect all Gmail addresses
+            applyTime: ad.createdAt,
           }));
           setAdsData(ads);
         } else {
@@ -75,14 +88,15 @@ const ApplyGoogleAdsTable = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.applyId || "N/A"}</td> 
-                    <td>{ad.adsNumber || "N/A"}</td> 
-                    <td>{ad.state || "N/A"}</td> 
-                    <td>{ad.totalCost}</td> 
-                    <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td> 
+                    <td>{ad.applyId || "N/A"}</td>
+                    <td>{ad.adsNumber || "N/A"}</td>
+                    <td>{ad.state || "N/A"}</td>
+                    <td>{ad.totalCost}</td>
+                    <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td>
                     <td>
-                      
-                      <button className={styles.button}>Action</button>
+                      <button className={styles.button} onClick={() => handleOpenModal(ad)}>
+                        Details
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -95,6 +109,25 @@ const ApplyGoogleAdsTable = () => {
           </table>
         )}
       </div>
+
+      {/* Modal for showing ad details */}
+      {isModalOpen && selectedAd && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <span className={styles.closeModal} onClick={handleCloseModal}>&#10005;</span> {/* Close button */}
+            <h3>Ad Details</h3>
+            <p><strong>Apply ID:</strong> {selectedAd.applyId}</p>
+            <p><strong>Ads Number:</strong> {selectedAd.adsNumber}</p>
+            <p><strong>State:</strong> {selectedAd.state}</p>
+            <p><strong>Total Deposit Cost:</strong> {selectedAd.totalCost}</p> {/* Updated field */}
+            <p><strong>Apply Time:</strong> {new Date(selectedAd.applyTime).toLocaleString()}</p>
+            <p><strong>Gmails:</strong> {selectedAd.gmailList}</p> {/* List of Gmail addresses */}
+            <div className={styles.modalButtons}>
+              <button className={styles.closeButton} onClick={handleCloseModal}>Close</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

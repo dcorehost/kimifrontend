@@ -151,7 +151,7 @@
 //     };
 
 //     try {
-//       const response = await axios.post('http://admediaagency.online/kimi/create-account', requestData, {
+//       const response = await axios.post('https://admediaagency.online/kimi/create-account', requestData, {
 //         headers: {
 //           'Content-Type': 'application/json', // Ensure the request is sent with the correct header
 //           Authorization: `Bearer ${token}`,
@@ -606,7 +606,7 @@
 //     };
 
 //     try {
-//       const response = await axios.post('http://admediaagency.online/kimi/create-account', requestData, {
+//       const response = await axios.post('https://admediaagency.online/kimi/create-account', requestData, {
 //         headers: {
 //           'Content-Type': 'application/json',
 //           Authorization: `Bearer ${token}`,
@@ -909,7 +909,7 @@ const RegisterPage = () => {
 
     try {
       const response = await axios.post(
-        'http://admediaagency.online/kimi/create-account',
+        'https://admediaagency.online/kimi/create-account',
         requestData,
         {
           headers: {

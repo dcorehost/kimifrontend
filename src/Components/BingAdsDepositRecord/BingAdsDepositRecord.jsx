@@ -21,7 +21,7 @@ const BingAdsDepositRecord = () => {
 
       try {
         const response = await axios.get(
-          "http://admediaagency.online/kimi/get-Bing-adDeposit?adType=Bing",
+          "https://admediaagency.online/kimi/get-Bing-adDeposit?adType=Bing",
           { headers: { Authorization: `Bearer ${token}` } }
         );
 
@@ -65,7 +65,7 @@ const BingAdsDepositRecord = () => {
       console.log("🔹 Requesting export...");
 
       const response = await axios.get(
-        "http://admediaagency.online/kimi/export-bingad-deposit", 
+        "https://admediaagency.online/kimi/export-bingad-deposit", 
         { headers: { Authorization: `Bearer ${token}` }, responseType: "blob" } 
       );
 

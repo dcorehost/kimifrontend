@@ -24,7 +24,7 @@ const PayLink = () => {
   useEffect(() => {
     const fetchPaylinks = async () => {
       try {
-        const response = await axios.get("http://admediaagency.online/kimi/get-paylinks", {
+        const response = await axios.get("https://admediaagency.online/kimi/get-paylinks", {
           headers: {
             Authorization: `Bearer ${userToken}`,
           },
@@ -70,8 +70,8 @@ const PayLink = () => {
     setSuccessMessage(null);
 
     const apiUrl = formData.paylinkType === "Company" 
-      ? "http://admediaagency.online/kimi/create-paylink-company" 
-      : "http://admediaagency.online/kimi/create-paylink-individual";
+      ? "https://admediaagency.online/kimi/create-paylink-company" 
+      : "https://admediaagency.online/kimi/create-paylink-individual";
 
     const requestData = formData.paylinkType === "Company" 
       ? formData 
