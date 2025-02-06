@@ -39,6 +39,7 @@ import ProtectedRoute from "./ProtectedRoute";
 import PayLink from "./Components/PayLink/PayLink";
 import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
 import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
+import AdminProtectedRoute from "./AdminProtectedRoute";
 
 
 
@@ -80,6 +81,7 @@ const App = () => {
             <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
             <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
             <Route path="/google/accountManage/accountList" element={<Table />} />
+            <Route path="/google/add-money" element={<AddMoneyTable />} />
 
             {/* //bing items  */}
             <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
@@ -88,6 +90,8 @@ const App = () => {
             <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
             <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
             <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
+            <Route path="/bing/add-money" element={<AddMoneyTable />} />
+
 
 
             {/* //facebook items  */}
@@ -97,6 +101,8 @@ const App = () => {
             <Route path="/facebook/finance/metaadsdepositrecord" element={<MetaAdsDepositRecord />} />
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
+            <Route path="/facebook/add-money" element={<AddMoneyTable />} />
+
 
 
             {/* //kimi sidebar */}
@@ -111,15 +117,15 @@ const App = () => {
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
 
-
-
-
-
-
-            
           </Route>
 
-          
+
+          {/* Admin only routes */}
+          <Route element={<AdminProtectedRoute />}>
+            {/* Example: an admin panel or admin-specific route */}
+            <Route path="/admin" element={<div>Admin Panel</div>} />
+            {/* Add more admin-specific routes here */}
+          </Route>
 
 
         </Route>
