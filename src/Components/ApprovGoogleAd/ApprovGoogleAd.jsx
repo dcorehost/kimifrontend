@@ -277,7 +277,8 @@ const ApprovGoogleAd = () => {
     }
 
     try {
-      const response = await Httpservices.get("/get-approved-google-ads"); // Use Httpservices to make the GET request
+      // Temporarily removed the Authorization header for debugging
+      const response = await Httpservices.get("/get-approved-google-ads"); 
 
       if (response.data.message === "approved google ads fetched successfully" && Array.isArray(response.data.ads)) {
         setAdsData(response.data.ads);
@@ -309,7 +310,7 @@ const ApprovGoogleAd = () => {
 
   const handleUpdateState = async (id, action) => {
     try {
-      await Httpservices.put(`/approve-googleAd?id=${id}&action=${action}`); // Use Httpservices to make the PUT request
+      await Httpservices.put(`/approve-googleAd?id=${id}&action=${action}`);
 
       setAdsData((prevAds) =>
         prevAds.map((ad) =>
