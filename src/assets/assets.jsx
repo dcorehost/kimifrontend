@@ -13,11 +13,13 @@ import whatisbing from './whatisbing.png';
 import advantagebing from './advantagebing.jpg';
 import whatisgoogle from './whatisgoogle.png';
 import advantagegoogle from './advantagegoogle.jpg';
+import admin from './admin.jpg';
 
 
 
 
 export const assets={
+  admin,
   logo,
   bing,
   facebook,
