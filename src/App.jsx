@@ -40,6 +40,7 @@ import PayLink from "./Components/PayLink/PayLink";
 import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
 import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
 import AdminProtectedRoute from "./AdminProtectedRoute";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 
 
 
@@ -124,9 +125,11 @@ const App = () => {
           <Route element={<AdminProtectedRoute />}>
             {/* Example: an admin panel or admin-specific route */}
             <Route path="/admin" element={<div>Admin Panel</div>} />
-            {/* Add more admin-specific routes here */}
+            {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+
           </Route>
 
+          <Route path="/admin-dashboard" element={<AdminDashboard />} />
 
         </Route>
       </Routes>

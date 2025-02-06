@@ -1,0 +1,130 @@
+/* Sidebar Styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0; /* Initially hidden off-screen */
+    width: 0; /* Sidebar width */
+    height: 100vh; /* Full viewport height */
+    background-color: #FEF9F8;
+    color: black;
+    transition: left 0.3s ease, width 0.3s ease;
+    padding: 0rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: auto; /* Make the sidebar scrollable */
+}
+
+.sidebar.open {
+    left: 0; /* Slide in */
+    width: 240px; /* Expanded width */
+}
+
+.sidebarLinks {
+    list-style: none;
+    padding: 0;
+    margin-top: 3rem; /* Add space for the toggle button */
+    display: block; /* Ensure it's always displayed */
+    flex-grow: 1; /* Allow the list to take up remaining space */
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    color: #EF9273;
+    text-decoration: none;
+    padding: 1rem;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+    border: none; /* Remove border from links */
+}
+
+.link:hover {
+    background-color: #575757;
+}
+
+.sidebar i {
+    margin-right: 1rem;
+    color: black;
+    padding-left: 30px;
+}
+
+/* Wallet Toggle Styles */
+.walletToggle {
+    background: none;
+    border: none; /* Remove border around wallet button */
+    text-align: left;
+    width: 100%;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.walletToggle:focus {
+    outline: none; /* Remove focus outline */
+}
+
+.walletToggle i {
+    color: black;
+    margin-left: 5px;
+}
+
+.walletToggle i:last-child {
+    display: none; /* Hide arrow in collapsed state */
+}
+
+.sidebar.open .walletToggle i:last-child {
+    display: inline; /* Show arrow in expanded state */
+}
+
+/* Submenu Styles */
+.subMenu {
+    list-style: none;
+    padding: 0.5rem 0;
+    margin-left: 1.5rem; /* Indent submenu */
+}
+
+.subLink {
+    display: block;
+    color: black;
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    border: none; /* Remove border from submenu links */
+}
+
+.subLink:hover {
+    background-color: #575757;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 70px; /* Keep sidebar narrow for smaller screens */
+    }
+
+    .sidebar.open {
+        width: 180px; /* Expand sidebar */
+    }
+
+    /* Adjust the position of the toggle button for smaller screens */
+    .toggleButton {
+        right: 10px; /* Keep the toggle button on the right */
+    }
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #EF9273;
+    text-decoration: none;
+    margin: 10px auto;
+}
+
+.adminlogo {
+    width: 100px;
+    height: auto;
+}
