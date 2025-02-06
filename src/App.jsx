@@ -39,6 +39,12 @@ import ProtectedRoute from "./ProtectedRoute";
 import PayLink from "./Components/PayLink/PayLink";
 import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
 import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
+import ApprovGoogleAd from "./Components/ApprovGoogleAd/ApprovGoogleAd";
+import ApprovBingAd from "./Components/ApprovBingkAd/ApprovBingAd";
+import ApprovFacebookAd from "./Components/ApprovFacebookAd/ApprovFacebookAd";
+import PendingRefund from "./Components/PendingRefund/PendingRefund";
+import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
+
 
 
 
@@ -110,13 +116,19 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
+             {/*ApproveGoogleAd*/}
+            <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route>
+             {/*ApprovBingAd*/}
 
+             <Route path="/approvebingad" element={<ApprovBingAd></ApprovBingAd>}></Route>
+             {/* ApprovefacebookAd */}
+             <Route path="/approvefacebookad" element={<ApprovFacebookAd></ApprovFacebookAd>}></Route>
+             
+             {/* pendingrefund */}
+             <Route path="/pendingrefund"  element={<PendingRefund></PendingRefund>}> </Route>
 
-
-
-
-
-            
+            {/* approvedrefund */}
+            <Route path="/approvedrefund" element={<ApprovedRefund></ApprovedRefund>}></Route>
           </Route>
 
           
