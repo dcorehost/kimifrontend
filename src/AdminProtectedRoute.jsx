@@ -11,7 +11,7 @@ const AdminProtectedRoute = () => {
     return <Navigate to="/login" replace />;
   }
   // If the user is authenticated but not an admin, redirect to a different page (e.g., dashboard)
-  if (user.typeOfUser !== "admin") {
+  if (user?.typeOfUser !== "Admin") {
     return <Navigate to="/dashboard" replace />; // If not an admin, redirect to dashboard
   }
   // If authenticated and is admin, allow access

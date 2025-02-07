@@ -68,9 +68,9 @@ const CreateBingAds = () => {
       );
 
       if (response?.data) {
-        setResponseMessage(response.data.message);
-        setWalletAmount(parseFloat(response.data.wallet || 0));
-        setTotalCost(parseFloat(response.data.totalCost || 0));
+        setResponseMessage(response?.data?.message);
+        setWalletAmount(parseFloat(response?.data?.data?.wallet || 0));
+        setTotalCost(parseFloat(response?.data?.data?.totalCost || 0));
       }
     } catch (error) {
       console.error("Error creating ads:", error);

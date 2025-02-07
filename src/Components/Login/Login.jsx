@@ -350,8 +350,8 @@ const Login = () => {
 
         // Redirect to the correct dashboard based on user type
         setTimeout(() => {
-          if (typeOfUser === "admin") {
-            navigate("/admin-dashboard"); // Admin dashboard
+          if (typeOfUser === "Admin") {
+            navigate("/admin/dashboard"); // Admin dashboard
           } else {
             navigate("/dashboard"); // User dashboard
           }

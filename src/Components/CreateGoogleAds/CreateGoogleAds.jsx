@@ -69,7 +69,7 @@ const CreateGoogleAds = () => {
       if (response?.data) {
         const { message, data } = response.data;
         setResponseMessage(message);
-        setWalletAmount(parseFloat(data.wallet));
+        setWalletAmount(parseFloat(data?.wallet));
 
         // Now calculate the total cost with the account opening fee, top-up fee, etc.
         const totalCalculatedCost = parseFloat(data.totalDeposit) + parseFloat(data.topUpFee || 0) + parseFloat(data.accountOpeningFee || 0);
