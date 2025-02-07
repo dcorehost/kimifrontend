@@ -5,7 +5,7 @@ import { FaTrophy } from 'react-icons/fa';
 import { FaClock } from 'react-icons/fa';
 
 const WelcomePage = () => {
-    const text1 = "KIMI";
+    const text1 = "Ad Media";
     const text2 = "Agency|";
 
     return (

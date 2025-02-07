@@ -31,6 +31,7 @@
 .section h3 {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+  color: #fff;
 }
 
 .section ul {
@@ -59,7 +60,9 @@
   justify-content: flex-start;
   align-items: center;
 }
-
+.section p{
+  color: #fff;
+}
 .icons a {
   color: #ef9273;
   transition: color 0.3s ease;

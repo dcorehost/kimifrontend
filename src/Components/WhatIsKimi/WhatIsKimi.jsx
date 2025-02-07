@@ -33,7 +33,7 @@ const WhatIsKimi = () => {
 
           <div className={styles.flexthird}>
             <h3>Your gateway to success</h3>
-            <h1>What is KIMI Agency?</h1>
+            <h1>What is AdMedia Agency?</h1>
             <p>
               We are proud to be the provider of multi-platform agency
               advertising accounts including Meta, Google, Bing ...            

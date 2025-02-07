@@ -12,7 +12,7 @@ const Privacy = () => {
       <p className={style.headingpara}>Last update on May 2024</p>
 
       <p className={style.paragraph}> 
-          At KIMI AGENCY we are committed to protecting the privacy and security of our users’ personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you visit our website or use our services.        </p>
+          At AdMedia Agency we are committed to protecting the privacy and security of our users’ personal information. This Privacy Policy outlines how we collect, use, disclose, and safeguard your data when you visit our website or use our services.        </p>
 
       <h2 className={style.heading}>
            Information We Collect
