@@ -63,12 +63,12 @@
 //           <div className={styles.logo}>
 //             <img
 //               src={assets.logo}
-//               alt="Kimi Agency Logo"
+//               alt="AdMedia Agency Logo"
 //               className={styles.kimilogo}
 //             />
 //           </div>
 //           <h2 className={styles.title}>Hello!</h2>
-//           <p className={styles.title}>WELCOME TO KIMI AGENCY</p>
+//           <p className={styles.title}>WELCOME TO AdMedia Agency</p>
 //           <form onSubmit={handleLogin} className={styles.form}>
 //             <div className={styles.inputGroup}>
 //               <input
@@ -160,12 +160,12 @@
 //           <div className={styles.logo}>
 //             <img
 //               src={assets.logo}
-//               alt="Kimi Agency Logo"
+//               alt="AdMedia Agency Logo"
 //               className={styles.kimilogo}
 //             />
 //           </div>
 //           <h2 className={styles.title}>Hello!</h2>
-//           <p className={styles.title}>WELCOME TO KIMI AGENCY</p>
+//           <p className={styles.title}>WELCOME TO AdMedia Agency</p>
 //           <form onSubmit={handleLogin} className={styles.form}>
 //             <div className={styles.inputGroup}>
 //               <input
@@ -377,12 +377,12 @@ const Login = () => {
           <div className={styles.logo}>
             <img
               src={assets.logo}
-              alt="Kimi Agency Logo"
+              alt="AdMedia Agency Logo"
               className={styles.kimilogo}
             />
           </div>
           <h2 className={styles.title}>Hello!</h2>
-          <p className={styles.title}>WELCOME TO KIMI AGENCY</p>
+          <p className={styles.title}>WELCOME TO AdMedia Agency</p>
           <form onSubmit={handleLogin} className={styles.form}>
             <div className={styles.inputGroup}>
               <input

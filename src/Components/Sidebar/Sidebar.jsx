@@ -13,7 +13,7 @@ const Sidebar = ({ isSidebarOpen }) => {
     <div>
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
         <div className={styles.logo}>
-          <img src={assets.logo} alt="Kimi Agency Logo" className={styles.kimilogo} />
+          <img src={assets.logo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
         </div>
 
         {/* Sidebar Menu */}

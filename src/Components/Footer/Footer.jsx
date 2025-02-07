@@ -11,10 +11,10 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.section}>
         <div className={styles.logo}>
-          <img src={assets.logo} alt="Kimi Agency Logo" className={styles.kimilogo} />
+          <img src={assets.logo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
         </div>
         <p>
-          Kimi Agency provides cross-border platform Meta, Google,
+          AdMedia Agency provides cross-border platform Meta, Google,
           cooperate with authorized dealers.
         </p>
       </div>
@@ -67,7 +67,7 @@ const Footer = () => {
         </div>
       </div>
       <div className={styles.copyright}>
-        &copy; 2024 Kimi Agency. All Rights Reserved.
+        &copy; 2024 AdMedia Agency. All Rights Reserved.
       </div>
     </footer>
   );

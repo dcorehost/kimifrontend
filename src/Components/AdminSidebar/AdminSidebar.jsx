@@ -38,7 +38,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/accountManage/accountList" className={styles.link}>
+                  <Link to="/admin/accountmanage/UserAdsPage" className={styles.link}>
                     User List
                   </Link>
                 </li>
