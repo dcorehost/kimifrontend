@@ -376,7 +376,7 @@ const ApprovGoogleAd = () => {
           </tbody>
         </table>
       ) : (
-        <p>No approved ads available.</p>
+        <p>No approved ads available</p>
       )}
     </div>
   );
