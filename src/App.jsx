@@ -46,7 +46,7 @@ import ApprovBingAd from "./Components/ApprovBingkAd/ApprovBingAd";
 import ApprovFacebookAd from "./Components/ApprovFacebookAd/ApprovFacebookAd";
 import PendingRefund from "./Components/PendingRefund/PendingRefund";
 import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
-
+import RedirectToDashboard from "./RedirectToDashboard";
 
 
 
@@ -62,7 +62,8 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-          <Route index element={<Homepage />} />
+          <Route path="/homepage" element={<Homepage />} />
+          <Route index element={<RedirectToDashboard />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/meta-ads" element={<MetaAds />} />
           <Route path="/bing-ads" element={<BingAds />} />
@@ -122,9 +123,9 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
-             {/*ApproveGoogleAd*/}
+            {/*ApproveGoogleAd*/}
             {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
-             {/*ApprovBingAd*/}
+            {/*ApprovBingAd*/}
 
           </Route>
 
@@ -134,21 +135,13 @@ const App = () => {
             {/* Example: an admin panel or admin-specific route */}
             <Route path="/admin" element={<div>Admin Panel</div>} />
             {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
-          
-
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/adapproval/googleapprove" element={<ApprovGoogleAd />} />
+            <Route path="/admin/adapproval/bingapprove" element={<ApprovBingAd />} />
+            <Route path="/admin/adapproval/facebookapprove" element={<ApprovFacebookAd />} />
+            <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
+            <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
           </Route>
-
-
-          <Route path="/admin-dashboard" element={<AdminDashboard />} />
-
-
-          <Route path="/admin/adapproval/googleapprove" element={<ApprovGoogleAd />} />
-           <Route path="/admin/adapproval/bingapprove" element={<ApprovBingAd />} />
-           <Route path="/admin/adapproval/facebookapprove" element={<ApprovFacebookAd />} />
-           <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
-           <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
-
-         
 
         </Route>
       </Routes>

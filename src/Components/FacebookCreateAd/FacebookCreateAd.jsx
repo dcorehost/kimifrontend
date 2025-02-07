@@ -1,9 +1,10 @@
 
 
 // all data updated code 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./FacebookCreateAd.module.css";
+import Auth from "../Services/Auth";
 
 const FacebookCreateAd = () => {
   const [pageNum, setPageNum] = useState(2);
@@ -23,6 +24,8 @@ const FacebookCreateAd = () => {
   const [totalCost, setTotalCost] = useState(0);
   const [loading, setLoading] = useState(false);
   const [paymentMode, setPaymentMode] = useState("monthly");
+
+  const token = Auth.getToken();
 
   const handlePageNumChange = (e) => {
     const num = parseInt(e.target.value, 10);
@@ -53,16 +56,6 @@ const FacebookCreateAd = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-
-    const token = localStorage.getItem("userToken");
-
-    if (!token) {
-      setResponseMessage("Authentication error: No token found. Please log in again.");
-      setLoading(false);
-      return;
-    }
-
-
 
     const requestData = {
       licenseMode: licenseType === "new" ? "new license" : "old license",
@@ -111,6 +104,26 @@ const FacebookCreateAd = () => {
       alert("Link copied to clipboard!");
     });
   };
+
+  useEffect(() => {
+    async function fetchWalletAmount() {
+      try {
+        const walletRequest = await axios.get(
+          "https://admediaagency.online/kimi/get-wallet-of-user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = walletRequest;
+        setWallet(data?.users?.wallet)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchWalletAmount();
+  }, []);
 
   return (
     <div className={styles.container}>

@@ -19,11 +19,11 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
   const navigate = useNavigate();
 
   const token = Auth.getToken();
-
+  const user = Auth.getAuthData(); // Get authentication data
   useEffect(() => {
     const authData = Auth.getAuthData();
     if (authData) {
-      setUserName(authData.username || "Guest");
+      setUserName(authData?.username || "Guest");
       // setWalletAmount(authData.wallet || 0);
     } else {
       console.error("Auth data not found or incomplete.");
@@ -83,13 +83,15 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
         <ul className={styles.navLinks}>
           <li>
             <Link
-              to="/dashboard"
+              to={user?.typeOfUser !== "Admin" ? "/dashboard" : "/admin/dashboard" }
               className={styles.link}
               onClick={() => handleSidebarChange("default")}
             >
               <i className="fas fa-home"></i> Home
             </Link>
           </li>
+          {user?.typeOfUser !== "Admin" ?
+          <>
           <li>
             <Link
               to="/google/accountManage/accountList"
@@ -117,6 +119,8 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
               <i className="fab fa-facebook"></i> Facebook
             </Link>
           </li>
+          </>
+: ""}
         </ul>
       </div>
 
