@@ -1,0 +1,92 @@
+.dashboardContainer {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f0f0;
+  }
+  
+  .mainContent {
+    flex: 1;
+    padding: 20px;
+    overflow: auto;
+  }
+  
+  .title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+  
+  /* Stats Grid */
+  .statsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  
+  /* Charts Grid */
+  .chartsGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 16px;
+  }
+  
+  /* Table Container */
+  .tableContainer {
+    margin-top: 24px;
+  }
+  
+  /* Card Title & Value */
+  .cardTitle {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  
+  .cardValue {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 1024px) {
+    .dashboardContainer {
+      flex-direction: column;
+    }
+  
+    .statsGrid,
+    .chartsGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .mainContent {
+      padding: 10px;
+    }
+  
+    .title {
+      font-size: 20px;
+    }
+  
+    .statsGrid,
+    .chartsGrid {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .title {
+      font-size: 18px;
+      text-align: center;
+    }
+  
+    .statsGrid,
+    .chartsGrid {
+      grid-template-columns: 1fr;
+    }
+  
+    .tableContainer {
+      overflow-x: auto;
+    }
+  }
+  

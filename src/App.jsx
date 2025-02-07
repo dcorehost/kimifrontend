@@ -39,13 +39,15 @@ import ProtectedRoute from "./ProtectedRoute";
 import PayLink from "./Components/PayLink/PayLink";
 import SecurityCodeGenerator from "./Components/SecurityCodeGenerator/SecurityCodeGenerator";
 import WalletFlowTable from "./Components/WalletFlowTable/WalletFlowTable";
+import AdminProtectedRoute from "./AdminProtectedRoute";
+import AdminDashboard from "./Pages/AdminDashboard/AdminDashboard";
 import ApprovGoogleAd from "./Components/ApprovGoogleAd/ApprovGoogleAd";
 import ApprovBingAd from "./Components/ApprovBingkAd/ApprovBingAd";
 import ApprovFacebookAd from "./Components/ApprovFacebookAd/ApprovFacebookAd";
 import PendingRefund from "./Components/PendingRefund/PendingRefund";
 import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
-
-
+import RedirectToDashboard from "./RedirectToDashboard";
+import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
 
 
 
@@ -61,7 +63,8 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-          <Route index element={<Homepage />} />
+          <Route path="/homepage" element={<Homepage />} />
+          <Route index element={<RedirectToDashboard />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/meta-ads" element={<MetaAds />} />
           <Route path="/bing-ads" element={<BingAds />} />
@@ -86,6 +89,7 @@ const App = () => {
             <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
             <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
             <Route path="/google/accountManage/accountList" element={<Table />} />
+            <Route path="/google/add-money" element={<AddMoneyTable />} />
 
             {/* //bing items  */}
             <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
@@ -94,6 +98,8 @@ const App = () => {
             <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
             <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
             <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
+            <Route path="/bing/add-money" element={<AddMoneyTable />} />
+
 
 
             {/* //facebook items  */}
@@ -103,6 +109,8 @@ const App = () => {
             <Route path="/facebook/finance/metaadsdepositrecord" element={<MetaAdsDepositRecord />} />
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
+            <Route path="/facebook/add-money" element={<AddMoneyTable />} />
+
 
 
             {/* //kimi sidebar */}
@@ -116,23 +124,29 @@ const App = () => {
             {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
 
             <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
-             {/*ApproveGoogleAd*/}
-            <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route>
-             {/*ApprovBingAd*/}
+            {/*ApproveGoogleAd*/}
+            {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
+            {/*ApprovBingAd*/}
 
-             <Route path="/approvebingad" element={<ApprovBingAd></ApprovBingAd>}></Route>
-             {/* ApprovefacebookAd */}
-             <Route path="/approvefacebookad" element={<ApprovFacebookAd></ApprovFacebookAd>}></Route>
-             
-             {/* pendingrefund */}
-             <Route path="/pendingrefund"  element={<PendingRefund></PendingRefund>}> </Route>
-
-            {/* approvedrefund */}
-            <Route path="/approvedrefund" element={<ApprovedRefund></ApprovedRefund>}></Route>
+         
           </Route>
 
-          
 
+          {/* Admin only routes */}
+          <Route element={<AdminProtectedRoute />}>
+            {/* Example: an admin panel or admin-specific route */}
+            <Route path="/admin" element={<div>Admin Panel</div>} />
+            {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
+            <Route path="/admin/adapproval/gapprove" element={<ApprovGoogleAd />} />
+            <Route path="/admin/adapproval/bapprove" element={<ApprovBingAd />} />
+            <Route path="/admin/adapproval/fapprove" element={<ApprovFacebookAd />} />
+            <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
+            <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
+               
+               <Route path="/admin/accountmanage/UserAdsPage" element={<UserAdsPage></UserAdsPage>}></Route>
+
+          </Route>
 
         </Route>
       </Routes>

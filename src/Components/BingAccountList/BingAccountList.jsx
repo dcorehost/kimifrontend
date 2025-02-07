@@ -6,24 +6,21 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./BingAccountList.module.css";
+import Auth from "../Services/Auth";
 
 const BingAccountList = () => {
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+  const token = Auth.getToken();
+  
   const handleNextPage = () => {
     navigate("/bing/accountManage/accountList/createbingads"); 
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); 
-
-      if (!token) {
-        setError("User is not authenticated. Please log in.");
-        return;
-      }
 
       try {
         const response = await axios.get("https://admediaagency.online/kimi/get-bing-ads", {

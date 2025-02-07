@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";  // Import Link from react-router-dom
 import axios from "axios";
 import styles from "./Table.module.css";
+import Auth from "../Services/Auth";
 
 const Table = () => {
   const [adsData, setAdsData] = useState([]);
@@ -35,12 +36,7 @@ const Table = () => {
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken");
-
-      if (!token) {
-        setError("User is not authenticated. Please log in.");
-        return;
-      }
+      const token = Auth.getToken()
 
       try {
         const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {

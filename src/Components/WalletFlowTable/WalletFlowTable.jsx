@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./WalletFlowTable.module.css";
-import * as XLSX from "xlsx";  
+// import * as XLSX from "xlsx";  
 
 const WalletFlowTable = () => {
   const [adsData, setAdsData] = useState([]);

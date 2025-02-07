@@ -9,6 +9,7 @@ import GoogleSidebar from "./Components/GoogleSidebar/GoogleSidebar";
 import BingSidebar from "./Components/BingSidbar/BingSidebar";
 import MetaSidebar from "./Components/MetaSidebar/MetaSidebar";
 import Auth from "./Components/Services/Auth";
+import AdminSidebar from "./Components/AdminSidebar/AdminSidebar";
 
 const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -32,9 +33,9 @@ const Layout = () => {
     };
 
     useEffect(() => {
-      if (Auth.isAuthenticated()) {
-        // navigate("/dashboard"); // Redirect to dashboard globally
-      }
+        if (Auth.isAuthenticated()) {
+            // navigate("/dashboard"); // Redirect to dashboard globally
+        }
     }, []);
 
 
@@ -50,9 +51,12 @@ const Layout = () => {
             return <MetaSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
         }
         //for kimi sidebar
-     else if (path.includes("/kimi")) {
-        return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
-    }
+        else if (path.includes("/kimi")) {
+            return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
+        }
+        else if (path.includes("/admin")) {
+            return <AdminSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
+        }
         // Default sidebar for unmatched paths
         return <Sidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
     };
@@ -64,8 +68,14 @@ const Layout = () => {
         location.pathname.includes("/bing") ||
         location.pathname.includes("/facebook") ||
         location.pathname.includes("/kimi") ||
-        location.pathname.includes("/dashboard")
+        location.pathname.includes("/dashboard") ||
+        location.pathname.includes("/admin")
     )
+
+
+
+
+
 
     return (
         // <div style={{ display: "flex" }}>
@@ -105,8 +115,13 @@ const Layout = () => {
             >
                 <Outlet />
             </div>
-        </>
+        </>    
     );
 };
 
 export default Layout;
+
+
+
+
+

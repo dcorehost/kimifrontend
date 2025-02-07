@@ -18,7 +18,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
     <div>
       <div className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}>
         <div className={styles.logo}>
-          <img src={assets.bing} alt="Bing Logo" className={styles.binglogo} />
+          <img src={assets.admin} alt="Bing Logo" className={styles.adminlogo} />
         </div>
         
         {/* Sidebar Menu */}
@@ -38,8 +38,8 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/accountManage/accountList" className={styles.link}>
-                    Account List
+                  <Link to="/admin/accountmanage/UserAdsPage" className={styles.link}>
+                    User List
                   </Link>
                 </li>
                 <li>
@@ -51,54 +51,9 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             )}
           </li>
 
-          {/* Finance */}
-          <li>
-            <button
-              onClick={() => toggleMenu("finance")}
-              className={`${styles.link} ${styles.walletToggle}`}
-            >
-              <i className="fas fa-dollar-sign"></i> {isSidebarOpen && "Finance"}
-              <i
-                className={`fas ${openMenus.finance ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
-            </button>
-            {openMenus.finance && (
-              <ul className={styles.subMenu}>
-                <li>
-                  <Link to="/bing/finance/bingadsdeposite" className={styles.link}>
-                    Ads Deposit
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/bing/finance/bingadsdepositrecode" className={styles.link}>
-                    Ad Deposit Record
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
+          
 
-          {/* AfterSale */}
-          <li>
-            <button
-              onClick={() => toggleMenu("afterSale")}
-              className={`${styles.link} ${styles.walletToggle}`}
-            >
-              <i className="fas fa-undo"></i> {isSidebarOpen && "AfterSale"}
-              <i
-                className={`fas ${openMenus.afterSale ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
-              ></i>
-            </button>
-            {openMenus.afterSale && (
-              <ul className={styles.subMenu}>
-                <li>
-                  <Link to="/bing/aftersale/bingrefund" className={styles.link}>
-                    Refund
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </li>
+         
 
           {/* New Menu for Ad Approval */}
           <li>
@@ -114,12 +69,17 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.adApproval && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/adApproval/googleAds" className={styles.link}>
+                  <Link to="/admin/adapproval/gapprove" className={styles.link}>
                     Google Ads Approval
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/adApproval/facebookAds" className={styles.link}>
+                  <Link to="/admin/adapproval/bapprove" className={styles.link}>
+                    Bing Ads Approval
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/admin/adapproval/fapprove" className={styles.link}>
                     Facebook Ads Approval
                   </Link>
                 </li>
@@ -130,23 +90,23 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           {/* New Menu for Refund Approval */}
           <li>
             <button
-              onClick={() => toggleMenu("refundApproval")}
+              onClick={() => toggleMenu("Refund")}
               className={`${styles.link} ${styles.walletToggle}`}
             >
-              <i className="fas fa-undo-alt"></i> {isSidebarOpen && "Refund Approval"}
+              <i className="fas fa-undo-alt"></i> {isSidebarOpen && "Refund"}
               <i
-                className={`fas ${openMenus.refundApproval ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
+                className={`fas ${openMenus.Refund ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}
               ></i>
             </button>
-            {openMenus.refundApproval && (
+            {openMenus.Refund && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/bing/refundApproval/pendingRefunds" className={styles.link}>
+                  <Link to="/admin/refund/pendingrefund" className={styles.link}>
                     Pending Refunds
                   </Link>
                 </li>
                 <li>
-                  <Link to="/bing/refundApproval/approvedRefunds" className={styles.link}>
+                  <Link to="/admin/refund/approverefund" className={styles.link}>
                     Approved Refunds
                   </Link>
                 </li>

@@ -1,8 +1,9 @@
 
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./CreateBingAds.module.css";
+import Auth from "../Services/Auth";
 
 const CreateBingAds = () => {
   const navigate = useNavigate();
@@ -12,6 +13,9 @@ const CreateBingAds = () => {
   const [totalCost, setTotalCost] = useState(0);
   const [responseMessage, setResponseMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+
+  const token = Auth.getToken();
 
   const handleAdNumChange = (e) => {
     const number = parseInt(e.target.value) || 1;
@@ -33,6 +37,8 @@ const CreateBingAds = () => {
     }
     updatedAdsData[index][field] = value;
     setAdsData(updatedAdsData);
+    const totalDeposit = updatedAdsData.reduce((sum, ad) => sum + parseFloat(ad.deposit || 0), 0);
+    setTotalCost(totalDeposit);
   };
 
   const handleDepositChange = (index, value) => {
@@ -44,13 +50,6 @@ const CreateBingAds = () => {
 
   const handleSubmit = async () => {
     setLoading(true);
-    const token = localStorage.getItem("userToken");
-
-    if (!token) {
-      setResponseMessage("Authentication error: No token found. Please log in again.");
-      setLoading(false);
-      return;
-    }
 
     const requestData = {
       adNum,
@@ -67,11 +66,11 @@ const CreateBingAds = () => {
           },
         }
       );
-      
+
       if (response?.data) {
-        setResponseMessage(response.data.message);
-        setWalletAmount(parseFloat(response.data.wallet || 0));
-        setTotalCost(parseFloat(response.data.totalCost || 0));
+        setResponseMessage(response?.data?.message);
+        setWalletAmount(parseFloat(response?.data?.data?.wallet || 0));
+        setTotalCost(parseFloat(response?.data?.data?.totalCost || 0));
       }
     } catch (error) {
       console.error("Error creating ads:", error);
@@ -80,6 +79,33 @@ const CreateBingAds = () => {
       setLoading(false);
     }
   };
+
+  const handleAddAmount = () => {
+    // const updatedWallet = walletAmount + parseFloat(additionalAmount || 0);
+    // setWalletAmount(updatedWallet);
+    // setAdditionalAmount("");
+    navigate("/bing/add-money")
+  };
+
+  useEffect(() => {
+    async function fetchWalletAmount() {
+      try {
+        const walletRequest = await axios.get(
+          "https://admediaagency.online/kimi/get-wallet-of-user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const { data } = walletRequest;
+        setWalletAmount(data?.users?.wallet)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchWalletAmount();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -143,6 +169,21 @@ const CreateBingAds = () => {
         <div className={styles.summaryItem}><strong>Total Cost:</strong> <span>${totalCost.toFixed(2)}</span></div>
         <div className={styles.summaryItem}><strong>Wallet:</strong> <span>${walletAmount.toFixed(2)}</span></div>
       </div>
+
+      {walletAmount < totalCost && (
+        <div className={styles.addAmountSection}>
+          <h3>Your wallet balance is insufficient</h3>
+          {/* <label htmlFor="addAmount">Add Amount:</label> */}
+          {/* <input
+                  type="number"
+                  id="addAmount"
+                  value={additionalAmount}
+                  onChange={(e) => setAdditionalAmount(e.target.value)}
+                  className={styles.input}
+                /> */}
+          <button className={styles.button} onClick={handleAddAmount}>Add Amount</button>
+        </div>
+      )}
 
       {responseMessage && <div className={styles.responseMessage}><p>{responseMessage}</p></div>}
 
