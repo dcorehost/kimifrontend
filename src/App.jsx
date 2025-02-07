@@ -136,9 +136,9 @@ const App = () => {
             <Route path="/admin" element={<div>Admin Panel</div>} />
             {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
-            <Route path="/admin/adapproval/googleapprove" element={<ApprovGoogleAd />} />
-            <Route path="/admin/adapproval/bingapprove" element={<ApprovBingAd />} />
-            <Route path="/admin/adapproval/facebookapprove" element={<ApprovFacebookAd />} />
+            <Route path="/admin/adapproval/gapprove" element={<ApprovGoogleAd />} />
+            <Route path="/admin/adapproval/bapprove" element={<ApprovBingAd />} />
+            <Route path="/admin/adapproval/fapprove" element={<ApprovFacebookAd />} />
             <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
             <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
           </Route>

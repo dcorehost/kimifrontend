@@ -69,17 +69,17 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             {openMenus.adApproval && (
               <ul className={styles.subMenu}>
                 <li>
-                  <Link to="/admin/adapproval/googleapprove" className={styles.link}>
+                  <Link to="/admin/adapproval/gapprove" className={styles.link}>
                     Google Ads Approval
                   </Link>
                 </li>
                 <li>
-                  <Link to="/admin/adapproval/bingapprove" className={styles.link}>
+                  <Link to="/admin/adapproval/bapprove" className={styles.link}>
                     Bing Ads Approval
                   </Link>
                 </li>
                 <li>
-                  <Link to="/admin/adapproval/facebookapprove" className={styles.link}>
+                  <Link to="/admin/adapproval/fapprove" className={styles.link}>
                     Facebook Ads Approval
                   </Link>
                 </li>
