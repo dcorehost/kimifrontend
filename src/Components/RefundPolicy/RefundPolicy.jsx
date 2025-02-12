@@ -12,7 +12,7 @@ const RefundPolicy = () => {
       <p className={style.headingpara}>Last update on May 2024</p>
 
       <p className={style.paragraph}> 
-         At KIMI AGENCY we try our best to provide exceptional service and satisfaction to all our clients. However, we understand that due to violations, a refund is necessary. Please review our refund policy below:       </p>
+         At AdMedia Agency we try our best to provide exceptional service and satisfaction to all our clients. However, we understand that due to violations, a refund is necessary. Please review our refund policy below:       </p>
 
       <h2 className={style.heading}>
           Eligibility for Refund
@@ -79,7 +79,7 @@ const RefundPolicy = () => {
          If you have any questions or concerns regarding our refund policy, please feel free to reach out to our customer support team
       </p>  
       <p className={style.paragraph}> 
-           KIMI AGENCY reserves the right to modify or update this refund policy at any time without prior notice. Any changes will be effective immediately upon posting on our website.
+           AdMedia Agency reserves the right to modify or update this refund policy at any time without prior notice. Any changes will be effective immediately upon posting on our website.
        </p>    
 
     </div>

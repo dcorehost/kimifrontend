@@ -1,0 +1,36 @@
+.container {
+    margin: 20px;
+  }
+  
+  .mainTable, .adsTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .mainTable th, .mainTable td,
+  .adsTable th, .adsTable td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .mainTable th, .adsTable th {
+    background-color: #f4f4f4;
+    color: black;
+  }
+  
+  .mainTable tr:nth-child(even),
+  .adsTable tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .adsTable ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .adsTable li {
+    margin-bottom: 5px;
+  }
+  

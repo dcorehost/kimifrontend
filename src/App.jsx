@@ -128,6 +128,7 @@ const App = () => {
             {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
             {/*ApprovBingAd*/}
 
+         
           </Route>
 
 
