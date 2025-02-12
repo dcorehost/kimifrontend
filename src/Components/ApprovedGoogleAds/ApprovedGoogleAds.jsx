@@ -2,11 +2,11 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css"; 
-import styles from "./ApprovGoogleAd.module.css";
+import styles from "./ApprovedGoogleAds.module.css";
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
 
-const ApprovGoogleAd = () => {
+const ApprovedGoogleAds = () => {
   const [adsData, setAdsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -24,7 +24,7 @@ const ApprovGoogleAd = () => {
     }
 
     try {
-      const response = await Httpservices.get("/get-pending-google-ads", {
+      const response = await Httpservices.get("/get-approved-google-ads", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -161,4 +161,4 @@ const ApprovGoogleAd = () => {
   );
 };
 
-export default ApprovGoogleAd;
+export default ApprovedGoogleAds;
