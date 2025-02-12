@@ -47,7 +47,7 @@ import ApprovFacebookAd from "./Components/ApprovFacebookAd/ApprovFacebookAd";
 import PendingRefund from "./Components/PendingRefund/PendingRefund";
 import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
 import RedirectToDashboard from "./RedirectToDashboard";
-import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
+import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds";
 
 
 
@@ -143,9 +143,7 @@ const App = () => {
             <Route path="/admin/adapproval/fapprove" element={<ApprovFacebookAd />} />
             <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
             <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
-               
-               <Route path="/admin/accountmanage/UserAdsPage" element={<UserAdsPage></UserAdsPage>}></Route>
-
+            <Route path="/admin/approvedads/g-oogle" element={<ApprovedGoogleAds />} />
           </Route>
 
         </Route>
