@@ -13,7 +13,7 @@ const AddMoneyTable = () => {
     payway: "USDT",
     chargeMoney: "",
     transactionId: "",
-    image: null, // image will hold the actual file
+    image: null,
   });
 
   // const handleNextPage = () => {
@@ -21,7 +21,7 @@ const AddMoneyTable = () => {
   // };
 
   const handleAddMoney = () => {
-    setIsModalOpen(true); // Open the modal when the Add Money Here button is clicked
+    setIsModalOpen(true); 
   };
 
   const handleExportExcel = () => {
@@ -29,30 +29,30 @@ const AddMoneyTable = () => {
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false); 
   };
 
   const handleConfirm = async () => {
     try {
-      const authData = Auth.getAuthData(); // Get the AuthData from Auth service
+      const authData = Auth.getAuthData(); 
 
       if (!authData || !authData.token) {
         alert("Please login to proceed!");
         return;
       }
 
-      const token = authData.token; // Get the token from the AuthData object
+      const token = authData.token; 
 
       // Prepare the data to send to the API
       const formData = new FormData();
-      formData.append("userId", authData.userId); // User ID from Auth service
-      formData.append("applyId", "dcorehost4193815995807"); // Generate or fetch dynamically as needed
-      formData.append("chargeMoney", parseFloat(modalData.chargeMoney)); // Ensure it's a valid number
+      formData.append("userId", authData.userId); 
+      formData.append("applyId", "dcorehost4193815995807"); 
+      formData.append("chargeMoney", parseFloat(modalData.chargeMoney)); 
       formData.append("transactionId", modalData.transactionId);
-      formData.append("state", "Pending"); // Static state, could be dynamic
+      formData.append("state", "Pending"); 
       formData.append("payway", modalData.payway);
       if (modalData.image) {
-        formData.append("photo", modalData.image); // Append the image file here
+        formData.append("photo", modalData.image); 
       }
 
       // Make the API POST request
@@ -61,8 +61,8 @@ const AddMoneyTable = () => {
         formData,
         {
           headers: {
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data", 
           },
         }
       );
