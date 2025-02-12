@@ -118,7 +118,16 @@ const DashNavbar = ({ isSidebarOpen, toggleSidebar, handleSidebarChange }) => {
             >
               <i className="fab fa-facebook"></i> Facebook
             </Link>
-          </li>
+            </li>
+            <li>
+            <Link
+              to="/kimi/wallet/addmoney-table"
+              className={styles.link}
+              onClick={() => handleSidebarChange("")}
+            >
+              <i className="fas fa-wallet"></i>  Add Money
+            </Link>
+            </li>
           </>
 : ""}
         </ul>

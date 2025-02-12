@@ -48,6 +48,7 @@ import PendingRefund from "./Components/PendingRefund/PendingRefund";
 import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
 import RedirectToDashboard from "./RedirectToDashboard";
 import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds";
+import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
 
 
 
@@ -144,6 +145,7 @@ const App = () => {
             <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
             <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
             <Route path="/admin/approvedads/g-oogle" element={<ApprovedGoogleAds />} />
+            <Route path="/admin/approveds/b-ing" element={<ApprovedBingAds></ApprovedBingAds>}></Route>
           </Route>
 
         </Route>
