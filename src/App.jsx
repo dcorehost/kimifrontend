@@ -48,6 +48,8 @@ import PendingRefund from "./Components/PendingRefund/PendingRefund";
 import ApprovedRefund from "./Components/ApprovedRefund/ApprovedRefund";
 import RedirectToDashboard from "./RedirectToDashboard";
 import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds";
+import ApprovedFacebookAds from "./Components/ApprovedFacebookAds/ApprovedFacebookAds";
+import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 
 
 
@@ -144,6 +146,8 @@ const App = () => {
             <Route path="/admin/refund/pendingrefund" element={<PendingRefund />} />
             <Route path="/admin/refund/approverefund" element={<ApprovedRefund />} />
             <Route path="/admin/approvedads/g-oogle" element={<ApprovedGoogleAds />} />
+            <Route path="/admin/approvedads/f-acebook" element={<ApprovedFacebookAds />} />
+            <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
           </Route>
 
         </Route>
