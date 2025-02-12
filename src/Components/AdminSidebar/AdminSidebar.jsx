@@ -105,7 +105,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/admin/approvedads/bing" className={styles.link}>
+                  <Link to="/admin/approveds/b-ing" className={styles.link}>
                     Approved Bing Ads
                   </Link>
                 </li>

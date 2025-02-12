@@ -1,7 +1,5 @@
-
- //image  uploading error 
- import styles from "./AddmoneyTable.module.css";
-import React, { useState } from "react";
+import styles from "./AddmoneyTable.module.css";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import httpServices from "../Services/Httpservices.jsx";
 import Auth from "../Services/Auth.js";
@@ -9,87 +7,79 @@ import Auth from "../Services/Auth.js";
 const AddMoneyTable = () => {
   const navigate = useNavigate();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [transactions, setTransactions] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const [modalData, setModalData] = useState({
     payway: "USDT",
     chargeMoney: "",
     transactionId: "",
-    image: null, // image will hold the actual file
+    image: null,
   });
 
-  // const handleNextPage = () => {
-  //   navigate("/next-page");
-  // };
+  // Fetch transaction data
+  useEffect(() => {
+    const fetchTransactions = async () => {
+      try {
+        const response = await httpServices.get("/get-transaction-details");
+        setTransactions(response.data.transactions);
+        setLoading(false);
+      } catch (err) {
+        console.error("Error fetching transactions:", err);
+        setError("Failed to load transactions");
+        setLoading(false);
+      }
+    };
+
+    fetchTransactions();
+  }, []);
 
   const handleAddMoney = () => {
-    setIsModalOpen(true); // Open the modal when the Add Money Here button is clicked
-  };
-
-  const handleExportExcel = () => {
-    alert("Export to Excel clicked");
+    setIsModalOpen(true);
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
+    setIsModalOpen(false);
   };
 
   const handleConfirm = async () => {
     try {
-      const authData = Auth.getAuthData(); // Get the AuthData from Auth service
+      const authData = Auth.getAuthData();
 
       if (!authData || !authData.token) {
         alert("Please login to proceed!");
         return;
       }
 
-      const token = authData.token; // Get the token from the AuthData object
-
-      // Prepare the data to send to the API
+      const token = authData.token;
       const formData = new FormData();
-      formData.append("userId", authData.userId); // User ID from Auth service
-      formData.append("applyId", "dcorehost4193815995807"); // Generate or fetch dynamically as needed
-      formData.append("chargeMoney", parseFloat(modalData.chargeMoney)); // Ensure it's a valid number
+      formData.append("userId", authData.userId);
+      formData.append("applyId", "dcorehost4193815995807");
+      formData.append("chargeMoney", parseFloat(modalData.chargeMoney));
       formData.append("transactionId", modalData.transactionId);
-      formData.append("state", "Pending"); // Static state, could be dynamic
+      formData.append("state", "Pending");
       formData.append("payway", modalData.payway);
       if (modalData.image) {
-        formData.append("photo", modalData.image); // Append the image file here
+        formData.append("photo", modalData.image);
       }
 
-      // Make the API POST request
-      const response = await httpServices.post(
-        "http://admediaagency.online/kimi/add-money",
-        formData,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            "Content-Type": "multipart/form-data", // Set the content type to multipart/form-data
-          },
-        }
-      );
+      const response = await httpServices.post("/add-money", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.status === 200) {
         alert("Money added successfully!");
-        setIsModalOpen(false); // Close the modal on success
+        setIsModalOpen(false);
       } else {
-        // Handle the case where the response is not OK
         alert(`Failed to add money. Status: ${response.status}`);
-        console.log('Response:', response.data);
       }
     } catch (error) {
       console.error("Error adding money:", error);
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        console.error("Response Error:", error.response.data);
-        alert(`An error occurred: ${error.response.data.message || 'Internal Server Error'}`);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error("No response received:", error.request);
-        alert("No response from the server. Please try again later.");
-      } else {
-        // Something happened in setting up the request
-        console.error("Request Error:", error.message);
-        alert("An error occurred while setting up the request.");
-      }
+      alert("An error occurred while adding money.");
     }
   };
 
@@ -106,40 +96,10 @@ const AddMoneyTable = () => {
     if (file) {
       setModalData((prevData) => ({
         ...prevData,
-        image: file, // Save the file object instead of the file name
+        image: file,
       }));
     }
   };
-
-  const data = [
-    {
-      applyId: "APP001",
-      chargeMoney: "$100",
-      transactionId: "TXN001",
-      state: "Pending",
-      image: "image1.png",
-      payway: "Credit Card",
-      createTime: "2025-01-01",
-    },
-    {
-      applyId: "APP002",
-      chargeMoney: "$200",
-      transactionId: "TXN002",
-      state: "Approved",
-      image: "image2.png",
-      payway: "PayPal",
-      createTime: "2025-01-02",
-    },
-    {
-      applyId: "APP003",
-      chargeMoney: "$150",
-      transactionId: "TXN003",
-      state: "Reject",
-      image: "image3.png",
-      payway: "Bank Transfer",
-      createTime: "2025-01-03",
-    },
-  ];
 
   return (
     <div className={styles.container}>
@@ -147,43 +107,45 @@ const AddMoneyTable = () => {
         Add Money Here
       </button>
 
-      <a
-        href="#"
-        className={`${styles.button} ${styles.exportButton}`}
-        onClick={handleExportExcel}
-      >
-        Export Excel
-      </a>
-
       <div className={styles.tableContainer}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Apply ID</th>
-              <th>Charge Money</th>
-              <th>Transaction ID</th>
-              <th>State</th>
-              <th>Image</th>
-              <th>Payway</th>
-              <th>Create Time</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((row, index) => (
-              <tr key={index}>
-                <td>{row.applyId}</td>
-                <td>{row.chargeMoney}</td>
-                <td>{row.transactionId}</td>
-                <td>{row.state}</td>
-                <td>
-                  <img src={row.image} alt="image" className={styles.image} />
-                </td>
-                <td>{row.payway}</td>
-                <td>{row.createTime}</td>
+        {loading ? (
+          <p>Loading transactions...</p>
+        ) : error ? (
+          <p className={styles.error}>{error}</p>
+        ) : (
+          <table className={styles.table}>
+            <thead>
+              <tr>
+                <th>Apply ID</th>
+                <th>Charge Money</th>
+                <th>Transaction ID</th>
+                <th>State</th>
+                <th>Image</th>
+                <th>Payway</th>
+                <th>Create Time</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {transactions.map((row, index) => (
+                <tr key={index}>
+                  <td>{row.applyId}</td>
+                  <td>${row.chargeMoney}</td>
+                  <td>{row.transactionId}</td>
+                  <td>{row.state}</td>
+                  <td>
+                    <img
+                      src={row.image}
+                      alt="Transaction"
+                      className={styles.image}
+                    />
+                  </td>
+                  <td>{row.payway}</td>
+                  <td>{new Date(row.createdAt).toLocaleString()}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
       </div>
 
       {/* Modal Popup for Add Money */}
@@ -205,7 +167,20 @@ const AddMoneyTable = () => {
                 <option value="Bitcoin">Bitcoin</option>
                 <option value="PayPal">PayPal</option>
               </select>
-              <br />
+
+              {/* Show network details only if USDT is selected */}
+              {modalData.payway === "USDT" && (
+                <div className={styles.networkDetails}>
+                  <p>
+                    <strong>Network Name:</strong> TRC20
+                  </p>
+                  <p>
+                    <strong>Network Address:</strong>{" "}
+                    TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7
+                  </p>
+                </div>
+              )}
+
               <label htmlFor="chargeMoney">Charge Money:</label>
               <input
                 type="number"
@@ -216,7 +191,7 @@ const AddMoneyTable = () => {
                 placeholder="Enter Amount"
                 className={styles.inputField}
               />
-              <br />
+
               <label htmlFor="transactionId">Transaction ID:</label>
               <input
                 type="text"
@@ -227,7 +202,7 @@ const AddMoneyTable = () => {
                 placeholder="Enter Transaction ID"
                 className={styles.inputField}
               />
-              <br />
+
               <label htmlFor="image">Upload Image:</label>
               <input
                 type="file"
@@ -236,10 +211,9 @@ const AddMoneyTable = () => {
                 onChange={handleImageUpload}
                 className={styles.inputField}
               />
-              {modalData.image && (
-                <p>Uploaded Image: {modalData.image.name}</p>
-              )}
+              {modalData.image && <p>Uploaded Image: {modalData.image.name}</p>}
             </div>
+
             <div className={styles.modalActions}>
               <button className={styles.modalButton} onClick={handleCloseModal}>
                 Cancel
@@ -256,7 +230,3 @@ const AddMoneyTable = () => {
 };
 
 export default AddMoneyTable;
-
-
-
-
