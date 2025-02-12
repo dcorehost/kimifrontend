@@ -1,80 +1,93 @@
-import React, { useState } from "react";
-import styles from "./ApprovedRefund.module.css"; // Ensure correct CSS module is used
+
+
+import React, { useEffect, useState } from "react";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import styles from "./ApprovedRefund.module.css";
+import Httpservices from "../Services/Httpservices";
+import Auth from "../Services/Auth";
 
 const ApprovedRefund = () => {
-  // State for storing approved refunds
-  const [approvedRefunds, setApprovedRefunds] = useState([
-    {
-      refundId: "approved123456",
-      userId: "67a35b40e68ea4e60671e2e2",
-      amount: 100.5,
-      reason: "Overcharged for service",
-      approvedBy: "Admin123",
-      createdAt: "2025-02-01T10:43:15.487Z",
-      updatedAt: "2025-02-06T08:07:11.101Z",
-    },
-    {
-      refundId: "approved234567",
-      userId: "67a35b40e68ea4e60671e2e3",
-      amount: 50.0,
-      reason: "Canceled service",
-      approvedBy: "Admin456",
-      createdAt: "2025-02-05T12:30:00.000Z",
-      updatedAt: "2025-02-05T12:45:00.000Z",
-    },
-  ]);
+  const [refunds, setRefunds] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Function to format the date
-  const formatDate = (isoString) => {
-    const date = new Date(isoString);
-    return date.toLocaleString();
+  useEffect(() => {
+    fetchRefundData();
+  }, []);
+
+  const fetchRefundData = async () => {
+    const token = Auth.getToken();
+    if (!token) {
+      toast.error("User is not authenticated. Please log in.");
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const response = await Httpservices.get("/approved-refund-Details-for-admin", {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      console.log("API Response:", response.data);
+
+      if (response.status === 200 && response.data.refundsDetails) {
+        setRefunds(response.data.refundsDetails);
+      } else {
+        toast.error("No refund details available.");
+      }
+    } catch (err) {
+      console.error("Fetch error:", err.response || err.message);
+      toast.error(err.response?.data?.message || "Failed to fetch refund data.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  // Function to remove an approved refund
-  const handleDelete = (index) => {
-    const updatedRefunds = approvedRefunds.filter((_, i) => i !== index);
-    setApprovedRefunds(updatedRefunds);
+  const formatDate = (isoString) => {
+    return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
   return (
     <div className={styles.container}>
-      <h1>Approved Refunds</h1>
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      <table className={styles.table}>
-        <thead>
-          <tr>
-            <th>Refund ID</th>
-            <th>User ID</th>
-            <th>Amount</th>
-            <th>Reason</th>
-            <th>Approved By</th>
-            <th>Create Time</th>
-            <th>Updated Time</th>
-            <th>Operate</th>
-          </tr>
-        </thead>
-        <tbody>
-          {approvedRefunds.map((refund, index) => (
-            <tr key={index}>
-              <td>{refund.refundId}</td>
-              <td>{refund.userId}</td>
-              <td>${refund.amount}</td>
-              <td>{refund.reason}</td>
-              <td>{refund.approvedBy}</td>
-              <td>{formatDate(refund.createdAt)}</td>
-              <td>{formatDate(refund.updatedAt)}</td>
-              <td className={styles.operate}>
-                <button
-                  className={styles.deleteBtn}
-                  onClick={() => handleDelete(index)}
-                >
-                  Delete
-                </button>
-              </td>
+      {loading ? (
+        <p>Loading...</p>
+      ) : error ? (
+        <p className={styles.error}>{error}</p>
+      ) : refunds.length > 0 ? (
+        <table className={styles.table}>
+          <thead>
+            <tr>
+              <th>Apply ID</th>
+              <th>Ad Google Account</th>
+              <th>Amount</th>
+              <th>Remaining Money</th>
+              <th>Apply State</th>
+              <th>Ad Type</th>
+              <th>Refund Reason</th>
+              <th>Created At</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {refunds.map((refund) => (
+              <tr key={refund.applyId}>
+                <td>{refund.applyId}</td>
+                <td>{refund.adGoogleAccount || "N/A"}</td>
+                <td>${refund.amount}</td>
+                <td>${refund.remainMoney}</td>
+                <td>{refund.applyState}</td>
+                <td>{refund.adType}</td>
+                <td>{refund.refundReason || "N/A"}</td>
+                <td>{formatDate(refund.createdAt)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      ) : (
+        <p>No refund details available</p>
+      )}
     </div>
   );
 };

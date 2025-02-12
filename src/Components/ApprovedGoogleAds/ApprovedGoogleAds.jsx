@@ -1,7 +1,6 @@
 
+
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css"; 
 import styles from "./ApprovedGoogleAds.module.css";
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
@@ -33,7 +32,7 @@ const ApprovedGoogleAds = () => {
       if (response.status === 200 && response.data.ads) {
         setAdsData(response.data.ads);
       } else {
-        setError("No pending ads found.");
+        setError("No approved ads found.");
       }
     } catch (err) {
       console.error("Fetch error:", err.response || err.message);
@@ -47,57 +46,8 @@ const ApprovedGoogleAds = () => {
     return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
-  const handleUpdateState = async (id, action) => {
-    if (!id) {
-      setError("Error: Missing Ad ID.");
-      return;
-    }
-
-    const token = Auth.getToken();
-    if (!token) {
-      setError("User is not authenticated.");
-      return;
-    }
-
-    try {
-      console.log(`Updating Ad ID: ${id}, Action: ${action}`);
-
-      const response = await Httpservices.put(
-        `/approve-googleAd?id=${id}&action=${action}`,
-        {}, 
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      console.log("Update Response:", response.data);
-
-      if (response.status === 200 && response.data.googleAd) {
-        setAdsData((prevAds) =>
-          prevAds.map((ad) =>
-            ad._id === id ? { ...ad, state: response.data.googleAd.state } : ad
-          )
-        );
-
-        toast.success(`Ad ${action}d successfully!`);
-      } else {
-        setError(response.data.message || "Failed to update ad status.");
-      }
-    } catch (error) {
-      console.error(`Error updating status for ${id}:`, error.response || error.message);
-      setError(error.response?.data?.message || "Error updating ad status.");
-
-      toast.error("Failed to update ad status.");
-    }
-  };
-
   return (
     <div className={styles.container}>
-      <ToastContainer position="top-right" autoClose={3000} /> 
-      
       {loading ? (
         <p>Loading...</p>
       ) : error ? (
@@ -116,7 +66,6 @@ const ApprovedGoogleAds = () => {
               <th>Total Deposit</th>
               <th>Create Time</th>
               <th>Updated Time</th>
-              <th>Operate</th>
             </tr>
           </thead>
           <tbody>
@@ -124,9 +73,7 @@ const ApprovedGoogleAds = () => {
               <tr key={ad._id}>
                 <td>{ad._id}</td>
                 <td>{ad.adNum}</td>
-                <td>
-                  {ad.adsDetails?.length > 0 ? ad.adsDetails.map((detail) => detail.gmail).join(", ") : "N/A"}
-                </td>
+                <td>{ad.adsDetails?.length > 0 ? ad.adsDetails.map((detail) => detail.gmail).join(", ") : "N/A"}</td>
                 <td>{ad.state}</td>
                 <td>${ad.totalCost}</td>
                 <td>${ad.accountOpenFee}</td>
@@ -134,31 +81,16 @@ const ApprovedGoogleAds = () => {
                 <td>${ad.totalDeposit}</td>
                 <td>{formatDate(ad.createdAt)}</td>
                 <td>{formatDate(ad.updatedAt)}</td>
-                <td className={styles.operate}>
-                  <button
-                    className={styles.approveBtn}
-                    onClick={() => handleUpdateState(ad._id, "approve")}
-                    disabled={ad.state === "Completed"}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(ad._id, "disapprove")}
-                    disabled={ad.state === "Disapproved"}
-                  >
-                    Disapprove
-                  </button>
-                </td>
               </tr>
             ))}
           </tbody>
         </table>
       ) : (
-        <p>No pending ads available</p>
+        <p>No approved ads available</p>
       )}
     </div>
   );
 };
 
 export default ApprovedGoogleAds;
+
