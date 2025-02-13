@@ -1,9 +1,10 @@
 .container {
     padding: 20px;
-    width: 96%;
+    width: 93%;
     /* text-align: center; */
     /* border: 1px solid black; */
     /* margin: 150px auto; */
+    margin: 0px auto;
   }
   
   .button {
@@ -46,7 +47,7 @@
   }
   
   .table th {
-    background-color: #f4f4f4;
+    background-color: #EF9273;
     font-weight: bold;
   }
   

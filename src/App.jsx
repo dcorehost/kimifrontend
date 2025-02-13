@@ -51,6 +51,7 @@ import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds"
 import ApprovedFacebookAds from "./Components/ApprovedFacebookAds/ApprovedFacebookAds";
 import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
+import BmShareLog from "./Components/BmShareLog/BmShareLog";
 
 
 
@@ -113,6 +114,7 @@ const App = () => {
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
             <Route path="/facebook/add-money" element={<AddMoneyTable />} />
+            <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/>}></Route>
 
 
 

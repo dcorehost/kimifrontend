@@ -2,19 +2,20 @@
 
 .container {
     /* padding: 20px; */
-    max-width: 1200px;
+    width: 93%;
     margin: 0 auto;
+    font-family: sans-serif, 'Inter';
   }
   
   .button {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #EF9273;
+    color: #0d0d0d;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     font-size: 16px;
-    margin-bottom: 10px;
+    margin: 10px 0px 0px 0px;
   }
   
   .button:hover {
@@ -39,7 +40,7 @@
   }
   
   .table th {
-    background-color: #f4f4f4;
+    background-color: #EF9273;
     color: #333;
     font-weight: bold;
   }

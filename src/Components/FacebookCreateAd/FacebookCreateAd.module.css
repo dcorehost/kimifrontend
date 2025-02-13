@@ -1,13 +1,13 @@
 /* FacebookCreateAd.module.css */
 
 .container {
-    width: 96%;
+    width: 93%;
     padding: 20px;
     font-family: Arial, sans-serif;
-    background-color: #f0f9f5;
-    border: 1px dashed #99d3b8;
+    background-color: #FEF9F8;
+    border: 1px dashed #ef9273;
     border-radius: 8px;
-    max-width: 1000px;
+    margin: 10px auto;
     /* margin: 100px auto; */
     
 }
@@ -16,7 +16,7 @@
     width: 100%;
     font-size: 14px;
     font-weight: bold;
-    border-bottom: 2px dashed green; 
+    border-bottom: 2px dashed #ef9273; 
     padding-bottom: 20px; 
     margin-top: 10px;
   }
@@ -26,7 +26,7 @@
     width: 100%;
     font-size: 14px;
     font-weight: bold;
-    border-bottom: 2px dashed green; 
+    border-bottom: 2px dashed #ef9273; 
     padding-bottom: 10px; 
   }
   .input2,.select2{
@@ -147,7 +147,9 @@
     font-size: 1rem;
     cursor: pointer;
     transition: background 0.3s ease;
+    margin-top: 10px;
   }
+  
 
  
 
