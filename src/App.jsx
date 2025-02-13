@@ -51,6 +51,8 @@ import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds"
 import ApprovedFacebookAds from "./Components/ApprovedFacebookAds/ApprovedFacebookAds";
 import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
+import PendingTransation from "./Components/PendingTransations/PendingTransations";
+import ApprovedTransations from "./Components/ApprovedTransations/ApprovedTransations";
 
 
 
@@ -150,6 +152,8 @@ const App = () => {
             <Route path="/admin/approveds/b-ing" element={<ApprovedBingAds />} />
             <Route path="/admin/approvedads/f-acebook" element={<ApprovedFacebookAds />} />
             <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
+            <Route path="/admin/transactions/pending" element={<PendingTransation />} />
+            <Route path="/admin/transactions/approved" element={<ApprovedTransations />} />
 
           </Route>
 
