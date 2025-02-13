@@ -1,8 +1,8 @@
-import styles from "./AddmoneyTable.module.css";
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import httpServices from "../Services/Httpservices.jsx";
 import Auth from "../Services/Auth.js";
+import styles from "./AddmoneyTable.module.css";
 
 const AddMoneyTable = () => {
   const navigate = useNavigate();
@@ -10,6 +10,8 @@ const AddMoneyTable = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 8;
 
   const [modalData, setModalData] = useState({
     payway: "USDT",
@@ -18,16 +20,16 @@ const AddMoneyTable = () => {
     image: null,
   });
 
-  // Fetch transaction data
+  // Fetch transactions
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await httpServices.get("/get-transaction-details");
+        const response = await httpServices.get("/get-transaction-details-of-user");
         setTransactions(response.data.transactions);
-        setLoading(false);
       } catch (err) {
         console.error("Error fetching transactions:", err);
         setError("Failed to load transactions");
+      } finally {
         setLoading(false);
       }
     };
@@ -46,7 +48,6 @@ const AddMoneyTable = () => {
   const handleConfirm = async () => {
     try {
       const authData = Auth.getAuthData();
-
       if (!authData || !authData.token) {
         alert("Please login to proceed!");
         return;
@@ -101,6 +102,12 @@ const AddMoneyTable = () => {
     }
   };
 
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = transactions.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(transactions.length / itemsPerPage);
+
   return (
     <div className={styles.container}>
       <button className={styles.button} onClick={handleAddMoney}>
@@ -113,38 +120,49 @@ const AddMoneyTable = () => {
         ) : error ? (
           <p className={styles.error}>{error}</p>
         ) : (
-          <table className={styles.table}>
-            <thead>
-              <tr>
-                <th>Apply ID</th>
-                <th>Charge Money</th>
-                <th>Transaction ID</th>
-                <th>State</th>
-                <th>Image</th>
-                <th>Payway</th>
-                <th>Create Time</th>
-              </tr>
-            </thead>
-            <tbody>
-              {transactions.map((row, index) => (
-                <tr key={index}>
-                  <td>{row.applyId}</td>
-                  <td>${row.chargeMoney}</td>
-                  <td>{row.transactionId}</td>
-                  <td>{row.state}</td>
-                  <td>
-                    <img
-                      src={row.image}
-                      alt="Transaction"
-                      className={styles.image}
-                    />
-                  </td>
-                  <td>{row.payway}</td>
-                  <td>{new Date(row.createdAt).toLocaleString()}</td>
+          <>
+            <table className={styles.table}>
+              <thead>
+                <tr>
+                  <th>Apply ID</th>
+                  <th>Charge Money</th>
+                  <th>Transaction ID</th>
+                  <th>State</th>
+                  <th>Image</th>
+                  <th>Payway</th>
+                  <th>Create Time</th>
                 </tr>
+              </thead>
+              <tbody>
+                {currentItems.map((row, index) => (
+                  <tr key={index}>
+                    <td>{row.applyId}</td>
+                    <td>${row.chargeMoney}</td>
+                    <td>{row.transactionId}</td>
+                    <td>{row.state}</td>
+                    <td>
+                      <img src={row.image} alt="Transaction" className={styles.image} />
+                    </td>
+                    <td>{row.payway}</td>
+                    <td>{new Date(row.createdAt).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            {/* Pagination */}
+            <div className={styles.pagination}>
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index + 1}
+                  className={`${styles.pageButton} ${currentPage === index + 1 ? styles.activePage : ""}`}
+                  onClick={() => setCurrentPage(index + 1)}
+                >
+                  {index + 1}
+                </button>
               ))}
-            </tbody>
-          </table>
+            </div>
+          </>
         )}
       </div>
 
@@ -155,62 +173,32 @@ const AddMoneyTable = () => {
             <h2>Confirm Add Money Details</h2>
             <div className={styles.modalBody}>
               <label htmlFor="payway">Payway:</label>
-              <select
-                id="payway"
-                name="payway"
-                value={modalData.payway}
-                onChange={handleChange}
-                className={styles.inputField}
-              >
+              <select id="payway" name="payway" value={modalData.payway} onChange={handleChange} className={styles.inputField}>
                 <option value="USDT">USDT</option>
                 <option value="Pay Link">Pay Link</option>
                 <option value="Bitcoin">Bitcoin</option>
                 <option value="PayPal">PayPal</option>
               </select>
 
-              {/* Show network details only if USDT is selected */}
               {modalData.payway === "USDT" && (
                 <div className={styles.networkDetails}>
                   <p>
                     <strong>Network Name:</strong> TRC20
                   </p>
                   <p>
-                    <strong>Network Address:</strong>{" "}
-                    TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7
+                    <strong>Network Address:</strong> TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7
                   </p>
                 </div>
               )}
 
               <label htmlFor="chargeMoney">Charge Money:</label>
-              <input
-                type="number"
-                id="chargeMoney"
-                name="chargeMoney"
-                value={modalData.chargeMoney}
-                onChange={handleChange}
-                placeholder="Enter Amount"
-                className={styles.inputField}
-              />
+              <input type="number" id="chargeMoney" name="chargeMoney" value={modalData.chargeMoney} onChange={handleChange} placeholder="Enter Amount" className={styles.inputField} />
 
               <label htmlFor="transactionId">Transaction ID:</label>
-              <input
-                type="text"
-                id="transactionId"
-                name="transactionId"
-                value={modalData.transactionId}
-                onChange={handleChange}
-                placeholder="Enter Transaction ID"
-                className={styles.inputField}
-              />
+              <input type="text" id="transactionId" name="transactionId" value={modalData.transactionId} onChange={handleChange} placeholder="Enter Transaction ID" className={styles.inputField} />
 
               <label htmlFor="image">Upload Image:</label>
-              <input
-                type="file"
-                id="photo"
-                name="image"
-                onChange={handleImageUpload}
-                className={styles.inputField}
-              />
+              <input type="file" id="photo" name="image" onChange={handleImageUpload} className={styles.inputField} />
               {modalData.image && <p>Uploaded Image: {modalData.image.name}</p>}
             </div>
 

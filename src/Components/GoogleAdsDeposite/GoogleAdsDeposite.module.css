@@ -1,9 +1,12 @@
 .container {
     font-family: Arial, sans-serif;
     padding: 20px;
-    background: #eafaf1;
+    background-color: #FEF9F8;
     text-align: center;
-    border-radius: 8px;
+    /* border-radius: 8px; */
+    /* border: 1px solid black; */
+    width: 95%;
+    margin-top: 10px;
   }
   
   h1 {
@@ -37,8 +40,8 @@
   }
   
   .addButton {
-    background: #28a745;
-    color: #fff;
+    background-color: #EF9273;
+    color: #0d0d0d;
     border: none;
     padding: 8px 12px;
     border-radius: 4px;
@@ -47,7 +50,7 @@
   }
   
   .addButton:hover {
-    background: #218838;
+    background-color: #EF9273;
   }
   
   .summary {
@@ -57,8 +60,8 @@
   }
   
   .chargeButton {
-    background: #007bff;
-    color: #fff;
+    background-color: #EF9273;
+    color: #0d0d0d;
     border: none;
     padding: 10px 15px;
     border-radius: 4px;
@@ -66,6 +69,6 @@
   }
   
   .chargeButton:hover {
-    background: #0056b3;
+    background-color: #EF9273;
   }
   

@@ -1,6 +1,7 @@
 .container {
     padding: 20px;
-    width: 96%;   
+    width: 96%; 
+    margin: 10px auto;  
   }
   
   .button {
@@ -43,7 +44,7 @@
   }
   
   .table th {
-    background-color: #f4f4f4;
+    background-color: #EF9273;
     font-weight: bold;
   }
   

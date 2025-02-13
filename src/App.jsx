@@ -115,6 +115,7 @@ const App = () => {
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
             <Route path="/facebook/add-money" element={<AddMoneyTable />} />
+            {/* <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/>}></Route> */}
 
 
 

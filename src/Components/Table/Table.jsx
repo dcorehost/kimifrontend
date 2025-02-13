@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";  // Import Link from react-router-dom
+import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./Table.module.css";
 import Auth from "../Services/Auth";
@@ -9,7 +9,10 @@ const Table = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAdId, setSelectedAdId] = useState(null);
-  const [shareMessage, setShareMessage] = useState("");  // State to manage input field value
+  const [shareMessage, setShareMessage] = useState("");  
+  const [currentPage, setCurrentPage] = useState(1); // Track current page
+  const [totalAds, setTotalAds] = useState(0); // Track total number of ads
+  const adsPerPage = 8; // Set ads per page
   const navigate = useNavigate();
 
   const handleNextPage = () => {
@@ -17,7 +20,6 @@ const Table = () => {
   };
 
   const handleShare = (adId) => {
-    console.log(`Share ad with ID: ${adId}`);
     setSelectedAdId(adId);
     setIsModalOpen(true);
   };
@@ -30,27 +32,32 @@ const Table = () => {
 
   const handleShareConfirm = () => {
     console.log(`Ad ${selectedAdId} shared with message: "${shareMessage}"`);
-    // Add your share logic here (e.g., API call to share the ad)
     handleCloseModal();
+  };
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber); // Update current page
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = Auth.getToken()
+      const token = Auth.getToken();
 
       try {
         const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
           headers: { Authorization: `Bearer ${token}` },
+          params: {
+            page: currentPage,
+            limit: adsPerPage, // Pass pagination parameters
+          },
         });
 
-        console.log("API Response:", response.data);
-
         if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
-          const ads = response.data.ads.map((ad) => ({
+          setAdsData(response.data.ads.map(ad => ({
             adsId: ad._id,
             createTime: ad.createdAt,
-          }));
-          setAdsData(ads);
+          })));
+          setTotalAds(response.data.totalAds || 0); // Set total number of ads
         } else {
           setError("Failed to fetch ads data.");
         }
@@ -61,7 +68,9 @@ const Table = () => {
     };
 
     fetchAdsData();
-  }, []);
+  }, [currentPage]); // Trigger re-fetch when page changes
+
+  const totalPages = Math.ceil(totalAds / adsPerPage); // Calculate total number of pages
 
   return (
     <div className={styles.container}>
@@ -113,14 +122,13 @@ const Table = () => {
         <div className={styles.modal}>
           <div className={styles.modalContent}>
             <h3>Share</h3>
-            {/* <p>Are you sure you want to share the ad with ID: {selectedAdId}?</p> */}
             <label htmlFor="shareMessage">Gmail:</label>
             <input
               type="text"
               id="shareMessage"
               placeholder="Please enter Gmail address"
               value={shareMessage}
-              onChange={(e) => setShareMessage(e.target.value)} // Handle input change
+              onChange={(e) => setShareMessage(e.target.value)} 
               className={styles.modalInput}
             />
             <div className={styles.modalButtons}>
@@ -132,6 +140,29 @@ const Table = () => {
           </div>
         </div>
       )}
+
+      {/* Pagination Controls */}
+      <div className={styles.pagination}>
+        {currentPage > 1 && (
+          <button className={styles.pageButton} onClick={() => handlePageChange(currentPage - 1)}>
+            Previous
+          </button>
+        )}
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+          <button
+            key={page}
+            className={`${styles.pageButton} ${currentPage === page ? styles.activePage : ""}`}
+            onClick={() => handlePageChange(page)}
+          >
+            {page}
+          </button>
+        ))}
+        {currentPage < totalPages && (
+          <button className={styles.pageButton} onClick={() => handlePageChange(currentPage + 1)}>
+            Next
+          </button>
+        )}
+      </div>
     </div>
   );
 };
