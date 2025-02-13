@@ -169,14 +169,7 @@ const CreateGoogleAds = () => {
       {walletAmount < totalCost && (
         <div className={styles.addAmountSection}>
           <h3>Your wallet balance is insufficient</h3>
-          {/* <label htmlFor="addAmount">Add Amount:</label> */}
-          {/* <input
-            type="number"
-            id="addAmount"
-            value={additionalAmount}
-            onChange={(e) => setAdditionalAmount(e.target.value)}
-            className={styles.input}
-          /> */}
+        
           <button className={styles.button} onClick={handleAddAmount}>Add Amount</button>
         </div>
       )}
