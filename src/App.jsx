@@ -64,7 +64,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Define routes for your pages */}
+        {/*  routes for  pages */}
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
@@ -121,25 +121,19 @@ const App = () => {
             {/* //kimi sidebar */}
             <Route path="/kimi/wallet/addmoney-table" element={<AddMoneyTable />}></Route>
             <Route path="/kimi/wallet/paylink" element={<PayLink />}></Route>
+            <Route path="/kimi/2fatool" element={<SecurityCodeGenerator />}></Route>
+
 
             {/* //user profile */}
             <Route path="/dashboard/user-profile" element={<UserProfile />}></Route>
-            <Route path="/dashboard/settings" element={<UserSettings />} />
-
-            {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
-
-            <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
-            {/*ApproveGoogleAd*/}
-            {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
-            {/*ApprovBingAd*/}
+            <Route path="/dashboard/settings" element={<UserSettings />} />          
 
          
           </Route>
 
 
-          {/* Admin only routes */}
+          {/* Admin  routes  only*/}
           <Route element={<AdminProtectedRoute />}>
-            {/* Example: an admin panel or admin-specific route */}
             <Route path="/admin" element={<div>Admin Panel</div>} />
             {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
