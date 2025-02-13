@@ -51,7 +51,8 @@ import ApprovedGoogleAds from "./Components/ApprovedGoogleAds/ApprovedGoogleAds"
 import ApprovedFacebookAds from "./Components/ApprovedFacebookAds/ApprovedFacebookAds";
 import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
-import BmShareLog from "./Components/BmShareLog/BmShareLog";
+import PendingTransation from "./Components/PendingTransations/PendingTransations";
+import ApprovedTransations from "./Components/ApprovedTransations/ApprovedTransations";
 
 
 
@@ -63,7 +64,7 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        {/* Define routes for your pages */}
+        {/*  routes for  pages */}
         <Route path="/" element={<Layout />}>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
@@ -114,32 +115,26 @@ const App = () => {
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
             <Route path="/facebook/add-money" element={<AddMoneyTable />} />
-            <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/>}></Route>
+            {/* <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/>}></Route> */}
 
 
 
             {/* //kimi sidebar */}
             <Route path="/kimi/wallet/addmoney-table" element={<AddMoneyTable />}></Route>
             <Route path="/kimi/wallet/paylink" element={<PayLink />}></Route>
+            <Route path="/kimi/2fatool" element={<SecurityCodeGenerator />}></Route>
+
 
             {/* //user profile */}
             <Route path="/dashboard/user-profile" element={<UserProfile />}></Route>
-            <Route path="/dashboard/settings" element={<UserSettings />} />
-
-            {/* <Route path="/googleadsdeposite" element={<GoogleAdsDeposite></GoogleAdsDeposite>}></Route> */}
-
-            <Route path="/security" element={<SecurityCodeGenerator></SecurityCodeGenerator>}></Route>
-            {/*ApproveGoogleAd*/}
-            {/* <Route path="/approvegooglead" element={<ApprovGoogleAd></ApprovGoogleAd>}></Route> */}
-            {/*ApprovBingAd*/}
+            <Route path="/dashboard/settings" element={<UserSettings />} />          
 
          
           </Route>
 
 
-          {/* Admin only routes */}
+          {/* Admin  routes  only*/}
           <Route element={<AdminProtectedRoute />}>
-            {/* Example: an admin panel or admin-specific route */}
             <Route path="/admin" element={<div>Admin Panel</div>} />
             {/* <Route path="/admin-dashboard" element={<AdminDashboard />} /> */}
             <Route path="/admin/dashboard" element={<AdminDashboard />} />
@@ -152,6 +147,8 @@ const App = () => {
             <Route path="/admin/approveds/b-ing" element={<ApprovedBingAds />} />
             <Route path="/admin/approvedads/f-acebook" element={<ApprovedFacebookAds />} />
             <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
+            <Route path="/admin/transactions/pending" element={<PendingTransation />} />
+            <Route path="/admin/transactions/approved" element={<ApprovedTransations />} />
 
           </Route>
 

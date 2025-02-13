@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from "react";
+
+
+
+import React, { useEffect, useState } from "react"; 
 import styles from "./ApprovBingAd.module.css";
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const ApprovBingAd = () => {
   const [adsData, setAdsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null); 
 
-  
   useEffect(() => {
     fetchAdsData();
   }, []);
@@ -24,11 +27,7 @@ const ApprovBingAd = () => {
     }
 
     try {
-      console.log("Fetching Bing Ads...");
       const response = await Httpservices.get("/get-pending-bing-ads");
-
-      console.log("Response:", response);
-      console.log("Ads Data:", response.data.ads);
 
       if (response.data.message === "bing ads fetched successfully" && Array.isArray(response.data.ads)) {
         setAdsData(response.data.ads);
@@ -36,69 +35,44 @@ const ApprovBingAd = () => {
         setError("Failed to fetch Bing ads data.");
       }
     } catch (err) {
-      console.error("Fetch error:", err.response || err.message);
-      setError(err.response?.data?.message || "Failed to fetch data.");
+      setError("Failed to fetch Bing ads data.");
+      toast.error("Error fetching Bing ads.");
     } finally {
       setLoading(false);
     }
   };
 
-
   const formatDate = (isoString) => new Date(isoString).toLocaleString();
 
-  
   const handleUpdateState = async (id, action) => {
     try {
-      console.log(`Sending request to update status for Ad ID: ${id} to ${action}`);
+      const response = await Httpservices.put(`/approve-bingAd?id=${id}&action=${action}`);
 
-      const response = await Httpservices.put(
-        `/approve-bingAd?id=${id}&action=${action}`
-      );
-
-      console.log("Response from API:", response);
-
-      if (response.data && response.data.message === "Failed to update status. Please try again.") {
+      if (response.data.message === "Failed to update status. Please try again.") {
+        toast.error("Failed to update ad status.");
+      } else {
         setAdsData((prevAds) =>
           prevAds.map((ad) =>
             ad._id === id ? { ...ad, state: action === "approve" ? "Approved" : "Rejected" } : ad
           )
         );
 
-        
-        setSuccessMessage(
-          action === "approve" ? "Ad approved successfully!" : "Ad rejected successfully!"
-        );
-
-        setError(null); 
-      } else {
-        setError("Status updated successfully");
-        setSuccessMessage(null);
+        toast.success(`Ad ${action === "approve" ? "approved" : "rejected"} successfully!`);
       }
     } catch (error) {
-      console.error("Error updating ad status:", error);
-
-      if (error.response) {
-        console.error("API Response Error:", error.response.data);
-        setError(`Error: ${error.response.data.message || "Failed to update status."}`);
-      } else {
-        console.error("Error message:", error.message);
-        setError(`Error: ${error.message || "Failed to update status."}`);
-      }
-
-      setSuccessMessage(null);
+      toast.error(error.response?.data?.message || "Failed to update ad status.");
     }
   };
 
   return (
     <div className={styles.container}>
       <h2>Bing Ads Management</h2>
+      <ToastContainer position="top-right" autoClose={3000} />
 
       {loading ? (
         <p>Loading ads...</p>
       ) : error ? (
         <p className={styles.error}>{error}</p> 
-      ) : successMessage ? (
-        <p className={styles.success}>{successMessage}</p> 
       ) : adsData.length > 0 ? (
         <table className={styles.table}>
           <thead>
