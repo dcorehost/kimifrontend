@@ -50,18 +50,14 @@ const Sidebar = ({ isSidebarOpen }) => {
                     <i className="fas fa-paper-plane"></i> Pay
                   </Link>
                 </li>
-                <li>
-                  <Link to="/link-wallet" className={styles.link}>
-                    <i className="fas fa-link"></i> Link Wallet
-                  </Link>
-                </li>
+                
               </ul>
             )}
           </li>
 
           {/* 2FA Tool */}
           <li>
-            <Link to="/2fa" className={styles.link}>
+            <Link to="/kimi/2fatool" className={styles.link}>
               <i className="fas fa-shield-alt"></i> {isSidebarOpen && "2FA Tool"}
             </Link>
           </li>

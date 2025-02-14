@@ -110,7 +110,7 @@ const PayLink = () => {
       {error && <p className={styles.error}>{error}</p>}
 
       <button className={styles.button} onClick={handleModalOpen}>Create Paylink</button>
-
+       
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -218,7 +218,7 @@ const PayLink = () => {
       )}
 
       <div className={styles.tableContainer}>
-        <h2>All Paylinks</h2>
+        {/* <h2>All Paylinks</h2> */}
         <table className={styles.table}>
           <thead>
             <tr>
