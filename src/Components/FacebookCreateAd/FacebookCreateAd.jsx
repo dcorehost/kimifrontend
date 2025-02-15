@@ -1,15 +1,13 @@
 
 
 
-
-
-
-
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import styles from "./FacebookCreateAd.module.css";
 import Auth from "../Services/Auth";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const FacebookCreateAd = () => {
   const navigate = useNavigate();
@@ -122,10 +120,20 @@ const FacebookCreateAd = () => {
         setTopUpFee(parseFloat(topUpFee));
         setTotalCost(parseFloat(totalCost));
         setWallet(parseFloat(wallet));
+
+        toast.success("Ads created successfully!");
       }
     } catch (error) {
       console.error("Error creating ads:", error);
-      setResponseMessage("Failed to create ads. Please try again.");
+
+      if (error.response) {
+        console.error("Server Response Data:", error.response.data);
+        console.error("Status Code:", error.response.status);
+      }
+
+      const errorMessage = error.response?.data?.message || "Failed to create ads. Please try again.";
+      setResponseMessage(errorMessage);
+      toast.error(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -151,14 +159,26 @@ const FacebookCreateAd = () => {
         const { data } = walletRequest;
         setWallet(data?.users?.wallet);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching wallet amount:", error);
       }
     }
     fetchWalletAmount();
-  }, []);
+  }, [token]);
+
+  // Show low balance warning
+  useEffect(() => {
+    if (wallet < totalCost) {
+      toast.warn("Your balance is low. Please add money.", {
+        onClick: () => navigate("/facebook/add-money"),
+        autoClose: false,
+      });
+    }
+  }, [wallet, totalCost, navigate]);
 
   return (
     <div className={styles.container}>
+      <ToastContainer />
+
       {/* License Section */}
       <div className={styles.labelWithBorder1}>
         <div className={styles.field}>
@@ -425,11 +445,6 @@ const FacebookCreateAd = () => {
             Add Amount
           </button>
         </div>
-      )}
-
-      {/* Response Message */}
-      {responseMessage && (
-        <div className={styles.responseMessage}>{responseMessage}</div>
       )}
 
       {/* Submit Button */}
