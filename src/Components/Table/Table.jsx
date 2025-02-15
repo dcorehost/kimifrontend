@@ -2,17 +2,16 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./Table.module.css";
-import Auth from "../Services/Auth";
 
 const Table = () => {
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAdId, setSelectedAdId] = useState(null);
-  const [shareMessage, setShareMessage] = useState("");  
-  const [currentPage, setCurrentPage] = useState(1); // Track current page
-  const [totalAds, setTotalAds] = useState(0); // Track total number of ads
-  const adsPerPage = 8; // Set ads per page
+  const [shareMessage, setShareMessage] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalAds, setTotalAds] = useState(0);
+  const adsPerPage = 8;
   const navigate = useNavigate();
 
   const handleNextPage = () => {
@@ -30,34 +29,52 @@ const Table = () => {
     setShareMessage(""); // Reset input field
   };
 
-  const handleShareConfirm = () => {
-    console.log(`Ad ${selectedAdId} shared with message: "${shareMessage}"`);
+  const handleShareConfirm = async () => {
+    if (!shareMessage.trim()) {
+      alert("Please enter a valid Gmail address.");
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://admediaagency.online/kimi/send-request-email", {
+        emailId: shareMessage, // Send the email entered by the user
+      });
+
+      if (response.status === 200) {
+        alert("Email request sent successfully!");
+      } else {
+        alert("Failed to send email request.");
+      }
+    } catch (error) {
+      console.error("Error sending email request:", error);
+      alert("An error occurred while sending the email.");
+    }
+
     handleCloseModal();
   };
 
   const handlePageChange = (pageNumber) => {
-    setCurrentPage(pageNumber); // Update current page
+    setCurrentPage(pageNumber);
   };
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = Auth.getToken();
-
       try {
         const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
-          headers: { Authorization: `Bearer ${token}` },
           params: {
             page: currentPage,
-            limit: adsPerPage, // Pass pagination parameters
+            limit: adsPerPage,
           },
         });
 
         if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
-          setAdsData(response.data.ads.map(ad => ({
-            adsId: ad._id,
-            createTime: ad.createdAt,
-          })));
-          setTotalAds(response.data.totalAds || 0); // Set total number of ads
+          setAdsData(
+            response.data.ads.map((ad) => ({
+              adsId: ad._id,
+              createTime: ad.createdAt,
+            }))
+          );
+          setTotalAds(response.data.totalAds || 0);
         } else {
           setError("Failed to fetch ads data.");
         }
@@ -68,9 +85,9 @@ const Table = () => {
     };
 
     fetchAdsData();
-  }, [currentPage]); // Trigger re-fetch when page changes
+  }, [currentPage]);
 
-  const totalPages = Math.ceil(totalAds / adsPerPage); // Calculate total number of pages
+  const totalPages = Math.ceil(totalAds / adsPerPage);
 
   return (
     <div className={styles.container}>
@@ -100,9 +117,7 @@ const Table = () => {
                         Share
                       </button>
                       <Link to={`/google/finance/googleads-deposite`}>
-                        <button className={styles.detailsButton}>
-                          Deposit
-                        </button>
+                        <button className={styles.detailsButton}>Deposit</button>
                       </Link>
                     </td>
                   </tr>
@@ -128,11 +143,13 @@ const Table = () => {
               id="shareMessage"
               placeholder="Please enter Gmail address"
               value={shareMessage}
-              onChange={(e) => setShareMessage(e.target.value)} 
+              onChange={(e) => setShareMessage(e.target.value)}
               className={styles.modalInput}
             />
             <div className={styles.modalButtons}>
-              <button className={styles.closeButton} onClick={handleCloseModal}>Close</button>
+              <button className={styles.closeButton} onClick={handleCloseModal}>
+                Close
+              </button>
               <button className={styles.confirmButton} onClick={handleShareConfirm}>
                 Confirm
               </button>
@@ -148,7 +165,7 @@ const Table = () => {
             Previous
           </button>
         )}
-        {Array.from({ length: totalPages }, (_, index) => index + 1).map(page => (
+        {Array.from({ length: totalPages }, (_, index) => index + 1).map((page) => (
           <button
             key={page}
             className={`${styles.pageButton} ${currentPage === page ? styles.activePage : ""}`}

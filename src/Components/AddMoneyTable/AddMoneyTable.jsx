@@ -13,6 +13,8 @@ const AddMoneyTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
+  const [networkInfo, setNetworkInfo] = useState({ networkName: "", networkAddress: "" });
+
   const [modalData, setModalData] = useState({
     payway: "USDT",
     chargeMoney: "",
@@ -24,7 +26,7 @@ const AddMoneyTable = () => {
   useEffect(() => {
     const fetchTransactions = async () => {
       try {
-        const response = await httpServices.get("/get-transaction-details-of-user");
+        const response = await httpServices.get("https://admediaagency.online/kimi/get-transaction-details-of-user");
         setTransactions(response.data.transactions);
       } catch (err) {
         console.error("Error fetching transactions:", err);
@@ -36,6 +38,18 @@ const AddMoneyTable = () => {
 
     fetchTransactions();
   }, []);
+
+  // Fetch network details when USDT is selected
+  useEffect(() => {
+    if (modalData.payway === "USDT") {
+      setNetworkInfo({
+        networkName: "TRC20",
+        networkAddress: "TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7",
+      });
+    } else {
+      setNetworkInfo({ networkName: "", networkAddress: "" });
+    }
+  }, [modalData.payway]);
 
   const handleAddMoney = () => {
     setIsModalOpen(true);
@@ -183,10 +197,10 @@ const AddMoneyTable = () => {
               {modalData.payway === "USDT" && (
                 <div className={styles.networkDetails}>
                   <p>
-                    <strong>Network Name:</strong> TRC20
+                    <strong>Network Name:</strong> {networkInfo.networkName}
                   </p>
                   <p>
-                    <strong>Network Address:</strong> TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7
+                    <strong>Network Address:</strong> {networkInfo.networkAddress}
                   </p>
                 </div>
               )}
