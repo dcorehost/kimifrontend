@@ -99,10 +99,10 @@ const App = () => {
             {/* //bing items  */}
             <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
             <Route path="/bing/accountManage/accountList/createbingads" element={<CreateBingAds />} />
+            <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
             <Route path="/bing/finance/bingadsdeposite" element={<BingAdsDeposit />} />
             <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
             <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
-            <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
             <Route path="/bing/add-money" element={<AddMoneyTable />} />
 
 
