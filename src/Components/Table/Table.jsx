@@ -6,6 +6,7 @@ import styles from "./Table.module.css";
 const Table = () => {
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAdId, setSelectedAdId] = useState(null);
   const [shareMessage, setShareMessage] = useState("");
@@ -13,6 +14,49 @@ const Table = () => {
   const [totalAds, setTotalAds] = useState(0);
   const adsPerPage = 8;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchAdsData = async () => {
+      setLoading(true);
+      setError(null);
+
+      try {
+        console.log("Fetching ads data..."); // Debugging: Log when API call starts
+        const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
+          params: {
+            page: currentPage,
+            limit: adsPerPage,
+          },
+          headers: {
+            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2EwYjBmYmIwODBmNjg0OTk0YTNlYWQiLCJlbWFpbCI6InN1cmplZXQxQGdtYWlsLmNvbSIsInR5cGVPZlVzZXIiOiJVc2VyIiwiaWF0IjoxNzM5MzQ5NTM2LCJleHAiOjE3NDE5NDE1MzZ9.mUWL8HHu6nwE63XuH0xt5HcXjxZGCNiQU4Y2oORbD4I`,
+          },
+        });
+
+        console.log("API Response:", response.data); // Debugging: Log the API response
+
+        if (response.data && response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
+          setAdsData(
+            response.data.ads.map((ad) => ({
+              adsId: ad._id,
+              createTime: ad.createdAt,
+            }))
+          );
+          // If the API does not provide totalAds, calculate it based on the ads array length
+          setTotalAds(response.data.ads.length || 0);
+        } else {
+          setError("Invalid response format or no ads found.");
+        }
+      } catch (err) {
+        console.error("Error fetching ads data:", err);
+        setError("An error occurred while fetching ads data.");
+      } finally {
+        console.log("API call completed, setting loading to false."); // Debugging: Log when API call completes
+        setLoading(false);
+      }
+    };
+
+    fetchAdsData();
+  }, [currentPage]);
 
   const handleNextPage = () => {
     navigate("/google/accountManage/accountList/creategoogleads");
@@ -26,7 +70,7 @@ const Table = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setSelectedAdId(null);
-    setShareMessage(""); // Reset input field
+    setShareMessage("");
   };
 
   const handleShareConfirm = async () => {
@@ -37,7 +81,7 @@ const Table = () => {
 
     try {
       const response = await axios.post("https://admediaagency.online/kimi/send-request-email", {
-        emailId: shareMessage, // Send the email entered by the user
+        emailId: shareMessage,
       });
 
       if (response.status === 200) {
@@ -57,36 +101,6 @@ const Table = () => {
     setCurrentPage(pageNumber);
   };
 
-  useEffect(() => {
-    const fetchAdsData = async () => {
-      try {
-        const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
-          params: {
-            page: currentPage,
-            limit: adsPerPage,
-          },
-        });
-
-        if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
-          setAdsData(
-            response.data.ads.map((ad) => ({
-              adsId: ad._id,
-              createTime: ad.createdAt,
-            }))
-          );
-          setTotalAds(response.data.totalAds || 0);
-        } else {
-          setError("Failed to fetch ads data.");
-        }
-      } catch (err) {
-        console.error("Error fetching ads data:", err.message);
-        setError("An error occurred while fetching ads data.");
-      }
-    };
-
-    fetchAdsData();
-  }, [currentPage]);
-
   const totalPages = Math.ceil(totalAds / adsPerPage);
 
   return (
@@ -94,10 +108,13 @@ const Table = () => {
       <button className={styles.button} onClick={handleNextPage}>
         Create ad here
       </button>
+
       <div className={styles.tableContainer}>
-        {error ? (
+        {loading ? (
+          <p className={styles.loading}>Loading ads...</p>
+        ) : error ? (
           <p className={styles.error}>{error}</p>
-        ) : (
+        ) : adsData.length > 0 ? (
           <table className={styles.table}>
             <thead>
               <tr>
@@ -107,32 +124,27 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              {adsData.length > 0 ? (
-                adsData.map((ad, index) => (
-                  <tr key={index}>
-                    <td>{ad.adsId || "N/A"}</td>
-                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
-                    <td>
-                      <button className={styles.shareButton} onClick={() => handleShare(ad.adsId)}>
-                        Share
-                      </button>
-                      <Link to={`/google/finance/googleads-deposite`}>
-                        <button className={styles.detailsButton}>Deposit</button>
-                      </Link>
-                    </td>
-                  </tr>
-                ))
-              ) : (
-                <tr>
-                  <td colSpan="3">No ads data available</td>
+              {adsData.map((ad, index) => (
+                <tr key={index}>
+                  <td>{ad.adsId || "N/A"}</td>
+                  <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
+                  <td>
+                    <button className={styles.shareButton} onClick={() => handleShare(ad.adsId)}>
+                      Share
+                    </button>
+                    <Link to={`/google/finance/googleads-deposite`}>
+                      <button className={styles.detailsButton}>Deposit</button>
+                    </Link>
+                  </td>
                 </tr>
-              )}
+              ))}
             </tbody>
           </table>
+        ) : (
+          <p className={styles.noData}>No ads data available</p>
         )}
       </div>
 
-      {/* Modal for sharing */}
       {isModalOpen && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -158,7 +170,6 @@ const Table = () => {
         </div>
       )}
 
-      {/* Pagination Controls */}
       <div className={styles.pagination}>
         {currentPage > 1 && (
           <button className={styles.pageButton} onClick={() => handlePageChange(currentPage - 1)}>
