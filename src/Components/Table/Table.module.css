@@ -122,6 +122,13 @@
   /* .shareButton,.detailsButton{
     background-color: #EF9273;
   } */
-  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px; /* Adjust as needed */
+    gap: 10px;
+   
+  }
   
   
