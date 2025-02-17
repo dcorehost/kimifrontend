@@ -336,7 +336,7 @@ const Login = () => {
       if (response.status === 200) {
         const { token, username, typeOfUser } = response.data || {}; // Ensure response.data exists
 
-        console.log("User Type:", typeOfUser); // Debug log
+        console.log("User Type:", typeOfUser); 
 
         if (!token || !username) {
           setError("Invalid response from server. Please try again.");
