@@ -9,7 +9,7 @@ const ApplyGoogleAdsTable = () => {
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedAd, setSelectedAd] = useState(null);
+  const [selectedAd, setSelectedAd] = useState(null); // State to store the selected ad's data
   const navigate = useNavigate();
 
   const handleNextPage = () => {
@@ -17,15 +17,15 @@ const ApplyGoogleAdsTable = () => {
   };
 
   const handleOpenModal = (ad) => {
-    console.log("Opening modal for ad:", ad);
-    setSelectedAd(ad);
-    setIsModalOpen(true);
+    console.log("Opening modal for ad:", ad); // Debugging log
+    setSelectedAd(ad); // Set the selected ad data
+    setIsModalOpen(true); // Open the modal
   };
 
   const handleCloseModal = () => {
-    console.log("Closing modal");
-    setIsModalOpen(false);
-    setSelectedAd(null);
+    console.log("Closing modal"); // Debugging log
+    setIsModalOpen(false); // Close the modal
+    setSelectedAd(null); // Reset selected ad
   };
 
   useEffect(() => {
@@ -51,8 +51,8 @@ const ApplyGoogleAdsTable = () => {
             applyId: ad.applyId,
             adsNumber: ad.adNum,
             state: ad.state,
-            totalCost: ad.adsDetails.reduce((acc, detail) => acc + detail.deposit, 0),
-            gmailList: ad.adsDetails.map(detail => detail.gmail).join(", "),
+            totalCost: ad.adsDetails.reduce((acc, detail) => acc + detail.deposit, 0), // Calculate total deposit cost
+            gmailList: ad.adsDetails.map(detail => detail.gmail).join(", "), // Collect all Gmail addresses
             applyTime: ad.createdAt,
             adsId: ad.adsId || "N/A",
           }));

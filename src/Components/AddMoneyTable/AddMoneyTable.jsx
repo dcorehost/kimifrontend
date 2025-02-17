@@ -39,17 +39,37 @@ const AddMoneyTable = () => {
     fetchTransactions();
   }, []);
 
-  // Fetch network details when USDT is selected
-  useEffect(() => {
+ // Fetch network details dynamically when USDT is selected
+useEffect(() => {
+  const fetchNetworkDetails = async () => {
     if (modalData.payway === "USDT") {
-      setNetworkInfo({
-        networkName: "TRC20",
-        networkAddress: "TXw1JKXqHhT1b7xUSbH1K7qF3RJpCJ2Zx7",
-      });
+      try {
+        const response = await httpServices.get("https://admediaagency.online/kimi/get-network-details");
+        if (response.data.networkDetails) {
+          setNetworkInfo({
+            networkName: response.data.networkDetails.networkName,
+            networkAddress: response.data.networkDetails.networkAddress,
+          });
+        } else {
+          setNetworkInfo({
+            networkName: "No data available",
+            networkAddress: "N/A",
+          });
+        }
+      } catch (error) {
+        console.error("Error fetching network details:", error);
+        setNetworkInfo({
+          networkName: "Error fetching data",
+          networkAddress: "N/A",
+        });
+      }
     } else {
       setNetworkInfo({ networkName: "", networkAddress: "" });
     }
-  }, [modalData.payway]);
+  };
+
+  fetchNetworkDetails();
+}, [modalData.payway]);
 
   const handleAddMoney = () => {
     setIsModalOpen(true);
@@ -206,23 +226,18 @@ const AddMoneyTable = () => {
               )}
 
               <label htmlFor="chargeMoney">Charge Money:</label>
-              <input type="number" id="chargeMoney" name="chargeMoney" value={modalData.chargeMoney} onChange={handleChange} placeholder="Enter Amount" className={styles.inputField} />
+              <input type="number" id="chargeMoney" name="chargeMoney" value={modalData.chargeMoney} onChange={handleChange} className={styles.inputField} />
 
               <label htmlFor="transactionId">Transaction ID:</label>
-              <input type="text" id="transactionId" name="transactionId" value={modalData.transactionId} onChange={handleChange} placeholder="Enter Transaction ID" className={styles.inputField} />
+              <input type="text" id="transactionId" name="transactionId" value={modalData.transactionId} onChange={handleChange} className={styles.inputField} />
 
               <label htmlFor="image">Upload Image:</label>
               <input type="file" id="photo" name="image" onChange={handleImageUpload} className={styles.inputField} />
-              {modalData.image && <p>Uploaded Image: {modalData.image.name}</p>}
-            </div>
 
-            <div className={styles.modalActions}>
-              <button className={styles.modalButton} onClick={handleCloseModal}>
-                Cancel
-              </button>
-              <button className={styles.modalButton} onClick={handleConfirm}>
-                Confirm
-              </button>
+              <div className={styles.modalActions}>
+                <button className={styles.modalButton} onClick={handleCloseModal}>Cancel</button>
+                <button className={styles.modalButton} onClick={handleConfirm}>Confirm</button>
+              </div>
             </div>
           </div>
         </div>
