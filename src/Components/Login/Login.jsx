@@ -335,6 +335,7 @@ const Login = () => {
 
       if (response.status === 200) {
         const { token, username, typeOfUser } = response.data || {}; // Ensure response.data exists
+        console.log("Received Token:", token); // Debug log
 
         console.log("User Type:", typeOfUser); 
 
@@ -342,6 +343,12 @@ const Login = () => {
           setError("Invalid response from server. Please try again.");
           return;
         }
+
+        localStorage.setItem("userToken", token);
+        localStorage.setItem("username", username);
+        localStorage.setItem("typeOfUser", typeOfUser);
+          
+        console.log("Stored Token in LocalStorage:", localStorage.getItem("userToken")); // Debugging
 
         // Save the user data to Auth
         Auth.login({ token, username, typeOfUser });
