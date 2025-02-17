@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./PendingAdsBingDeposite.module.css"; // Ensure the correct CSS path
-import Httpservices from "../Services/Httpservices"; // Custom service for API calls
-import Auth from "../Services/Auth"; // Custom authentication service
+import styles from "./PendingAdsGoogleDeposite.module.css"; 
+import Httpservices from "../Services/Httpservices";
+import Auth from "../Services/Auth"; 
 
-const PendingAdsBingDeposite = () => {
+const PendingAdsGoogleDeposite = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const PendingAdsBingDeposite = () => {
     }
 
     try {
-      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-bing-adDeposit", {
+      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-google-adDeposit", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -46,24 +46,25 @@ const PendingAdsBingDeposite = () => {
     return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
-  const handleUpdateState = async (adsId, adType, action) => {
-    if (!adsId || !adType) {
-      setError("Error: Missing Deposit ID or Ad Type.");
+  const handleUpdateState = async (id, action) => {
+    if (!id) {
+      setError("Error: Missing Deposit ID.");
       return;
     }
-  
+
     const token = Auth.getToken();
     if (!token) {
       setError("User is not authenticated.");
       return;
     }
-  
+
     try {
-      console.log(`Updating Deposit ID: ${adsId}, Ad Type: ${adType}, Action: ${action}`);
-  
+      console.log(`Updating Deposit ID: ${id}, Action: ${action}`);
+
+      // Modify the URL to use the production API endpoint
       const response = await Httpservices.put(
-        `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=${adType}&action=${action}`,
-        {}, // Empty body
+        `https://admediaagency.online/kimi/approve-deposit?adsId=${id}&adType=Google&action=${action}`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,27 +72,28 @@ const PendingAdsBingDeposite = () => {
           },
         }
       );
-  
+
       console.log("Update Response:", response.data);
-  
+
       if (response.status === 200) {
         setDepositsData((prevDeposits) =>
           prevDeposits.map((deposit) =>
-            deposit.applyId === adsId ? { ...deposit, state: action } : deposit
+            deposit.applyId === id ? { ...deposit, state: action } : deposit
           )
         );
-  
+
         toast.success(`Deposit ${action}d successfully!`);
       } else {
         setError(response.data.message || "Failed to update deposit status.");
+        toast.error("Failed to update deposit status.");
       }
     } catch (error) {
-      console.error(`Error updating status for ${adsId}:`, error.response || error.message);
+      console.error(`Error updating status for ${id}:`, error.response || error.message);
       setError(error.response?.data?.message || "Error updating deposit status.");
       toast.error("Failed to update deposit status.");
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <ToastContainer position="top-right" autoClose={3000} />
@@ -147,4 +149,4 @@ const PendingAdsBingDeposite = () => {
   );
 };
 
-export default PendingAdsBingDeposite;
+export default PendingAdsGoogleDeposite;

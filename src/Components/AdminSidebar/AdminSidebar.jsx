@@ -1,5 +1,3 @@
-
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styles from "./AdminSidebar.module.css";
@@ -43,7 +41,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           {/* Ad Approval */}
           <li>
             <button onClick={() => toggleMenu("adApproval")} className={`${styles.link} ${styles.walletToggle}`}>
-              <i className="fas fa-check-circle"></i> {isSidebarOpen && "Ad Approval"}
+              <i className="fas fa-check-circle"></i> {isSidebarOpen && "Pending Ad Approval"}
               <i className={`fas ${openMenus.adApproval ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}></i>
             </button>
             {openMenus.adApproval && (
@@ -101,19 +99,33 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           {/* Option Menu */}
           <li>
             <button onClick={() => toggleMenu("option")} className={`${styles.link} ${styles.walletToggle}`}>
-              <i className="fas fa-cog"></i> {isSidebarOpen && "Ads Deposite"}
+              <i className="fas fa-cog"></i> {isSidebarOpen && "Pending Ads Deposite"}
               <i className={`fas ${openMenus.option ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}></i>
             </button>
             {openMenus.option && (
               <ul className={styles.subMenu}>
-                <li><Link to="/admin/option/option1" className={styles.link}>Pending Google Ads Deposite</Link></li>
+                <li><Link to="/admin/AdsDeposite/PendingAdsGoogleDeposite" className={styles.link}>Pending Google Ads Deposite</Link></li>
                 <li><Link to="/admin/AdsDeposite/PendingAdsBingDeposite" className={styles.link}>Pending Bing Ads Deposite</Link></li>
-                <li><Link to="/admin/option/option3" className={styles.link}>Pending Facebook Ads Deposite</Link></li>
-                {/* <li><Link to="/admin/option/option4" className={styles.link}>Option 4</Link></li>
-                <li><Link to="/admin/option/option5" className={styles.link}>Option 5</Link></li> */}
+                <li><Link to="/admin/AdsDeposite/PendingAdsFacebookDeposite" className={styles.link}>Pending Facebook Ads Deposite</Link></li>
               </ul>
             )}
           </li>
+
+          {/* Complete Ads Deposit Menu */}
+          <li>
+            <button onClick={() => toggleMenu("completeAdsDeposit")} className={`${styles.link} ${styles.walletToggle}`}>
+              <i className="fas fa-check-circle"></i> {isSidebarOpen && "Complete Ads Deposit"}
+              <i className={`fas ${openMenus.completeAdsDeposit ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}></i>
+            </button>
+            {openMenus.completeAdsDeposit && (
+              <ul className={styles.subMenu}>
+                <li><Link to="/admin/AdsDeposite/CompleteAdsGoogleDeposite" className={styles.link}>Complete Google Ads Deposite</Link></li>
+                <li><Link to="/admin/AdsDeposite/CompleteAdsBingDeposite" className={styles.link}>Complete Bing Ads Deposite</Link></li>
+                <li><Link to="/admin/AdsDeposite/CompleteAdsFacebookDeposite" className={styles.link}>Complete Facebook Ads Deposite</Link></li>
+              </ul>
+            )}
+          </li>
+
         </ul>
       </div>
     </div>

@@ -1,7 +1,6 @@
 
 
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './BingAdsDeposit.module.css';
 import Auth from '../Services/Auth';
@@ -14,6 +13,30 @@ const BingAdsDeposit = () => {
   const [responseMessage, setResponseMessage] = useState('');
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    fetchWalletBalance();
+  }, []);
+
+  const fetchWalletBalance = async () => {
+    try {
+      const token = Auth.getToken();
+      if (!token) {
+        setResponseMessage('User not authenticated.');
+        return;
+      }
+
+      const response = await axios.get('https://admediaagency.online/kimi/get-wallet-of-user', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setWalletAmount(response.data.users.wallet || 0);
+    } catch (error) {
+      console.error('Error fetching wallet balance:', error);
+      setResponseMessage('Failed to fetch wallet balance.');
+    }
+  };
+
   const handleInputChange = (index, field, value) => {
     const updatedRows = [...rows];
     updatedRows[index][field] = value;
@@ -24,6 +47,7 @@ const BingAdsDeposit = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
+    setTotalCost(total * 1.35); // Total cost is 35% more than total deposit
   };
 
   const addRow = () => {
@@ -47,6 +71,12 @@ const BingAdsDeposit = () => {
     const isValid = rows.every(row => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0);
     if (!isValid) {
       setResponseMessage('Please enter a valid Bing Ad Account and deposit amount.');
+      setLoading(false);
+      return;
+    }
+
+    if (totalDeposit > walletAmount) {
+      setResponseMessage('Insufficient wallet balance. Please recharge.');
       setLoading(false);
       return;
     }
@@ -82,21 +112,14 @@ const BingAdsDeposit = () => {
         )
       );
 
-      let totalDeposit = 0;
-      let totalCost = 0;
-      let walletAmount = 0;
-
+      let newWalletAmount = walletAmount;
       responses.forEach(response => {
         if (response.data) {
-          totalDeposit += parseFloat(response.data.totalDeposit) || 0;
-          totalCost += parseFloat(response.data.totalCost) || 0;
-          walletAmount += parseFloat(response.data.wallet) || 0;
+          newWalletAmount = parseFloat(response.data.wallet) || newWalletAmount;
         }
       });
 
-      setTotalDeposit(totalDeposit);
-      setTotalCost(totalCost);
-      setWalletAmount(walletAmount);
+      setWalletAmount(newWalletAmount);
       setResponseMessage('Deposit added successfully!');
     } catch (error) {
       console.error('Error processing deposit:', error.response?.data || error.message);

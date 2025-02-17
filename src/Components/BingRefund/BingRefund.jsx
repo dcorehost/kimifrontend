@@ -1,7 +1,9 @@
 
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Auth from "../Services/Auth"; 
 import styles from "./BingRefund.module.css";
 
 const BingRefund = () => {
@@ -15,7 +17,7 @@ const BingRefund = () => {
 
   useEffect(() => {
     const fetchRefundData = async () => {
-      const token = localStorage.getItem("userToken");
+      const token = Auth.getToken(); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -24,10 +26,15 @@ const BingRefund = () => {
 
       try {
         const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Bing", {
-          headers: { Authorization: `Bearer ${token}` },
+          headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
+        console.log("API Response:", response);
+
+        if (
+          response.data.message === "Refund details fetched successfully" &&
+          Array.isArray(response.data.refundsDetails)
+        ) {
           setRefundData(response.data.refundsDetails);
         } else {
           setError("Failed to fetch refund details.");
@@ -60,7 +67,7 @@ const BingRefund = () => {
       return;
     }
 
-    const token = localStorage.getItem("userToken");
+    const token = Auth.getToken(); 
 
     if (!token) {
       setError("User is not authenticated. Please log in.");
@@ -68,7 +75,7 @@ const BingRefund = () => {
     }
 
     const requestData = {
-      adBingAccount: adAccount.trim(),  
+      adBingAccount: adAccount.trim(),
       amount: parseFloat(amount),
       adType: "Bing",
     };
@@ -115,10 +122,11 @@ const BingRefund = () => {
           <thead>
             <tr>
               <th>Apply ID</th>
-              <th>Ads ID</th>
-              <th>Amount Applied</th>
+              <th>Ad Bing Account</th>
+              <th>Amount</th>
               <th>Remaining Money</th>
               <th>Apply State</th>
+              <th>User Email</th>
               <th>Created At</th>
             </tr>
           </thead>
@@ -131,12 +139,13 @@ const BingRefund = () => {
                   <td>{refund.amount || "N/A"}</td>
                   <td>{refund.remainMoney || "N/A"}</td>
                   <td>{refund.applyState || "N/A"}</td>
+                  <td>{refund.userId?.contact?.emailId || "N/A"}</td>
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
                 </tr>
               ))
             ) : (
               <tr>
-                <td colSpan="6">No refund details available</td>
+                <td colSpan="7">No refund details available</td>
               </tr>
             )}
           </tbody>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./PendingAdsBingDeposite.module.css"; // Ensure the correct CSS path
-import Httpservices from "../Services/Httpservices"; // Custom service for API calls
-import Auth from "../Services/Auth"; // Custom authentication service
+import styles from "./PendingAdsFacebookDeposite.module.css"; // Make sure your CSS file is correctly named
+import Httpservices from "../Services/Httpservices"; // Assuming Httpservices is your custom service
+import Auth from "../Services/Auth"; // Assuming Auth service manages user authentication
 
-const PendingAdsBingDeposite = () => {
+const PendingAdsFacebookDeposite = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -23,7 +23,7 @@ const PendingAdsBingDeposite = () => {
     }
 
     try {
-      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-bing-adDeposit", {
+      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-facebook-adDeposit", {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -51,19 +51,20 @@ const PendingAdsBingDeposite = () => {
       setError("Error: Missing Deposit ID or Ad Type.");
       return;
     }
-  
+
     const token = Auth.getToken();
     if (!token) {
       setError("User is not authenticated.");
       return;
     }
-  
+
     try {
       console.log(`Updating Deposit ID: ${adsId}, Ad Type: ${adType}, Action: ${action}`);
-  
+
+      // Use the correct API URL for approving/rejecting the deposit
       const response = await Httpservices.put(
         `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=${adType}&action=${action}`,
-        {}, // Empty body
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -71,16 +72,16 @@ const PendingAdsBingDeposite = () => {
           },
         }
       );
-  
+
       console.log("Update Response:", response.data);
-  
+
       if (response.status === 200) {
         setDepositsData((prevDeposits) =>
           prevDeposits.map((deposit) =>
-            deposit.applyId === adsId ? { ...deposit, state: action } : deposit
+            deposit.adsId === adsId ? { ...deposit, state: action } : deposit
           )
         );
-  
+
         toast.success(`Deposit ${action}d successfully!`);
       } else {
         setError(response.data.message || "Failed to update deposit status.");
@@ -91,7 +92,7 @@ const PendingAdsBingDeposite = () => {
       toast.error("Failed to update deposit status.");
     }
   };
-  
+
   return (
     <div className={styles.container}>
       <ToastContainer position="top-right" autoClose={3000} />
@@ -114,8 +115,8 @@ const PendingAdsBingDeposite = () => {
           </thead>
           <tbody>
             {depositsData.map((deposit) => (
-              <tr key={deposit.applyId}>
-                <td>{deposit.applyId}</td>
+              <tr key={deposit.adsId}>
+                <td>{deposit.adsId}</td>
                 <td>${deposit.money}</td>
                 <td>{deposit.state}</td>
                 <td>${deposit.totalCost}</td>
@@ -123,14 +124,14 @@ const PendingAdsBingDeposite = () => {
                 <td className={styles.operate}>
                   <button
                     className={styles.approveBtn}
-                    onClick={() => handleUpdateState(deposit.applyId, "approve")}
+                    onClick={() => handleUpdateState(deposit.adsId, "Facebook", "approve")}
                     disabled={deposit.state === "Approved"}
                   >
                     Approve
                   </button>
                   <button
                     className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(deposit.applyId, "reject")}
+                    onClick={() => handleUpdateState(deposit.adsId, "Facebook", "reject")}
                     disabled={deposit.state === "Rejected"}
                   >
                     Reject
@@ -147,4 +148,4 @@ const PendingAdsBingDeposite = () => {
   );
 };
 
-export default PendingAdsBingDeposite;
+export default PendingAdsFacebookDeposite;

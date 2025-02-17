@@ -54,6 +54,11 @@ import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
 import PendingTransation from "./Components/PendingTransations/PendingTransations";
 import ApprovedTransations from "./Components/ApprovedTransations/ApprovedTransations";
 import PendingAdsBingDeposite from "./Components/PendingAdsBingDeposite/PendingAdsBingDeposite";
+import PendingAdsGoogleDeposite from "./Components/PendingAdsGoogleDeposite/PendingAdsGoogleDeposite";
+import PendingAdsFacebookDeposite from "./Components/PendingAdsFacebookDeposite/PendingAdsFacebookDeposite";
+import CompletedBingAdDeposite from "./Components/CompletedBingAdDeposite/CompletedBingAdDeposite";
+import CompletedFacebookAdDeposite from "./Components/CompletedFacebookAdDeposite/CompletedFacebookAdDeposite";
+import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/CompleteGoogleAdDeposite";
 
 
 
@@ -100,10 +105,10 @@ const App = () => {
             {/* //bing items  */}
             <Route path="/bing/accountManage/accountList" element={<BingAccountList />}></Route>
             <Route path="/bing/accountManage/accountList/createbingads" element={<CreateBingAds />} />
+            <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
             <Route path="/bing/finance/bingadsdeposite" element={<BingAdsDeposit />} />
             <Route path="/bing/finance/bingadsdepositrecode" element={<BingAdsDepositRecord />} />
             <Route path="/bing/aftersale/bingrefund" element={<BingRefund />} />
-            <Route path="/bing/accountManage/applybingad" element={<ApplyBingAd />} />
             <Route path="/bing/add-money" element={<AddMoneyTable />} />
 
 
@@ -150,7 +155,13 @@ const App = () => {
             <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
             <Route path="/admin/transactions/pending" element={<PendingTransation />} />
             <Route path="/admin/transactions/approved" element={<ApprovedTransations />} />
-            <Route path="/admin/AdsDeposite/PendingAdsBingDeposite" element={<PendingAdsBingDeposite></PendingAdsBingDeposite>}></Route>
+            <Route path="/admin/AdsDeposite/PendingAdsBingDeposite" element={<PendingAdsBingDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/PendingAdsGoogleDeposite" element={<PendingAdsGoogleDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/PendingAdsFacebookDeposite" element={<PendingAdsFacebookDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/CompleteAdsBingDeposite"  element={<CompletedBingAdDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/CompleteAdsFacebookDeposite" element={<CompletedFacebookAdDeposite />}></Route>
+            <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
+
 
           </Route>
 
