@@ -1,7 +1,9 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import styles from "./Table.module.css";
+import Auth from "../Services/Auth";
 
 const Table = () => {
   const [adsData, setAdsData] = useState([]);
@@ -19,38 +21,44 @@ const Table = () => {
     const fetchAdsData = async () => {
       setLoading(true);
       setError(null);
+      const authData = Auth.getAuthData();
+      const token = authData?.token;
+
+      if (!token) {
+        setError("No authentication token found. Please log in.");
+        setLoading(false);
+        return;
+      }
 
       try {
-        console.log("Fetching ads data..."); // Debugging: Log when API call starts
         const response = await axios.get("https://admediaagency.online/kimi/get-google-ads", {
           params: {
             page: currentPage,
             limit: adsPerPage,
           },
-          headers: {
-            Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2EwYjBmYmIwODBmNjg0OTk0YTNlYWQiLCJlbWFpbCI6InN1cmplZXQxQGdtYWlsLmNvbSIsInR5cGVPZlVzZXIiOiJVc2VyIiwiaWF0IjoxNzM5MzQ5NTM2LCJleHAiOjE3NDE5NDE1MzZ9.mUWL8HHu6nwE63XuH0xt5HcXjxZGCNiQU4Y2oORbD4I`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
-
-        console.log("API Response:", response.data); // Debugging: Log the API response
 
         if (response.data && response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
           setAdsData(
             response.data.ads.map((ad) => ({
-              adsId: ad._id,
-              createTime: ad.createdAt,
+              adsId: ad.adsId,
+              gmail: ad.adsDetails[0]?.gmail,    
+              totalCost: ad.totalCost,          
+              state: ad.state,                   
+              createTime: ad.createdAt,          
+              _id: ad._id,                       
+              applyId: ad.applyId,              
+              adNum: ad.adNum                    
             }))
           );
-          // If the API does not provide totalAds, calculate it based on the ads array length
           setTotalAds(response.data.ads.length || 0);
         } else {
           setError("Invalid response format or no ads found.");
         }
       } catch (err) {
-        console.error("Error fetching ads data:", err);
         setError("An error occurred while fetching ads data.");
       } finally {
-        console.log("API call completed, setting loading to false."); // Debugging: Log when API call completes
         setLoading(false);
       }
     };
@@ -90,7 +98,6 @@ const Table = () => {
         alert("Failed to send email request.");
       }
     } catch (error) {
-      console.error("Error sending email request:", error);
       alert("An error occurred while sending the email.");
     }
 
@@ -119,6 +126,11 @@ const Table = () => {
             <thead>
               <tr>
                 <th>Ads ID</th>
+                <th>Apply ID</th>
+                <th>Ad Number</th>
+                <th>Gmail</th>
+                <th>Total Cost</th>
+                <th>State</th>
                 <th>Create Time</th>
                 <th>Operate</th>
               </tr>
@@ -127,6 +139,11 @@ const Table = () => {
               {adsData.map((ad, index) => (
                 <tr key={index}>
                   <td>{ad.adsId || "N/A"}</td>
+                  <td>{ad.applyId || "N/A"}</td>
+                  <td>{ad.adNum || "N/A"}</td>
+                  <td>{ad.gmail || "N/A"}</td>
+                  <td>{ad.totalCost ? `$${ad.totalCost.toFixed(2)}` : "N/A"}</td> 
+                  <td>{ad.state || "N/A"}</td>
                   <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
                   <td>
                     <button className={styles.shareButton} onClick={() => handleShare(ad.adsId)}>

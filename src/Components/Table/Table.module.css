@@ -1,134 +1,179 @@
-.container {
-    padding: 20px;
-    width: 96%;
-    
-  }
-  
-  .button {
-    
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background-color: #EF9273;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    
-  }
-  
-  .button:hover {
-    background-color: #EF9273;
-    
-  }
-  
-  .tableContainer {
-    margin: 0 auto;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-  }
-  
-  .table th,
-  .table td {
-    padding: 12px 16px;
-    text-align: left;
-    border: 1px solid #ddd;
-  }
-  
-  .table th {
-    background-color: #EF9273;
-    font-weight: bold;
-  }
-  
-  .table tr:nth-child(even) {
-    background-color: #f9f9f9;
-  }
-  
-  .operateButton {
-    padding: 5px 10px;
-    margin-right: 5px;
-    background-color: #FEF9F8;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 14px;
-  }
-  
-  .operateButton:hover {
-    background-color: #218838;
+/* Container for the table to handle scrolling */
+.tableContainer {
+  overflow-x: auto;  /* Enables horizontal scrolling */
+  margin-top: 20px;
+  padding: 10px;
+}
+
+/* Basic styling for the table */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+  white-space: nowrap; 
+}
+
+.table th {
+  background-color: #EF9273;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+/* Button styling inside table */
+button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #EF9273;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.shareButton {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.detailsButton {
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+
+.pageButton {
+  background-color: #e7e7e7;
+  color: #555;
+  padding: 10px;
+  margin: 0 5px;
+  border: none;
+  cursor: pointer;
+}
+
+.pageButton:hover {
+  background-color: #ddd;
+}
+
+.activePage {
+  background-color: #2196F3;
+  color: white;
+}
+
+/* Modal Styling */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 500px;
+}
+
+.modalInput {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.closeButton,
+.confirmButton {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.closeButton {
+  background-color: #f44336;
+  color: white;
+}
+
+.confirmButton {
+  background-color: #4CAF50;
+  color: white;
+}
+
+/* Pagination styling */
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+  /* Stack the table buttons (Share, Deposit) on smaller screens */
+  td {
+    display: block;
+    text-align: right;
   }
 
-  .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modalContent {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    /* text-align: center; */
-    width: 600px;
-  }
-  
-  .closeButton, .confirmButton {
-    margin-top: 10px;
-    padding: 10px 15px;
-    cursor: pointer;
-  }
-  
-  .closeButton {
-    background-color: red;
-    color: white;
-  }
-  
-  .confirmButton {
-    background-color: green;
-    color: white;
-  }
-  .modalInput {
+  td button {
+    display: block;
     width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
+    margin-bottom: 10px;
   }
-  
-  .modalButtons {
-    display: flex;
-    justify-content: right;
-    margin-top: 10px;
-    gap: 20px;
+
+  th {
+    display: none; /* Hide headers on smaller screens */
   }
-  .closeModal{
-    margin: 590px;
+
+  .tableContainer {
+    padding: 0;
   }
-  /* .shareButton,.detailsButton{
-    background-color: #EF9273;
-  } */
+
+  /* Adjust pagination buttons for smaller screens */
   .pagination {
-    display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    margin-top: 30px; /* Adjust as needed */
-    gap: 10px;
-   
   }
-  
-  
+
+  .pageButton {
+    margin-bottom: 5px;
+  }
+
+  /* Make sure modal content is responsive too */
+  .modalContent {
+    width: 90%;
+  }
+}
+
+/* Additional adjustments for very small devices like phones */
+@media (max-width: 480px) {
+  /* Hide text and make table more compact on very small devices */
+  .table td {
+    font-size: 14px;
+  }
+
+  .modalContent {
+    width: 95%;
+  }
+}

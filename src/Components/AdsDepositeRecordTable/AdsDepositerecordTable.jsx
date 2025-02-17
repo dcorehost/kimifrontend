@@ -1,9 +1,9 @@
 
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./AdsDpositeRecordTable.module.css";
+import Auth from "../Services/Auth"; 
 
 const AdsDepositeRecordTable = () => {
   const [depositsData, setDepositsData] = useState([]);
@@ -13,7 +13,7 @@ const AdsDepositeRecordTable = () => {
 
   useEffect(() => {
     const fetchDepositsData = async () => {
-      const token = localStorage.getItem("userToken");
+      const token = Auth.getToken();
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -21,19 +21,24 @@ const AdsDepositeRecordTable = () => {
       }
 
       try {
-        const response = await axios.get("https://admediaagency.online/kimi/get-Google-adDeposit?adType=Google", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://admediaagency.online/kimi/get-Google-adDeposit?adType=Google",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
 
         console.log("API Response:", response.data);
 
-        if (response.data.message === "Deposits details fetched successfully" && Array.isArray(response.data.deposits)) {
+        if (
+          response.data.message === "Deposits details fetched successfully" &&
+          Array.isArray(response.data.deposits)
+        ) {
           const deposits = response.data.deposits.map((deposit) => {
-            const adGoogleAccount = deposit.adGoogleAccount;
-
             return {
               applyId: deposit.applyId,
-              adsId: adGoogleAccount ? adGoogleAccount._id : "N/A",
+              adsId: deposit.adsId || "N/A",
+              _id: deposit._id || "N/A",
               chargeMoney: `$${deposit.money}`,
               totalCost: `$${deposit.totalCost}`,
               state: deposit.state,
@@ -54,7 +59,7 @@ const AdsDepositeRecordTable = () => {
   }, []);
 
   const handleExport = async () => {
-    const token = localStorage.getItem("userToken");
+    const token = Auth.getToken();
 
     if (!token) {
       setError("User is not authenticated. Please log in.");
@@ -64,16 +69,18 @@ const AdsDepositeRecordTable = () => {
     try {
       console.log("Fetching export file...");
 
-      const response = await axios.get("https://admediaagency.online/kimi/export-googlead-deposit", {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: "blob", 
-      });
+      const response = await axios.get(
+        "https://admediaagency.online/kimi/export-googlead-deposit",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: "blob",
+        }
+      );
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
-
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "googleDepositList.xlsx"); 
+      link.setAttribute("download", "googleDepositList.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -91,9 +98,7 @@ const AdsDepositeRecordTable = () => {
       {successMessage && <p className={styles.success}>{successMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
 
-      <button className={styles.button} onClick={handleExport}>
-        Export Excel
-      </button>
+      <button className={styles.button} onClick={handleExport}>Export Excel</button>
 
       <div className={styles.tableContainer}>
         {error ? (
@@ -104,6 +109,7 @@ const AdsDepositeRecordTable = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>_ID</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
@@ -116,6 +122,7 @@ const AdsDepositeRecordTable = () => {
                   <tr key={index}>
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
+                    <td>{row._id}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
                     <td>{row.state}</td>
@@ -124,7 +131,7 @@ const AdsDepositeRecordTable = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="6">No deposit data available</td>
+                  <td colSpan="7">No deposit data available</td>
                 </tr>
               )}
             </tbody>
@@ -136,5 +143,3 @@ const AdsDepositeRecordTable = () => {
 };
 
 export default AdsDepositeRecordTable;
-
-
