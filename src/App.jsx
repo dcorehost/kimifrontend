@@ -53,6 +53,7 @@ import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
 import PendingTransation from "./Components/PendingTransations/PendingTransations";
 import ApprovedTransations from "./Components/ApprovedTransations/ApprovedTransations";
+import PendingAdsBingDeposite from "./Components/PendingAdsBingDeposite/PendingAdsBingDeposite";
 
 
 
@@ -149,6 +150,7 @@ const App = () => {
             <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
             <Route path="/admin/transactions/pending" element={<PendingTransation />} />
             <Route path="/admin/transactions/approved" element={<ApprovedTransations />} />
+            <Route path="/admin/AdsDeposite/PendingAdsBingDeposite" element={<PendingAdsBingDeposite></PendingAdsBingDeposite>}></Route>
 
           </Route>
 
