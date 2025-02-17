@@ -5,33 +5,29 @@ import styles from "./BingAccountList.module.css";
 import Auth from "../Services/Auth";
 
 const BingAccountList = () => {
-  const [adsData, setAdsData] = useState([]); // Store ads data
-  const [error, setError] = useState(null); // Store error if any
-  const [selectedAd, setSelectedAd] = useState(null); // Store selected ad for modal
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility
+  const [adsData, setAdsData] = useState([]); 
+  const [error, setError] = useState(null); 
+  const [selectedAd, setSelectedAd] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-  const token = Auth.getToken(); // Get token for authentication
+  const token = Auth.getToken(); 
 
   const handleNextPage = () => {
     navigate("/bing/accountManage/accountList/createbingads"); 
   };
 
-  // Fetch ads data from the API
   useEffect(() => {
     const fetchAdsData = async () => {
       try {
-        // Fetch the data from the API
         const response = await axios.get("https://admediaagency.online/kimi/get-bing-ads", {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("API Response:", response.data); // Log the API response for debugging
+        console.log("API Response:", response.data); 
 
-        // Check if the response is valid and contains the expected data
         if (response.data.message === "Bing ads fetched successfully" && Array.isArray(response.data.ads)) {
-          // Map through the ads data and store it in the state
           const ads = response.data.ads.map((ad) => ({
-            adsId: ad.adsId,  // Use adsId from the API data
+            adsId: ad.adsId,  
             adNumber: ad.adNum,
             state: ad.state,
             totalCost: ad.totalCost,
@@ -40,27 +36,25 @@ const BingAccountList = () => {
             adsDetails: ad.adsDetails,
           }));
 
-          console.log("Updated Ads Data:", ads); // Log the ads data after mapping
-          setAdsData(ads); // Update the state with the new data
+          console.log("Updated Ads Data:", ads); 
+          setAdsData(ads); 
         } else {
-          setError("Failed to fetch ads data."); // Set error message if the data is invalid
+          setError("Failed to fetch ads data."); 
         }
       } catch (err) {
-        console.error("Error fetching ads data:", err.message); // Log error if request fails
+        console.error("Error fetching ads data:", err.message); 
         setError("An error occurred while fetching ads data.");
       }
     };
 
-    fetchAdsData(); // Call the function to fetch ads data
-  }, [token]); // Run the effect whenever the token changes
+    fetchAdsData(); 
+  }, [token]); 
 
-  // Handle detail button click to show modal
   const handleDetailClick = (ad) => {
     setSelectedAd(ad); 
     setIsModalOpen(true); 
   };
 
-  // Close the modal
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedAd(null);

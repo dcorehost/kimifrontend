@@ -1,11 +1,9 @@
 
-
-
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./GmailShareLogTable.module.css";
+import Auth from "../Services/Auth"; 
 
 const GmailShareLogTable = () => {
   const [adsData, setAdsData] = useState([]);
@@ -18,7 +16,7 @@ const GmailShareLogTable = () => {
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = localStorage.getItem("userToken"); 
+      const token = Auth.getToken();  
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -39,6 +37,7 @@ const GmailShareLogTable = () => {
             gmail: ad.adsDetails.map(detail => detail.gmail).join(", "), 
             state: ad.state, 
             createTime: ad.createdAt, 
+            totalCost: ad.totalCost.toFixed(2), 
           }));
           setAdsData(ads);
         } else {
@@ -55,9 +54,9 @@ const GmailShareLogTable = () => {
 
   return (
     <div className={styles.container}>
-      <button className={styles.button} onClick={handleNextPage}>
+      {/* <button className={styles.button} onClick={handleNextPage}>
         Create log here
-      </button>
+      </button> */}
       <div className={styles.tableContainer}>
         {error ? (
           <p className={styles.error}>{error}</p>
@@ -70,6 +69,7 @@ const GmailShareLogTable = () => {
                 <th>Gmail</th>
                 <th>State</th>
                 <th>Create Time</th>
+                <th>Total Cost </th>  
               </tr>
             </thead>
             <tbody>
@@ -81,11 +81,12 @@ const GmailShareLogTable = () => {
                     <td>{ad.gmail || "N/A"}</td> 
                     <td>{ad.state || "N/A"}</td> 
                     <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
+                    <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td> 
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="5">No ads data available</td>
+                  <td colSpan="6">No ads data available</td> 
                 </tr>
               )}
             </tbody>

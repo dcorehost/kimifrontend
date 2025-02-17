@@ -47,7 +47,7 @@ const BingAdsDeposit = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
-    setTotalCost(total * 1.35); // Total cost is 35% more than total deposit
+    setTotalCost(total * 1.35); 
   };
 
   const addRow = () => {
