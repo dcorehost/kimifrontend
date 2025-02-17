@@ -93,13 +93,13 @@ const App = () => {
             <Route path="/dashboard" element={<Dashboard />} />
 
             {/* //google items  */}
+            <Route path="/google/accountManage/accountList" element={<Table />} />
             <Route path="/google/accountManage/accountList/creategoogleads" element={<CreateGoogleAds />} />
             <Route path="/google/accountManage/applyAd" element={<ApplyGoogleAdsTable />} />
+            <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
             <Route path="/google/aftersale/refund" element={<GoogleRefund />} />
             <Route path="/google/finance/googleads-depositerecord" element={<AdsDepositeRecordTable />} />
-            <Route path="/google/accountManage/bmShareLog" element={<GmailShareLogTable />} />
             <Route path="/google/finance/googleads-deposite" element={<GoogleAdsDeposite />} />
-            <Route path="/google/accountManage/accountList" element={<Table />} />
             <Route path="/google/add-money" element={<AddMoneyTable />} />
 
             {/* //bing items  */}
