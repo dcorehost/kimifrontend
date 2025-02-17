@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './BingAdsDeposit.module.css';
@@ -12,10 +10,36 @@ const BingAdsDeposit = () => {
   const [walletAmount, setWalletAmount] = useState(0);
   const [responseMessage, setResponseMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [adsIds, setAdsIds] = useState([]);
 
   useEffect(() => {
+    fetchAdsIds();
     fetchWalletBalance();
   }, []);
+
+  const fetchAdsIds = async () => {
+    try {
+      const token = Auth.getToken();
+      if (!token) {
+        setResponseMessage('User not authenticated.');
+        return;
+      }
+
+      const response = await axios.get('https://admediaagency.online/kimi/get-ads-id', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          adType: 'Bing', // Fetching Bing Ads IDs
+        },
+      });
+
+      setAdsIds(response.data.adsIds);
+    } catch (error) {
+      console.error('Error fetching ads IDs:', error);
+      setResponseMessage('Failed to fetch ads IDs.');
+    }
+  };
 
   const fetchWalletBalance = async () => {
     try {
@@ -70,7 +94,7 @@ const BingAdsDeposit = () => {
 
     const isValid = rows.every(row => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0);
     if (!isValid) {
-      setResponseMessage('Please enter a valid Bing Ad Account and deposit amount.');
+      setResponseMessage('Please ensure both adsId and money are provided.');
       setLoading(false);
       return;
     }
@@ -88,39 +112,33 @@ const BingAdsDeposit = () => {
       return;
     }
 
+    const requestData = {
+      adsId: rows[0].id.trim(), 
+      money: parseFloat(rows[0].money.trim()) || 0,
+      adType: 'Bing',
+    };
+
+    console.log('Request Data:', JSON.stringify(requestData, null, 2));
+
     try {
-      const requests = rows.map(row => ({
-        adBingAccount: row.id.trim(), 
-        money: parseFloat(row.money.trim()),
-        adType: 'Bing', 
-      }));
-
-      console.log('Sending request data:', JSON.stringify(requests, null, 2));
-
-      const responses = await Promise.all(
-        requests.map((requestData) =>
-          axios.post(
-            'https://admediaagency.online/kimi/create-bing-adDeposit', 
-            requestData,
-            {
-              headers: {
-                Authorization: `Bearer ${token}`,
-                'Content-Type': 'application/json',
-              },
-            }
-          )
-        )
+      const response = await axios.post(
+        'https://admediaagency.online/kimi/create-bing-adDeposit',
+        requestData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
+        }
       );
 
-      let newWalletAmount = walletAmount;
-      responses.forEach(response => {
-        if (response.data) {
-          newWalletAmount = parseFloat(response.data.wallet) || newWalletAmount;
-        }
-      });
-
-      setWalletAmount(newWalletAmount);
-      setResponseMessage('Deposit added successfully!');
+      if (response?.data) {
+        console.log('Response:', response.data);
+        setResponseMessage(response.data.message);
+        setWalletAmount(parseFloat(response.data.wallet) || 0);
+        setTotalDeposit(parseFloat(response.data.totalDeposit) || 0);
+        setTotalCost(parseFloat(response.data.totalCost) || 0);
+      }
     } catch (error) {
       console.error('Error processing deposit:', error.response?.data || error.message);
       setResponseMessage(error.response?.data?.message || 'Failed to process deposit. Please try again.');
@@ -135,13 +153,16 @@ const BingAdsDeposit = () => {
         {rows.map((row, index) => (
           <div key={index} className={styles.row}>
             <label>Ad Account</label>
-            <input
-              type="text"
-              placeholder="Enter Bing Ads ID"
+            <select
               value={row.id}
               onChange={(e) => handleInputChange(index, 'id', e.target.value)}
               className={styles.input}
-            />
+            >
+              <option value="">Select Ads ID</option>
+              {adsIds.map((adsId, idx) => (
+                <option key={idx} value={adsId}>{adsId}</option>
+              ))}
+            </select>
             <label>Money</label>
             <input
               type="text"
@@ -177,8 +198,3 @@ const BingAdsDeposit = () => {
 };
 
 export default BingAdsDeposit;
-
-
-
-
-

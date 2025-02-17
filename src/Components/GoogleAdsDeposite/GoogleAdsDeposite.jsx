@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 
 
@@ -1216,6 +1217,8 @@
 
 
 
+=======
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './GoogleAdsDeposite.module.css';
@@ -1229,6 +1232,7 @@ const GoogleAdsDeposite = () => {
   const [walletAmount, setWalletAmount] = useState(0);
   const [loading, setLoading] = useState(false); // Loading state for API call
   const [responseMessage, setResponseMessage] = useState('');
+<<<<<<< HEAD
 
   // Fetch Google Ads IDs and wallet balance on component mount
   useEffect(() => {
@@ -1240,11 +1244,25 @@ const GoogleAdsDeposite = () => {
     setLoading(true);
     try {
       const token = Auth.getToken(); // Get the authentication token from Auth service
+=======
+  const [loading, setLoading] = useState(false);
+  const [adsIds, setAdsIds] = useState([]);
+
+  useEffect(() => {
+    fetchAdsIds();
+    fetchWalletBalance();
+  }, []);
+
+  const fetchAdsIds = async () => {
+    try {
+      const token = Auth.getToken();
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
       if (!token) {
         setResponseMessage('User not authenticated.');
         return;
       }
 
+<<<<<<< HEAD
       // Make the API request with the authentication token
       const response = await axios.get('https://admediaagency.online/kimi/get-ads-id?adType=Google', {
         headers: {
@@ -1262,6 +1280,21 @@ const GoogleAdsDeposite = () => {
       setResponseMessage('Failed to fetch Ads IDs.');
     } finally {
       setLoading(false);
+=======
+      const response = await axios.get('https://admediaagency.online/kimi/get-ads-id', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          adType: 'Google' // You can replace this with a dynamic value if needed
+        },
+      });
+
+      setAdsIds(response.data.adsIds);
+    } catch (error) {
+      console.error('Error fetching ads IDs:', error);
+      setResponseMessage('Failed to fetch ads IDs.');
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
     }
   };
 
@@ -1278,7 +1311,10 @@ const GoogleAdsDeposite = () => {
           Authorization: `Bearer ${token}`,
         },
       });
+<<<<<<< HEAD
 
+=======
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
       setWalletAmount(response.data.users.wallet || 0);
     } catch (error) {
       console.error('Error fetching wallet balance:', error);
@@ -1296,7 +1332,11 @@ const GoogleAdsDeposite = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
+<<<<<<< HEAD
     setTotalCost(total * 1.35); // Example calculation for cost (if needed)
+=======
+    setTotalCost(total * 1.35); 
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
   };
 
   const addRow = () => {
@@ -1315,13 +1355,24 @@ const GoogleAdsDeposite = () => {
 
   const handleCharge = async () => {
     setLoading(true);
+    setResponseMessage('');
 
     // Validate inputs
     const isValid = rows.every(
       (row) => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0
     );
     if (!isValid) {
+<<<<<<< HEAD
       setResponseMessage('Please ensure both Google Ads ID and money are provided.');
+=======
+      setResponseMessage('Please ensure both adsId and money are provided.');
+      setLoading(false);
+      return;
+    }
+
+    if (totalDeposit > walletAmount) {
+      setResponseMessage('Insufficient wallet balance. Please recharge.');
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
       setLoading(false);
       return;
     }
@@ -1333,12 +1384,20 @@ const GoogleAdsDeposite = () => {
       return;
     }
 
+<<<<<<< HEAD
     // Prepare request data
     const requestData = rows.map((row) => ({
       adGoogleAccount: row.id.trim(),
       money: parseFloat(row.money.trim()) || 0,
       adType: 'Google', // Ensure this matches exactly what the backend expects
     }));
+=======
+    const requestData = {
+      adsId: rows[0].id.trim(), 
+      money: parseFloat(rows[0].money.trim()) || 0,
+      adType: 'Google',
+    };
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
 
     // Debugging: Log the payload to ensure the data is correct
     console.log('Request Payload:', requestData); // Debugging the request payload
@@ -1380,6 +1439,7 @@ const GoogleAdsDeposite = () => {
               onChange={(e) => handleInputChange(index, 'id', e.target.value)}
               className={styles.input}
             >
+<<<<<<< HEAD
               <option value="">Select Google Ads ID</option>
               {adsIds.length > 0 ? (
                 adsIds.map((adId) => (
@@ -1392,6 +1452,13 @@ const GoogleAdsDeposite = () => {
               )}
             </select>
 
+=======
+              <option value="">Select Ads ID</option>
+              {adsIds.map((adsId, idx) => (
+                <option key={idx} value={adsId}>{adsId}</option>
+              ))}
+            </select>
+>>>>>>> 2421bee99bad1b0e54a69be6b0b06a0077358b8a
             <label>Money</label>
             <input
               type="text"
