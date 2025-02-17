@@ -1,9 +1,4 @@
-
-
-
-
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './GoogleAdsDeposite.module.css';
 import Auth from '../Services/Auth';
@@ -15,6 +10,56 @@ const GoogleAdsDeposite = () => {
   const [walletAmount, setWalletAmount] = useState(0);
   const [responseMessage, setResponseMessage] = useState('');
   const [loading, setLoading] = useState(false);
+  const [adsIds, setAdsIds] = useState([]);
+
+  useEffect(() => {
+    fetchAdsIds();
+    fetchWalletBalance();
+  }, []);
+
+  const fetchAdsIds = async () => {
+    try {
+      const token = Auth.getToken();
+      if (!token) {
+        setResponseMessage('User not authenticated.');
+        return;
+      }
+
+      const response = await axios.get('https://admediaagency.online/kimi/get-ads-id', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          adType: 'Google' // You can replace this with a dynamic value if needed
+        },
+      });
+
+      setAdsIds(response.data.adsIds);
+    } catch (error) {
+      console.error('Error fetching ads IDs:', error);
+      setResponseMessage('Failed to fetch ads IDs.');
+    }
+  };
+
+  const fetchWalletBalance = async () => {
+    try {
+      const token = Auth.getToken();
+      if (!token) {
+        setResponseMessage('User not authenticated.');
+        return;
+      }
+
+      const response = await axios.get('https://admediaagency.online/kimi/get-wallet-of-user', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      setWalletAmount(response.data.users.wallet || 0);
+    } catch (error) {
+      console.error('Error fetching wallet balance:', error);
+      setResponseMessage('Failed to fetch wallet balance.');
+    }
+  };
 
   const handleInputChange = (index, field, value) => {
     const updatedRows = [...rows];
@@ -26,6 +71,7 @@ const GoogleAdsDeposite = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
+    setTotalCost(total * 1.35); 
   };
 
   const addRow = () => {
@@ -44,10 +90,17 @@ const GoogleAdsDeposite = () => {
 
   const handleCharge = async () => {
     setLoading(true);
+    setResponseMessage('');
 
     const isValid = rows.every(row => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0);
     if (!isValid) {
-      setResponseMessage('Please ensure both adGoogleAccount and money are provided.');
+      setResponseMessage('Please ensure both adsId and money are provided.');
+      setLoading(false);
+      return;
+    }
+
+    if (totalDeposit > walletAmount) {
+      setResponseMessage('Insufficient wallet balance. Please recharge.');
       setLoading(false);
       return;
     }
@@ -60,8 +113,8 @@ const GoogleAdsDeposite = () => {
     }
 
     const requestData = {
-      adGoogleAccount: rows[0].id.trim(),
-      money: parseFloat(rows[0].money.trim()) || 0,  
+      adsId: rows[0].id.trim(), 
+      money: parseFloat(rows[0].money.trim()) || 0,
       adType: 'Google',
     };
 
@@ -100,13 +153,16 @@ const GoogleAdsDeposite = () => {
         {rows.map((row, index) => (
           <div key={index} className={styles.row}>
             <label>Ad Account</label>
-            <input
-              type="text"
-              placeholder="Enter ads ID"
+            <select
               value={row.id}
               onChange={(e) => handleInputChange(index, 'id', e.target.value)}
               className={styles.input}
-            />
+            >
+              <option value="">Select Ads ID</option>
+              {adsIds.map((adsId, idx) => (
+                <option key={idx} value={adsId}>{adsId}</option>
+              ))}
+            </select>
             <label>Money</label>
             <input
               type="text"
@@ -142,6 +198,3 @@ const GoogleAdsDeposite = () => {
 };
 
 export default GoogleAdsDeposite;
-
-
-
