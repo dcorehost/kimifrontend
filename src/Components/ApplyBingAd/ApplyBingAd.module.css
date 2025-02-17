@@ -82,21 +82,22 @@
 /* Modal Box */
 .modal {
   background: white;
-  padding: 20px 30px; /* Slightly increased padding for better spacing */
+  padding: 20px 30px;
   border-radius: 8px;
   width: 90%;
-  max-width: 700px; /* Increased max-width for better appearance on laptop screens */
+  max-width: 700px;
   box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
   height: auto;
-  overflow-y: auto; /* Ensures scrolling when content is long */
-  max-height: 85vh; /* Prevent the modal from exceeding the screen height */
-  border: 1px solid #ddd; /* Adding subtle border */
+  overflow-y: auto; 
+  max-height: 85vh; 
+  border: 1px solid #ddd; 
 }
 
 /* Modal Content */
 .modalContent {
   margin-bottom: 20px;
-  font-size: 16px; /* A bit larger font for better readability */
+  font-size: 16px; 
+  
 }
 
 /* Ad Detail Section */
@@ -111,7 +112,7 @@
 /* Close Button */
 .closeButton {
   background: #007bff;
-  color: white;
+  color: #0d0d0d;
   border: none;
   padding: 12px 20px;
   border-radius: 5px;
@@ -136,17 +137,17 @@
 /* Responsive Adjustments for Laptop (768px to 1200px) */
 @media (min-width: 768px) and (max-width: 1200px) {
   .modal {
-    width: 85%; /* Reduce width on medium-size screens */
-    max-width: 600px; /* Better max-width for laptops */
-    padding: 20px; /* Adequate padding for medium screens */
+    width: 85%; 
+    max-width: 600px;
+    padding: 20px; 
   }
 
   .modalContent {
-    font-size: 17px; /* Adjust font size for better readability */
+    font-size: 17px; 
   }
 
   .adDetail {
-    font-size: 15px; /* Adjust size to ensure text readability */
+    font-size: 15px;
   }
 
   .closeButton {
@@ -155,12 +156,12 @@
   }
 }
 
-/* Adjustments for Small Screens (below 768px, tablets and mobile) */
+
 @media (max-width: 768px) {
   .modal {
-    width: 90%; /* Ensure modal is still within view on small screens */
+    width: 90%; 
     max-width: 500px;
-    padding: 15px; /* Slightly smaller padding */
+    padding: 15px; 
   }
 
   .closeButton {
@@ -176,3 +177,4 @@
     font-size: 13px; 
   }
 }
+

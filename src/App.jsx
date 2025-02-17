@@ -53,6 +53,12 @@ import ChangeNetwork from "./Components/ChangeNetwork/ChangeNetwork";
 import ApprovedBingAds from "./Components/ApprovedBingAds/ApprovedBingAds";
 import PendingTransation from "./Components/PendingTransations/PendingTransations";
 import ApprovedTransations from "./Components/ApprovedTransations/ApprovedTransations";
+import PendingAdsBingDeposite from "./Components/PendingAdsBingDeposite/PendingAdsBingDeposite";
+import PendingAdsGoogleDeposite from "./Components/PendingAdsGoogleDeposite/PendingAdsGoogleDeposite";
+import PendingAdsFacebookDeposite from "./Components/PendingAdsFacebookDeposite/PendingAdsFacebookDeposite";
+import CompletedBingAdDeposite from "./Components/CompletedBingAdDeposite/CompletedBingAdDeposite";
+import CompletedFacebookAdDeposite from "./Components/CompletedFacebookAdDeposite/CompletedFacebookAdDeposite";
+import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/CompleteGoogleAdDeposite";
 
 
 
@@ -149,6 +155,13 @@ const App = () => {
             <Route path="/admin/accountmanage/changenetwork" element={<ChangeNetwork />} />
             <Route path="/admin/transactions/pending" element={<PendingTransation />} />
             <Route path="/admin/transactions/approved" element={<ApprovedTransations />} />
+            <Route path="/admin/AdsDeposite/PendingAdsBingDeposite" element={<PendingAdsBingDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/PendingAdsGoogleDeposite" element={<PendingAdsGoogleDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/PendingAdsFacebookDeposite" element={<PendingAdsFacebookDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/CompleteAdsBingDeposite"  element={<CompletedBingAdDeposite/>}></Route>
+            <Route path="/admin/AdsDeposite/CompleteAdsFacebookDeposite" element={<CompletedFacebookAdDeposite />}></Route>
+            <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
+
 
           </Route>
 
