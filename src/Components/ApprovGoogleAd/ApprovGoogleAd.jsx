@@ -145,8 +145,8 @@ const ApprovGoogleAd = () => {
                   </button>
                   <button
                     className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(ad._id, "disapprove")}
-                    disabled={ad.state === "Disapproved"}
+                    onClick={() => handleUpdateState(ad._id, "reject")}
+                    disabled={ad.state === "Reject"}
                   >
                     Disapprove
                   </button>
