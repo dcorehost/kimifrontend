@@ -95,6 +95,7 @@ const ApprovFacebookAd = () => {
 
   return (
     <div className={styles.container}>
+      <h2>Pending Facebook Ads</h2>
       <ToastContainer position="top-right" autoClose={3000} /> 
 
       {loading ? (
