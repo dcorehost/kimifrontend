@@ -1,10 +1,7 @@
 
-
-
-
 import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify"; 
-import "react-toastify/dist/ReactToastify.css"; 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styles from "./PendingRefund.module.css";
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
@@ -21,7 +18,7 @@ const PendingRefund = () => {
   const fetchRefundData = async () => {
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated. Please log in.");
+      toast.error("User is not authenticated. Please log in.");
       setLoading(false);
       return;
     }
@@ -43,7 +40,7 @@ const PendingRefund = () => {
       }
     } catch (err) {
       console.error("Fetch error:", err.response || err.message);
-      setError(err.response?.data?.message || "Failed to fetch refund data.");
+      toast.error(err.response?.data?.message || "Failed to fetch refund data.");
     } finally {
       setLoading(false);
     }
@@ -53,24 +50,24 @@ const PendingRefund = () => {
     return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
-  const handleUpdateState = async (applyId, adType, action) => {
-    if (!applyId || !adType) {
-      setError("Error: Missing required parameters.");
+  const handleUpdateState = async (adsId, applyId, action, adType) => {
+    if (!adsId || !applyId || !adType) {
+      toast.error("Error: Missing Ads ID, Apply ID, or Ad Type.");
       return;
     }
 
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated.");
+      toast.error("User is not authenticated.");
       return;
     }
 
     try {
-      console.log(`Updating Refund ID: ${applyId}, Action: ${action}`);
+      console.log(`Updating Ads ID: ${adsId}, Apply ID: ${applyId}, Action: ${action}, Ad Type: ${adType}`);
 
       const response = await Httpservices.put(
-        `https://admediaagency.online/kimi/approve-refund-by-admin?id=${applyId}&adType=${adType}&action=${action}`,
-        {}, 
+        `https://admediaagency.online/kimi/approve-refund-by-admin?adsId=${adsId}&adType=${adType}&applyId=${applyId}&action=${action}`,
+        {},
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -84,24 +81,26 @@ const PendingRefund = () => {
       if (response.status === 200) {
         setRefunds((prevRefunds) =>
           prevRefunds.map((refund) =>
-            refund.applyId === applyId ? { ...refund, applyState: action } : refund
+            refund.applyId === applyId
+              ? { ...refund, applyState: action === "approve" ? "Approved" : "Rejected" }
+              : refund
           )
         );
 
-        toast.success(`Refund ${action}d successfully!`);
+        toast.success(response.data.message || `Refund ${action}d successfully!`);
       } else {
-        setError(response.data.message || "Failed to update refund status.");
+        toast.error(response.data.message || "Failed to update refund status.");
       }
     } catch (error) {
       console.error(`Error updating status for ${applyId}:`, error.response || error.message);
-      setError(error.response?.data?.message || "Error updating refund status.");
-      toast.error("Failed to update refund status.");
+      toast.error(error.response?.data?.message || "Error updating refund status.");
     }
   };
 
   return (
     <div className={styles.container}>
-      <ToastContainer position="top-right" autoClose={3000} /> 
+      <h2>Pending Refund</h2>
+      <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
         <p>Loading...</p>
@@ -111,42 +110,51 @@ const PendingRefund = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Refund ID</th>
+              <th>Apply ID</th>
+              <th>Ads ID</th>
+              <th>Account ID</th>
+              <th>Ad Type</th>
               <th>Amount</th>
               <th>Remaining Balance</th>
               <th>Status</th>
-              <th>Reason</th>
               <th>Created Time</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {refunds.map((refund) => (
-              <tr key={refund.applyId}>
-                <td>{refund.applyId}</td>
-                <td>${refund.amount}</td>
-                <td>${refund.remainMoney}</td>
-                <td>{refund.applyState}</td>
-                <td>{refund.refundReason || "N/A"}</td>
-                <td>{formatDate(refund.createdAt)}</td>
-                <td className={styles.operate}>
-                  <button
-                    className={styles.approveBtn}
-                    onClick={() => handleUpdateState(refund.applyId, "Google", "approve")}
-                    disabled={refund.applyState === "Completed"}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(refund.applyId, "Google", "reject")}
-                    disabled={refund.applyState === "reject"}
-                  >
-                    Disapprove
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {refunds.map((refund) => {
+              const adsId = refund.adBingAccount?.adsId || refund.adGoogleAccount?.adsId || refund.adFacebookAccount?.adsId || "N/A";
+              const accountId = refund.adBingAccount?._id || refund.adGoogleAccount?._id || refund.adFacebookAccount?._id || "N/A";
+              const adType = refund.adType || "N/A";
+              return (
+                <tr key={refund.applyId}>
+                  <td>{refund.applyId}</td>
+                  <td>{adsId}</td>
+                  <td>{accountId}</td>
+                  <td>{adType}</td>
+                  <td>${refund.amount}</td>
+                  <td>${refund.remainMoney}</td>
+                  <td>{refund.applyState}</td>
+                  <td>{formatDate(refund.createdAt)}</td>
+                  <td className={styles.operate}>
+                    <button
+                      className={styles.approveBtn}
+                      onClick={() => handleUpdateState(adsId, refund.applyId, "approve", adType)}
+                      disabled={refund.applyState === "Approved"}
+                    >
+                      Approve
+                    </button>
+                    <button
+                      className={styles.disapproveBtn}
+                      onClick={() => handleUpdateState(adsId, refund.applyId, "reject", adType)}
+                      disabled={refund.applyState === "Rejected"}
+                    >
+                      Disapprove
+                    </button>
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       ) : (

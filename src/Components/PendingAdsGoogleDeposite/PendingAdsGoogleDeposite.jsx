@@ -1,3 +1,6 @@
+
+
+
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -17,15 +20,16 @@ const PendingAdsGoogleDeposite = () => {
   const fetchDepositsData = async () => {
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated. Please log in.");
+      toast.error("User is not authenticated. Please log in.");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-google-adDeposit", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await Httpservices.get(
+        "https://admediaagency.online/kimi/get-pending-google-adDeposit",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       console.log("API Response:", response.data);
 
@@ -36,7 +40,7 @@ const PendingAdsGoogleDeposite = () => {
       }
     } catch (err) {
       console.error("Fetch error:", err.response || err.message);
-      setError(err.response?.data?.message || "Failed to fetch deposits.");
+      toast.error(err.response?.data?.message || "Failed to fetch deposits.");
     } finally {
       setLoading(false);
     }
@@ -46,24 +50,23 @@ const PendingAdsGoogleDeposite = () => {
     return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
-  const handleUpdateState = async (id, action) => {
-    if (!id) {
-      setError("Error: Missing Deposit ID.");
+  const handleUpdateState = async (adsId, applyId, action) => {
+    if (!adsId || !applyId) {
+      toast.error("Error: Missing Ads ID or Apply ID.");
       return;
     }
 
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated.");
+      toast.error("User is not authenticated.");
       return;
     }
 
     try {
-      console.log(`Updating Deposit ID: ${id}, Action: ${action}`);
+      console.log(`Updating Ads ID: ${adsId}, Apply ID: ${applyId}, Action: ${action}`);
 
-      // Modify the URL to use the production API endpoint
       const response = await Httpservices.put(
-        `https://admediaagency.online/kimi/approve-deposit?adsId=${id}&adType=Google&action=${action}`,
+        `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=Google&action=${action}&applyId=${applyId}`,
         {},
         {
           headers: {
@@ -75,27 +78,28 @@ const PendingAdsGoogleDeposite = () => {
 
       console.log("Update Response:", response.data);
 
-      if (response.status === 200) {
+      if (response.status === 200 && response.data.deposit) {
         setDepositsData((prevDeposits) =>
           prevDeposits.map((deposit) =>
-            deposit.applyId === id ? { ...deposit, state: action } : deposit
+            deposit.adsId === adsId && deposit.applyId === applyId
+              ? { ...deposit, state: action === "approve" ? "Completed" : "Rejected" }
+              : deposit
           )
         );
 
-        toast.success(`Deposit ${action}d successfully!`);
+        toast.success(response.data.message || `Deposit ${action}d successfully!`);
       } else {
-        setError(response.data.message || "Failed to update deposit status.");
-        toast.error("Failed to update deposit status.");
+        toast.error(response.data.message || "Failed to update deposit status.");
       }
     } catch (error) {
-      console.error(`Error updating status for ${id}:`, error.response || error.message);
-      setError(error.response?.data?.message || "Error updating deposit status.");
-      toast.error("Failed to update deposit status.");
+      console.error(`Error updating status for ${adsId}:`, error.response || error.message);
+      toast.error(error.response?.data?.message || "Error updating deposit status.");
     }
   };
 
   return (
     <div className={styles.container}>
+      <h2>Pending Google Ads Deposits</h2>
       <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
@@ -107,6 +111,7 @@ const PendingAdsGoogleDeposite = () => {
           <thead>
             <tr>
               <th>Apply ID</th>
+              <th>Ads ID</th>
               <th>Money</th>
               <th>Status</th>
               <th>Total Cost</th>
@@ -116,8 +121,9 @@ const PendingAdsGoogleDeposite = () => {
           </thead>
           <tbody>
             {depositsData.map((deposit) => (
-              <tr key={deposit.applyId}>
+              <tr key={deposit._id}>
                 <td>{deposit.applyId}</td>
+                <td>{deposit.adsId || "N/A"}</td>
                 <td>${deposit.money}</td>
                 <td>{deposit.state}</td>
                 <td>${deposit.totalCost}</td>
@@ -125,14 +131,14 @@ const PendingAdsGoogleDeposite = () => {
                 <td className={styles.operate}>
                   <button
                     className={styles.approveBtn}
-                    onClick={() => handleUpdateState(deposit.applyId, "approve")}
-                    disabled={deposit.state === "Approved"}
+                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "approve")}
+                    disabled={deposit.state === "Completed"}
                   >
                     Approve
                   </button>
                   <button
                     className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(deposit.applyId, "reject")}
+                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "reject")}
                     disabled={deposit.state === "Rejected"}
                   >
                     Reject
