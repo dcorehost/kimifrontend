@@ -426,7 +426,13 @@ const AddMoneyTable = () => {
                     <td>{row.applyId}</td>
                     <td>${row.chargeMoney}</td>
                     <td>{row.transactionId}</td>
-                    <td>{row.state}</td>
+                    {/* <td>{row.state}</td> */}
+                    <td>
+                        <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                         {row.state || "N/A"}
+                         </span>
+                       </td>
+
                     <td>
                       <img src={row.image} alt="Transaction" className={styles.image} />
                     </td>
