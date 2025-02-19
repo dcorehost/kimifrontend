@@ -1,90 +1,3 @@
-// import React from "react";
-// import styles from "./MetaAccountList.module.css";
-// import { useNavigate } from 'react-router-dom';
-
-
-
-
-// const MetaAccountList = () => {
-//     const navigate = useNavigate();
-  
-//     const handleDirectCreateAd = () => {
-//       navigate('/facebook/accountManage/createaccount'); 
-//     };
-  
-//     const handleVipPackage = () => {
-//       navigate('/#'); 
-//     };
-
-//   return (
-//     <div className={styles.container}>
-//       {/* Notification Section */}
-//       <div className={styles.notificationSection}>
-//         <h3 className={styles.sectionTitle}>Notification</h3>
-//         <div className={styles.notificationCards}>
-//           {["Pending Application", "Pending Deposit", "Pending Modify", "Pending Share", "Pending Refund"].map(
-//             (title, index) => (
-//               <div key={index} className={styles.card}>
-//                 <p className={styles.cardTitle}>{title}</p>
-//                 <p className={styles.cardCount}>0</p>
-//               </div>
-//             )
-//           )}
-//         </div>
-//       </div>
-
-//       {/* Ad Account List Section */}
-//       <div className={styles.adAccountSection}>
-//         <h3 className={styles.sectionTitle}>Ad Account List</h3>
-//         <div className={styles.actionButtons}>
-          
-//                 <button
-//                     className={`${styles.button} ${styles.createAdButton}`}
-//                      onClick={handleDirectCreateAd}
-//                       >
-//                      direct create ad
-//                     </button>
-//                <button
-//                    className={`${styles.button} ${styles.vipButton}`}
-//                    onClick={handleVipPackage}
-//                     >
-//                 vip package
-//                 </button>
-
-//         </div>
-//         <div className={styles.tableContainer}>
-//           <table className={styles.table}>
-//             <thead>
-//               <tr>
-//                 <th>License</th>
-//                 <th>Ads Account ID</th>
-//                 <th>Ads Account Name</th>
-//                 <th>Operate</th>
-//               </tr>
-//             </thead>
-//             <tbody>
-//               <tr>
-//                 <td colSpan="4" className={styles.noData}>
-//                   <img
-//                     src="/path/to/no-data-image.png"
-//                     alt="No Data"
-//                     className={styles.noDataImage}
-//                   />
-//                   <p>No Data</p>
-//                 </td>
-//               </tr>
-//             </tbody>
-//           </table>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default MetaAccountList;
-
-
-
 import React, { useEffect, useState } from "react";
 import styles from "./MetaAccountList.module.css";
 import { useNavigate } from "react-router-dom";
@@ -95,6 +8,13 @@ const MetaAccountList = () => {
   const navigate = useNavigate();
   const [adsData, setAdsData] = useState([]);
   const [error, setError] = useState(null);
+  const [pendingDetails, setPendingDetails] = useState({
+    application: 0,
+    deposits: 0,
+    refunds: 0,
+  });
+  const [selectedAd, setSelectedAd] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleDirectCreateAd = () => {
     navigate("/facebook/accountManage/createaccount");
@@ -102,6 +22,16 @@ const MetaAccountList = () => {
 
   const handleVipPackage = () => {
     navigate("/#");
+  };
+
+  const handleShowDetails = (ad) => {
+    setSelectedAd(ad); 
+    setIsModalOpen(true); 
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false); 
+    setSelectedAd(null); 
   };
 
   useEffect(() => {
@@ -137,7 +67,36 @@ const MetaAccountList = () => {
       }
     };
 
+    const fetchPendingDetails = async () => {
+      const token = Auth.getToken();
+
+      if (!token) {
+        setError("User is not authenticated. Please log in.");
+        return;
+      }
+
+      try {
+        const response = await axios.get(
+          "https://admediaagency.online/kimi/get-pending-details-facebook-ads",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
+        if (response.data.message === "facebook ads fetched successfully") {
+          setPendingDetails({
+            application: response.data.application || 0,
+            deposits: response.data.deposits || 0,
+            refunds: response.data.refunds || 0,
+          });
+        }
+      } catch (err) {
+        console.error("Error fetching pending details:", err.message);
+      }
+    };
+
     fetchAdsData();
+    fetchPendingDetails();
   }, []);
 
   return (
@@ -145,26 +104,34 @@ const MetaAccountList = () => {
       <div className={styles.notificationSection}>
         <h3 className={styles.sectionTitle}>Notification</h3>
         <div className={styles.notificationCards}>
-          {["Pending Application", "Pending Deposit", "Pending Modify", "Pending Share", "Pending Refund"].map(
-            (title, index) => (
-              <div key={index} className={styles.card}>
-                <p className={styles.cardTitle}>{title}</p>
-                <p className={styles.cardCount}>0</p>
-              </div>
-            )
-          )}
+          {[ 
+            { title: "Pending Application", count: pendingDetails.application },
+            { title: "Pending Deposit", count: pendingDetails.deposits },
+            { title: "Pending Refund", count: pendingDetails.refunds },
+          ].map((item, index) => (
+            <div key={index} className={styles.card}>
+              <p className={styles.cardTitle}>{item.title}</p>
+              <p className={styles.cardCount}>{item.count}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className={styles.adAccountSection}>
         <h3 className={styles.sectionTitle}>Ad Account List</h3>
         <div className={styles.actionButtons}>
-          <button className={`${styles.button} ${styles.createAdButton}`} onClick={handleDirectCreateAd}>
+          <button
+            className={`${styles.button} ${styles.createAdButton}`}
+            onClick={handleDirectCreateAd}
+          >
             Direct Create Ad
           </button>
-          <button className={`${styles.button} ${styles.vipButton}`} onClick={handleVipPackage}>
+          {/* <button
+            className={`${styles.button} ${styles.vipButton}`}
+            onClick={handleVipPackage}
+          >
             VIP Package
-          </button>
+          </button> */}
         </div>
         <div className={styles.tableContainer}>
           {error ? (
@@ -187,14 +154,23 @@ const MetaAccountList = () => {
                       <td>{ad.adsId}</td>
                       <td>{ad.ads.map((account) => account.accountName).join(", ")}</td>
                       <td>
-                        <button className={styles.operateButton}>Manage</button>
+                        <button
+                          className={styles.operateButton}
+                          onClick={() => handleShowDetails(ad)} // Open details modal
+                        >
+                          details
+                        </button>
                       </td>
                     </tr>
                   ))
                 ) : (
                   <tr>
                     <td colSpan="4" className={styles.noData}>
-                      <img src="/path/to/no-data-image.png" alt="No Data" className={styles.noDataImage} />
+                      <img
+                        src="/path/to/no-data-image.png"
+                        alt="No Data"
+                        className={styles.noDataImage}
+                      />
                       <p>No Data</p>
                     </td>
                   </tr>
@@ -204,6 +180,24 @@ const MetaAccountList = () => {
           )}
         </div>
       </div>
+
+      {/* Modal for showing ad details */}
+      {isModalOpen && selectedAd && (
+        <div className={styles.modal}>
+          <div className={styles.modalContent}>
+            <button className={styles.closeButton} onClick={handleCloseModal}>
+              X
+            </button>
+            <h3>Ad Details</h3>
+            <div>
+              <p><strong>License:</strong> {selectedAd.licenseName}</p>
+              <p><strong>Ads Account ID:</strong> {selectedAd.adsId}</p>
+              <p><strong>Account Names:</strong> {selectedAd.ads.map((account) => account.accountName).join(", ")}</p>
+              {/* Add more details as needed */}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -59,6 +59,8 @@ import PendingAdsFacebookDeposite from "./Components/PendingAdsFacebookDeposite/
 import CompletedBingAdDeposite from "./Components/CompletedBingAdDeposite/CompletedBingAdDeposite";
 import CompletedFacebookAdDeposite from "./Components/CompletedFacebookAdDeposite/CompletedFacebookAdDeposite";
 import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/CompleteGoogleAdDeposite";
+import BmShareLog from "./Components/BmShareLog/BmShareLog";
+import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
 
 
 
@@ -121,7 +123,7 @@ const App = () => {
             <Route path="/facebook/aftersale/refund" element={<MetaRefund />} />
             <Route path="/facebook/accountManage/accountlist" element={<MetaAccountList />} />
             <Route path="/facebook/add-money" element={<AddMoneyTable />} />
-            {/* <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/>}></Route> */}
+            <Route path="/facebook/accountManage/bmShareLog" element={<BmShareLog/ >}></Route>
 
 
 
@@ -161,6 +163,7 @@ const App = () => {
             <Route path="/admin/AdsDeposite/CompleteAdsBingDeposite"  element={<CompletedBingAdDeposite/>}></Route>
             <Route path="/admin/AdsDeposite/CompleteAdsFacebookDeposite" element={<CompletedFacebookAdDeposite />}></Route>
             <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
+            <Route path="/admin/dashboard/UserAdsInformation" element={<UserAdsPage/>}></Route>
 
 
           </Route>

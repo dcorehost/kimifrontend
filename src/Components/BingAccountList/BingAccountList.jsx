@@ -83,7 +83,12 @@ const BingAccountList = () => {
                   <tr key={ad.adsId}> 
                     <td>{ad.applyId || "N/A"}</td>
                     <td>{ad.adNumber || "N/A"}</td>
-                    <td>{ad.state || "N/A"}</td>
+                    {/* <td>{ad.state || "N/A"}</td> */}
+                     <td>
+                      <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                      {ad.state || "N/A"}
+                      </span>
+                      </td>
                     <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
                     <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td>
                     <td>{ad.adsId || "N/A"}</td> 

@@ -94,8 +94,8 @@
 
 /* Close Button */
 .closeButton {
-  background: #007bff;
-  color: white;
+  background: #EF9273;
+  color: #0d0d0d;
   border: none;
   padding: 10px 15px;
   border-radius: 5px;
@@ -106,7 +106,8 @@
 }
 
 .closeButton:hover {
-  background: #0056b3;
+  background: #EF9273;
+  color: white;
 }
 
 /* Responsive Adjustments */
@@ -205,4 +206,84 @@ body.modal-open {
     width: 95%;
     max-width: 400px;
   }
+}
+
+
+
+/* Table row hover effect */
+.tableRow:hover {
+  background-color: #f2f2f2;
+  color: #EF9273;
+  cursor: pointer;
+}
+
+/* State-specific colors */
+.state {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.state.pending {
+  background-color: #ffcc00; /* Yellow for pending */
+  color: #fff;
+}
+
+.state.failed {
+  background-color: #ff3333; /* Red for failed */
+  color: #fff;
+}
+
+.state.completed {
+  background-color: #4CAF50; /* Green for complete */
+  color: #fff;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 1px solid #ddd;
+  white-space: nowrap;
+}
+
+th {
+  background-color: #EF9273;
+  font-weight: bold;
+}
+
+td {
+  background-color: #fff;
+}
+
+/* Button styling inside table */
+.button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #EF9273;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #d8765a;
+
+}
+
+.table tbody tr:hover{
+  background-color: #e7e7e7 !important; 
+  color: #0d0d0d !important;
+}
+.table tbody tr:hover td {
+  background-color: inherit !important;
+
+  color: #0d0d0d !important;
 }

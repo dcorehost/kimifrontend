@@ -122,7 +122,14 @@ const AdsDepositeRecordTable = () => {
                     <td>{row.adsId}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    <td>{row.state}</td>
+                    {/* <td>{row.state}</td> */}
+                     <td>
+                      <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                      {row.state || "N/A"}
+                      </span>
+                      </td>
+                   
+                    
                     <td>{row.createTime}</td>
                   </tr>
                 ))

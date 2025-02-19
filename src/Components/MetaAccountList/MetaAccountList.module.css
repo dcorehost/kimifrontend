@@ -109,5 +109,74 @@
   }
   
 
-
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
   
+  .modalContent {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 800px;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  
+  .closeButton {
+    background-color: red;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  
+    
+/* State-specific colors */
+.state {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.state.pending {
+  background-color: #ffcc00; /* Yellow for pending */
+  color: #fff;
+}
+
+.state.failed {
+  background-color: #ff3333; /* Red for failed */
+  color: #fff;
+}
+
+.state.completed {
+  background-color: #4CAF50; /* Green for complete */
+  color: #fff;
+}
+
+
+
+.table tbody tr:hover{
+  background-color: #e7e7e7 !important; 
+  color: #0d0d0d !important;
+}
+.table tbody tr:hover td {
+  background-color: inherit !important;
+
+  color: #0d0d0d !important;
+}

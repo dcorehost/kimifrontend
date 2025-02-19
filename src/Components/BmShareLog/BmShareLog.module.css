@@ -1,71 +1,245 @@
+/* General container styling */
 .container {
-    padding: 20px;
-    width: 95%;
-    /* text-align: center; */
-    /* border: 1px solid black; */
-    margin: 10px auto;
-  }
-  
-  .button {
-    
-    padding: 10px 20px;
-    margin-bottom: 20px;
-    background-color: #EF9273;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    
-  }
-  
-  .button:hover {
-    background-color: #EF9273;
-    
-  }
-  
-  .tableContainer {
-    margin: 0 auto;
+  width: 96%;
+  margin: auto;
+  padding: 10px;
+}
+
+/* Button styling */
+.button {
+  padding: 10px 20px;
+  margin-bottom: 20px;
+  background-color: #EF9273;
+  color: black;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.button:hover {
+  background-color: #d8765a;
+}
+
+/* Table container */
+.tableContainer {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  overflow-x: auto; /* Enables horizontal scrolling on small screens */
+  margin-bottom: 20px;
+}
+
+/* Table styling */
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  min-width: 600px; /* Ensures table doesn't shrink too much */
+}
+
+.table th,
+.table td {
+  padding: 12px 16px;
+  text-align: left;
+  border: 1px solid #ddd;
+  white-space: nowrap; /* Prevents wrapping in table cells */
+}
+
+.table th {
+  background-color: #EF9273;
+  font-weight: bold;
+}
+
+.table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Operate button */
+.operateButton {
+  padding: 5px 10px;
+  background-color: #FEF9F8;
+  color: black;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.operateButton:hover {
+  background-color: #218838;
+}
+
+
+
+/* Modal Box */
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow-y: auto;
+  max-height: 85vh;
+  border: 1px solid #ddd;
+}
+
+/* Modal Content */
+.modalContent {
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+/* Close Button */
+.closeButton {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+.closeButton:hover {
+  background: #0056b3;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+  .container {
     width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
+    padding: 5px;
   }
-  
-  .table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-  }
-  
+
   .table th,
   .table td {
-    padding: 12px 16px;
-    text-align: left;
-    border: 1px solid #ddd;
+    padding: 8px 12px;
   }
-  
-  .table th {
-    background-color: #EF9273;
-    font-weight: bold;
+
+  .modal {
+    max-width: 500px;
   }
-  
-  .table tr:nth-child(even) {
-    background-color: #f9f9f9;
+
+  .closeButton {
+    font-size: 14px;
+    padding: 10px;
   }
-  
-  .operateButton {
-    padding: 5px 10px;
-    margin-right: 5px;
-    background-color: #FEF9F8;
-    color: black;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .table {
     font-size: 14px;
   }
-  
-  .operateButton:hover {
-    background-color: #218838;
+
+  .tableContainer {
+    overflow-x: auto;
   }
+
+  .modal {
+    width: 95%;
+    max-width: 400px;
+  }
+
+  .modalContent {
+    font-size: 14px;
+  }
+
+  .closeButton {
+    font-size: 12px;
+    padding: 8px;
+  }
+}
+
+
+
+
+
+/* Modal Overlay */
+.modal {
+  position: fixed;
+  top: 10%; /* Ensures the modal opens towards the top */
+  left: 50%;
+  transform: translate(-50%, 0);
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+  height: auto;
+  overflow-y: auto;
+  max-height: 80vh;
+  border: 1px solid #ddd;
+  z-index: 1001;
+}
+
+/* Disable background scroll when modal is open */
+body.modal-open {
+  overflow: hidden;
+}
+
+/* Close button */
+.closeModal {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Center the modal buttons */
+.modalButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .modal {
+    width: 95%;
+    max-width: 400px;
+  }
+}
+
+
+
   
+/* State-specific colors */
+.state {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.state.pending {
+  background-color: #ffcc00; /* Yellow for pending */
+  color: #fff;
+}
+
+.state.failed {
+  background-color: #ff3333; /* Red for failed */
+  color: #fff;
+}
+
+.state.completed {
+  background-color: #4CAF50; /* Green for complete */
+  color: #fff;
+}
+
+
+
+.table tbody tr:hover{
+  background-color: #e7e7e7 !important; 
+  color: #0d0d0d !important;
+}
+.table tbody tr:hover td {
+  background-color: inherit !important;
+
+  color: #0d0d0d !important;
+}

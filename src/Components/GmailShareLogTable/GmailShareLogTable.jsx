@@ -77,7 +77,12 @@ const GmailShareLogTable = () => {
                     <td>{ad.applyId || "N/A"}</td>
                     <td>{ad.adsId || "N/A"}</td> 
                     <td>{ad.gmail || "N/A"}</td> 
-                    <td>{ad.state || "N/A"}</td> 
+                    {/* <td>{ad.state || "N/A"}</td>  */}
+                     <td>
+                       <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                         {ad.state || "N/A"}
+                          </span>
+                           </td>
                     <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td> 
                     <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td> 
                   </tr>
