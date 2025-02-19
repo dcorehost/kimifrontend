@@ -28,11 +28,11 @@ const GmailShareLogTable = () => {
           headers: { Authorization: `Bearer ${token}` }, 
         });
 
-        console.log("API Response:", response.data); 
+        // console.log("API Response:", response.data); 
 
         if (response.data.message === "google ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            applyId: ad._id, 
+            applyId: ad.applyId,
             adsId: ad.adNum, 
             gmail: ad.adsDetails.map(detail => detail.gmail).join(", "), 
             state: ad.state, 
@@ -54,9 +54,7 @@ const GmailShareLogTable = () => {
 
   return (
     <div className={styles.container}>
-      {/* <button className={styles.button} onClick={handleNextPage}>
-        Create log here
-      </button> */}
+      
       <div className={styles.tableContainer}>
         {error ? (
           <p className={styles.error}>{error}</p>
@@ -76,7 +74,7 @@ const GmailShareLogTable = () => {
               {adsData.length > 0 ? (
                 adsData.map((ad, index) => (
                   <tr key={index}>
-                    <td>{ad.applyId || "N/A"}</td> 
+                    <td>{ad.applyId || "N/A"}</td>
                     <td>{ad.adsId || "N/A"}</td> 
                     <td>{ad.gmail || "N/A"}</td> 
                     <td>{ad.state || "N/A"}</td> 

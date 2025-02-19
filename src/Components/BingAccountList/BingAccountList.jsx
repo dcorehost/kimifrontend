@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from "react";
+
+import React, { useEffect, useState } from "react"; 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./BingAccountList.module.css";
@@ -23,8 +24,6 @@ const BingAccountList = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("API Response:", response.data); 
-
         if (response.data.message === "Bing ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
             adsId: ad.adsId,  
@@ -35,14 +34,11 @@ const BingAccountList = () => {
             applyId: ad.applyId,
             adsDetails: ad.adsDetails,
           }));
-
-          console.log("Updated Ads Data:", ads); 
           setAdsData(ads); 
         } else {
           setError("Failed to fetch ads data."); 
         }
       } catch (err) {
-        console.error("Error fetching ads data:", err.message); 
         setError("An error occurred while fetching ads data.");
       }
     };
@@ -83,27 +79,24 @@ const BingAccountList = () => {
             </thead>
             <tbody>
               {adsData.length > 0 ? (
-                adsData.map((ad, index) => {
-                  console.log("Rendering Ad:", ad); 
-                  return (
-                    <tr key={ad.adsId}> 
-                      <td>{ad.applyId || "N/A"}</td>
-                      <td>{ad.adNumber || "N/A"}</td>
-                      <td>{ad.state || "N/A"}</td>
-                      <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
-                      <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td>
-                      <td>{ad.adsId || "N/A"}</td> 
-                      <td>
-                        <button
-                          className={styles.detailButton}
-                          onClick={() => handleDetailClick(ad)}
-                        >
-                          Detail
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })
+                adsData.map((ad, index) => (
+                  <tr key={ad.adsId}> 
+                    <td>{ad.applyId || "N/A"}</td>
+                    <td>{ad.adNumber || "N/A"}</td>
+                    <td>{ad.state || "N/A"}</td>
+                    <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
+                    <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td>
+                    <td>{ad.adsId || "N/A"}</td> 
+                    <td>
+                      <button
+                        className={styles.detailButton}
+                        onClick={() => handleDetailClick(ad)}
+                      >
+                        Detail
+                      </button>
+                    </td>
+                  </tr>
+                ))
               ) : (
                 <tr>
                   <td colSpan="7">No ads data available</td> 
@@ -150,5 +143,3 @@ const BingAccountList = () => {
 };
 
 export default BingAccountList;
-
-

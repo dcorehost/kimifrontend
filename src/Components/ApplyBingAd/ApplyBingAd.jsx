@@ -18,11 +18,8 @@ const ApplyBingAd = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("API Response:", response.data); 
-
         if (response.data.message === "Bing ads fetched successfully" && Array.isArray(response.data.ads)) {
           const ads = response.data.ads.map((ad) => ({
-            _id: ad._id, 
             adsId: ad.adsId,  
             adNumber: ad.adNum,
             state: ad.state,
@@ -33,13 +30,11 @@ const ApplyBingAd = () => {
             adsDetails: ad.adsDetails,
           }));
 
-          console.log("Updated Ads Data:", ads); 
           setAdsData(ads); 
         } else {
           setError("Failed to fetch ads data."); 
         }
       } catch (err) {
-        console.error("Error fetching ads data:", err.message); 
         setError("An error occurred while fetching ads data.");
       }
     };
@@ -66,7 +61,6 @@ const ApplyBingAd = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>_ID</th> 
                 <th>Apply ID</th>
                 <th>Ad Number</th>
                 <th>State</th>
@@ -79,11 +73,9 @@ const ApplyBingAd = () => {
             </thead>
             <tbody>
               {adsData.length > 0 ? (
-                adsData.map((ad, index) => {
-                  console.log("Rendering Ad:", ad); 
+                adsData.map((ad) => {
                   return (
                     <tr key={ad.adsId}> 
-                      <td>{ad._id || "N/A"}</td> 
                       <td>{ad.applyId || "N/A"}</td>
                       <td>{ad.adNumber || "N/A"}</td>
                       <td>{ad.state || "N/A"}</td>
@@ -118,7 +110,7 @@ const ApplyBingAd = () => {
           <div className={styles.modal}>
             <h2>Ad Details</h2>
             <div className={styles.modalContent}>
-              <p><strong>_ID:</strong> {selectedAd._id}</p> 
+              {/* <p><strong>_ID:</strong> {selectedAd._id}</p>  */}
               <p><strong>Apply ID:</strong> {selectedAd.applyId}</p>
               <p><strong>Ad Number:</strong> {selectedAd.adNumber}</p>
               <p><strong>State:</strong> {selectedAd.state}</p>
@@ -150,3 +142,4 @@ const ApplyBingAd = () => {
 };
 
 export default ApplyBingAd;
+

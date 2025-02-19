@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -13,51 +14,48 @@ const GoogleRefund = () => {
   const [amount, setAmount] = useState("");
   const navigate = useNavigate();
 
-    useEffect(() => {
-      const fetchRefundData = async () => {
-        const token = localStorage.getItem("userToken");
-        console.log(localStorage.getItem("userToken")); // Should not be null or undefined
+  useEffect(() => {
+    const fetchRefundData = async () => {
+      const token = localStorage.getItem("userToken");
 
-        if (!token) {
-          setError("User is not authenticated. Please log in.");
-          return;
+      if (!token) {
+        setError("User is not authenticated. Please log in.");
+        return;
+      }
+      try {
+        const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Google", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
+          setRefundData(response.data.refundsDetails);
+        } else {
+          setError("Failed to fetch refund details.");
         }
-        try {
-          const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Google", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
-            setRefundData(response.data.refundsDetails);
-          } else {
-            setError("Failed to fetch refund details.");
-          }
-        } catch (err) {
-          setError("An error occurred while fetching refund data.");
-        }
-      };
-    
-      const fetchAdsIds = async () => {
-        const token = localStorage.getItem("userToken");
-        if (!token) {
-          setError("User not authenticated.");
-          return;
-        }
-    
-        try {
-          const response = await axios.get("https://admediaagency.online/kimi/get-ads-id?adType=Google", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setAdsIds(response.data.adsIds);
-        } catch (error) {
-          console.error("Error fetching ads IDs:", error);
-          setError("Failed to fetch ads IDs.");
-        }
-      };
-    
-      fetchRefundData();
-      fetchAdsIds();
-    }, []);
-    
+      } catch (err) {
+        setError("An error occurred while fetching refund data.");
+      }
+    };
+
+    const fetchAdsIds = async () => {
+      const token = localStorage.getItem("userToken");
+      if (!token) {
+        setError("User not authenticated.");
+        return;
+      }
+
+      try {
+        const response = await axios.get("https://admediaagency.online/kimi/get-ads-id?adType=Google", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAdsIds(response.data.adsIds);
+      } catch (error) {
+        setError("Failed to fetch ads IDs.");
+      }
+    };
+
+    fetchRefundData();
+    fetchAdsIds();
+  }, []);
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -138,8 +136,8 @@ const GoogleRefund = () => {
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
                   <td>{refund.adGoogleAccount?.adsId || "N/A"}</td> 
-                  <td>{refund.amount || "N/A"}</td>
-                  <td>{refund.remainMoney || "N/A"}</td>
+                  <td> ${refund.amount || "N/A"}</td>
+                  <td> ${refund.remainMoney || "N/A"}</td>
                   <td>{refund.applyState || "N/A"}</td>
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
                 </tr>

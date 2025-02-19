@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import styles from './BingAdsDeposit.module.css';
 import Auth from '../Services/Auth';
@@ -36,7 +37,6 @@ const BingAdsDeposit = () => {
 
       setAdsIds(response.data.adsIds);
     } catch (error) {
-      console.error('Error fetching ads IDs:', error);
       setResponseMessage('Failed to fetch ads IDs.');
     }
   };
@@ -56,7 +56,6 @@ const BingAdsDeposit = () => {
       });
       setWalletAmount(response.data.users.wallet || 0);
     } catch (error) {
-      console.error('Error fetching wallet balance:', error);
       setResponseMessage('Failed to fetch wallet balance.');
     }
   };
@@ -118,8 +117,6 @@ const BingAdsDeposit = () => {
       adType: 'Bing',
     };
 
-    console.log('Request Data:', JSON.stringify(requestData, null, 2));
-
     try {
       const response = await axios.post(
         'https://admediaagency.online/kimi/create-bing-adDeposit',
@@ -133,14 +130,12 @@ const BingAdsDeposit = () => {
       );
 
       if (response?.data) {
-        console.log('Response:', response.data);
         setResponseMessage(response.data.message);
         setWalletAmount(parseFloat(response.data.wallet) || 0);
         setTotalDeposit(parseFloat(response.data.totalDeposit) || 0);
         setTotalCost(parseFloat(response.data.totalCost) || 0);
       }
     } catch (error) {
-      console.error('Error processing deposit:', error.response?.data || error.message);
       setResponseMessage(error.response?.data?.message || 'Failed to process deposit. Please try again.');
     } finally {
       setLoading(false);

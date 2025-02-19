@@ -1,5 +1,4 @@
 
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -26,12 +25,9 @@ const BingAdsDepositRecord = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("🔹 API Response:", response.data);
-
         if (response.data.message === "Deposits details fetched successfully" && Array.isArray(response.data.deposits)) {
           const deposits = response.data.deposits.map((deposit) => ({
-            depositId: deposit._id,
-            adBingAccountId: deposit.adBingAccount?._id || "N/A",
+          
             applyId: deposit.applyId || "N/A",
             adsId: deposit.adsId || "N/A",
             chargeMoney: `$${deposit.money.toFixed(2)}`,
@@ -45,7 +41,6 @@ const BingAdsDepositRecord = () => {
           setError("Failed to fetch deposit data.");
         }
       } catch (err) {
-        console.error("❌ Error fetching deposit data:", err.message);
         setError("An error occurred while fetching deposit data. Please try again later.");
       }
     };
@@ -62,14 +57,10 @@ const BingAdsDepositRecord = () => {
     }
 
     try {
-      console.log("🔹 Requesting export...");
-
       const response = await axios.get("https://admediaagency.online/kimi/export-bingad-deposit", {
         headers: { Authorization: `Bearer ${token}` },
         responseType: "blob",
       });
-
-      console.log("🔹 Export API Response:", response.data);
 
       const url = window.URL.createObjectURL(new Blob([response.data]));
       const link = document.createElement("a");
@@ -82,7 +73,6 @@ const BingAdsDepositRecord = () => {
       setSuccessMessage("✅ Excel file has been downloaded.");
       setTimeout(() => setSuccessMessage(null), 3000);
     } catch (err) {
-      console.error("❌ Export API failed:", err.response ? err.response.data : err.message);
       setError("An error occurred while exporting data.");
     }
   };
@@ -101,8 +91,7 @@ const BingAdsDepositRecord = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Deposit ID</th>
-                <th>Bing AdS  ID</th>
+          
                 <th>Apply ID</th>
                 <th>Ads ID</th>
                 <th>Charge Money</th>
@@ -115,8 +104,7 @@ const BingAdsDepositRecord = () => {
               {depositsData.length > 0 ? (
                 depositsData.map((row, index) => (
                   <tr key={index}>
-                    <td>{row.depositId}</td>
-                    <td>{row.adBingAccountId}</td>
+                  
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
                     <td>{row.chargeMoney}</td>

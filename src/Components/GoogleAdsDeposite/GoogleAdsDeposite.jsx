@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+
+
+import React, { useState, useEffect } from 'react'; 
 import axios from 'axios';
 import styles from './GoogleAdsDeposite.module.css';
 import Auth from '../Services/Auth';
@@ -30,13 +32,12 @@ const GoogleAdsDeposite = () => {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          adType: 'Google' // You can replace this with a dynamic value if needed
+          adType: 'Google' 
         },
       });
 
       setAdsIds(response.data.adsIds);
     } catch (error) {
-      console.error('Error fetching ads IDs:', error);
       setResponseMessage('Failed to fetch ads IDs.');
     }
   };
@@ -56,7 +57,6 @@ const GoogleAdsDeposite = () => {
       });
       setWalletAmount(response.data.users.wallet || 0);
     } catch (error) {
-      console.error('Error fetching wallet balance:', error);
       setResponseMessage('Failed to fetch wallet balance.');
     }
   };
@@ -118,8 +118,6 @@ const GoogleAdsDeposite = () => {
       adType: 'Google',
     };
 
-    console.log('Request Data:', JSON.stringify(requestData, null, 2));
-
     try {
       const response = await axios.post(
         'https://admediaagency.online/kimi/create-google-adDeposit',
@@ -133,14 +131,12 @@ const GoogleAdsDeposite = () => {
       );
 
       if (response?.data) {
-        console.log('Response:', response.data);
         setResponseMessage(response.data.message);
         setWalletAmount(parseFloat(response.data.wallet) || 0);
         setTotalDeposit(parseFloat(response.data.totalDeposit) || 0);
         setTotalCost(parseFloat(response.data.totalCost) || 0);
       }
     } catch (error) {
-      console.error('Error processing deposit:', error.response?.data || error.message);
       setResponseMessage(error.response?.data?.message || 'Failed to process deposit. Please try again.');
     } finally {
       setLoading(false);
