@@ -113,7 +113,12 @@ const MetaApplyNewAd = () => {
                     <td>{ad.appId}</td>
                     <td>{ad.adsAccounts}</td>
                     <td>{ad.remarks}</td>
-                    <td>{ad.state}</td>
+                    {/* <td>{ad.state}</td> */}
+                     <td>
+                     <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                     {ad.state || "N/A"}
+                     </span>
+                     </td>
                     <td>{ad.totalCost}</td>
                     <td>{ad.totalDeposit}</td>
                     <td>{ad.userEmail}</td>

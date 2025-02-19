@@ -1,39 +1,50 @@
+
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MetaAdsDepositRecord.module.css";
+import Auth from "../Services/Auth";
 
 const MetaAdsDepositRecord = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [error, setError] = useState(null);
   const [successMessage, setSuccessMessage] = useState(null);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchDepositsData = async () => {
-      const token = localStorage.getItem("userToken");
+      setLoading(true);
+      setError(null);
+      
+      const { token, username, typeOfUser } = Auth.getAuthData(); // Retrieve token & user data
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
+        setLoading(false);
         return;
       }
 
       try {
-        const response = await axios.get("https://admediaagency.online/kimi/get-facebook-ads", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://admediaagency.online/kimi/get-Facebook-adDeposit",
+          { headers: { Authorization: `Bearer ${token}` } }
+        );
 
         console.log("API Response:", response.data);
 
-        if (response.data.message === "facebook ads fetched successfully" && Array.isArray(response.data.ads)) {
-          const deposits = response.data.ads.map((ad) => ({
-            applyId: ad.applyId,
-            adsId: ad._id,
-            adsName: ad.ads.map((a) => a.accountName).join(", "),
-            chargeMoney: `$${ad.ads.reduce((sum, a) => sum + a.deposit, 0)}`,
-            totalCost: `$${ad.totalCost}`,
-            state: ad.state,
-            createTime: new Date(ad.createdAt).toLocaleString(),
+        if (
+          response.data.message === "Deposits details fetched successfully" &&
+          Array.isArray(response.data.deposits)
+        ) {
+          const deposits = response.data.deposits.map((deposit) => ({
+            applyId: deposit.applyId,
+            adsId: deposit.adsId,
+            chargeMoney: `$${deposit.money}`,
+            totalCost: `$${deposit.totalCost}`,
+            state: deposit.state,
+            createTime: new Date(deposit.createdAt).toLocaleString(),
           }));
           setDepositsData(deposits);
         } else {
@@ -42,6 +53,8 @@ const MetaAdsDepositRecord = () => {
       } catch (err) {
         console.error("Error fetching deposit data:", err.message);
         setError("An error occurred while fetching deposit data.");
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -49,7 +62,8 @@ const MetaAdsDepositRecord = () => {
   }, []);
 
   const handleExport = async () => {
-    const token = localStorage.getItem("userToken");
+    setError(null);
+    const token = Auth.getToken();
 
     if (!token) {
       setError("User is not authenticated. Please log in.");
@@ -59,18 +73,18 @@ const MetaAdsDepositRecord = () => {
     try {
       console.log("Fetching export file...");
 
-      const response = await axios.get("https://admediaagency.online/kimi/export-facebookad-deposit", {
-        headers: { Authorization: `Bearer ${token}` },
-        responseType: "blob", 
-      });
+      const response = await axios.get(
+        "https://admediaagency.online/kimi/export-facebookad-deposit",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+          responseType: "blob",
+        }
+      );
 
-     
       const url = window.URL.createObjectURL(new Blob([response.data]));
-
-    
       const link = document.createElement("a");
       link.href = url;
-      link.setAttribute("download", "facebookDepositList.xlsx"); 
+      link.setAttribute("download", "facebookDepositList.xlsx");
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -88,12 +102,14 @@ const MetaAdsDepositRecord = () => {
       {successMessage && <p className={styles.success}>{successMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
 
-      <button className={styles.button} onClick={handleExport}>
-        Export Excel
+      <button className={styles.button} onClick={handleExport} disabled={loading}>
+        {loading ? "Loading..." : "Export Excel"}
       </button>
 
       <div className={styles.tableContainer}>
-        {error ? (
+        {loading ? (
+          <p className={styles.loading}>Loading deposit records...</p>
+        ) : error ? (
           <p className={styles.error}>{error}</p>
         ) : (
           <table className={styles.table}>
@@ -101,7 +117,6 @@ const MetaAdsDepositRecord = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
-                <th>Ads Name</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
@@ -114,16 +129,20 @@ const MetaAdsDepositRecord = () => {
                   <tr key={index}>
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
-                    <td>{row.adsName}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    <td>{row.state}</td>
+                    {/* <td>{row.state}</td> */}
+                     <td>
+                     <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                     {row.state || "N/A"}
+                     </span>
+                     </td>
                     <td>{row.createTime}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7">No deposit data available</td>
+                  <td colSpan="6">No deposit data available</td>
                 </tr>
               )}
             </tbody>

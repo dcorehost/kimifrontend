@@ -1,4 +1,5 @@
 
+
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
@@ -43,13 +44,13 @@ const Table = () => {
           setAdsData(
             response.data.ads.map((ad) => ({
               adsId: ad.adsId,
-              gmail: ad.adsDetails[0]?.gmail,    
-              totalCost: ad.totalCost,          
-              state: ad.state,                   
-              createTime: ad.createdAt,          
-              _id: ad._id,                       
-              applyId: ad.applyId,              
-              adNum: ad.adNum                    
+              gmail: ad.adsDetails[0]?.gmail,
+              totalCost: ad.totalCost,
+              state: ad.state,
+              createTime: ad.createdAt,
+              _id: ad._id,
+              applyId: ad.applyId,
+              adNum: ad.adNum,
             }))
           );
           setTotalAds(response.data.ads.length || 0);
@@ -137,13 +138,17 @@ const Table = () => {
             </thead>
             <tbody>
               {adsData.map((ad, index) => (
-                <tr key={index}>
+                <tr key={index} className={styles.tableRow}>
                   <td>{ad.adsId || "N/A"}</td>
                   <td>{ad.applyId || "N/A"}</td>
                   <td>{ad.adNum || "N/A"}</td>
                   <td>{ad.gmail || "N/A"}</td>
-                  <td>{ad.totalCost ? `$${ad.totalCost.toFixed(2)}` : "N/A"}</td> 
-                  <td>{ad.state || "N/A"}</td>
+                  <td>{ad.totalCost ? `$${ad.totalCost.toFixed(2)}` : "N/A"}</td>
+                  <td>
+                    <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                      {ad.state || "N/A"}
+                    </span>
+                  </td>
                   <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
                   <td>
                     <button className={styles.shareButton} onClick={() => handleShare(ad.adsId)}>
@@ -213,3 +218,5 @@ const Table = () => {
 };
 
 export default Table;
+
+

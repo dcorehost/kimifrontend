@@ -60,7 +60,7 @@ const ApprovedGoogleAds = () => {
               <th>Ad ID</th>
               <th>Ad Number</th>
               <th>Gmail</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Total Cost</th>
               <th>Account Open Fee</th>
               <th>User ID</th>
@@ -75,7 +75,14 @@ const ApprovedGoogleAds = () => {
                 <td>{ad._id}</td>
                 <td>{ad.adNum}</td>
                 <td>{ad.adsDetails?.length > 0 ? ad.adsDetails.map((detail) => detail.gmail).join(", ") : "N/A"}</td>
-                <td>{ad.state}</td>
+                {/* <td>{ad.state}</td> */}
+
+                <td>
+                        <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                         {ad.state || "N/A"}
+                         </span>
+                       </td>
+
                 <td>${ad.totalCost}</td>
                 <td>${ad.accountOpenFee}</td>
                 <td>{ad.userId}</td>

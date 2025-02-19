@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './MetaAdsDeposit.module.css';
 import Auth from '../Services/Auth';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const MetaAdsDeposit = () => {
   const [rows, setRows] = useState([{ id: '', money: '' }]);
@@ -30,7 +32,7 @@ const MetaAdsDeposit = () => {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          adType: 'Facebook' // Fetching Facebook Ads IDs
+          adType: 'Facebook' 
         },
       });
 
@@ -38,6 +40,7 @@ const MetaAdsDeposit = () => {
     } catch (error) {
       console.error('Error fetching ads IDs:', error);
       setResponseMessage('Failed to fetch ads IDs.');
+      toast.error('Failed to fetch ads IDs.');
     }
   };
 
@@ -58,6 +61,7 @@ const MetaAdsDeposit = () => {
     } catch (error) {
       console.error('Error fetching wallet balance:', error);
       setResponseMessage('Failed to fetch wallet balance.');
+      toast.error('Failed to fetch wallet balance.');
     }
   };
 
@@ -96,12 +100,14 @@ const MetaAdsDeposit = () => {
     if (!isValid) {
       setResponseMessage('Please ensure both adsId and money are provided.');
       setLoading(false);
+      toast.error('Please ensure both adsId and money are provided.');
       return;
     }
 
     if (totalDeposit > walletAmount) {
       setResponseMessage('Insufficient wallet balance. Please recharge.');
       setLoading(false);
+      toast.error('Insufficient wallet balance. Please recharge.');
       return;
     }
 
@@ -109,10 +115,10 @@ const MetaAdsDeposit = () => {
     if (!token) {
       setResponseMessage('User not authenticated.');
       setLoading(false);
+      toast.error('User not authenticated.');
       return;
     }
 
-    // Map requests for all rows
     const requests = rows.map(row => ({
       adsId: row.id.trim(),
       money: parseFloat(row.money.trim()) || 0,
@@ -151,9 +157,11 @@ const MetaAdsDeposit = () => {
       setTotalCost(totalCost);
       setWalletAmount(walletAmount);
       setResponseMessage('Deposit added successfully!');
+      toast.success('Deposit added successfully!');
     } catch (error) {
       console.error('Error processing deposit:', error.response?.data || error.message);
       setResponseMessage(error.response?.data?.message || 'Failed to process deposit. Please try again.');
+      toast.error('Failed to process deposit. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -161,6 +169,7 @@ const MetaAdsDeposit = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer /> 
       <div className={styles.form}>
         {rows.map((row, index) => (
           <div key={index} className={styles.row}>
@@ -197,9 +206,9 @@ const MetaAdsDeposit = () => {
         </button>
       </div>
       <div className={styles.summary}>
-        <p>Total Deposit Of Ads: <strong>{totalDeposit.toFixed(2)} USD</strong></p>
-        <p>Total Cost: <strong>{totalCost.toFixed(2)} USD</strong></p>
-        <p>Wallet Balance: <strong>{walletAmount.toFixed(2)} USD</strong></p>
+        <p>Total Deposit Of Ads: <strong>${totalDeposit.toFixed(2)}</strong></p>
+        <p>Total Cost: <strong>${totalCost.toFixed(2)}</strong></p>
+        <p>Wallet Balance: <strong>${walletAmount.toFixed(2)}</strong></p>
       </div>
       {responseMessage && <div className={styles.responseMessage}><p>{responseMessage}</p></div>}
       <button className={styles.chargeButton} onClick={handleCharge} disabled={loading}>
