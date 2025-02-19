@@ -28,7 +28,7 @@ const AdsDepositeRecordTable = () => {
           }
         );
 
-        console.log("API Response:", response.data);
+        // console.log("API Response:", response.data);
 
         if (
           response.data.message === "Deposits details fetched successfully" &&
@@ -38,7 +38,6 @@ const AdsDepositeRecordTable = () => {
             return {
               applyId: deposit.applyId,
               adsId: deposit.adsId || "N/A",
-              _id: deposit._id || "N/A",
               chargeMoney: `$${deposit.money}`,
               totalCost: `$${deposit.totalCost}`,
               state: deposit.state,
@@ -109,7 +108,6 @@ const AdsDepositeRecordTable = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
-                <th>_ID</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
@@ -122,10 +120,16 @@ const AdsDepositeRecordTable = () => {
                   <tr key={index}>
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
-                    <td>{row._id}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    <td>{row.state}</td>
+                    {/* <td>{row.state}</td> */}
+                     <td>
+                      <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                      {row.state || "N/A"}
+                      </span>
+                      </td>
+                   
+                    
                     <td>{row.createTime}</td>
                   </tr>
                 ))

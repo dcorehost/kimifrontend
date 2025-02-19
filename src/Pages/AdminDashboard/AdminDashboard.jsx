@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom"; // Import Link from react-router-dom
+import { Link } from "react-router-dom"; 
 import styles from "./AdminDashboard.module.css";
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from "recharts";
 import Httpservices from "../../Components/Services/Httpservices";
@@ -9,7 +9,7 @@ const Card = ({ title, value, children, link }) => {
   return (
     <div className={styles.card}>
       <h2 className={styles.cardTitle}>
-        {link ? <Link to={link}>{title}</Link> : title} {/* Add Link if link prop is passed */}
+        {link ? <Link to={link}>{title}</Link> : title} 
       </h2>
       {value !== undefined && <p className={styles.cardValue}>{value}</p>}
       {children}
@@ -95,9 +95,9 @@ const AdminDashboard = () => {
         
         {error ? <p className={styles.error}>{error}</p> : (
           <div className={styles.statsGrid}>
-            <Card title="Total Users" value={totalUsers} link="/admin/dashboard/UserAdsInformation" /> {/* Link to /users */}
+            <Card title="Total Users" value={totalUsers} link="/admin/dashboard/UserAdsInformation" />
             <Card title="Total Revenue" value={`$${totalRevenue}`} />
-            <Card title="Active Users" value={activeUsers} link="/active-users" /> {/* Link to /active-users */}
+            <Card title="Active Users" value={activeUsers} link="/active-users" /> 
           </div>
         )}
 

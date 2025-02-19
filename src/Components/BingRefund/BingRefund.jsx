@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Auth from "../Services/Auth";
 import styles from "./BingRefund.module.css";
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const BingRefund = () => {
   const [refundData, setRefundData] = useState([]);
@@ -97,16 +99,19 @@ const BingRefund = () => {
         setAmount("");
         setRefundData([...refundData, response.data.refund]);
         setTimeout(() => setSuccessMessage(null), 3000);
+        toast.success("Refund applied successfully!");
       } else {
         setError(response.data.message || "Failed to apply refund.");
       }
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred while applying the refund.");
+      toast.error("An error occurred while applying the refund.");
     }
   };
 
   return (
     <div className={styles.container}>
+      <ToastContainer /> 
       {successMessage && <p className={styles.success}>{successMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
       <button className={styles.button} onClick={handleModalOpen}>Apply Refund</button>
@@ -128,9 +133,14 @@ const BingRefund = () => {
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
                   <td>{refund.adBingAccount?.adsId || "N/A"}</td>
-                  <td>{refund.amount || "N/A"}</td>
-                  <td>{refund.remainMoney || "N/A"}</td>
-                  <td>{refund.applyState || "N/A"}</td>
+                  <td>${refund.amount.toFixed(2) || "N/A"}</td> 
+                  <td>${refund.remainMoney.toFixed(2) || "N/A"}</td> 
+                  {/* <td>{refund.applyState || "N/A"}</td> */}
+                   <td>
+                   <span className={`${styles.state} ${styles[refund.applyState.toLowerCase()]}`}>
+                   {refund.applyState || "N/A"}
+                   </span>
+                   </td>
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
                 </tr>
               ))
@@ -158,7 +168,13 @@ const BingRefund = () => {
               </div>
               <div className={styles.inputContainer}>
                 <label>Amount</label>
-                <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} placeholder="Enter Amount" required />
+                <input
+                  type="number"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                  placeholder="Enter Amount"
+                  required
+                />
               </div>
               <div className={styles.buttonContainer}>
                 <button type="submit" className={styles.button}>Submit</button>

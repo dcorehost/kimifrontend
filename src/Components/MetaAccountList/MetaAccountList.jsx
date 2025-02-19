@@ -13,8 +13,8 @@ const MetaAccountList = () => {
     deposits: 0,
     refunds: 0,
   });
-  const [selectedAd, setSelectedAd] = useState(null); // State for selected ad details
-  const [isModalOpen, setIsModalOpen] = useState(false); // State to control modal visibility
+  const [selectedAd, setSelectedAd] = useState(null); 
+  const [isModalOpen, setIsModalOpen] = useState(false); 
 
   const handleDirectCreateAd = () => {
     navigate("/facebook/accountManage/createaccount");
@@ -25,13 +25,13 @@ const MetaAccountList = () => {
   };
 
   const handleShowDetails = (ad) => {
-    setSelectedAd(ad); // Set selected ad details
-    setIsModalOpen(true); // Open the modal
+    setSelectedAd(ad); 
+    setIsModalOpen(true); 
   };
 
   const handleCloseModal = () => {
-    setIsModalOpen(false); // Close the modal
-    setSelectedAd(null); // Clear the selected ad details
+    setIsModalOpen(false); 
+    setSelectedAd(null); 
   };
 
   useEffect(() => {

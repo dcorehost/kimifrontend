@@ -1,6 +1,6 @@
 /* Container for the table to handle scrolling */
 .tableContainer {
-  overflow-x: auto;  /* Enables horizontal scrolling */
+  overflow-x: auto; /* Enables horizontal scrolling */
   margin-top: 20px;
   padding: 10px;
 }
@@ -15,7 +15,7 @@ th, td {
   padding: 12px 15px;
   text-align: left;
   border: 1px solid #ddd;
-  white-space: nowrap; 
+  white-space: nowrap;
 }
 
 .table th {
@@ -25,6 +25,36 @@ th, td {
 
 td {
   background-color: #fff;
+}
+
+/* Hover effect for table rows */
+.tableRow:hover {
+  /* background-color: #EF9273; */
+
+  color: #EF9273;
+  cursor: pointer;
+}
+
+/* State-specific colors */
+.state {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.state.pending {
+  background-color: #ffcc00; /* Yellow for pending */
+  color: #fff;
+}
+
+.state.failed {
+  background-color: #ff3333; /* Red for failed */
+  color: #fff;
+}
+
+.state.completed {
+  background-color: #4CAF50; /* Green for complete */
+  color: #fff;
 }
 
 /* Button styling inside table */
@@ -178,9 +208,12 @@ button {
   }
 }
 
+.table tbody tr:hover{
+  background-color: #e7e7e7 !important; 
+  color: #0d0d0d !important;
+}
+.table tbody tr:hover td {
+  background-color: inherit !important;
 
-
-
-
-
-
+  color: #0d0d0d !important;
+}
