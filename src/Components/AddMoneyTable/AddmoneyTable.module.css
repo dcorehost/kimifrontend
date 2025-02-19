@@ -66,8 +66,8 @@
   font-weight: bold;
 }
 
-.table tr:hover {
-  background: rgba(239, 146, 115, 0.1);
+.table td:hover {
+  background-color: #FEF9F8;
 }
 
 .image {
@@ -191,3 +191,4 @@
   font-weight: bold;
   color: #0d0d0d;
 }
+

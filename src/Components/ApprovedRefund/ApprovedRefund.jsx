@@ -78,7 +78,13 @@ const ApprovedRefund = () => {
                 <td>{refund.adGoogleAccount || "N/A"}</td>
                 <td>${refund.amount}</td>
                 <td>${refund.remainMoney}</td>
-                <td>{refund.applyState}</td>
+                {/* <td>{refund.applyState}</td> */}
+                  <td>
+                                        <span className={`${styles.state} ${styles[refund.applyState.toLowerCase()]}`}>
+                                         {refund.applyState || "N/A"}
+                                         </span>
+                                       </td>
+                
                 <td>{refund.adType}</td>
                 <td>{refund.refundReason || "N/A"}</td>
                 <td>{formatDate(refund.createdAt)}</td>

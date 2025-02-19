@@ -118,7 +118,7 @@ const ApprovFacebookAd = () => {
               <th>Ads (Accounts & Deposits)</th>
               <th>Remarks</th>
               <th>Apply ID</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Total Cost</th>
               <th>User ID</th>
               <th>Created At</th>
@@ -151,7 +151,13 @@ const ApprovFacebookAd = () => {
                 </td>
                 <td>{ad.remarks}</td>
                 <td>{ad.applyId}</td>
-                <td>{ad.state}</td>
+                {/* <td>{ad.state}</td> */}
+                  <td>
+                                        <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                                         {ad.state || "N/A"}
+                                         </span>
+                                       </td>
+                
                 <td>${ad.totalCost}</td>
                 <td>{ad.userId}</td>
                 <td>{formatDate(ad.createdAt)}</td>

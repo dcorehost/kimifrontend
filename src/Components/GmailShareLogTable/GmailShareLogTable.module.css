@@ -66,4 +66,5 @@
   .operateButton:hover {
     background-color: #218838;
   }
-  
+  /* Ensure the entire row changes background color on hover */
+

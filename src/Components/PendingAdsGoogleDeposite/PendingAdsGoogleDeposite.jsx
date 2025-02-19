@@ -113,7 +113,7 @@ const PendingAdsGoogleDeposite = () => {
               <th>Apply ID</th>
               <th>Ads ID</th>
               <th>Money</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Total Cost</th>
               <th>Created Time</th>
               <th>Operate</th>
@@ -125,7 +125,13 @@ const PendingAdsGoogleDeposite = () => {
                 <td>{deposit.applyId}</td>
                 <td>{deposit.adsId || "N/A"}</td>
                 <td>${deposit.money}</td>
-                <td>{deposit.state}</td>
+                {/* <td>{deposit.state}</td> */}
+                <td>
+                        <span className={`${styles.state} ${styles[deposit.state.toLowerCase()]}`}>
+                         {deposit.state || "N/A"}
+                         </span>
+                       </td>
+
                 <td>${deposit.totalCost}</td>
                 <td>{formatDate(deposit.createdAt)}</td>
                 <td className={styles.operate}>

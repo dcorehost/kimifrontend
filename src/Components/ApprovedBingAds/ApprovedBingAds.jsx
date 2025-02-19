@@ -60,7 +60,7 @@ const ApprovedBingAds = () => {
               <th>Ad Number</th>
               <th>Ads Details</th>
               <th>Apply ID</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Total Cost</th>
               <th>Total Deposit</th>
               <th>User ID</th>
@@ -89,7 +89,13 @@ const ApprovedBingAds = () => {
                   )}
                 </td>
                 <td>{ad.applyId}</td>
-                <td>{ad.state}</td>
+                {/* <td>{ad.state}</td> */}
+                  <td>
+                                        <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                                         {ad.state || "N/A"}
+                                         </span>
+                                       </td>
+                
                 <td>${ad.totalCost}</td>
                 <td>${ad.totalDeposit}</td>
                 <td>{ad.userId}</td>

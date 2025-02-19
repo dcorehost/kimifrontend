@@ -94,7 +94,7 @@ const PendingTransaction = () => {
               <th>Apply ID</th>
               <th>Charge Money</th>
               <th>Transaction ID</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Payment Method</th>
               <th>Created At</th>
               <th>Transaction Image</th>
@@ -108,7 +108,13 @@ const PendingTransaction = () => {
                 <td>{transaction.applyId}</td>
                 <td>${transaction.chargeMoney}</td>
                 <td>{transaction.transactionId}</td>
-                <td>{transaction.state}</td>
+                {/* <td>{transaction.state}</td> */}
+                  <td>
+                                        <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
+                                         {transaction.state || "N/A"}
+                                         </span>
+                                       </td>
+                
                 <td>{transaction.payway}</td>
                 <td>{formatDate(transaction.createdAt)}</td>
                 <td>

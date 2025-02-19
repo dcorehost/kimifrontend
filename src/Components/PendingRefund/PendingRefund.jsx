@@ -116,7 +116,7 @@ const PendingRefund = () => {
               <th>Ad Type</th>
               <th>Amount</th>
               <th>Remaining Balance</th>
-              <th>Status</th>
+              <th>State</th>
               <th>Created Time</th>
               <th>Actions</th>
             </tr>
@@ -134,7 +134,13 @@ const PendingRefund = () => {
                   <td>{adType}</td>
                   <td>${refund.amount}</td>
                   <td>${refund.remainMoney}</td>
-                  <td>{refund.applyState}</td>
+                  {/* <td>{refund.applyState}</td> */}
+                    <td>
+                                          <span className={`${styles.state} ${styles[refund.applyState.toLowerCase()]}`}>
+                                           {refund.applyState || "N/A"}
+                                           </span>
+                                         </td>
+                  
                   <td>{formatDate(refund.createdAt)}</td>
                   <td className={styles.operate}>
                     <button
