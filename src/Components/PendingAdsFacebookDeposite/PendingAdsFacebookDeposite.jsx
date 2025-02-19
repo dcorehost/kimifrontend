@@ -1,9 +1,10 @@
+
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./PendingAdsFacebookDeposite.module.css"; // Make sure your CSS file is correctly named
-import Httpservices from "../Services/Httpservices"; // Assuming Httpservices is your custom service
-import Auth from "../Services/Auth"; // Assuming Auth service manages user authentication
+import styles from "./PendingAdsFacebookDeposite.module.css"; 
+import Httpservices from "../Services/Httpservices";
+import Auth from "../Services/Auth"; 
 
 const PendingAdsFacebookDeposite = () => {
   const [depositsData, setDepositsData] = useState([]);
@@ -17,15 +18,16 @@ const PendingAdsFacebookDeposite = () => {
   const fetchDepositsData = async () => {
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated. Please log in.");
+      toast.error("User is not authenticated. Please log in.");
       setLoading(false);
       return;
     }
 
     try {
-      const response = await Httpservices.get("https://admediaagency.online/kimi/get-pending-facebook-adDeposit", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await Httpservices.get(
+        "https://admediaagency.online/kimi/get-pending-facebook-adDeposit",
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
       console.log("API Response:", response.data);
 
@@ -36,7 +38,7 @@ const PendingAdsFacebookDeposite = () => {
       }
     } catch (err) {
       console.error("Fetch error:", err.response || err.message);
-      setError(err.response?.data?.message || "Failed to fetch deposits.");
+      toast.error(err.response?.data?.message || "Failed to fetch deposits.");
     } finally {
       setLoading(false);
     }
@@ -46,24 +48,23 @@ const PendingAdsFacebookDeposite = () => {
     return isoString ? new Date(isoString).toLocaleString() : "N/A";
   };
 
-  const handleUpdateState = async (adsId, adType, action) => {
-    if (!adsId || !adType) {
-      setError("Error: Missing Deposit ID or Ad Type.");
+  const handleUpdateState = async (adsId, applyId, action) => {
+    if (!adsId || !applyId) {
+      toast.error("Error: Missing Ads ID or Apply ID.");
       return;
     }
 
     const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated.");
+      toast.error("User is not authenticated.");
       return;
     }
 
     try {
-      console.log(`Updating Deposit ID: ${adsId}, Ad Type: ${adType}, Action: ${action}`);
+      console.log(`Updating Ads ID: ${adsId}, Apply ID: ${applyId}, Action: ${action}`);
 
-      // Use the correct API URL for approving/rejecting the deposit
       const response = await Httpservices.put(
-        `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=${adType}&action=${action}`,
+        `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=Facebook&action=${action}&applyId=${applyId}`,
         {},
         {
           headers: {
@@ -78,23 +79,25 @@ const PendingAdsFacebookDeposite = () => {
       if (response.status === 200) {
         setDepositsData((prevDeposits) =>
           prevDeposits.map((deposit) =>
-            deposit.adsId === adsId ? { ...deposit, state: action } : deposit
+            deposit.adsId === adsId && deposit.applyId === applyId
+              ? { ...deposit, state: action === "approve" ? "Approved" : "Rejected" }
+              : deposit
           )
         );
 
-        toast.success(`Deposit ${action}d successfully!`);
+        toast.success(response.data.message || `Deposit ${action}d successfully!`);
       } else {
-        setError(response.data.message || "Failed to update deposit status.");
+        toast.error(response.data.message || "Failed to update deposit status.");
       }
     } catch (error) {
       console.error(`Error updating status for ${adsId}:`, error.response || error.message);
-      setError(error.response?.data?.message || "Error updating deposit status.");
-      toast.error("Failed to update deposit status.");
+      toast.error(error.response?.data?.message || "Error updating deposit status.");
     }
   };
 
   return (
     <div className={styles.container}>
+      <h2>Pending Facebook Ads Deposits</h2>
       <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
@@ -106,6 +109,7 @@ const PendingAdsFacebookDeposite = () => {
           <thead>
             <tr>
               <th>Apply ID</th>
+              <th>Ads ID</th>
               <th>Money</th>
               <th>Status</th>
               <th>Total Cost</th>
@@ -116,7 +120,8 @@ const PendingAdsFacebookDeposite = () => {
           <tbody>
             {depositsData.map((deposit) => (
               <tr key={deposit.adsId}>
-                <td>{deposit.adsId}</td>
+                <td>{deposit.applyId}</td>
+                <td>{deposit.adsId || "N/A"}</td>
                 <td>${deposit.money}</td>
                 <td>{deposit.state}</td>
                 <td>${deposit.totalCost}</td>
@@ -124,14 +129,14 @@ const PendingAdsFacebookDeposite = () => {
                 <td className={styles.operate}>
                   <button
                     className={styles.approveBtn}
-                    onClick={() => handleUpdateState(deposit.adsId, "Facebook", "approve")}
+                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "approve")}
                     disabled={deposit.state === "Approved"}
                   >
                     Approve
                   </button>
                   <button
                     className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(deposit.adsId, "Facebook", "reject")}
+                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "reject")}
                     disabled={deposit.state === "Rejected"}
                   >
                     Reject

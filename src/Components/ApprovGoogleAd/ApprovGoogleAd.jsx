@@ -96,6 +96,7 @@ const ApprovGoogleAd = () => {
 
   return (
     <div className={styles.container}>
+      <h2>Pending Google Ads</h2>
       <ToastContainer position="top-right" autoClose={3000} /> 
       
       {loading ? (
@@ -144,8 +145,8 @@ const ApprovGoogleAd = () => {
                   </button>
                   <button
                     className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(ad._id, "disapprove")}
-                    disabled={ad.state === "Disapproved"}
+                    onClick={() => handleUpdateState(ad._id, "reject")}
+                    disabled={ad.state === "Reject"}
                   >
                     Disapprove
                   </button>

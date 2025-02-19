@@ -1,8 +1,8 @@
-
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MetaRefund.module.css";
+import Auth from "../Services/Auth"; // Import Auth module
 
 const FacebookRefund = () => {
   const [refundData, setRefundData] = useState([]);
@@ -12,12 +12,11 @@ const FacebookRefund = () => {
   const [showModal, setShowModal] = useState(false);
   const [adAccount, setAdAccount] = useState("");
   const [amount, setAmount] = useState("");
-  const [refundReason, setRefundReason] = useState("");
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRefundData = async () => {
-      const token = localStorage.getItem("userToken");
+      const token = Auth.getToken(); // Use Auth module to get the token
       if (!token) {
         setError("User is not authenticated. Please log in.");
         return;
@@ -37,7 +36,7 @@ const FacebookRefund = () => {
     };
 
     const fetchAdsIds = async () => {
-      const token = localStorage.getItem("userToken");
+      const token = Auth.getToken(); // Use Auth module to get the token
       if (!token) {
         setError("User not authenticated.");
         return;
@@ -60,18 +59,17 @@ const FacebookRefund = () => {
     setShowModal(false);
     setAdAccount("");
     setAmount("");
-    setRefundReason("");
   };
 
   const handleRefundSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     setSuccessMessage(null);
-    if (!adAccount || !amount || !refundReason) {
+    if (!adAccount || !amount) {
       setError("Please fill in all fields.");
       return;
     }
-    const token = localStorage.getItem("userToken");
+    const token = Auth.getToken(); // Use Auth module to get the token
     if (!token) {
       setError("User is not authenticated. Please log in.");
       return;
@@ -79,7 +77,6 @@ const FacebookRefund = () => {
     const requestData = {
       adsId: adAccount.trim(),
       amount: parseFloat(amount),
-      refundReason: refundReason.trim(),
       adType: "Facebook",
     };
     try {
@@ -94,7 +91,6 @@ const FacebookRefund = () => {
         setSuccessMessage("Refund applied successfully!");
         setAdAccount("");
         setAmount("");
-        setRefundReason("");
         setRefundData([...refundData, response.data.refund]);
         setTimeout(() => setSuccessMessage(null), 3000);
       } else {
@@ -119,7 +115,6 @@ const FacebookRefund = () => {
               <th>Apply ID</th>
               <th>Ads Id</th>
               <th>Amount Applied</th>
-              <th>Refund Reason</th>
               <th>Remaining Money</th>
               <th>Apply State</th>
               <th>Created At</th>
@@ -132,7 +127,6 @@ const FacebookRefund = () => {
                   <td>{refund.applyId || "N/A"}</td>
                   <td>{refund.adFacebookAccount?.adsId || "N/A"}</td>
                   <td>{refund.amount || "N/A"}</td>
-                  <td>{refund.refundReason || "N/A"}</td>
                   <td>{refund.remainMoney || "N/A"}</td>
                   <td>{refund.applyState || "N/A"}</td>
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
@@ -140,7 +134,7 @@ const FacebookRefund = () => {
               ))
             ) : (
               <tr>
-                <td colSpan="7">No refund details available</td>
+                <td colSpan="6">No refund details available</td>
               </tr>
             )}
           </tbody>
@@ -160,8 +154,6 @@ const FacebookRefund = () => {
               </select>
               <label>Amount</label>
               <input type="number" value={amount} onChange={(e) => setAmount(e.target.value)} required />
-              <label>Refund Reason</label>
-              <textarea value={refundReason} onChange={(e) => setRefundReason(e.target.value)} required />
               <button type="submit">Submit</button>
               <button type="button" onClick={handleModalClose}>Cancel</button>
             </form>

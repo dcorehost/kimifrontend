@@ -66,7 +66,7 @@ const ApprovBingAd = () => {
 
   return (
     <div className={styles.container}>
-      <h2>Bing Ads Management</h2>
+      <h2>Pending Bing Ads</h2>
       <ToastContainer position="top-right" autoClose={3000} />
 
       {loading ? (

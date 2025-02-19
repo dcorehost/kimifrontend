@@ -48,6 +48,7 @@ const ApprovedGoogleAds = () => {
 
   return (
     <div className={styles.container}>
+      <h2>Approved Google Ads</h2>
       {loading ? (
         <p>Loading...</p>
       ) : error ? (

@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./GoogleRefund.module.css";
+import Auth from "../Services/Auth"; // Import the Auth module
 
 const GoogleRefund = () => {
   const [refundData, setRefundData] = useState([]);
@@ -13,51 +14,50 @@ const GoogleRefund = () => {
   const [amount, setAmount] = useState("");
   const navigate = useNavigate();
 
-    useEffect(() => {
-      const fetchRefundData = async () => {
-        const token = localStorage.getItem("userToken");
-        console.log(localStorage.getItem("userToken")); // Should not be null or undefined
+  useEffect(() => {
+    const fetchRefundData = async () => {
+      const token = Auth.getToken(); // Use Auth module to get the token
+      console.log(token); // Should not be null or undefined
 
-        if (!token) {
-          setError("User is not authenticated. Please log in.");
-          return;
+      if (!token) {
+        setError("User is not authenticated. Please log in.");
+        return;
+      }
+      try {
+        const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Google", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
+          setRefundData(response.data.refundsDetails);
+        } else {
+          setError("Failed to fetch refund details.");
         }
-        try {
-          const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Google", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
-            setRefundData(response.data.refundsDetails);
-          } else {
-            setError("Failed to fetch refund details.");
-          }
-        } catch (err) {
-          setError("An error occurred while fetching refund data.");
-        }
-      };
-    
-      const fetchAdsIds = async () => {
-        const token = localStorage.getItem("userToken");
-        if (!token) {
-          setError("User not authenticated.");
-          return;
-        }
-    
-        try {
-          const response = await axios.get("https://admediaagency.online/kimi/get-ads-id?adType=Google", {
-            headers: { Authorization: `Bearer ${token}` },
-          });
-          setAdsIds(response.data.adsIds);
-        } catch (error) {
-          console.error("Error fetching ads IDs:", error);
-          setError("Failed to fetch ads IDs.");
-        }
-      };
-    
-      fetchRefundData();
-      fetchAdsIds();
-    }, []);
-    
+      } catch (err) {
+        setError("An error occurred while fetching refund data.");
+      }
+    };
+
+    const fetchAdsIds = async () => {
+      const token = Auth.getToken(); // Use Auth module to get the token
+      if (!token) {
+        setError("User not authenticated.");
+        return;
+      }
+
+      try {
+        const response = await axios.get("https://admediaagency.online/kimi/get-ads-id?adType=Google", {
+          headers: { Authorization: `Bearer ${token}` },
+        });
+        setAdsIds(response.data.adsIds);
+      } catch (error) {
+        console.error("Error fetching ads IDs:", error);
+        setError("Failed to fetch ads IDs.");
+      }
+    };
+
+    fetchRefundData();
+    fetchAdsIds();
+  }, []);
 
   const handleModalClose = () => {
     setShowModal(false);
@@ -77,13 +77,13 @@ const GoogleRefund = () => {
       setError("Please fill in both fields.");
       return;
     }
-    const token = localStorage.getItem("userToken");
+    const token = Auth.getToken(); // Use Auth module to get the token
     if (!token) {
       setError("User is not authenticated. Please log in.");
       return;
     }
     const requestData = {
-      adsId: adAccount.trim(),      
+      adsId: adAccount.trim(),
       amount: parseFloat(amount),
       adType: "Google",
     };
