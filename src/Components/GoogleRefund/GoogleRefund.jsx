@@ -1,14 +1,15 @@
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./GoogleRefund.module.css";
-import Auth from "../Services/Auth"; // Import the Auth module
+import Auth from "../Services/Auth";
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
 const GoogleRefund = () => {
   const [refundData, setRefundData] = useState([]);
   const [adsIds, setAdsIds] = useState([]);
-  const [error, setError] = useState(null);
-  const [successMessage, setSuccessMessage] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [adAccount, setAdAccount] = useState("");
   const [amount, setAmount] = useState("");
@@ -16,42 +17,50 @@ const GoogleRefund = () => {
 
   useEffect(() => {
     const fetchRefundData = async () => {
-      const token = Auth.getToken(); // Use Auth module to get the token
-      console.log(token); // Should not be null or undefined
+      const token = localStorage.getItem("userToken");
 
       if (!token) {
-        setError("User is not authenticated. Please log in.");
+        toast.error("User is not authenticated. Please log in.");
         return;
       }
+
       try {
-        const response = await axios.get("https://admediaagency.online/kimi/refund-Details?adType=Google", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
-        if (response.data.message === "Refund details fetched successfully" && Array.isArray(response.data.refundsDetails)) {
+        const response = await axios.get(
+          "https://admediaagency.online/kimi/refund-Details?adType=Google",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+        if (
+          response.data.message === "Refund details fetched successfully" &&
+          Array.isArray(response.data.refundsDetails)
+        ) {
           setRefundData(response.data.refundsDetails);
         } else {
-          setError("Failed to fetch refund details.");
+          toast.error("Failed to fetch refund details.");
         }
       } catch (err) {
-        setError("An error occurred while fetching refund data.");
+        toast.error("An error occurred while fetching refund data.");
       }
     };
 
     const fetchAdsIds = async () => {
-      const token = Auth.getToken(); // Use Auth module to get the token
+      const token = localStorage.getItem("userToken");
       if (!token) {
-        setError("User not authenticated.");
+        toast.error("User not authenticated.");
         return;
       }
 
       try {
-        const response = await axios.get("https://admediaagency.online/kimi/get-ads-id?adType=Google", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const response = await axios.get(
+          "https://admediaagency.online/kimi/get-ads-id?adType=Google",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setAdsIds(response.data.adsIds);
       } catch (error) {
-        console.error("Error fetching ads IDs:", error);
-        setError("Failed to fetch ads IDs.");
+        toast.error("Failed to fetch ads IDs.");
       }
     };
 
@@ -71,22 +80,24 @@ const GoogleRefund = () => {
 
   const handleRefundSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccessMessage(null);
+
     if (!adAccount || !amount) {
-      setError("Please fill in both fields.");
+      toast.error("Please fill in both fields.");
       return;
     }
-    const token = Auth.getToken(); // Use Auth module to get the token
+
+    const token = Auth.getToken();
     if (!token) {
-      setError("User is not authenticated. Please log in.");
+      toast.error("User is not authenticated. Please log in.");
       return;
     }
+
     const requestData = {
       adsId: adAccount.trim(),
       amount: parseFloat(amount),
       adType: "Google",
     };
+
     try {
       const response = await axios.post(
         "https://admediaagency.online/kimi/apply-refund",
@@ -98,25 +109,27 @@ const GoogleRefund = () => {
           },
         }
       );
+
       if (response.data.message === "Refund applied successfully.") {
         setShowModal(false);
-        setSuccessMessage("Refund applied successfully!");
+        toast.success("Refund applied successfully!");
         setAdAccount("");
         setAmount("");
         setRefundData([...refundData, response.data.refund]);
-        setTimeout(() => setSuccessMessage(null), 3000);
+        setTimeout(() => toast.dismiss(), 3000); // Dismiss the toast after 3 seconds
       } else {
-        setError(response.data.message || "Failed to apply refund.");
+        toast.error(response.data.message || "Failed to apply refund.");
       }
     } catch (err) {
-      setError(err.response?.data?.message || "An error occurred while applying the refund.");
+      toast.error(
+        err.response?.data?.message || "An error occurred while applying the refund."
+      );
     }
   };
 
   return (
     <div className={styles.container}>
-      {successMessage && <p className={styles.success}>{successMessage}</p>}
-      {error && <p className={styles.error}>{error}</p>}
+      <ToastContainer /> {/* Adding ToastContainer for displaying notifications */}
       <button className={styles.button} onClick={handleModalOpen}>
         Apply Refund
       </button>
@@ -125,7 +138,7 @@ const GoogleRefund = () => {
           <thead>
             <tr>
               <th>Apply ID</th>
-              <th>Ads Id</th> 
+              <th>Ads Id</th>
               <th>Amount Applied</th>
               <th>Remaining Money</th>
               <th>Apply State</th>
@@ -137,10 +150,16 @@ const GoogleRefund = () => {
               refundData.map((refund, index) => (
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
-                  <td>{refund.adGoogleAccount?.adsId || "N/A"}</td> 
-                  <td>{refund.amount || "N/A"}</td>
-                  <td>{refund.remainMoney || "N/A"}</td>
-                  <td>{refund.applyState || "N/A"}</td>
+                  <td>{refund.adGoogleAccount?.adsId || "N/A"}</td>
+                  <td> ${refund.amount || "N/A"}</td>
+                  <td> ${refund.remainMoney || "N/A"}</td>
+                  {/* <td>{refund.applyState || "N/A"}</td> */}
+                   <td>
+                        <span className={`${styles.applyState} ${styles[refund.applyState.toLowerCase()]}`}>
+                         {refund.applyState || "N/A"}
+                         </span>
+                       </td>
+                  
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
                 </tr>
               ))
@@ -152,6 +171,7 @@ const GoogleRefund = () => {
           </tbody>
         </table>
       </div>
+
       {showModal && (
         <div className={styles.modal}>
           <div className={styles.modalContent}>
@@ -166,7 +186,9 @@ const GoogleRefund = () => {
                 >
                   <option value="">Select Ads ID</option>
                   {adsIds.map((id, index) => (
-                    <option key={index} value={id}>{id}</option>
+                    <option key={index} value={id}>
+                      {id}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -181,8 +203,16 @@ const GoogleRefund = () => {
                 />
               </div>
               <div className={styles.buttonContainer}>
-                <button type="submit" className={styles.button}>Submit</button>
-                <button type="button" onClick={handleModalClose} className={styles.closeButton}>Close</button>
+                <button type="submit" className={styles.button}>
+                  Submit
+                </button>
+                <button
+                  type="button"
+                  onClick={handleModalClose}
+                  className={styles.closeButton}
+                >
+                  Close
+                </button>
               </div>
             </form>
           </div>

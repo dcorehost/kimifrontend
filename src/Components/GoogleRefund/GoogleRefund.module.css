@@ -191,4 +191,36 @@
   .closeButton:hover {
     background-color: #e53935;
   }
-  
+  /* State-specific colors */
+.applyState {
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-weight: normal;
+}
+
+.applyState.pending {
+  background-color: #ffcc00; /* Yellow for pending */
+  color: #fff;
+}
+
+.applyState.failed {
+  background-color: #ff3333; /* Red for failed */
+  color: #fff;
+}
+
+.applyState.completed {
+  background-color: #4CAF50; /* Green for complete */
+  color: #fff;
+}
+
+
+
+.table tbody tr:hover{
+  background-color: #e7e7e7 !important; 
+  color: #0d0d0d !important;
+}
+.table tbody tr:hover td {
+  background-color: inherit !important;
+
+  color: #0d0d0d !important;
+}

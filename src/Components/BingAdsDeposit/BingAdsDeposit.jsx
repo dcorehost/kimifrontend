@@ -1,14 +1,16 @@
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './BingAdsDeposit.module.css';
 import Auth from '../Services/Auth';
+import { ToastContainer, toast } from 'react-toastify'; 
+import 'react-toastify/dist/ReactToastify.css'; 
 
 const BingAdsDeposit = () => {
   const [rows, setRows] = useState([{ id: '', money: '' }]);
   const [totalDeposit, setTotalDeposit] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [walletAmount, setWalletAmount] = useState(0);
-  const [responseMessage, setResponseMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const [adsIds, setAdsIds] = useState([]);
 
@@ -21,7 +23,7 @@ const BingAdsDeposit = () => {
     try {
       const token = Auth.getToken();
       if (!token) {
-        setResponseMessage('User not authenticated.');
+        toast.error('User not authenticated.');
         return;
       }
 
@@ -30,14 +32,13 @@ const BingAdsDeposit = () => {
           Authorization: `Bearer ${token}`,
         },
         params: {
-          adType: 'Bing', // Fetching Bing Ads IDs
+          adType: 'Bing',
         },
       });
 
       setAdsIds(response.data.adsIds);
     } catch (error) {
-      console.error('Error fetching ads IDs:', error);
-      setResponseMessage('Failed to fetch ads IDs.');
+      toast.error('Failed to fetch ads IDs.');
     }
   };
 
@@ -45,7 +46,7 @@ const BingAdsDeposit = () => {
     try {
       const token = Auth.getToken();
       if (!token) {
-        setResponseMessage('User not authenticated.');
+        toast.error('User not authenticated.');
         return;
       }
 
@@ -56,8 +57,7 @@ const BingAdsDeposit = () => {
       });
       setWalletAmount(response.data.users.wallet || 0);
     } catch (error) {
-      console.error('Error fetching wallet balance:', error);
-      setResponseMessage('Failed to fetch wallet balance.');
+      toast.error('Failed to fetch wallet balance.');
     }
   };
 
@@ -71,7 +71,7 @@ const BingAdsDeposit = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
-    setTotalCost(total * 1.35); 
+    setTotalCost(total * 1.35);
   };
 
   const addRow = () => {
@@ -84,41 +84,41 @@ const BingAdsDeposit = () => {
       setRows(updatedRows);
       updateTotals(updatedRows);
     } else {
-      alert('At least one row is required!');
+      toast.warning('At least one row is required!');
     }
   };
 
   const handleCharge = async () => {
     setLoading(true);
-    setResponseMessage('');
 
-    const isValid = rows.every(row => row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0);
+    const isValid = rows.every(
+      (row) =>
+        row.id.trim() && !isNaN(parseFloat(row.money.trim())) && parseFloat(row.money.trim()) > 0
+    );
     if (!isValid) {
-      setResponseMessage('Please ensure both adsId and money are provided.');
+      toast.error('Please ensure both adsId and money are provided.');
       setLoading(false);
       return;
     }
 
     if (totalDeposit > walletAmount) {
-      setResponseMessage('Insufficient wallet balance. Please recharge.');
+      toast.error('Insufficient wallet balance. Please recharge.');
       setLoading(false);
       return;
     }
 
     const token = Auth.getToken();
     if (!token) {
-      setResponseMessage('User not authenticated.');
+      toast.error('User not authenticated.');
       setLoading(false);
       return;
     }
 
     const requestData = {
-      adsId: rows[0].id.trim(), 
+      adsId: rows[0].id.trim(),
       money: parseFloat(rows[0].money.trim()) || 0,
       adType: 'Bing',
     };
-
-    console.log('Request Data:', JSON.stringify(requestData, null, 2));
 
     try {
       const response = await axios.post(
@@ -133,15 +133,13 @@ const BingAdsDeposit = () => {
       );
 
       if (response?.data) {
-        console.log('Response:', response.data);
-        setResponseMessage(response.data.message);
+        toast.success(response.data.message);
         setWalletAmount(parseFloat(response.data.wallet) || 0);
         setTotalDeposit(parseFloat(response.data.totalDeposit) || 0);
         setTotalCost(parseFloat(response.data.totalCost) || 0);
       }
     } catch (error) {
-      console.error('Error processing deposit:', error.response?.data || error.message);
-      setResponseMessage(error.response?.data?.message || 'Failed to process deposit. Please try again.');
+      toast.error(error.response?.data?.message || 'Failed to process deposit. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -149,6 +147,7 @@ const BingAdsDeposit = () => {
 
   return (
     <div className={styles.container}>
+      <ToastContainer /> 
       <div className={styles.form}>
         {rows.map((row, index) => (
           <div key={index} className={styles.row}>
@@ -189,7 +188,6 @@ const BingAdsDeposit = () => {
         <p>Total Cost: <strong>{totalCost.toFixed(2)} USD</strong></p>
         <p>Wallet Balance: <strong>{walletAmount.toFixed(2)} USD</strong></p>
       </div>
-      {responseMessage && <div className={styles.responseMessage}><p>{responseMessage}</p></div>}
       <button className={styles.chargeButton} onClick={handleCharge} disabled={loading}>
         {loading ? 'Processing...' : 'Charge'}
       </button>

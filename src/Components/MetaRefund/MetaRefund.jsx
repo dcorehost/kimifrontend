@@ -1,8 +1,12 @@
+
+
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MetaRefund.module.css";
-import Auth from "../Services/Auth"; // Import Auth module
+import Auth from "../Services/Auth"; 
+import { ToastContainer, toast } from "react-toastify"; 
+import "react-toastify/dist/ReactToastify.css"; 
 
 const FacebookRefund = () => {
   const [refundData, setRefundData] = useState([]);
@@ -16,7 +20,7 @@ const FacebookRefund = () => {
 
   useEffect(() => {
     const fetchRefundData = async () => {
-      const token = Auth.getToken(); // Use Auth module to get the token
+      const token = Auth.getToken(); 
       if (!token) {
         setError("User is not authenticated. Please log in.");
         return;
@@ -29,14 +33,16 @@ const FacebookRefund = () => {
           setRefundData(response.data.refundsDetails);
         } else {
           setError("Failed to fetch refund details.");
+          toast.error("Failed to fetch refund details.");
         }
       } catch (err) {
         setError("An error occurred while fetching refund data.");
+        toast.error("An error occurred while fetching refund data.");
       }
     };
 
     const fetchAdsIds = async () => {
-      const token = Auth.getToken(); // Use Auth module to get the token
+      const token = Auth.getToken(); 
       if (!token) {
         setError("User not authenticated.");
         return;
@@ -48,6 +54,7 @@ const FacebookRefund = () => {
         setAdsIds(response.data.adsIds);
       } catch (error) {
         setError("Failed to fetch ads IDs.");
+        toast.error("Failed to fetch ads IDs.");
       }
     };
 
@@ -67,11 +74,13 @@ const FacebookRefund = () => {
     setSuccessMessage(null);
     if (!adAccount || !amount) {
       setError("Please fill in all fields.");
+      toast.error("Please fill in all fields.");
       return;
     }
-    const token = Auth.getToken(); // Use Auth module to get the token
+    const token = Auth.getToken(); 
     if (!token) {
       setError("User is not authenticated. Please log in.");
+      toast.error("User is not authenticated. Please log in.");
       return;
     }
     const requestData = {
@@ -89,20 +98,24 @@ const FacebookRefund = () => {
       if (response.data.message === "Refund applied successfully.") {
         setShowModal(false);
         setSuccessMessage("Refund applied successfully!");
+        toast.success("Refund applied successfully!");
         setAdAccount("");
         setAmount("");
         setRefundData([...refundData, response.data.refund]);
         setTimeout(() => setSuccessMessage(null), 3000);
       } else {
         setError(response.data.message || "Failed to apply refund.");
+        toast.error(response.data.message || "Failed to apply refund.");
       }
     } catch (err) {
       setError(err.response?.data?.message || "An error occurred while applying the refund.");
+      toast.error(err.response?.data?.message || "An error occurred while applying the refund.");
     }
   };
 
   return (
     <div className={styles.container}>
+      <ToastContainer /> 
       {successMessage && <p className={styles.success}>{successMessage}</p>}
       {error && <p className={styles.error}>{error}</p>}
       <button className={styles.button} onClick={() => setShowModal(true)}>
@@ -126,9 +139,15 @@ const FacebookRefund = () => {
                 <tr key={index}>
                   <td>{refund.applyId || "N/A"}</td>
                   <td>{refund.adFacebookAccount?.adsId || "N/A"}</td>
-                  <td>{refund.amount || "N/A"}</td>
-                  <td>{refund.remainMoney || "N/A"}</td>
-                  <td>{refund.applyState || "N/A"}</td>
+                  <td>${refund.amount || "N/A"}</td>
+                  <td>${refund.remainMoney || "N/A"}</td>
+                  {/* <td>{refund.applyState || "N/A"}</td> */}
+                  <td>
+                  <span className={`${styles.state} ${styles[refund.applyState.toLowerCase()]}`}>
+                  {refund.applyState || "N/A"}
+                  </span>
+                  </td>
+
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
                 </tr>
               ))

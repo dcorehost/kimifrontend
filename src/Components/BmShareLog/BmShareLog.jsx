@@ -75,7 +75,12 @@ const BmShareLog = () => {
                     <td>{ad.adsId}</td>
                     <td>{ad.licenseMode}</td>
                     <td>{ad.licenseName}</td>
-                    <td>{ad.state}</td>
+                    {/* <td>{ad.state}</td> */}
+                    <td>
+                    <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                    {ad.state || "N/A"}
+                    </span>
+                    </td>
                     <td>{ad.createdAt}</td>
                     <td>{ad.remarks}</td>
                   </tr>
