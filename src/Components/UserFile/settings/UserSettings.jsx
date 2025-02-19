@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import httpServices from "../../Services/Httpservices.jsx";
 import Auth from "../../Services/Auth.js";
-import styles from "./VerifyEmail.module.css";
+import styles from "./Usersetting.module.css";
 
 const VerifyEmail = () => {
   const [email, setEmail] = useState("");
