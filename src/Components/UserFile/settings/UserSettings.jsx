@@ -1,234 +1,107 @@
-// import React from "react";
-// import styles from "./Usersetting.module.css";
-
-// const UserSetting = () => {
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.section2}>
-//         <h2>Email Verify</h2>
-//         <hr />
-//         <p>Please verify your email address</p>
-//         <input type="email" placeholder="Please enter email" className={styles.input} />
-//         <div>
-//         <button className={styles.button}>Send Email Verify</button>
-//         </div>
-//       </div>
-//       <h2>Two-factor authentication</h2>
-//       <hr />
-//       <div className={styles.section}>
-//         {/* <h2>Two-factor authentication</h2> */}
-//         <div className={styles.lockIcon}>🔒</div>
-//         <p className={styles.status}>Two-factor authentication is not enabled yet</p>
-//         <p className={styles.description}>
-//           Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in
-//         </p>
-//         <button className={styles.button}>Enable two-factor authentication</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserSetting;
-
-
-
-
-// import React, { useEffect, useState } from "react";
-// import axios from "axios";
-// import styles from "./Usersetting.module.css";
-// import Auth from "../../Services/Auth";
-
-// const UserSetting = () => {
-//   const [email, setEmail] = useState("");
-//   const [showOtpInput, setShowOtpInput] = useState(false);
-//   const [otp, setOtp] = useState("");
-//   const token = Auth.getToken();
-
-//   useEffect(() => {
-//     const authData = Auth.getAuthData();
-//     if (authData && authData.emailId) {
-//       setEmail(authData.emailId);
-//     }
-//   }, []);
-
-//   const handleSendVerification = async () => {
-//     if (!email) {
-//       alert("Please enter a valid email.");
-//       return;
-//     }
-
-//     try {
-//       const response = await axios.post(
-//         "https://admediaagency.online/kimi/send-verification-email",
-//         { email },
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-
-//       alert(response.data.message || "Verification email sent! Check your inbox.");
-//       setShowOtpInput(true);
-//     } catch (error) {
-//       console.error("Error sending verification email:", error);
-//       alert(error.response?.data?.message || "Failed to send verification email.");
-//     }
-//   };
-
-//   const handleVerifyOtp = async () => {
-//     if (!otp) {
-//       alert("Please enter the OTP.");
-//       return;
-//     }
-
-//     try {
-//       const response = await axios.post(
-//         "https://admediaagency.online/kimi/verify-email",
-//         { email, otp },
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-
-//       alert(response.data.message || "Email verified successfully!");
-//       setShowOtpInput(false);
-//       setOtp(""); // Clear OTP field
-//     } catch (error) {
-//       console.error("Error verifying OTP:", error);
-//       alert(error.response?.data?.message || "Invalid OTP. Please try again.");
-//     }
-//   };
-
-//   return (
-//     <div className={styles.container}>
-//       <div className={styles.section2}>
-//         <h2>Email Verify</h2>
-//         <hr />
-//         <p>Please verify your email address</p>
-//         <input
-//           type="email"
-//           placeholder="Enter your email"
-//           className={styles.input}
-//           value={email}
-//           disabled
-//         />
-//         <div>
-//           <button className={styles.button} onClick={handleSendVerification}>
-//             Send Email Verify
-//           </button>
-//         </div>
-
-//         {showOtpInput && (
-//           <div className={styles.otpSection}>
-//             <h3>Enter OTP</h3>
-//             <input
-//               type="text"
-//               placeholder="Enter OTP"
-//               className={styles.input}
-//               value={otp}
-//               onChange={(e) => setOtp(e.target.value)}
-//             />
-//             <button className={styles.button} onClick={handleVerifyOtp}>
-//               Submit OTP
-//             </button>
-//           </div>
-//         )}
-//       </div>
-
-//       <h2>Two-Factor Authentication</h2>
-//       <hr />
-//       <div className={styles.section}>
-//         <div className={styles.lockIcon}>🔒</div>
-//         <p className={styles.status}>Two-factor authentication is not enabled yet</p>
-//         <p className={styles.description}>
-//           Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in.
-//         </p>
-//         <button className={styles.button}>Enable Two-Factor Authentication</button>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default UserSetting;
-
-
-
 import React, { useState } from "react";
-import axios from "axios";
+import httpServices from "../../Services/Httpservices.jsx";
+import Auth from "../../Services/Auth.js";
 import styles from "./Usersetting.module.css";
-import Auth from "../../Services/Auth"; // Import Auth to get user data
 
-const UserSetting = () => {
-  const authData = Auth.getAuthData(); // Get user info
-  const [email, setEmail] = useState(authData?.username || ""); // Store email from Auth
+const VerifyEmail = () => {
+  const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [showOtpSection, setShowOtpSection] = useState(false);
-  const [successMessage, setSuccessMessage] = useState("");
+  const [step, setStep] = useState(1); // Step 1: Enter email, Step 2: Enter OTP
+  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  // Handle email input change
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-  };
+  // Get Auth Token
+  const authData = Auth.getAuthData();
+  const token = authData?.token;
 
-  // Send OTP to email
-  const handleSendEmailVerify = async () => {
+  // Send OTP to Email
+  const handleSendOtp = async () => {
     if (!email) {
-      alert("Please enter a valid email.");
+      setError("Please enter your email.");
       return;
     }
 
-    try {
-      const response = await axios.post("https://admediaagency.online/send-verification-email", {
-        email,
-      });
+    setLoading(true);
+    setError("");
+    setMessage("");
 
-      if (response.data.success) {
-        setShowOtpSection(true); // Show OTP input section
-      } else {
-        alert("Failed to send verification email.");
-      }
-    } catch (error) {
-      alert("Error sending verification email.");
+    try {
+      const response = await httpServices.post(
+        "/email-change",
+        { newEmail: email },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setMessage("OTP has been sent to your email.");
+      setStep(2);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to send OTP.");
+    } finally {
+      setLoading(false);
     }
   };
 
   // Verify OTP
   const handleVerifyOtp = async () => {
-    try {
-      const response = await axios.post("https://admediaagency.online/verify-email", {
-        email,
-        otp,
-      });
+    if (!otp) {
+      setError("Please enter the OTP.");
+      return;
+    }
 
-      if (response.data.success) {
-        setSuccessMessage("Email verified successfully! ✅");
-        setShowOtpSection(false); // Hide OTP section after success
-      } else {
-        alert("Invalid OTP. Please try again.");
-      }
-    } catch (error) {
-      alert("Error verifying OTP.");
+    setLoading(true);
+    setError("");
+    setMessage("");
+
+    try {
+      const response = await httpServices.post(
+        "/verify-email",
+        { otp },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      setMessage("Email verified successfully!");
+      setStep(1);
+      setEmail("");
+      setOtp("");
+    } catch (err) {
+      setError(err.response?.data?.message || "OTP verification failed.");
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.section2}>
-        <h2>Email Verify</h2>
-        <hr />
-        <p>Please verify your email address</p>
-        <input
-          type="email"
-          placeholder="Please enter email"
-          className={styles.input}
-          value={email}
-          onChange={handleEmailChange} // ✅ Now email is editable
-        />
-        <div>
-          <button className={styles.button} onClick={handleSendEmailVerify}>
-            Send Email Verify
-          </button>
-        </div>
-      </div>
+      <h2>Email Verification</h2>
+      <hr />
+      <p>Verify your email address</p>
 
-      {showOtpSection && (
-        <div className={styles.otpSection}>
-          <h3>Enter OTP</h3>
+      {step === 1 ? (
+        <>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            className={styles.input}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button className={styles.button} onClick={handleSendOtp} disabled={loading}>
+            {loading ? "Sending..." : "Send OTP"}
+          </button>
+        </>
+      ) : (
+        <>
           <input
             type="text"
             placeholder="Enter OTP"
@@ -236,26 +109,16 @@ const UserSetting = () => {
             value={otp}
             onChange={(e) => setOtp(e.target.value)}
           />
-          <button className={styles.button} onClick={handleVerifyOtp}>
-            Submit OTP
+          <button className={styles.button} onClick={handleVerifyOtp} disabled={loading}>
+            {loading ? "Verifying..." : "Verify OTP"}
           </button>
-        </div>
+        </>
       )}
 
-      {successMessage && <p className={styles.successMessage}>{successMessage}</p>}
-
-      <h2>Two-factor authentication</h2>
-      <hr />
-      <div className={styles.section}>
-        <div className={styles.lockIcon}>🔒</div>
-        <p className={styles.status}>Two-factor authentication is not enabled yet</p>
-        <p className={styles.description}>
-          Two-factor authentication adds an additional layer of security to your account by requiring more than just a password to sign in.
-        </p>
-        <button className={styles.button}>Enable two-factor authentication</button>
-      </div>
+      {message && <p className={styles.success}>{message}</p>}
+      {error && <p className={styles.error}>{error}</p>}
     </div>
   );
 };
 
-export default UserSetting;
+export default VerifyEmail;
