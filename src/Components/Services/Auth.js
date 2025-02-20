@@ -29,7 +29,7 @@
 //   },
 
 //   getToken: () => {
-//     return localStorage.getItem("authToken"); // ✅ Fix: Add this function
+//     return localStorage.getItem("authToken"); // Fix: Add this function
 //   },
 // };
 
@@ -38,18 +38,20 @@
 
 
 const Auth = {
-  login: ({ token, username, typeOfUser, emailId }) => {
+  login: ({ token, username, typeOfUser, emailId ,contact1 }) => {
     localStorage.setItem("authToken", token);
     localStorage.setItem("username", username);
     localStorage.setItem("typeOfUser", typeOfUser);
-    localStorage.setItem("emailId", emailId); // ✅ Store email ID
+    localStorage.setItem("emailId", emailId); 
+    localStorage.setItem("contact1", contact1); 
   },
 
   logout: () => {
     localStorage.removeItem("authToken");
     localStorage.removeItem("username");
     localStorage.removeItem("typeOfUser");
-    localStorage.removeItem("emailId"); // ✅ Remove email on logout
+    localStorage.removeItem("emailId"); 
+    localStorage.removeItem("contact1"); 
   },
 
   isAuthenticated: () => {
@@ -65,7 +67,8 @@ const Auth = {
       token: localStorage.getItem("authToken"),
       username: localStorage.getItem("username"),
       typeOfUser: localStorage.getItem("typeOfUser"),
-      emailId: localStorage.getItem("emailId"), // ✅ Retrieve email
+      emailId: localStorage.getItem("emailId"), 
+      contact1: localStorage.getItem("contact1"), 
     };
   },
 

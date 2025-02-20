@@ -13,22 +13,22 @@ import AdminSidebar from "./Components/AdminSidebar/AdminSidebar";
 
 const Layout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [activeSidebar, setActiveSidebar] = useState("default"); // Sidebar state
-    const navigate = useNavigate(); // For navigation
+    const [activeSidebar, setActiveSidebar] = useState("default"); 
+    const navigate = useNavigate(); 
     const location = useLocation();
 
-    const user = Auth.getAuthData(); // Get authentication data
-    const isAuthenticated = !!user?.token; // Check if the user is logged in
+    const user = Auth.getAuthData(); 
+    const isAuthenticated = !!user?.token; 
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
     };
 
     const handleSidebarChange = (type) => {
-        setActiveSidebar(type); // Update the active sidebar type
-        setIsSidebarOpen(true); // Ensure the sidebar opens when switching
+        setActiveSidebar(type); 
+        setIsSidebarOpen(true); 
         if (type === "default") {
-            navigate("/"); // Navigate to the home route
+            navigate("/"); 
         }
     };
 
@@ -42,7 +42,7 @@ const Layout = () => {
     // Function to render the correct sidebar based on the route
     const renderSidebar = () => {
         const path = location.pathname;
-        // Check if the path contains specific substrings
+        
         if (path.includes("/google")) {
             return <GoogleSidebar isSidebarOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />;
         } else if (path.includes("/bing")) {
