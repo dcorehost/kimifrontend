@@ -27,6 +27,7 @@ const Login = () => {
 
       console.log("Login API Response:", response); 
 
+
       if (response.status === 200) {
         const { token, username, typeOfUser } = response.data || {}; 
         console.log("Received Token:", token); 
@@ -41,10 +42,12 @@ const Login = () => {
         localStorage.setItem("userToken", token);
         localStorage.setItem("username", username);
         localStorage.setItem("typeOfUser", typeOfUser);
+        localStorage.setItem("emailId", emailId);
           
         console.log("Stored Token in LocalStorage:", localStorage.getItem("userToken")); 
+        console.log("Stored Email ID in LocalStorage:", localStorage.getItem("emailId")); 
 
-        Auth.login({ token, username, typeOfUser });
+        Auth.login({ token, username, typeOfUser, emailId });
 
         setShowPopup(true);
 
