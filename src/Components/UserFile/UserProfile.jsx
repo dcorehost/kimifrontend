@@ -22,13 +22,22 @@ const UserProfile = () => {
 
   useEffect(() => {
     const authData = Auth.getAuthData();
+    console.log("Auth Data Retrieved:", authData);  // ✅ Check if authData is being retrieved
+
     if (authData) {
       setUserData({
         username: authData.username || "",
+        emailId: authData.emailId || "",       
+        mobile: authData.mobile || "",
+        // typeOfUser: authData.typeOfUser || "",
+      });
+      console.log("User Data After Setting:", {  // ✅ Checking what gets set
+        username: authData.username || "",
         emailId: authData.emailId || "",
         mobile: authData.mobile || "",
-        typeOfUser: authData.typeOfUser || "",
-      });
+        // typeOfUser: authData.typeOfUser || "",
+    });
+
     } else {
       console.error("Auth data not found or incomplete.");
     }
@@ -147,7 +156,7 @@ const UserProfile = () => {
         </div>
         <section className={styles.emailInfo}>
           <p>
-            You can manage verified email addresses in your{" "}
+            You can change email addresses in your{" "}
             <a href="/dashboard/settings" className={styles.settingsLink}>
               settings
             </a>
@@ -164,10 +173,10 @@ const UserProfile = () => {
             placeholder="Enter your mobile number"
           />
         </div>
-        <div className={styles.infoItem}>
+        {/* <div className={styles.infoItem}>
           <label>User Type</label>
           <input type="text" name="typeOfUser" value={userData.typeOfUser} disabled />
-        </div>
+        </div> */}
         <button className={styles.saveButton} onClick={handleSave}>
           Save Profile
         </button>

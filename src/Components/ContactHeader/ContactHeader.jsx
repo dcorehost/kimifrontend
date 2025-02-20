@@ -14,7 +14,7 @@ const ContactHeader = () => {
       <div className={styles.header}>
         <h1 className={styles.headerText}>Get in touch for more information</h1>
         <p className={styles.headerPara}>
-          You can reach us anytime via <a href="mailto:info@kimiagency.com" className={styles.emailLink}>info@kimiagency.com</a>
+          You can reach us anytime via <a href="mailto:info@admediaagency.online" className={styles.emailLink}>info@admediaagency.online</a>
         </p>
       </div>
 
@@ -33,7 +33,7 @@ const ContactHeader = () => {
           <p>
             We're on top of things and aim to respond to all inquiries within 24 hours.
           </p>
-          <a href="mailto:info@kimiagency.com" className={styles.cardLink}>info@kimiagency.com</a>
+          <a href="mailto:info@admediaagency.online" className={styles.cardLink}>info@admediaagency.online</a>
         </div>
         <div className={styles.card}>
           <FaPhoneAlt className={styles.cardIcon} />

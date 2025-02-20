@@ -85,7 +85,7 @@ const VerifyEmail = () => {
     <div className={styles.container}>
       <h2>Email Verification</h2>
       <hr />
-      <p>Verify your email address</p>
+      <p>Enter your email address</p>
 
       {step === 1 ? (
         <>
