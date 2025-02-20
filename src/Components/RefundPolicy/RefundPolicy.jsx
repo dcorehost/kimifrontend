@@ -32,8 +32,8 @@ const RefundPolicy = () => {
      </h2>
       <p className={style.paragraph}> 
          <span> <FaArrowRight /> </span> 
-         To request a refund, please contact our customer support team at support group or email to us at<Link to="mailto:info@kimiagency.com" className={style.cursor}>
-                 info@kimiagency.com
+         To request a refund, please contact our customer support team at support group or email to us at<Link to="mailto:info@admediaagency.online" className={style.cursor}>
+                 info@admediaagency.online
            </Link>,team will provide your order details.  
       </p>
       <p className={style.paragraph}> 

@@ -98,8 +98,8 @@ const Privacy = () => {
  
       <p className={style.paragraph}> 
           If you have any questions or concerns about our Privacy Policy or data practices, please contact us at email
-           <Link to="mailto:info@kimiagency.com" className={style.cursor}>
-                 info@kimiagency.com
+           <Link to="mailto:info@admediaagency.online" className={style.cursor}>
+                 info@admediaagency.online
            </Link>
       </p>   
 
