@@ -6,7 +6,7 @@ import styles from "./Usersetting.module.css";
 const VerifyEmail = () => {
   const [email, setEmail] = useState("");
   const [otp, setOtp] = useState("");
-  const [step, setStep] = useState(1); // Step 1: Enter email, Step 2: Enter OTP
+  const [step, setStep] = useState(1); 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
@@ -85,7 +85,7 @@ const VerifyEmail = () => {
     <div className={styles.container}>
       <h2>Email Verification</h2>
       <hr />
-      <p>Verify your email address</p>
+      <p>Enter your email address</p>
 
       {step === 1 ? (
         <>

@@ -26,7 +26,7 @@ const ReadyToStart = () => {
         </p>
         
         <p className={styles.email}>
-          <FaEnvelope className={styles.icon} /> <strong>Email:</strong> info@kimiagency.com
+          <FaEnvelope className={styles.icon} /> <strong>Email:</strong> info@admediaagency.online
         </p>
       </div>
     </div>

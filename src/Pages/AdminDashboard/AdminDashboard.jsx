@@ -97,7 +97,7 @@ const AdminDashboard = () => {
           <div className={styles.statsGrid}>
             <Card title="Total Users" value={totalUsers} link="/admin/dashboard/UserAdsInformation" />
             <Card title="Total Revenue" value={`$${totalRevenue}`} />
-            <Card title="Active Users" value={activeUsers} link="/active-users" /> 
+            <Card title="Active Users" value={activeUsers} link="/admin/dashboard/activeuser" /> 
           </div>
         )}
 
