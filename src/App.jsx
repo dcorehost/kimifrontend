@@ -74,10 +74,13 @@ const App = () => {
     <Router>
       <Routes>
         {/*  routes for  pages */}
-        <Route path="/" element={<Layout />}>
+        {/* testing */}
+        <Route path="/" element={<Layout />}>    
+        <Route path="/homepage" element={<Homepage />} />
+
+
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/homepage" element={<Homepage />} />
           <Route index element={<RedirectToDashboard />} />
           <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/meta-ads" element={<MetaAds />} />
