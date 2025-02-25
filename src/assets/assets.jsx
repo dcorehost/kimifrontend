@@ -1,4 +1,5 @@
 import logo from './logo.png';
+import admedialogo from './admedialogo.png';
 import bing from './bing.png';
 import facebook from './facebook.png';
 import google from './google.png';
@@ -35,6 +36,7 @@ export const assets={
   advantagebing,
   whatisgoogle,
   advantagegoogle,
+  admedialogo,
 }
 // import adAccountsImage from './assets/ad-accounts.png';
 // import managePanelImage from './assets/manage-panel.png';

@@ -28,7 +28,7 @@ const Navbar = () => {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <img src={assets.logo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
+        <img src={assets.admedialogo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
       </div>
       <div className={styles.menuToggle} onClick={toggleMenu}>
         {menuOpen ? '✖' : '☰'}
