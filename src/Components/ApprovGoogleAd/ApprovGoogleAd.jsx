@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify"; 
 import "react-toastify/dist/ReactToastify.css"; 
@@ -107,13 +106,14 @@ const ApprovGoogleAd = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>Ad ID</th>
+              <th>ApplyId</th>
+              <th>UserName</th>
+              <th>UserEmail</th>
               <th>Ad Number</th>
-              <th>Gmail</th>
+              <th>Applied Gmail</th>
               <th>State</th>
               <th>Total Cost</th>
               <th>Account Open Fee</th>
-              <th>User ID</th>
               <th>Total Deposit</th>
               <th>Create Time</th>
               <th>Updated Time</th>
@@ -123,21 +123,20 @@ const ApprovGoogleAd = () => {
           <tbody>
             {adsData.map((ad) => (
               <tr key={ad._id}>
-                <td>{ad._id}</td>
+                <td>{ad.applyId}</td>
+                <td>{ad.userId ? ad.userId.username : "N/A"}</td>
+                <td>{ad.userId?.contact?.emailId || "N/A"}</td>
                 <td>{ad.adNum}</td>
                 <td>
                   {ad.adsDetails?.length > 0 ? ad.adsDetails.map((detail) => detail.gmail).join(", ") : "N/A"}
                 </td>
-                {/* <td>{ad.state}</td> */}
-                  <td>
-                                        <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
-                                         {ad.state || "N/A"}
-                                         </span>
-                                       </td>
-                
+                <td>
+                  <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                    {ad.state || "N/A"}
+                  </span>
+                </td>
                 <td>${ad.totalCost}</td>
                 <td>${ad.accountOpenFee}</td>
-                <td>{ad.userId}</td>
                 <td>${ad.totalDeposit}</td>
                 <td>{formatDate(ad.createdAt)}</td>
                 <td>{formatDate(ad.updatedAt)}</td>
@@ -154,7 +153,7 @@ const ApprovGoogleAd = () => {
                     onClick={() => handleUpdateState(ad._id, "reject")}
                     disabled={ad.state === "Reject"}
                   >
-                    Disapprove
+                    Reject
                   </button>
                 </td>
               </tr>

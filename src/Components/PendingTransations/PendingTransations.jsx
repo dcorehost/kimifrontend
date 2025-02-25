@@ -1,4 +1,6 @@
 
+
+
 import React, { useEffect, useState } from "react";
 import styles from "./PendingTransations.module.css";
 import Httpservices from "../Services/Httpservices";
@@ -27,7 +29,6 @@ const PendingTransaction = () => {
     try {
       console.log("Fetching Transactions...");
       const response = await Httpservices.get("/get-transaction-details");
-
       console.log("Response:", response);
 
       if (
@@ -51,11 +52,9 @@ const PendingTransaction = () => {
   const handleUpdateState = async (id, action) => {
     try {
       console.log(`Updating transaction ID: ${id} to ${action}`);
-
       const response = await Httpservices.put(
         `/approve-transaction?id=${id}&action=${action}`
       );
-
       console.log("API Response:", response);
 
       if (response.data.message === "Transaction is already Completed") {
@@ -68,7 +67,6 @@ const PendingTransaction = () => {
               : transaction
           )
         );
-
         toast.success(`Transaction ${action}d successfully!`);
       }
     } catch (error) {
@@ -90,8 +88,9 @@ const PendingTransaction = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>ID</th>
               <th>Apply ID</th>
+              <th>Username</th>
+              <th>Email</th>
               <th>Charge Money</th>
               <th>Transaction ID</th>
               <th>State</th>
@@ -104,17 +103,16 @@ const PendingTransaction = () => {
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction._id}>
-                <td>{transaction._id}</td>
                 <td>{transaction.applyId}</td>
+                <td>{transaction.userId?.username || "N/A"}</td>
+                <td>{transaction.userId?.contact?.emailId || "N/A"}</td>
                 <td>${transaction.chargeMoney}</td>
                 <td>{transaction.transactionId}</td>
-                {/* <td>{transaction.state}</td> */}
-                  <td>
-                                        <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
-                                         {transaction.state || "N/A"}
-                                         </span>
-                                       </td>
-                
+                <td>
+                  <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
+                    {transaction.state || "N/A"}
+                  </span>
+                </td>
                 <td>{transaction.payway}</td>
                 <td>{formatDate(transaction.createdAt)}</td>
                 <td>

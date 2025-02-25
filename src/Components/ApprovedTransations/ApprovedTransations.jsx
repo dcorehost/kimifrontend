@@ -63,32 +63,36 @@ const ApprovedTransactions = () => {
         <table className={styles.table}>
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Apply ID</th>
+            <th>Apply ID</th>
+
+              <th>Username</th>
+              <th>Email</th>
               <th>Charge Money</th>
               <th>Transaction ID</th>
               <th>State</th>
               <th>Payment Method</th>
               <th>Created At</th>
+              <th>Updated At</th>
               <th>Transaction Image</th>
             </tr>
           </thead>
           <tbody>
             {transactions.map((transaction) => (
               <tr key={transaction._id}>
-                <td>{transaction._id}</td>
-                <td>{transaction.applyId}</td>
+              <td>{transaction.applyId}</td>
+
+                <td>{transaction.userId?.username || "N/A"}</td>
+                <td>{transaction.userId?.contact?.emailId || "N/A"}</td>
                 <td>${transaction.chargeMoney}</td>
                 <td>{transaction.transactionId}</td>
-                {/* <td>{transaction.state}</td> */}
                 <td>
-                        <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
-                         {transaction.state || "N/A"}
-                         </span>
-                       </td>
-
+                  <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
+                    {transaction.state || "N/A"}
+                  </span>
+                </td>
                 <td>{transaction.payway}</td>
                 <td>{formatDate(transaction.createdAt)}</td>
+                <td>{formatDate(transaction.updatedAt)}</td>
                 <td>
                   <img
                     src={transaction.image}

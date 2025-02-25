@@ -71,7 +71,7 @@ const GoogleAdsDeposite = () => {
   const updateTotals = (rows) => {
     const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
     setTotalDeposit(total);
-    setTotalCost(total * 1.35); 
+    setTotalCost(total * 1.15); 
   };
 
   const addRow = () => {

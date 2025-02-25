@@ -41,7 +41,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           {/* Ad Approval */}
           <li>
             <button onClick={() => toggleMenu("adApproval")} className={`${styles.link} ${styles.walletToggle}`}>
-              <i className="fas fa-check-circle"></i> {isSidebarOpen && "Pending Ad Approval"}
+              <i className="fas fa-check-circle"></i> {isSidebarOpen && "Ads Approval"}
               <i className={`fas ${openMenus.adApproval ? "fa-chevron-up" : "fa-chevron-down"} ${styles.chevron}`}></i>
             </button>
             {openMenus.adApproval && (
