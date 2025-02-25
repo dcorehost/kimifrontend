@@ -60,10 +60,14 @@ const CompletedFacebookAdDeposite = () => {
             <tr>
               <th>Apply ID</th>
               <th>Ads Id</th>
+              <th>Username</th>
+              <th>Email ID</th>
+              <th>TransactionId</th>
               <th>Money</th>
               <th>State</th>
               <th>Total Cost</th>
               <th>Created Time</th>
+              <th>Updated Time</th>
             </tr>
           </thead>
           <tbody>
@@ -71,6 +75,9 @@ const CompletedFacebookAdDeposite = () => {
               <tr key={deposit.applyId}>
                 <td>{deposit.applyId}</td>
                 <td>{deposit.adsId}</td>
+                <td>{deposit.userId?.username || "N/A"}</td>
+                <td>{deposit.userId?.contact?.emailId || "N/A"}</td>
+                <td>{deposit.transactionId}</td>
                 <td>${deposit.money}</td>
                 {/* <td>{deposit.state}</td> */}
                 <td>
@@ -81,6 +88,8 @@ const CompletedFacebookAdDeposite = () => {
 
                 <td>${deposit.totalCost}</td>
                 <td>{formatDate(deposit.createdAt)}</td>
+                <td>{formatDate(deposit.updatedAt)}</td>
+
               </tr>
             ))}
           </tbody>

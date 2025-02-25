@@ -69,6 +69,7 @@ const UserAdsPage = () => {
                 <th>Country</th>
                 <th>Pincode</th>
                 <th>Wallet Balance</th>
+                <th>Login</th>
               </tr>
             </thead>
             <tbody>
@@ -85,6 +86,7 @@ const UserAdsPage = () => {
                   <td>{user.address?.country || 'N/A'}</td>
                   <td>{user.address?.pincode || 'N/A'}</td>
                   <td>${user.wallet || '0.00'}</td>
+                  <td><button>Login</button></td>
                 </tr>
               ))}
             </tbody>
