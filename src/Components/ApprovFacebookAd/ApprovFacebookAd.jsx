@@ -116,6 +116,7 @@ const ApprovFacebookAd = () => {
               <th>Ads (Accounts & Deposits)</th>
               <th>Remarks</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
               <th>Created At</th>
               <th>Updated At</th>
@@ -157,6 +158,8 @@ const ApprovFacebookAd = () => {
                 <td className={`${styles.state} ${styles[ad.state?.toLowerCase()]}`}>
                   {ad.state || "N/A"}
                 </td>
+                <td>${ad.userId ?. wallet}</td>
+
                 <td>${ad.totalCost}</td>
                 <td>{formatDate(ad.createdAt)}</td>
                 <td>{formatDate(ad.updatedAt)}</td>

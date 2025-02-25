@@ -48,6 +48,8 @@ const CompleteGoogleAdDeposite = () => {
 
   return (
     <div className={styles.container}>
+      <h2>Approved Google Ads Deposits</h2>
+
       <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
@@ -65,7 +67,9 @@ const CompleteGoogleAdDeposite = () => {
               <th>TransactionId</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
+              <th>Remarks</th>
               <th>Created Time</th>
               <th>Updated Time</th>
             </tr>
@@ -86,7 +90,10 @@ const CompleteGoogleAdDeposite = () => {
                          </span>
                        </td>
 
+                <td>${deposit.userId?.wallet}</td>
                 <td>${deposit.totalCost}</td>
+                <td>{deposit.remarks}</td>
+
                 <td>{formatDate(deposit.createdAt)}</td>
                 <td>{formatDate(deposit.updatedAt)}</td>
               </tr>

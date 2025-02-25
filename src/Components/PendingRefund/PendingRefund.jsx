@@ -145,6 +145,7 @@ const PendingRefund = () => {
               <th>Amount</th>
               <th>Remaining Balance</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Created Time</th>
               <th>Actions</th>
             </tr>
@@ -184,6 +185,8 @@ const PendingRefund = () => {
                       {refund.applyState || "N/A"}
                     </span>
                   </td>
+                  <td>${refund.userId?.wallet}</td>
+
                   <td>{formatDate(refund.createdAt)}</td>
                   <td className={styles.operate}>
                     {selectedRefund?.applyId === refund.applyId && selectedRefund.action === "approve" ? (

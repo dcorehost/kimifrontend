@@ -90,6 +90,7 @@ const ApprovBingAd = () => {
               <th>Ad Number</th>
               <th>Ads Details</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
               <th>Total Deposit</th>
               <th>Create Time</th>
@@ -124,6 +125,7 @@ const ApprovBingAd = () => {
                     {ad.state || "N/A"}
                   </span>
                 </td>
+                <td>${ad.userId ?. wallet}</td>
                 <td>${ad.totalCost}</td>
                 <td>${ad.totalDeposit}</td>
                 <td>{formatDate(ad.createdAt)}</td>

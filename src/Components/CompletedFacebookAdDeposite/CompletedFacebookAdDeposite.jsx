@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./CompletedFacebookAdDeposite.module.css"; // Updated filename for Facebook
+import styles from "./CompletedFacebookAdDeposite.module.css"; 
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
 
@@ -65,7 +65,9 @@ const CompletedFacebookAdDeposite = () => {
               <th>TransactionId</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
+              <th>Remarks</th>
               <th>Created Time</th>
               <th>Updated Time</th>
             </tr>
@@ -86,7 +88,9 @@ const CompletedFacebookAdDeposite = () => {
                          </span>
                        </td>
 
+                <td>${deposit.userId?.wallet}</td>
                 <td>${deposit.totalCost}</td>
+                <td>{deposit.remarks}</td>
                 <td>{formatDate(deposit.createdAt)}</td>
                 <td>{formatDate(deposit.updatedAt)}</td>
 

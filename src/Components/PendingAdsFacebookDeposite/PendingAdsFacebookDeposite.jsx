@@ -109,9 +109,10 @@ const PendingAdsFacebookDeposite = () => {
               <th>Apply ID</th>
               <th>Ads ID</th>
               <th>Username</th>
-              <th>Email ID</th>
+              <th>Email</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
               <th>Created Time</th>
               <th>Operate</th>
@@ -130,6 +131,8 @@ const PendingAdsFacebookDeposite = () => {
                     {deposit.state || "N/A"}
                   </span>
                 </td>
+                <td>${deposit.userId?.wallet}</td>
+
                 <td>${deposit.totalCost}</td>
                 <td>{new Date(deposit.createdAt).toLocaleString()}</td>
                 <td className={styles.operate}>

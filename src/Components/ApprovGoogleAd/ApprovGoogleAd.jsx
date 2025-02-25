@@ -109,6 +109,7 @@ const ApprovGoogleAd = () => {
               <th>Ad Number</th>
               <th>Applied Gmail</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
               <th>Account Open Fee</th>
               <th>Total Deposit</th>
@@ -131,6 +132,7 @@ const ApprovGoogleAd = () => {
                     {ad.state || "N/A"}
                   </span>
                 </td>
+                <td>${ad.userId ?. wallet}</td>
                 <td>${ad.totalCost}</td>
                 <td>${ad.accountOpenFee}</td>
                 <td>${ad.totalDeposit}</td>

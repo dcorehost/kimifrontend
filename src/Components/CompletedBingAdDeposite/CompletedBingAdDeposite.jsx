@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import styles from "./CompletedBingAdDeposite.module.css"; // Adjusted filename
+import styles from "./CompletedBingAdDeposite.module.css"; 
 import Httpservices from "../Services/Httpservices";
 import Auth from "../Services/Auth";
 
@@ -48,6 +48,8 @@ const CompletedBingAdDeposite = () => {
 
   return (
     <div className={styles.container}>
+       <h2>Approved Bing Ads Deposits</h2>
+
       <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
@@ -65,7 +67,9 @@ const CompletedBingAdDeposite = () => {
               <th>TransactionId</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
+              <th>Remarks</th>
               <th>Created Time</th>
               <th>Updated Time</th>
             </tr>
@@ -79,14 +83,16 @@ const CompletedBingAdDeposite = () => {
                 <td>{deposit.userId?.contact?.emailId || "N/A"}</td>
                 <td>{deposit.transactionId}</td>
                 <td>${deposit.money}</td>
-                {/* <td>{deposit.state}</td> */}
                 <td>
                         <span className={`${styles.state} ${styles[deposit.state.toLowerCase()]}`}>
                          {deposit.state || "N/A"}
                          </span>
                        </td>
 
+                <td>${deposit.userId?.wallet}</td>
                 <td>${deposit.totalCost}</td>
+                <td>{deposit.remarks}</td>
+
                 <td>{formatDate(deposit.createdAt)}</td>
                 <td>{formatDate(deposit.updatedAt)}</td>
               </tr>

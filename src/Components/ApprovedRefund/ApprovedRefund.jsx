@@ -77,10 +77,11 @@ const ApprovedRefund = () => {
               <th>TransactionId</th>
               <th>Account Name </th>
               <th>Deposit </th>
-              <th>Remarks</th>
+              <th>Facebook Remarks</th>
               <th>Amount</th>
               <th>Remaining Money</th>
-              <th>Apply State</th>
+              <th>State</th>
+              <th>Wallet Amount</th>
               <th>Refund Reason</th>
               <th>Created At</th>
               <th>Updated At</th>
@@ -130,7 +131,9 @@ const ApprovedRefund = () => {
                       {refund.applyState || "N/A"}
                     </span>
                   </td>
-                  <td>{refund.refundReason || "N/A"}</td>
+                  <td>${refund.userId?.wallet}</td>
+
+                  <td>{refund.remarks || "N/A"}</td>
                   <td>{formatDate(refund.createdAt)}</td>
                   <td>{formatDate(refund.updatedAt)}</td>
                 </tr>
