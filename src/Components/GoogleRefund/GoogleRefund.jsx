@@ -143,6 +143,9 @@ const GoogleRefund = () => {
               <th>Remaining Money</th>
               <th>Apply State</th>
               <th>Created At</th>
+              <th>Remarks</th>
+              <th>TransactionId</th>
+              <th>Updated Time</th>
             </tr>
           </thead>
           <tbody>
@@ -161,6 +164,9 @@ const GoogleRefund = () => {
                        </td>
                   
                   <td>{new Date(refund.createdAt).toLocaleString() || "N/A"}</td>
+                  <td>{refund.remarks || "N/A"}</td>
+                  <td>{refund.transactionId || "N/A"}</td>
+                  <td>{new Date(refund.updatedAt).toLocaleString() || "N/A"}</td>
                 </tr>
               ))
             ) : (

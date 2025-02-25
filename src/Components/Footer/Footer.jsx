@@ -11,7 +11,7 @@ const Footer = () => {
     <footer className={styles.footer}>
       <div className={styles.section}>
         <div className={styles.logo}>
-          <img src={assets.logo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
+          <img src={assets.admedialogo} alt="AdMedia Agency Logo" className={styles.kimilogo} />
         </div>
         <p>
           AdMedia Agency provides cross-border platform Meta, Google,
