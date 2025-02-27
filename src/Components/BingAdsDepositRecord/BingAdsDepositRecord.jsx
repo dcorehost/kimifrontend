@@ -27,13 +27,18 @@ const BingAdsDepositRecord = () => {
 
         if (response.data.message === "Deposits details fetched successfully" && Array.isArray(response.data.deposits)) {
           const deposits = response.data.deposits.map((deposit) => ({
-          
             applyId: deposit.applyId || "N/A",
             adsId: deposit.adsId || "N/A",
             chargeMoney: `$${deposit.money.toFixed(2)}`,
             totalCost: `$${deposit.totalCost.toFixed(2)}`,
             state: deposit.state || "Unknown",
             createTime: deposit.createdAt ? new Date(deposit.createdAt).toLocaleString() : "N/A",
+            updateTime: deposit.updatedAt ? new Date(deposit.updatedAt).toLocaleString() : "N/A",
+            username: deposit.userId?.username || "N/A",
+            email: deposit.userId?.contact?.emailId || "N/A",
+            wallet: `$${deposit.userId?.wallet?.toFixed(2)}` || "N/A",
+            transactionId: deposit.transactionId || "N/A",
+            remarks: deposit.remarks || "N/A",
           }));
 
           setDepositsData(deposits);
@@ -91,36 +96,51 @@ const BingAdsDepositRecord = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-          
                 <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
+                <th>Wallet</th>
+                <th>Transaction ID</th>
+
+
                 <th>Create Time</th>
+                <th>Updated Time</th>
+               
+                <th>Remarks</th>
               </tr>
             </thead>
             <tbody>
               {depositsData.length > 0 ? (
                 depositsData.map((row, index) => (
                   <tr key={index}>
-                  
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
+                    <td>{row.username}</td>
+                    <td>{row.email}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    {/* <td>{row.state}</td> */}
-                     <td>
-                     <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
-                     {row.state || "N/A"}
-                     </span>
-                     </td>
+                    <td>
+                      <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                        {row.state || "N/A"}
+                      </span>
+                    </td>
+                    <td>{row.wallet}</td>
+                    <td>{row.transactionId}</td>
+
+
                     <td>{row.createTime}</td>
+                    <td>{row.updateTime}</td>
+                   
+                    <td>{row.remarks}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="8">No deposit data available</td>
+                  <td colSpan="11">No deposit data available</td>
                 </tr>
               )}
             </tbody>

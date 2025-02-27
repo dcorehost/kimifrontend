@@ -28,8 +28,6 @@ const AdsDepositeRecordTable = () => {
           }
         );
 
-        // console.log("API Response:", response.data);
-
         if (
           response.data.message === "Deposits details fetched successfully" &&
           Array.isArray(response.data.deposits)
@@ -40,8 +38,14 @@ const AdsDepositeRecordTable = () => {
               adsId: deposit.adsId || "N/A",
               chargeMoney: `$${deposit.money}`,
               totalCost: `$${deposit.totalCost}`,
-              state: deposit.state,
+              state: deposit.state || "N/A",
               createTime: new Date(deposit.createdAt).toLocaleString(),
+              updateTime: new Date(deposit.updatedAt).toLocaleString(),
+              transactionId: deposit.transactionId || "N/A",
+              remarks: deposit.remarks || "N/A",
+              username: deposit.userId?.username || "N/A",
+              email: deposit.userId?.contact?.emailId || "N/A",
+              wallet: `$${deposit.userId?.wallet?.toFixed(2)}` || "N/A",
             };
           });
           setDepositsData(deposits);
@@ -108,10 +112,17 @@ const AdsDepositeRecordTable = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
+                <th>Transaction ID</th>
+                <th>Remarks</th>
+                
+                <th>Wallet Balance</th>
                 <th>Create Time</th>
+                <th>Updated Time</th>
               </tr>
             </thead>
             <tbody>
@@ -120,22 +131,26 @@ const AdsDepositeRecordTable = () => {
                   <tr key={index}>
                     <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
+                    <td>{row.username}</td>
+                    <td>{row.email}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    {/* <td>{row.state}</td> */}
-                     <td>
+                    <td>
                       <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
-                      {row.state || "N/A"}
+                        {row.state}
                       </span>
-                      </td>
-                   
-                    
+                    </td>
+                    <td>{row.transactionId}</td>
+                    <td>{row.remarks}</td>
+                  
+                    <td>{row.wallet}</td>
                     <td>{row.createTime}</td>
+                    <td>{row.updateTime}</td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7">No deposit data available</td>
+                  <td colSpan="11">No deposit data available</td>
                 </tr>
               )}
             </tbody>

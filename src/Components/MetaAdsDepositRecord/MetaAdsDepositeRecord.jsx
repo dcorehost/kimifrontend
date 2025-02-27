@@ -18,7 +18,7 @@ const MetaAdsDepositRecord = () => {
       setLoading(true);
       setError(null);
       
-      const { token, username, typeOfUser } = Auth.getAuthData(); // Retrieve token & user data
+      const { token, username, typeOfUser } = Auth.getAuthData(); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -45,6 +45,13 @@ const MetaAdsDepositRecord = () => {
             totalCost: `$${deposit.totalCost}`,
             state: deposit.state,
             createTime: new Date(deposit.createdAt).toLocaleString(),
+            updatedTime: new Date(deposit.updatedAt).toLocaleString(),
+            transactionId: deposit.transactionId || "N/A",
+            remarks: deposit.remarks || "N/A",
+            username: deposit.userId?.username || "N/A",
+            email: deposit.userId?.contact?.emailId || "N/A",
+            wallet: `$${deposit.userId?.wallet.toFixed(2)}` || "N/A"
+           
           }));
           setDepositsData(deposits);
         } else {
@@ -115,29 +122,45 @@ const MetaAdsDepositRecord = () => {
           <table className={styles.table}>
             <thead>
               <tr>
-                <th>Apply ID</th>
+              <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>Username</th>
+                <th>Email</th>
                 <th>Charge Money</th>
                 <th>Total Cost</th>
                 <th>State</th>
+                <th>Wallet</th>
+
+                <th>Transaction ID</th>
+                <th>Remarks</th>
+               
                 <th>Create Time</th>
+                <th>Updated Time</th>
+              
               </tr>
             </thead>
             <tbody>
               {depositsData.length > 0 ? (
                 depositsData.map((row, index) => (
                   <tr key={index}>
-                    <td>{row.applyId}</td>
+                   <td>{row.applyId}</td>
                     <td>{row.adsId}</td>
+                    <td>{row.username}</td>
+                    <td>{row.email}</td>
                     <td>{row.chargeMoney}</td>
                     <td>{row.totalCost}</td>
-                    {/* <td>{row.state}</td> */}
-                     <td>
+                    <td>
                      <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
-                     {row.state || "N/A"}
+                      {row.state || "N/A"}
                      </span>
-                     </td>
+                    </td>
+                    <td>{row.wallet}</td>
+
+                    <td>{row.transactionId}</td>
+                    <td>{row.remarks}</td>
+                    
                     <td>{row.createTime}</td>
+                    <td>{row.updatedTime}</td>
                   </tr>
                 ))
               ) : (
@@ -154,3 +177,132 @@ const MetaAdsDepositRecord = () => {
 };
 
 export default MetaAdsDepositRecord;
+
+// import React, { useEffect, useState } from "react";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import styles from "./MetaAdsDepositRecord.module.css";
+// import Auth from "../Services/Auth";
+
+// const MetaAdsDepositRecord = () => {
+//   const [depositsData, setDepositsData] = useState([]);
+//   const [error, setError] = useState(null);
+//   const [successMessage, setSuccessMessage] = useState(null);
+//   const [loading, setLoading] = useState(false);
+//   const navigate = useNavigate();
+
+//   useEffect(() => {
+//     const fetchDepositsData = async () => {
+//       setLoading(true);
+//       setError(null);
+      
+//       const { token } = Auth.getAuthData(); 
+
+//       if (!token) {
+//         setError("User is not authenticated. Please log in.");
+//         setLoading(false);
+//         return;
+//       }
+
+//       try {
+//         const response = await axios.get(
+//           "https://admediaagency.online/kimi/get-Facebook-adDeposit",
+//           { headers: { Authorization: `Bearer ${token}` } }
+//         );
+
+//         console.log("API Response:", response.data);
+
+//         if (
+//           response.data.message === "Deposits details fetched successfully" &&
+//           Array.isArray(response.data.deposits)
+//         ) {
+//           const deposits = response.data.deposits.map((deposit) => ({
+//             applyId: deposit.applyId,
+//             adsId: deposit.adsId,
+//             chargeMoney: `$${deposit.money}`,
+//             totalCost: `$${deposit.totalCost}`,
+//             state: deposit.state,
+//             createTime: new Date(deposit.createdAt).toLocaleString(),
+//             transactionId: deposit.transactionId || "N/A",
+//             remarks: deposit.remarks || "N/A",
+//             username: deposit.userId?.username || "N/A",
+//             email: deposit.userId?.contact?.emailId || "N/A",
+//             wallet: `$${deposit.userId?.wallet.toFixed(2)}` || "N/A"
+//           }));
+//           setDepositsData(deposits);
+//         } else {
+//           setError("Failed to fetch deposit data.");
+//         }
+//       } catch (err) {
+//         console.error("Error fetching deposit data:", err.message);
+//         setError("An error occurred while fetching deposit data.");
+//       } finally {
+//         setLoading(false);
+//       }
+//     };
+
+//     fetchDepositsData();
+//   }, []);
+
+//   return (
+//     <div className={styles.container}>
+//       {successMessage && <p className={styles.success}>{successMessage}</p>}
+//       {error && <p className={styles.error}>{error}</p>}
+
+//       <div className={styles.tableContainer}>
+//         {loading ? (
+//           <p className={styles.loading}>Loading deposit records...</p>
+//         ) : error ? (
+//           <p className={styles.error}>{error}</p>
+//         ) : (
+//           <table className={styles.table}>
+//             <thead>
+//               <tr>
+//                 <th>Apply ID</th>
+//                 <th>Ads ID</th>
+//                 <th>Charge Money</th>
+//                 <th>Total Cost</th>
+//                 <th>State</th>
+//                 <th>Transaction ID</th>
+//                 <th>Remarks</th>
+//                 <th>Username</th>
+//                 <th>Email</th>
+//                 <th>Wallet</th>
+//                 <th>Create Time</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {depositsData.length > 0 ? (
+//                 depositsData.map((row, index) => (
+//                   <tr key={index}>
+                    // <td>{row.applyId}</td>
+                    // <td>{row.adsId}</td>
+                    // <td>{row.chargeMoney}</td>
+                    // <td>{row.totalCost}</td>
+                    // <td>
+                    //   <span className={`${styles.state} ${styles[row.state.toLowerCase()]}`}>
+                    //     {row.state || "N/A"}
+                    //   </span>
+                    // </td>
+                    // <td>{row.transactionId}</td>
+                    // <td>{row.remarks}</td>
+                    // <td>{row.username}</td>
+                    // <td>{row.email}</td>
+                    // <td>{row.wallet}</td>
+                    // <td>{row.createTime}</td>
+//                   </tr>
+//                 ))
+//               ) : (
+//                 <tr>
+//                   <td colSpan="11">No deposit data available</td>
+//                 </tr>
+//               )}
+//             </tbody>
+//           </table>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MetaAdsDepositRecord;
