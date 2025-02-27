@@ -47,10 +47,14 @@ const Table = () => {
               gmail: ad.adsDetails[0]?.gmail,
               totalCost: ad.totalCost,
               state: ad.state,
+              wallet: ad.userId?.wallet,
               createTime: ad.createdAt,
+              UpdatedTime: ad.updatedAt,
               _id: ad._id,
               applyId: ad.applyId,
               adNum: ad.adNum,
+              username: ad.userId?.username || "N/A", 
+              emailId: ad.userId?.contact?.emailId || "N/A", 
             }))
           );
           setTotalAds(response.data.ads.length || 0);
@@ -126,30 +130,43 @@ const Table = () => {
           <table className={styles.table}>
             <thead>
               <tr>
+              <th>Apply ID</th>
                 <th>Ads ID</th>
-                <th>Apply ID</th>
+                <th>UserName</th>
+                <th>Email</th>
                 <th>Ad Number</th>
-                <th>Gmail</th>
+                <th>Applied Gmail</th>
                 <th>Total Cost</th>
                 <th>State</th>
+                <th>Wallet</th>
                 <th>Create Time</th>
+                <th>Updated Time</th>
                 <th>Operate</th>
               </tr>
             </thead>
             <tbody>
               {adsData.map((ad, index) => (
                 <tr key={index} className={styles.tableRow}>
-                  <td>{ad.adsId || "N/A"}</td>
-                  <td>{ad.applyId || "N/A"}</td>
-                  <td>{ad.adNum || "N/A"}</td>
-                  <td>{ad.gmail || "N/A"}</td>
+                  <td>{ad.applyId}</td>
+
+                  <td>{ad.adsId}</td>
+                  
+                  <td>{ad.username}</td>
+                  <td>{ad.emailId}</td>
+                  <td>{ad.adNum}</td>
+                  <td>{ad.gmail}</td>
                   <td>{ad.totalCost ? `$${ad.totalCost.toFixed(2)}` : "N/A"}</td>
                   <td>
                     <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
                       {ad.state || "N/A"}
                     </span>
                   </td>
+                  {/* <td>{ad.wallet}</td> */}
+                  <td>{ad.wallet ? `$${ad.wallet.toFixed(2)}` : "N/A"}</td>
+
+
                   <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
+                  <td>{new Date(ad.UpdatedTime).toLocaleString() || "N/A"}</td>
                   <td>
                     <button className={styles.shareButton} onClick={() => handleShare(ad.adsId)}>
                       Share

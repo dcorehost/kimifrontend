@@ -30,9 +30,13 @@ const BingAccountList = () => {
             adNumber: ad.adNum,
             state: ad.state,
             totalCost: ad.totalCost,
-            applyTime: ad.createdAt,
+            createTime: ad.createdAt,
+            UpdatedTime: ad.updatedAt,
             applyId: ad.applyId,
-            adsDetails: ad.adsDetails,
+            adsDetails: ad.adsDetails || [], 
+            wallet: ad.userId?.wallet,
+            username: ad.userId?.username || "N/A", 
+            emailId: ad.userId?.contact?.emailId || "N/A", 
           }));
           setAdsData(ads); 
         } else {
@@ -69,29 +73,52 @@ const BingAccountList = () => {
             <thead>
               <tr>
                 <th>Apply ID</th>
+                <th>Ads ID</th> 
+                <th>User Name</th>
+                <th>Email</th>
                 <th>Ad Number</th>
+                <th>Ads Details</th>
                 <th>State</th>
                 <th>Total Cost</th>
-                <th>Apply Time</th>
-                <th>Ads ID</th> 
+                <th>Wallet Amount</th>
+                <th>Create Time</th>
+                <th>Updated Time</th>
                 <th>Operate</th>
               </tr>
             </thead>
             <tbody>
               {adsData.length > 0 ? (
-                adsData.map((ad, index) => (
+                adsData.map((ad) => (
                   <tr key={ad.adsId}> 
                     <td>{ad.applyId || "N/A"}</td>
-                    <td>{ad.adNumber || "N/A"}</td>
-                    {/* <td>{ad.state || "N/A"}</td> */}
-                     <td>
-                      <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
-                      {ad.state || "N/A"}
-                      </span>
-                      </td>
-                    <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
-                    <td>{new Date(ad.applyTime).toLocaleString() || "N/A"}</td>
                     <td>{ad.adsId || "N/A"}</td> 
+                    <td>{ad.username}</td>
+                    <td>{ad.emailId}</td>
+                    <td>{ad.adNumber || "N/A"}</td>
+                    <td>
+                      {ad.adsDetails.length > 0 ? (
+                        <ul>
+                          {ad.adsDetails.map((detail, index) => (
+                            <li key={index}>
+                              {detail.domain && <span>Domain: {detail.domain}</span>} 
+                              {detail.outlookMail && <span> | Outlook Mail: {detail.outlookMail}</span>}
+                              {detail.deposit && <span> | Deposit: ${detail.deposit}</span>}
+                            </li>
+                          ))}
+                        </ul>
+                      ) : (
+                        "No details available"
+                      )}
+                    </td>
+                    <td>
+                      <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                        {ad.state || "N/A"}
+                      </span>
+                    </td>
+                    <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
+                    <td>{ad.wallet ? `$${ad.wallet.toFixed(2)}` : "N/A"}</td>
+                    <td>{new Date(ad.createTime).toLocaleString() || "N/A"}</td>
+                    <td>{new Date(ad.UpdatedTime).toLocaleString() || "N/A"}</td>
                     <td>
                       <button
                         className={styles.detailButton}
@@ -104,7 +131,7 @@ const BingAccountList = () => {
                 ))
               ) : (
                 <tr>
-                  <td colSpan="7">No ads data available</td> 
+                  <td colSpan="12">No ads data available</td> 
                 </tr>
               )}
             </tbody>
@@ -119,11 +146,16 @@ const BingAccountList = () => {
             <h2>Ad Details</h2>
             <div className={styles.modalContent}>
               <p><strong>Apply ID:</strong> {selectedAd.applyId}</p>
+              <p><strong>Ads ID:</strong> {selectedAd.adsId}</p> 
+              <p><strong>UserName:</strong> {selectedAd.username}</p>
+              <p><strong>Email:</strong> {selectedAd.emailId}</p>
+
               <p><strong>Ad Number:</strong> {selectedAd.adNumber}</p>
               <p><strong>State:</strong> {selectedAd.state}</p>
               <p><strong>Total Cost:</strong> ${selectedAd.totalCost?.toFixed(2)}</p>
-              <p><strong>Apply Time:</strong> {new Date(selectedAd.applyTime).toLocaleString()}</p>
-              <p><strong>Ads ID:</strong> {selectedAd.adsId}</p> 
+              <p><strong>Create Time:</strong> {new Date(selectedAd.createTime).toLocaleString()}</p>
+              <p><strong>Updated Time:</strong> {new Date(selectedAd.UpdatedTime).toLocaleString()}</p>
+
               <h3>Ad Details:</h3>
               {selectedAd.adsDetails && selectedAd.adsDetails.length > 0 ? (
                 selectedAd.adsDetails.map((detail, index) => (
