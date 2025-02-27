@@ -1,6 +1,5 @@
 
 
-
 import React, { useEffect, useState } from "react";
 import styles from "./PendingTransations.module.css";
 import Httpservices from "../Services/Httpservices";
@@ -12,6 +11,8 @@ const PendingTransaction = () => {
   const [transactions, setTransactions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedTransaction, setSelectedTransaction] = useState(null);
+  const [remarks, setRemarks] = useState("");
 
   useEffect(() => {
     fetchTransactions();
@@ -50,10 +51,16 @@ const PendingTransaction = () => {
   const formatDate = (isoString) => new Date(isoString).toLocaleString();
 
   const handleUpdateState = async (id, action) => {
+    if (action === "reject" && !remarks.trim()) {
+      toast.error("Please enter remarks before rejecting.");
+      return;
+    }
+
     try {
       console.log(`Updating transaction ID: ${id} to ${action}`);
       const response = await Httpservices.put(
-        `/approve-transaction?id=${id}&action=${action}`
+        `/approve-transaction?id=${id}&action=${action}`,
+        action === "reject" ? { remarks } : {}
       );
       console.log("API Response:", response);
 
@@ -72,6 +79,9 @@ const PendingTransaction = () => {
     } catch (error) {
       console.error("Error updating transaction:", error);
       toast.error(error.response?.data?.message || "Failed to update transaction.");
+    } finally {
+      setSelectedTransaction(null);
+      setRemarks("");
     }
   };
 
@@ -92,6 +102,7 @@ const PendingTransaction = () => {
               <th>Username</th>
               <th>Email</th>
               <th>Charge Money</th>
+              <th>Wallet Amount</th>
               <th>Transaction ID</th>
               <th>State</th>
               <th>Payment Method</th>
@@ -107,6 +118,7 @@ const PendingTransaction = () => {
                 <td>{transaction.userId?.username || "N/A"}</td>
                 <td>{transaction.userId?.contact?.emailId || "N/A"}</td>
                 <td>${transaction.chargeMoney}</td>
+                <td>${transaction.userId?.wallet}</td>
                 <td>{transaction.transactionId}</td>
                 <td>
                   <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
@@ -123,20 +135,37 @@ const PendingTransaction = () => {
                   />
                 </td>
                 <td className={styles.actions}>
-                  <button
-                    className={styles.approveBtn}
-                    onClick={() => handleUpdateState(transaction._id, "approve")}
-                    disabled={transaction.state === "Approved"}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(transaction._id, "reject")}
-                    disabled={transaction.state === "Rejected"}
-                  >
-                    Reject
-                  </button>
+                  {selectedTransaction === transaction._id ? (
+                    <div>
+                      <input
+                        type="text"
+                        value={remarks}
+                        onChange={(e) => setRemarks(e.target.value)}
+                        placeholder="Enter rejection remarks"
+                      />
+                      <button onClick={() => handleUpdateState(transaction._id, "reject")}>
+                        Submit
+                      </button>
+                      <button onClick={() => setSelectedTransaction(null)}>Cancel</button>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        className={styles.approveBtn}
+                        onClick={() => handleUpdateState(transaction._id, "approve")}
+                        disabled={transaction.state === "Approved"}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className={styles.disapproveBtn}
+                        onClick={() => setSelectedTransaction(transaction._id)}
+                        disabled={transaction.state === "Rejected"}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

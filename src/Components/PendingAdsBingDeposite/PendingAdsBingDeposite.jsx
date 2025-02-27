@@ -1,6 +1,4 @@
 
-
-
 import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -12,6 +10,8 @@ const PendingAdsBingDeposite = () => {
   const [depositsData, setDepositsData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedAction, setSelectedAction] = useState(null);
+  const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
     fetchDepositsData();
@@ -33,43 +33,42 @@ const PendingAdsBingDeposite = () => {
         }
       );
 
-      console.log("API Response:", response.data);
-
       if (response.status === 200 && response.data.deposits) {
         setDepositsData(response.data.deposits);
       } else {
         setError("No pending deposits found.");
       }
     } catch (err) {
-      console.error("Fetch error:", err.response || err.message);
       setError(err.response?.data?.message || "Failed to fetch deposits.");
     } finally {
       setLoading(false);
     }
   };
 
-  const formatDate = (isoString) => {
-    return isoString ? new Date(isoString).toLocaleString() : "N/A";
+  const handleActionClick = (adsId, applyId, action) => {
+    setSelectedAction({ adsId, applyId, action });
+    setInputValue("");
   };
 
-  const handleUpdateState = async (adsId, applyId, action) => {
-    if (!adsId || !applyId) {
-      toast.error("Error: Missing Ads ID or Apply ID.");
+  const handleUpdateState = async () => {
+    if (!selectedAction || !inputValue.trim()) {
+      toast.error("Please enter a valid input.");
       return;
     }
 
+    const { adsId, applyId, action } = selectedAction;
     const token = Auth.getToken();
     if (!token) {
       toast.error("User is not authenticated.");
       return;
     }
 
-    try {
-      console.log(`Updating Ads ID: ${adsId}, Apply ID: ${applyId}, Action: ${action}`);
+    const requestData = action === "approve" ? { transactionId: inputValue } : { remarks: inputValue };
 
+    try {
       const response = await Httpservices.put(
         `https://admediaagency.online/kimi/approve-deposit?adsId=${adsId}&adType=Bing&action=${action}&applyId=${applyId}`,
-        {},
+        requestData,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -77,8 +76,6 @@ const PendingAdsBingDeposite = () => {
           },
         }
       );
-
-      console.log("Update Response:", response.data);
 
       if (response.status === 200) {
         setDepositsData((prevDeposits) =>
@@ -88,13 +85,12 @@ const PendingAdsBingDeposite = () => {
               : deposit
           )
         );
-
+        setSelectedAction(null);
         toast.success(`Deposit ${action}d successfully!`);
       } else {
         toast.error(response.data.message || "Failed to update deposit status.");
       }
     } catch (error) {
-      console.error(`Error updating status for ${adsId}:`, error.response || error.message);
       toast.error(error.response?.data?.message || "Error updating deposit status.");
     }
   };
@@ -114,8 +110,11 @@ const PendingAdsBingDeposite = () => {
             <tr>
               <th>Apply ID</th>
               <th>Ads ID</th>
+              <th>Username</th>
+              <th>Email</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
               <th>Created Time</th>
               <th>Operate</th>
@@ -126,31 +125,47 @@ const PendingAdsBingDeposite = () => {
               <tr key={deposit._id}>
                 <td>{deposit.applyId}</td>
                 <td>{deposit.adsId || "N/A"}</td>
+                <td>{deposit.userId?.username || "N/A"}</td>
+                <td>{deposit.userId?.contact?.emailId || "N/A"}</td>
                 <td>${deposit.money}</td>
-                {/* <td>{deposit.state}</td> */}
                 <td>
-                        <span className={`${styles.state} ${styles[deposit.state.toLowerCase()]}`}>
-                         {deposit.state || "N/A"}
-                         </span>
-                       </td>
+                  <span className={`${styles.state} ${styles[deposit.state.toLowerCase()]}`}>
+                    {deposit.state || "N/A"}
+                  </span>
+                </td>
+                <td>${deposit.userId?.wallet}</td>
 
                 <td>${deposit.totalCost}</td>
-                <td>{formatDate(deposit.createdAt)}</td>
+                <td>{new Date(deposit.createdAt).toLocaleString()}</td>
                 <td className={styles.operate}>
-                  <button
-                    className={styles.approveBtn}
-                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "approve")}
-                    disabled={deposit.state === "Approved"}
-                  >
-                    Approve
-                  </button>
-                  <button
-                    className={styles.disapproveBtn}
-                    onClick={() => handleUpdateState(deposit.adsId, deposit.applyId, "reject")}
-                    disabled={deposit.state === "Rejected"}
-                  >
-                    Reject
-                  </button>
+                  {selectedAction?.adsId === deposit.adsId && selectedAction?.applyId === deposit.applyId ? (
+                    <div>
+                      <input
+                        type="text"
+                        placeholder={selectedAction.action === "approve" ? "Enter Transaction ID" : "Enter Remark"}
+                        value={inputValue}
+                        onChange={(e) => setInputValue(e.target.value)}
+                      />
+                      <button onClick={handleUpdateState} className={styles.submitBtn}>Submit</button>
+                    </div>
+                  ) : (
+                    <>
+                      <button
+                        className={styles.approveBtn}
+                        onClick={() => handleActionClick(deposit.adsId, deposit.applyId, "approve")}
+                        disabled={deposit.state === "Approved"}
+                      >
+                        Approve
+                      </button>
+                      <button
+                        className={styles.disapproveBtn}
+                        onClick={() => handleActionClick(deposit.adsId, deposit.applyId, "reject")}
+                        disabled={deposit.state === "Rejected"}
+                      >
+                        Reject
+                      </button>
+                    </>
+                  )}
                 </td>
               </tr>
             ))}

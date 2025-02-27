@@ -48,6 +48,8 @@ const CompleteGoogleAdDeposite = () => {
 
   return (
     <div className={styles.container}>
+      <h2>Approved Google Ads Deposits</h2>
+
       <ToastContainer position="top-right" autoClose={3000} />
       
       {loading ? (
@@ -60,10 +62,16 @@ const CompleteGoogleAdDeposite = () => {
             <tr>
               <th>Apply ID</th>
               <th>Ads Id</th>
+              <th>Username</th>
+              <th>Email ID</th>
+              <th>TransactionId</th>
               <th>Money</th>
               <th>State</th>
+              <th>Wallet Amount</th>
               <th>Total Cost</th>
+              <th>Remarks</th>
               <th>Created Time</th>
+              <th>Updated Time</th>
             </tr>
           </thead>
           <tbody>
@@ -71,6 +79,9 @@ const CompleteGoogleAdDeposite = () => {
               <tr key={deposit.applyId}>
                 <td>{deposit.applyId}</td>
                 <td>{deposit.adsId}</td>
+                <td>{deposit.userId?.username || "N/A"}</td>
+                <td>{deposit.userId?.contact?.emailId || "N/A"}</td>
+                <td>{deposit.transactionId}</td>
                 <td>${deposit.money}</td>
                 {/* <td>{deposit.state}</td> */}
                 <td>
@@ -79,8 +90,12 @@ const CompleteGoogleAdDeposite = () => {
                          </span>
                        </td>
 
+                <td>${deposit.userId?.wallet}</td>
                 <td>${deposit.totalCost}</td>
+                <td>{deposit.remarks}</td>
+
                 <td>{formatDate(deposit.createdAt)}</td>
+                <td>{formatDate(deposit.updatedAt)}</td>
               </tr>
             ))}
           </tbody>

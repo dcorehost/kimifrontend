@@ -68,9 +68,11 @@ const ApprovedTransactions = () => {
               <th>Username</th>
               <th>Email</th>
               <th>Charge Money</th>
+              <th>Wallet Amount</th>
               <th>Transaction ID</th>
               <th>State</th>
               <th>Payment Method</th>
+              <th>Remarks</th>
               <th>Created At</th>
               <th>Updated At</th>
               <th>Transaction Image</th>
@@ -84,6 +86,7 @@ const ApprovedTransactions = () => {
                 <td>{transaction.userId?.username || "N/A"}</td>
                 <td>{transaction.userId?.contact?.emailId || "N/A"}</td>
                 <td>${transaction.chargeMoney}</td>
+                <td>${transaction.userId?.wallet}</td>
                 <td>{transaction.transactionId}</td>
                 <td>
                   <span className={`${styles.state} ${styles[transaction.state.toLowerCase()]}`}>
@@ -91,6 +94,7 @@ const ApprovedTransactions = () => {
                   </span>
                 </td>
                 <td>{transaction.payway}</td>
+                <td>{transaction.remarks}</td>
                 <td>{formatDate(transaction.createdAt)}</td>
                 <td>{formatDate(transaction.updatedAt)}</td>
                 <td>
