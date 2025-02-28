@@ -59,10 +59,12 @@ import PendingAdsFacebookDeposite from "./Components/PendingAdsFacebookDeposite/
 import CompletedBingAdDeposite from "./Components/CompletedBingAdDeposite/CompletedBingAdDeposite";
 import CompletedFacebookAdDeposite from "./Components/CompletedFacebookAdDeposite/CompletedFacebookAdDeposite";
 import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/CompleteGoogleAdDeposite";
-// import GmailShareLog from "./Components/gmailShare/gmailShare";
 import BmShareLog from "./Components/BmShareLog/BmShareLog";
 import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
 import ActiveUser from "./Components/ActiveUser/ActiveUser";
+
+
+
 
 
 const App = () => {
@@ -74,7 +76,7 @@ const App = () => {
         {/*  routes for  pages */}
         {/* testing */}
         <Route path="/" element={<Layout />}>    
-        <Route path="/" element={<Homepage />} />
+        <Route index element={<Homepage />} />
 
 
           <Route path="/login" element={<LoginPage />} />
@@ -167,15 +169,7 @@ const App = () => {
             <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
             <Route path="/admin/dashboard/UserAdsInformation" element={<UserAdsPage/>}></Route>
             <Route path="/admin/dashboard/activeuser" element={<ActiveUser />}></Route>
-            <Route path="/admin/AdsDeposite/PendingAdsBingDeposite" element={<PendingAdsBingDeposite/>}></Route>
-            <Route path="/admin/AdsDeposite/PendingAdsGoogleDeposite" element={<PendingAdsGoogleDeposite/>}></Route>
-            <Route path="/admin/AdsDeposite/PendingAdsFacebookDeposite" element={<PendingAdsFacebookDeposite/>}></Route>
-            <Route path="/admin/AdsDeposite/CompleteAdsBingDeposite"  element={<CompletedBingAdDeposite/>}></Route>
-            <Route path="/admin/AdsDeposite/CompleteAdsFacebookDeposite" element={<CompletedFacebookAdDeposite />}></Route>
-            <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
-            <Route path="/admin/dashboard/UserAdsInformation" element={<UserAdsPage/>}></Route>
-            <Route path="/admin/dashboard/activeuser" element={<ActiveUser />}></Route>
-            {/* <Route path="/admin/logs/GmailShareLog" element={<GmailShareLog />}></Route> */}
+
 
           </Route>
 
