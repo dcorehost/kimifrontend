@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import Httpservices from '../Services/Httpservices';
 import Auth from '../Services/Auth';
