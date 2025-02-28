@@ -140,28 +140,50 @@ const MetaAccountList = () => {
             <table className={styles.table}>
               <thead>
                 <tr>
-                  <th>License</th>
-                  <th>Ads Account ID</th>
-                  <th>Ads Account Name</th>
-                  <th>Operate</th>
+                <th>License</th>
+                <th>Apply ID</th>
+
+                <th>Ads ID</th>
+                <th>User Name</th>
+                <th>Email</th>
+                <th>Account Name</th>
+                <th>Deposit</th>
+                <th>State</th>
+                <th>Total Cost</th>
+                <th>Wallet Amount</th>
+                
+                
+                <th>Created At</th>
+                <th>Updated At</th>
                 </tr>
               </thead>
               <tbody>
                 {adsData.length > 0 ? (
                   adsData.map((ad) => (
                     <tr key={ad._id}>
-                      <td>{ad.licenseName}</td>
-                      <td>{ad.adsId}</td>
-                      <td>{ad.ads.map((account) => account.accountName).join(", ")}</td>
-                      <td>
-                        <button
-                          className={styles.operateButton}
-                          onClick={() => handleShowDetails(ad)} // Open details modal
-                        >
-                          details
-                        </button>
-                      </td>
-                    </tr>
+                    <td>{ad.licenseName || "N/A"}</td>
+                    <td>{ad.applyId || "N/A"}</td>
+
+                    <td>{ad.adsId || "N/A"}</td>
+                    <td>{ad.userId.username || "N/A"}</td>
+                    <td>{ad.userId.contact.emailId || "N/A"}</td>
+                    <td>{ad.ads.map((account) => account.accountName).join(", ") || "N/A"}</td>
+                    {/* <td>{ad.ads.map((account) => account.deposit).join(", ") || "N/A"}</td> */}
+                    <td>{ad.ads.map((account) => `$${account.deposit}`).join(", ") || "N/A"}</td>
+
+                    <td>
+                    <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
+                    {ad.state || "N/A"}
+                    </span>
+                    </td>
+                    <td>{ad.totalCost ? `$${ad.totalCost}` : "N/A"}</td>
+                    <td>{ad?.userId?.wallet ? `$${ad.userId.wallet.toFixed(2)}` : "N/A"}</td>
+
+
+                  
+                    <td>{new Date(ad.createdAt).toLocaleDateString() || "N/A"}</td>
+                    <td>{new Date(ad.updatedAt).toLocaleDateString() || "N/A"}</td>
+                  </tr>
                   ))
                 ) : (
                   <tr>
@@ -203,3 +225,96 @@ const MetaAccountList = () => {
 };
 
 export default MetaAccountList;
+
+
+// import React, { useEffect, useState } from "react";
+// import styles from "./MetaAccountList.module.css";
+// import { useNavigate } from "react-router-dom";
+// import axios from "axios";
+// import Auth from "../Services/Auth";
+
+// const MetaAccountList = () => {
+//   const navigate = useNavigate();
+//   const [adsData, setAdsData] = useState([]);
+//   const [error, setError] = useState(null);
+
+//   useEffect(() => {
+//     const fetchAdsData = async () => {
+//       const token = Auth.getToken();
+//       if (!token) {
+//         setError("User is not authenticated. Please log in.");
+//         return;
+//       }
+//       try {
+//         const response = await axios.get(
+//           "https://admediaagency.online/kimi/get-facebook-ads",
+//           { headers: { Authorization: `Bearer ${token}` } }
+//         );
+//         if (
+//           response.data.message === "facebook ads fetched successfully" &&
+//           Array.isArray(response.data.ads)
+//         ) {
+//           setAdsData(response.data.ads);
+//         } else {
+//           setError("Failed to fetch ads data.");
+//         }
+//       } catch (err) {
+//         console.error("Error fetching ads data:", err.message);
+//         setError("An error occurred while fetching ads data.");
+//       }
+//     };
+//     fetchAdsData();
+//   }, []);
+
+//   return (
+//     <div className={styles.container}>
+//       <h3 className={styles.sectionTitle}>Ad Account List</h3>
+//       <div className={styles.tableContainer}>
+//         {error ? (
+//           <p className={styles.error}>{error}</p>
+//         ) : (
+//           <table className={styles.table}>
+//             <thead>
+//               <tr>
+//                 <th>License</th>
+//                 <th>Ads ID</th>
+//                 <th>Account Name</th>
+//                 <th>Deposit</th>
+//                 <th>Apply ID</th>
+//                 <th>State</th>
+//                 <th>Total Cost</th>
+//                 <th>User</th>
+//                 <th>Email</th>
+//                 <th>Created At</th>
+//               </tr>
+//             </thead>
+//             <tbody>
+//               {adsData.length > 0 ? (
+//                 adsData.map((ad) => (
+//                   <tr key={ad._id}>
+//                     <td>{ad.licenseName || "N/A"}</td>
+//                     <td>{ad.adsId || "N/A"}</td>
+//                     <td>{ad.ads.map((account) => account.accountName).join(", ") || "N/A"}</td>
+//                     <td>{ad.ads.map((account) => account.deposit).join(", ") || "N/A"}</td>
+//                     <td>{ad.applyId || "N/A"}</td>
+//                     <td>{ad.state || "N/A"}</td>
+//                     <td>{ad.totalCost || "N/A"}</td>
+//                     <td>{ad.userId.username || "N/A"}</td>
+//                     <td>{ad.userId.contact.emailId || "N/A"}</td>
+//                     <td>{new Date(ad.createdAt).toLocaleDateString() || "N/A"}</td>
+//                   </tr>
+//                 ))
+//               ) : (
+//                 <tr>
+//                   <td colSpan="10" className={styles.noData}>No Data Available</td>
+//                 </tr>
+//               )}
+//             </tbody>
+//           </table>
+//         )}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default MetaAccountList;

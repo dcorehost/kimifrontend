@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import styles from "./MetaApplyNewAd.module.css";
-import Auth from "../Services/Auth"; // Import Auth utility for authentication
+import Auth from "../Services/Auth"; 
 
 const MetaApplyNewAd = () => {
   const [adsData, setAdsData] = useState([]);
@@ -16,7 +16,7 @@ const MetaApplyNewAd = () => {
 
   useEffect(() => {
     const fetchAdsData = async () => {
-      const token = Auth.getToken(); // Use Auth utility to get token
+      const token = Auth.getToken(); 
 
       if (!token) {
         setError("User is not authenticated. Please log in.");
@@ -49,7 +49,11 @@ const MetaApplyNewAd = () => {
             totalCost: ad.totalCost || "N/A",
             totalDeposit: ad.totalDeposit || "N/A",
             userEmail: ad.userId?.contact?.emailId || "N/A",
+            username: ad.userId?.username || "N/A",
             createdAt: new Date(ad.createdAt).toLocaleString(),
+            updatedAt: new Date(ad.updatedAt).toLocaleString(),
+            wallet: ad.userId?.wallet,
+
           }));
           setAdsData(ads);
         } else {
@@ -66,9 +70,7 @@ const MetaApplyNewAd = () => {
 
   return (
     <div className={styles.container}>
-      {/* <button className={styles.button} onClick={handleNextPage}>
-        Create ad here
-      </button> */}
+      
       <div className={styles.tableContainer}>
         {error ? (
           <p className={styles.error}>{error}</p>
@@ -78,6 +80,9 @@ const MetaApplyNewAd = () => {
               <tr>
                 <th>Apply ID</th>
                 <th>Ads ID</th>
+                <th>User Name</th>
+                <th>User Email</th>
+
                 <th>License Mode</th>
                 <th>License Name</th>
                 <th>Page Number</th>
@@ -90,10 +95,11 @@ const MetaApplyNewAd = () => {
                 <th>Ad Accounts</th>
                 <th>Remarks</th>
                 <th>State</th>
+                <th>Wallet Amount</th>
                 <th>Total Cost</th>
                 <th>Total Deposit</th>
-                <th>User Email</th>
                 <th>Created At</th>
+                <th>Updated At</th>
               </tr>
             </thead>
             <tbody>
@@ -102,6 +108,9 @@ const MetaApplyNewAd = () => {
                   <tr key={index}>
                     <td>{ad.applyId}</td>
                     <td>{ad.adsId}</td>
+                    <td>{ad.username}</td>
+                    <td>{ad.userEmail}</td>
+
                     <td>{ad.licenseMode}</td>
                     <td>{ad.licenseName}</td>
                     <td>{ad.pageNum}</td>
@@ -113,16 +122,17 @@ const MetaApplyNewAd = () => {
                     <td>{ad.appId}</td>
                     <td>{ad.adsAccounts}</td>
                     <td>{ad.remarks}</td>
-                    {/* <td>{ad.state}</td> */}
                      <td>
                      <span className={`${styles.state} ${styles[ad.state.toLowerCase()]}`}>
                      {ad.state || "N/A"}
                      </span>
                      </td>
-                    <td>{ad.totalCost}</td>
-                    <td>{ad.totalDeposit}</td>
-                    <td>{ad.userEmail}</td>
+                     <td>{ad.wallet ? `$${ad.wallet.toFixed(2)}` : "N/A"}</td>
+
+                    <td>${ad.totalCost}</td>
+                    <td>${ad.totalDeposit}</td>
                     <td>{ad.createdAt}</td>
+                    <td>{ad.updatedAt}</td>
                   </tr>
                 ))
               ) : (
