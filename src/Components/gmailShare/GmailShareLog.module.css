@@ -1,4 +1,4 @@
-.container {
+/* .container {
     width: 90%;
     margin: auto;
     padding: 20px;
@@ -60,7 +60,6 @@
     opacity: 0.8;
   }
   
-  /* Responsive */
   @media (max-width: 768px) {
     .container {
       width: 100%;
@@ -84,25 +83,25 @@
       width: 100%;
     }
   }
-  /* State-specific colors */
-.state {
+
+  .state {
   padding: 5px 10px;
   border-radius: 5px;
   font-weight: normal;
 }
 
 .state.pending {
-  background-color: #ffcc00; /* Yellow for pending */
+  background-color: #ffcc00;
   color: #000;
 }
 
 .state.failed {
-  background-color: #ff3333; /* Red for failed */
+  background-color: #ff3333; 
   color: #fff;
 }
 
 .state.completed {
-  background-color: #4CAF50; /* Green for complete */
+  background-color: #4CAF50;
   color: #fff;
 }
 
@@ -116,4 +115,4 @@
   background-color: inherit !important;
 
   color: #0d0d0d !important;
-}
+} */

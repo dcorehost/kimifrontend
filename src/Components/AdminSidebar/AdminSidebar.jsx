@@ -127,11 +127,11 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           </li>
 
 
-          <li className={styles.mainMenuItem}>
+          {/* <li className={styles.mainMenuItem}>
             <Link to="/admin/logs/GmailShareLog" className={`${styles.link} ${styles.mainHeading}`}>
               <i className="fas fa-envelope"></i> Gmail Share Log
             </Link>
-          </li>
+          </li> */}
 
         </ul>
       </div>

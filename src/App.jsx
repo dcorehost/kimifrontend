@@ -59,7 +59,7 @@ import PendingAdsFacebookDeposite from "./Components/PendingAdsFacebookDeposite/
 import CompletedBingAdDeposite from "./Components/CompletedBingAdDeposite/CompletedBingAdDeposite";
 import CompletedFacebookAdDeposite from "./Components/CompletedFacebookAdDeposite/CompletedFacebookAdDeposite";
 import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/CompleteGoogleAdDeposite";
-import GmailShareLog from "./Components/gmailShare/gmailShare";
+// import GmailShareLog from "./Components/gmailShare/gmailShare";
 import BmShareLog from "./Components/BmShareLog/BmShareLog";
 import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
 import ActiveUser from "./Components/ActiveUser/ActiveUser";
@@ -175,7 +175,7 @@ const App = () => {
             <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
             <Route path="/admin/dashboard/UserAdsInformation" element={<UserAdsPage/>}></Route>
             <Route path="/admin/dashboard/activeuser" element={<ActiveUser />}></Route>
-            <Route path="/admin/logs/GmailShareLog" element={<GmailShareLog />}></Route>
+            {/* <Route path="/admin/logs/GmailShareLog" element={<GmailShareLog />}></Route> */}
 
           </Route>
 
