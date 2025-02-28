@@ -122,7 +122,7 @@ const AdsDepositeRecordTable = () => {
                 
                 <th>Wallet Balance</th>
                 <th>Create Time</th>
-                <th>Updated Time</th>
+                <th>Updat Time</th>
               </tr>
             </thead>
             <tbody>
