@@ -32,8 +32,12 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </button>
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
-                <li><Link to="/admin/dashboard/UserAdsInformation" className={styles.link}>User List</Link></li>
-                <li><Link to="/admin/accountmanage/changenetwork" className={styles.link}>Change Network</Link></li>
+            <li>
+              <Link to="/admin/dashboard/UserAdsInformation" className={styles.link}>
+                User List
+              </Link>
+            </li>                
+            <li><Link to="/admin/accountmanage/changenetwork" className={styles.link}>Change Network</Link></li>
               </ul>
             )}
           </li>
