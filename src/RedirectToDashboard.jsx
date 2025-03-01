@@ -13,7 +13,7 @@ const RedirectToDashboard = () => {
     }
   }
 
-  return <Navigate to="/" replace />;
+  return <Navigate to="/homepage" replace />;
 };
 
 export default RedirectToDashboard;
