@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const MetaAdsDeposit = () => {
   const [rows, setRows] = useState([{ id: '', money: '' }]);
   const [totalDeposit, setTotalDeposit] = useState(0);
+  const [topUpFee, setTopUpFee] = useState(0)
   const [totalCost, setTotalCost] = useState(0);
   const [walletAmount, setWalletAmount] = useState(0);
   const [responseMessage, setResponseMessage] = useState('');
@@ -73,9 +74,13 @@ const MetaAdsDeposit = () => {
   };
 
   const updateTotals = (rows) => {
-    const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
-    setTotalDeposit(total);
-    setTotalCost(total * 1.35); 
+    const totalDeposit = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
+    const topUpFee = totalDeposit * 0.15; // ✅ 15% of deposit
+    const totalCost = totalDeposit + topUpFee; // ✅ Total Cost = Deposit + Top-Up Fee
+
+    setTotalDeposit(totalDeposit);
+    setTopUpFee(topUpFee); // ✅ Update top-up fee state
+    setTotalCost(totalCost); 
   };
 
   const addRow = () => {
@@ -104,7 +109,7 @@ const MetaAdsDeposit = () => {
       return;
     }
 
-    if (totalDeposit > walletAmount) {
+    if (totalCost > walletAmount) {
       setResponseMessage('Insufficient wallet balance. Please recharge.');
       setLoading(false);
       toast.error('Insufficient wallet balance. Please recharge.');
@@ -143,17 +148,20 @@ const MetaAdsDeposit = () => {
 
       let totalDeposit = 0;
       let totalCost = 0;
+      let topUpFee = 0;
       let walletAmount = 0;
 
       responses.forEach(response => {
         if (response.data) {
           totalDeposit += parseFloat(response.data.totalDeposit) || 0;
           totalCost += parseFloat(response.data.totalCost) || 0;
+          topUpFee = totalCost - totalDeposit; // ✅ Extract top-up fee
           walletAmount = parseFloat(response.data.wallet) || 0; 
         }
       });
 
       setTotalDeposit(totalDeposit);
+      setTopUpFee(topUpFee);  
       setTotalCost(totalCost);
       setWalletAmount(walletAmount);
       setResponseMessage('Deposit added successfully!');
@@ -207,6 +215,7 @@ const MetaAdsDeposit = () => {
       </div>
       <div className={styles.summary}>
         <p>Total Deposit Of Ads: <strong>${totalDeposit.toFixed(2)}</strong></p>
+        <p>Top-Up Fee (15%): <strong>{topUpFee.toFixed(2)} USD</strong></p> {/* ✅ NEW LINE */}
         <p>Total Cost: <strong>${totalCost.toFixed(2)}</strong></p>
         <p>Wallet Balance: <strong>${walletAmount.toFixed(2)}</strong></p>
       </div>

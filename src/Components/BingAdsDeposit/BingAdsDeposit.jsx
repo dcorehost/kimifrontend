@@ -9,6 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const BingAdsDeposit = () => {
   const [rows, setRows] = useState([{ id: '', money: '' }]);
   const [totalDeposit, setTotalDeposit] = useState(0);
+  const [topUpFee, setTopUpFee] = useState(0);
   const [totalCost, setTotalCost] = useState(0);
   const [walletAmount, setWalletAmount] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -69,9 +70,13 @@ const BingAdsDeposit = () => {
   };
 
   const updateTotals = (rows) => {
-    const total = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
-    setTotalDeposit(total);
-    setTotalCost(total * 1.35);
+    const totalDeposit = rows.reduce((sum, row) => sum + (parseFloat(row.money) || 0), 0);
+    const topUpFee = totalDeposit * 0.15; // ✅ 15% of deposit
+    const totalCost = totalDeposit + topUpFee; // ✅ Total Cost = Deposit + Top-Up Fee
+
+    setTotalDeposit(totalDeposit);
+    setTopUpFee(topUpFee); // ✅ Update top-up fee state
+    setTotalCost(totalCost);
   };
 
   const addRow = () => {
@@ -101,7 +106,7 @@ const BingAdsDeposit = () => {
       return;
     }
 
-    if (totalDeposit > walletAmount) {
+    if (totalCost > walletAmount) {
       toast.error('Insufficient wallet balance. Please recharge.');
       setLoading(false);
       return;
@@ -136,6 +141,7 @@ const BingAdsDeposit = () => {
         toast.success(response.data.message);
         setWalletAmount(parseFloat(response.data.wallet) || 0);
         setTotalDeposit(parseFloat(response.data.totalDeposit) || 0);
+        setTopUpFee(parseFloat(response.data.totalCost) - parseFloat(response.data.totalDeposit)); // ✅ Extract top-up fee
         setTotalCost(parseFloat(response.data.totalCost) || 0);
       }
     } catch (error) {
@@ -185,6 +191,7 @@ const BingAdsDeposit = () => {
       </div>
       <div className={styles.summary}>
         <p>Total Deposit Of Ads: <strong>{totalDeposit.toFixed(2)} USD</strong></p>
+        <p>Top-Up Fee (15%): <strong>{topUpFee.toFixed(2)} USD</strong></p> {/* ✅ NEW LINE */}
         <p>Total Cost: <strong>{totalCost.toFixed(2)} USD</strong></p>
         <p>Wallet Balance: <strong>{walletAmount.toFixed(2)} USD</strong></p>
       </div>
