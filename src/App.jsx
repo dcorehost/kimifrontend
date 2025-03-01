@@ -62,9 +62,7 @@ import CompleteGoogleAdDeposite from "./Components/CompleteGoogleAdDeposite/Comp
 import BmShareLog from "./Components/BmShareLog/BmShareLog";
 import UserAdsPage from "./Components/UserAdsPage/UserAdsPage";
 import ActiveUser from "./Components/ActiveUser/ActiveUser";
-
-
-
+import GmailShareDataForAdmin from "./Components/GmailShareAdmin/GmailShareAdmin"
 
 
 const App = () => {
@@ -166,12 +164,11 @@ const App = () => {
             <Route path="/admin/AdsDeposite/PendingAdsFacebookDeposite" element={<PendingAdsFacebookDeposite/>}></Route>
             <Route path="/admin/AdsDeposite/CompleteAdsBingDeposite"  element={<CompletedBingAdDeposite/>}></Route>
             <Route path="/admin/AdsDeposite/CompleteAdsFacebookDeposite" element={<CompletedFacebookAdDeposite />}></Route>
-            <Route path="//admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
+            <Route path="/admin/AdsDeposite/CompleteAdsGoogleDeposite" element={<CompleteGoogleAdDeposite />}></Route>
             <Route path="/admin/dashboard/UserAdsInformation" element={<UserAdsPage/>}></Route>
             <Route path="/admin/dashboard/activeuser" element={<ActiveUser />}></Route>
-
-
-          </Route>
+            <Route path="/admin/logs/GmailShareLog" element={<GmailShareDataForAdmin />} />
+            </Route>
 
         </Route>
       </Routes>

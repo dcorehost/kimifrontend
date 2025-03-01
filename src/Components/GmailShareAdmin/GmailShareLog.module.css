@@ -1,0 +1,99 @@
+.container {
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .button {
+    padding: 10px 20px;
+    margin-bottom: 20px;
+    background-color: #EF9273;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .button:hover {
+    background-color: #d67f60;
+  }
+  
+  .tableContainer {
+    margin: 0 auto;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+  }
+  
+  .table th,
+  .table td {
+    padding: 12px 16px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .table th {
+    background-color: #EF9273;
+    font-weight: bold;
+  }
+  
+  .table tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  
+  .operateButton {
+    padding: 5px 10px;
+    margin-right: 5px;
+    background-color: #fef9f8;
+    color: black;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .operateButton:hover {
+    background-color: #1e7e34;
+    color: white;
+  }
+  
+  /* State-specific colors */
+  .state {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: normal;
+  }
+  
+  .state.pending {
+    background-color: #ffcc00; /* Yellow for pending */
+    color: #000;
+  }
+  
+  .state.failed {
+    background-color: #ff3333; /* Red for failed */
+    color: #fff;
+  }
+  
+  .state.completed {
+    background-color: #4CAF50; /* Green for complete */
+    color: #fff;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e7e7e7 !important;
+    color: #0d0d0d !important;
+  }
+  
+  .table tbody tr:hover td {
+    background-color: inherit !important;
+    color: #0d0d0d !important;
+  }

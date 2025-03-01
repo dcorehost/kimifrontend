@@ -32,7 +32,7 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
             </button>
             {openMenus.accountManage && (
               <ul className={styles.subMenu}>
-                <li><Link to="/#" className={styles.link}>User List</Link></li>
+                <li><Link to="/admin/dashboard/UserAdsInformation" className={styles.link}>User List</Link></li>
                 <li><Link to="/admin/accountmanage/changenetwork" className={styles.link}>Change Network</Link></li>
               </ul>
             )}
@@ -127,11 +127,11 @@ const AdminSidebar = ({ isSidebarOpen, toggleSidebar }) => {
           </li>
 
 
-          {/* <li className={styles.mainMenuItem}>
+          <li className={styles.mainMenuItem}>
             <Link to="/admin/logs/GmailShareLog" className={`${styles.link} ${styles.mainHeading}`}>
               <i className="fas fa-envelope"></i> Gmail Share Log
             </Link>
-          </li> */}
+          </li>
 
         </ul>
       </div>
