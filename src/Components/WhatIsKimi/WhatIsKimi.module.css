@@ -86,10 +86,18 @@
 
   }
   .firstheading{
-    margin-bottom: 0px;
+    margin-top: 0px;
+    color: black;
+    
   }
   .firstpara{
-    margin-top: 5px;
+    margin-top: -20px;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 100;
+   
   }
   .insideflextwo{
     background-color: #0d0d0d;
@@ -97,12 +105,15 @@
     padding: 10px 20px ;
     color: #fef9f8 ;
     border-radius: 8px;
+   
   }
   .secheading{
     margin-bottom: 0px;
+    color: #fff;
   }
   .secpara{
     margin-top: 5px;
+    color: #fff;
   }
   .flexthird {
     flex: 3; 
@@ -111,11 +122,13 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    
   }
   
   .flexthird h1,
   .flexthird h3 {
     margin: 10px 0; 
+    font-size: 40px;
   }
   
   .flexthird p {
