@@ -164,3 +164,64 @@
     text-align: left; 
   }
   
+
+
+  /* Responsive Design for Laptop, Tablet, and Mobile */
+@media (max-width: 1024px) {
+  .container {
+      padding-left: 50px;
+      padding-right: 50px;
+      margin-top: 20px;
+  }
+
+  .flexdiv {
+      justify-content: center;
+  }
+
+  .flexthird {
+      text-align: left;
+      align-items: flex-start;
+  }
+
+  .flexthird h1, .flexthird p {
+      text-align: left;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+      padding: 0 20px;
+      margin-top: 10px;
+  }
+
+  .flexdiv {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .flexfirst, .flexsecond, .flexthird {
+      max-width: 100%;
+      align-items: center;
+      text-align: center;
+  }
+
+  .flexthird {
+      text-align: center;
+      align-items: center;
+  }
+
+  .flexthird h1, .flexthird p {
+      text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+      padding: 0 10px;
+  }
+
+  .insideflex {
+      flex-direction: column;
+      gap: 10px;
+  }
+}
