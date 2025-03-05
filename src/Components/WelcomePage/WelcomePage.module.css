@@ -1,14 +1,14 @@
-/* .MainContainer {
-    border: 1px solid black;
-    height: auto;
+.MainContainer {
+    /* border: 1px solid black; */
+    height: 800px;
     display: flex;
     flex-wrap: wrap; 
     margin: 0px 0px;
     font-family: sans-serif, 'Inter';
     padding-left: 150px;
     padding-right: 150px;
-    border: 1px solid black;
-} */
+    /* border: 1px solid black; */
+} 
 
 /* .MainContainer1 {
     border: 1px solid black;
@@ -22,8 +22,9 @@
     margin-top: 50px;
 }
 .welcome{
-    font-size: 80px;
+    margin-top: -10px;
     /* border: 1px solid black; */
+    font-size: 80px;
     text-align: left;
     padding-left: 30px;
 }
@@ -41,7 +42,9 @@
     animation: loopAnimation 10s ease-in-out infinite; 
     word-spacing: 5px; 
     padding-left: 30px;
-    font-size: 70px;
+    font-size: 80px;
+    margin-top: -10px;
+    
    
 }
 
@@ -123,8 +126,9 @@
 }
 
 .imageContainer img {
+    margin-top: -50px;
     width: 70%; 
-    height: 800px; 
+    height: 700px; 
     border-radius: 5px;
 }
 .system{
