@@ -11,15 +11,15 @@ import WhatIsKimi from "../../Components/WhatIsKimi/WhatIsKimi";
 const Homepage = () => {
   return (
     <>
-    <Navbar />
-    <WelcomePage />
+     <Navbar />
+     <WelcomePage /> 
     <WhatIsKimi />
-    <LogoCarousel />
+   <LogoCarousel />
     <Specialize />
     <StatsAndFAQ />
     <ReadyToStart />
 
-    <Footer /> 
+    <Footer />  
      
     </>
   );

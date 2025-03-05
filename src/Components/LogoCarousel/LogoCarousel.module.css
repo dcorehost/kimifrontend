@@ -13,9 +13,9 @@
     /* border: 1px solid black; */
     display: flex;
     align-items: center;
-    gap: 300px; /* Adjust spacing between logos */
-    animation: scroll 5s linear infinite; /* Infinite and seamless scroll */
-    width: max-content; /* Ensures the carousel fits its content */
+    gap: 300px; 
+    animation: scroll 5s linear infinite;
+    width: max-content; 
   }
   
   .logo {

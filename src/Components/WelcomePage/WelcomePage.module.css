@@ -1,53 +1,37 @@
+/* General Styles */
 .MainContainer {
-    /* border: 1px solid black; */
-    height: 800px;
     display: flex;
-    flex-wrap: wrap; 
-    margin: 0px 0px;
+    flex-wrap: wrap;
+    margin: 20px;
     font-family: sans-serif, 'Inter';
-    padding-left: 150px;
-    padding-right: 150px;
-    /* border: 1px solid black; */
-} 
-
-/* .MainContainer1 {
-    border: 1px solid black;
+    padding: 0 70px;
     height: auto;
-    width: 60%;
-    box-sizing: border-box; 
-} */
-.award{
+    /* border: 1px solid black; */
+}
+
+.award {
     font-size: 25px;
     padding-left: 30px;
     margin-top: 50px;
 }
-.welcome{
-    margin-top: -10px;
-    /* border: 1px solid black; */
+
+.welcome {
     font-size: 80px;
     text-align: left;
     padding-left: 30px;
+    margin-top: -10px;
 }
-/* .MainContainer2 {
-    border: 1px solid black;
-    height: auto;
-    width: 40%;
-    box-sizing: border-box;
-} */
 
 .KimiAgencyText {
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    animation: loopAnimation 10s ease-in-out infinite; 
-    word-spacing: 5px; 
+    animation: loopAnimation 10s ease-in-out infinite;
+    word-spacing: 5px;
     padding-left: 30px;
     font-size: 80px;
     margin-top: -10px;
-    
-   
 }
-
 
 .KimiAgencyText span {
     display: inline-block;
@@ -56,218 +40,142 @@
     animation: slideIn 1s ease-out forwards;
     animation-iteration-count: infinite;
     animation-delay: calc(var(--index) * 0.1s);
-    color:#EF9273;
+    color: #EF9273;
     font-size: 70px;
-  
 }
 
-/* Keyframes for the individual letter animation */
 @keyframes slideIn {
-    0% {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    50% {
-        opacity: 1;
-        transform: translateX(0);
-    }
-    100% {
-        opacity: 1;
-        transform: translateX(0);
-    }
+    0% { opacity: 0; transform: translateX(-20px); }
+    50% { opacity: 1; transform: translateX(0); }
+    100% { opacity: 1; transform: translateX(0); }
 }
 
-/* Keyframe for looping the entire animation */
 @keyframes loopAnimation {
-    0% {
-        opacity: 0;
-    }
-    5% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 1;
-    }
+    0% { opacity: 0; }
+    5% { opacity: 1; }
+    100% { opacity: 1; }
 }
-.digitalpara{
+
+.digitalpara {
     font-size: 22px;
     padding-left: 30px;
 }
-.MainContainer1 .WorkWinning {
-    /* border: 1px solid black; */
+
+.MainContainer1, .MainContainer2 {
+    width: 50%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+}
+
+.WorkWinning {
     height: 100px;
     width: 100%;
     margin: 100px auto;
     display: flex;
     align-items: center;
-    justify-content: space-between; 
+    justify-content: space-between;
 }
 
-.work, .winning { 
-    /* border: 1px solid black; */
-    height: 100px;
-    width: 50%; 
+.work, .winning {
+    width: 50%;
     display: flex;
     align-items: center;
-    justify-content: center; 
+    justify-content: center;
     gap: 20px;
 }
-.awardes{
+
+.awardes {
     font-size: 12px;
     line-height: 20px;
 }
+
 .imageContainer {
-    /* border: 1px solid black; */
     display: flex;
-    justify-content: center; 
-    align-items: center; 
-    width: 100%; 
-    height: 900px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: auto;
 }
 
 .imageContainer img {
-    margin-top: -50px;
-    width: 70%; 
-    height: 700px; 
+    margin-top: 0px;
+    width: 70%;
+    height: auto;
     border-radius: 5px;
 }
-.system{
-    font-size: 25px;
-}
-.help{
-    font-size: 20px;
+
+.system { font-size: 25px; }
+.help { font-size: 20px; }
+
+/* Responsive Styles */
+@media (max-width: 1024px) {
+    .MainContainer {
+        padding: 0 50px;
+    }
+    .welcome, .KimiAgencyText {
+        font-size: 60px;
+    }
+    .KimiAgencyText span {
+        font-size: 50px;
+    }
+    .digitalpara {
+        font-size: 20px;
+    }
 }
 
-/* Media Queries for Mobile Phones */
 @media (max-width: 768px) {
     .MainContainer {
         flex-direction: column;
         padding: 0 20px;
     }
-
-    
-
-    .welcome {
+    .welcome, .KimiAgencyText {
         font-size: 40px;
     }
-
+    .KimiAgencyText span {
+        font-size: 35px;
+    }
     .digitalpara {
         font-size: 18px;
     }
-
-    .imageContainer {
-        height: auto;
-    }
-
     .imageContainer img {
-        width: 100%;
-        object-fit: cover;
-    }
-}
-
-@media (max-width: 480px) {
-    .MainContainer {
-        margin: 0 10px;
-        padding: 0 15px;
-    }
-
-    .welcome {
-        font-size: 32px;
-    }
-
-    .system {
-        font-size: 20px;
-    }
-
-    .help {
-        font-size: 18px;
-    }
-
-    .WorkWinning {
+        margin-top: 20px;
         width: 100%;
     }
- 
-}
-
-.MainContainer {
-    padding: 0px;
-    display:flex;
-    margin: 20px 20px;
-}
-
-.MainContainer1,
-.MainContainer2 {
-    width: 50%;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
-}
-
-.WorkWinning {
-    margin: 0px auto;
-    padding: 0px;
-}
-
-.work, .winning { 
-    width: 100%;
-    height: auto;
-    padding: 0px;
-    margin: 0px;
-}
-
-/* Mobile Optimization */
- @media (max-width: 768px) {
-    .MainContainer {
-        padding: 0px;
+    .MainContainer1, .MainContainer2 {
+        width: 100%;
     }
-
-    .welcome {
-        font-size: 40px;
-        margin: 0px;
-    }
-
     .WorkWinning {
-        margin: 0px auto;
+        flex-direction: column;
+        gap: 20px;
     }
-
     .work, .winning {
-        padding: 0px;
-        margin: 0px;
+        width: 100%;
     }
-    .MainContainer1,
-.MainContainer2 {
-    width: 100%;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
-}
 }
 
 @media (max-width: 480px) {
     .MainContainer {
-        padding: 0px;
-        margin: 0px;
+        padding: 0 15px;
+        margin: 0;
     }
-
     .welcome {
         font-size: 32px;
-        margin: 0px;
     }
-
+    .KimiAgencyText {
+        font-size: 30px;
+    }
+    .KimiAgencyText span {
+        font-size: 25px;
+    }
     .system, .help {
         font-size: 18px;
-        margin: 0px;
     }
-
-    .imageContainer {
-        padding: 0px;
-        margin: 0px;
+    .imageContainer img {
+        margin-top: 20px;
+        height: auto;
     }
-    .MainContainer1,
-.MainContainer2 {
-    width: 100%;
-    height: auto;
-    margin: 0px;
-    padding: 0px;
+    .WorkWinning {
+        width: 100%;
+    }
 }
-} 
