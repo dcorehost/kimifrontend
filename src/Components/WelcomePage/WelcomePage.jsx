@@ -1,11 +1,11 @@
 import React from 'react';
 import style from "./WelcomePage.module.css";
-import myImage from "../../assets/img.jpg";
+import myImage from "../../assets/img2.jpg";
 import { FaTrophy } from 'react-icons/fa';
 import { FaClock } from 'react-icons/fa';
 
 const WelcomePage = () => {
-    const text1 = "Ad Media";
+    const text1 = "";
     const text2 = "Agency|";
 
     return (
@@ -14,7 +14,7 @@ const WelcomePage = () => {
             <div className={style.MainContainer1}>
                 <p className={style.award}>Award-winning digital services</p>
                 <h1 className={style.welcome}>Welcome to</h1>
-                <h1 className={style.KimiAgencyText}>
+                <h1 className={style.KimiAgencyText}>Ad Media
                     {text1.split("").map((char, index) => (
                         <span
                           key={`Kimi-${index}`}
