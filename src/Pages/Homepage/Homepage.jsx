@@ -13,8 +13,8 @@ const Homepage = () => {
     <>
     <Navbar />
     <WelcomePage />
-     <LogoCarousel />
     <WhatIsKimi />
+    <LogoCarousel />
     <Specialize />
     <StatsAndFAQ />
     <ReadyToStart />
